@@ -1,4 +1,4 @@
-package me.nguba.gambrinus.server;
+package me.nguba.gambrinus;
 
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;

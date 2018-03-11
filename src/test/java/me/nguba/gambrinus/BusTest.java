@@ -1,4 +1,4 @@
-package me.nguba.gambrinus.server;
+package me.nguba.gambrinus;
 
 import me.nguba.gambrinus.Bus;
 import me.nguba.gambrinus.Event;

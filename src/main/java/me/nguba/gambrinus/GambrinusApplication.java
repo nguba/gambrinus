@@ -10,10 +10,10 @@ import org.springframework.context.annotation.Bean;
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
 @SpringBootApplication
-public class BrauhausServerApplication implements CommandLineRunner {
+public class GambrinusApplication implements CommandLineRunner {
 
   public static void main(final String[] args) {
-    SpringApplication.run(BrauhausServerApplication.class, args);
+    SpringApplication.run(GambrinusApplication.class, args);
   }
 
   @Override
