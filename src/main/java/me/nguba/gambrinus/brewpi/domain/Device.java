@@ -44,7 +44,7 @@ public final class Device implements Entity<OneWireAddress> {
     return a;
   }
 
-  public static Device device(final OneWireAddress address, final double value) {
+  public static Device from(final OneWireAddress address, final double value) {
     return new Device(address, value);
   }
 

@@ -16,11 +16,11 @@ public final class BrewPiMother {
 
   public static Device device() {
     return Device
-        .device(OneWireAddress.valueOf(SensorAddress.BOIL_KETTLE.toString()), 58.0);
+        .from(OneWireAddress.valueOf(SensorAddress.BOIL_KETTLE.toString()), 58.0);
   }
-  
+
   public static AvailableDevices availableDevices() {
-    AvailableDevices devices = AvailableDevices.availableDevices();
+    AvailableDevices devices = AvailableDevices.instance();
     devices.add(device());
     devices.add(device());
     devices.add(device());
@@ -32,5 +32,13 @@ public final class BrewPiMother {
     devices.add(device());
     devices.add(device());
     return devices;
+  }
+
+  public static OneWireAddress mashTunAddress() {
+    return OneWireAddress.valueOf(SensorAddress.MASH_TUN.toString());
+  }
+
+  public static OneWireAddress boilKettleAddress() {
+    return OneWireAddress.valueOf(SensorAddress.BOIL_KETTLE.toString());
   }
 }

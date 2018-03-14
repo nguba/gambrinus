@@ -37,7 +37,7 @@ public final class AvailableDevices implements Aggregate {
     super();
   }
 
-  public static AvailableDevices availableDevices() {
+  public static AvailableDevices instance() {
     return new AvailableDevices();
   }
 

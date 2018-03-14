@@ -1,7 +1,7 @@
 package me.nguba.gambrinus.brewpi.domain;
 
 import me.nguba.gambrinus.TestUtils;
-import me.nguba.gambrinus.brewpi.BrewpiMapper;
+import me.nguba.gambrinus.brewpi.BrewpiSerializer;
 import me.nguba.gambrinus.brewpi.domain.AvailableDevices;
 import nl.jqno.equalsverifier.EqualsVerifier;
 
@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
  */
 class AvailableDevicesTest {
 
-  private final BrewpiMapper mapper = new BrewpiMapper();
+  private final BrewpiSerializer mapper = new BrewpiSerializer();
 
   @Test
   void equalsContract() {

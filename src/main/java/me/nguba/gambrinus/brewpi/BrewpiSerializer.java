@@ -11,11 +11,11 @@ import java.io.IOException;
  *
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-public final class BrewpiMapper {
+public final class BrewpiSerializer {
 
   private final ObjectMapper mapper = new ObjectMapper();
 
-  public BrewpiMapper() {
+  public BrewpiSerializer() {
     final SimpleModule module = new SimpleModule("Domain Serializers");
     module.addSerializer(OneWireAddressSerializer.serializer());
     mapper.registerModule(module);
