@@ -1,6 +1,5 @@
 package me.nguba.gambrinus.brewpi.domain;
 
-import me.nguba.gambrinus.brewpi.serialization.SparkSerializer;
 import me.nguba.gambrinus.domain.hardware.OneWireAddress;
 import me.nguba.gambrinus.domain.hardware.SensorAddress;
 import nl.jqno.equalsverifier.EqualsVerifier;
@@ -15,8 +14,6 @@ import org.junit.jupiter.api.Test;
  */
 class DeviceTest {
 
-  private final SparkSerializer mapper = new SparkSerializer();
-
   @Test
   void equalsContract() {
     EqualsVerifier.forClass(Device.class).withOnlyTheseFields("a", "v").verify();
@@ -24,7 +21,9 @@ class DeviceTest {
 
   @Test
   void idReturnsOneWireAddress() {
-    assertThat(BrewPiMother.device().id())
+
+    Device actual = BrewPiMother.device(SensorAddress.BOIL_KETTLE, 0.0);
+    assertThat(actual.id())
         .isEqualTo(OneWireAddress.valueOf(SensorAddress.BOIL_KETTLE.toString()));
   }
 }
