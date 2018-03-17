@@ -23,16 +23,16 @@ public final class BrewPiMother {
 
   public static AvailableDevices availableDevices() {
     final AvailableDevices devices = AvailableDevices.instance();
-    devices.add(device());
-    devices.add(device());
-    devices.add(device());
-    devices.add(device());
-    devices.add(device());
-    devices.add(device());
-    devices.add(device());
-    devices.add(device());
-    devices.add(device());
-    devices.add(device());
+    devices.add(device(SensorAddress.BOIL_KETTLE, 58.0));
+    devices.add(device(SensorAddress.BOIL_KETTLE, 58.0));
+    devices.add(device(SensorAddress.BOIL_KETTLE, 58.0));
+    devices.add(device(SensorAddress.BOIL_KETTLE, 58.0));
+    devices.add(device(SensorAddress.BOIL_KETTLE, 58.0));
+    devices.add(device(SensorAddress.BOIL_KETTLE, 58.0));
+    devices.add(device(SensorAddress.BOIL_KETTLE, 58.0));
+    devices.add(device(SensorAddress.BOIL_KETTLE, 58.0));
+    devices.add(device(SensorAddress.BOIL_KETTLE, 58.0));
+    devices.add(device(SensorAddress.BOIL_KETTLE, 58.0));
     return devices;
   }
 

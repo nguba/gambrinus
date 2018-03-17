@@ -1,8 +1,7 @@
 package me.nguba.gambrinus.brewpi.domain;
 
 import me.nguba.gambrinus.TestUtils;
-import me.nguba.gambrinus.brewpi.BrewpiSerializer;
-import me.nguba.gambrinus.brewpi.domain.AvailableDevices;
+import me.nguba.gambrinus.brewpi.serialization.SparkSerializer;
 import nl.jqno.equalsverifier.EqualsVerifier;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -10,12 +9,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.Test;
 
 /**
- * 
+ *
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
 class AvailableDevicesTest {
 
-  private final BrewpiSerializer mapper = new BrewpiSerializer();
+  private final SparkSerializer mapper = new SparkSerializer();
 
   @Test
   void equalsContract() {
