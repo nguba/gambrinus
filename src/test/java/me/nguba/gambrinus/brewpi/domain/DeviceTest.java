@@ -36,7 +36,27 @@ class DeviceTest {
   
   @Test
   @DisplayName("assigned when ddress present")
-  void isValidWhenAddressGiven() {
+  void isAssignedWhenAddressGiven() {
     assertThat(BrewPiMother.mashTunDevice(0.0).isAssigned()).isTrue();
   }
+  
+  @Test
+  @DisplayName("is valid when address valid")
+  void isValidWhenAddressValid() {
+    assertThat(BrewPiMother.mashTunDevice(0.0).isValid()).isTrue();
+  }
+  
+  @Test
+  @DisplayName("is invalid when address invalid")
+  void isInvalidWhenAddressValid() {
+    assertThat(BrewPiMother.device(SensorAddress.INVALID, 0.0).isValid()).isFalse();
+  }
+  
+
+  @Test
+  @DisplayName("is invalid when address not assigned")
+  void isInvalidWhenAddressNotAssigned() {
+    assertThat(BrewPiMother.emptyDevice().isValid()).isFalse();
+  }
+  
 }

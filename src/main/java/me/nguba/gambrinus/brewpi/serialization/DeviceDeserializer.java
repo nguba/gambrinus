@@ -23,7 +23,7 @@ public final class DeviceDeserializer extends JsonDeserializer<Device> {
     final JsonNode address = safeGet(node, "a");
     final JsonNode value = safeGet(node, "v");
 
-    if (address != null && value != null) {
+    if (address != null) {
       return Device.make(OneWireAddress.valueOf(address.textValue()), value.asDouble());
     }
     return Device.make(null, 0);

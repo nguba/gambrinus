@@ -8,7 +8,8 @@ package me.nguba.gambrinus.domain.hardware;
 public enum SensorAddress {
   BOIL_KETTLE("2851B75D07000026"),
   HOT_LIQUOR_TANK("2891B95D0700001B"),
-  MASH_TUN("282D603507000040");
+  MASH_TUN("282D603507000040"),
+  INVALID("272D603507000040");
 
   private final String value;
 

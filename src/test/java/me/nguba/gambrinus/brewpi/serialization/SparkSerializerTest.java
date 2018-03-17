@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -76,6 +77,7 @@ class SparkSerializerTest {
   }
 
   @Test
+  @DisplayName("read unplugged device")
   void canReadUnpluggedDevice() throws Exception {
 
     final Device expected = Device.make(null, 0.0);

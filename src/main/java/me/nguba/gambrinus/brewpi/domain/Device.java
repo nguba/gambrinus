@@ -132,7 +132,10 @@ public final class Device implements Entity<OneWireAddress> {
   }
 
   public boolean isAssigned() {
-    return a != null && a.isValid();
+    return a != null;
   }
 
+  public boolean isValid() {
+    return isAssigned() && a.isValid();
+  }
 }
