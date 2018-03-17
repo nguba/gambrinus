@@ -1,8 +1,6 @@
 package me.nguba.gambrinus.brewpi.domain;
 
-import me.nguba.gambrinus.TestUtils;
-import me.nguba.gambrinus.brewpi.BrewpiSerializer;
-import me.nguba.gambrinus.brewpi.domain.Device;
+import me.nguba.gambrinus.brewpi.serialization.SparkSerializer;
 import me.nguba.gambrinus.domain.hardware.OneWireAddress;
 import me.nguba.gambrinus.domain.hardware.SensorAddress;
 import nl.jqno.equalsverifier.EqualsVerifier;
@@ -12,26 +10,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.Test;
 
 /**
- * 
+ *
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
 class DeviceTest {
 
-  private final BrewpiSerializer mapper = new BrewpiSerializer();
+  private final SparkSerializer mapper = new SparkSerializer();
 
   @Test
   void equalsContract() {
     EqualsVerifier.forClass(Device.class).withOnlyTheseFields("a", "v").verify();
-  }
-
-  @Test
-  void canSerialiseToJson() throws Exception {
-
-    final String json = mapper.toJson(BrewPiMother.device());
-
-    final String expected = TestUtils.readFile("json/device.json");
-
-    assertThat(json).asString().isEqualTo(expected);
   }
 
   @Test

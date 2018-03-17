@@ -45,6 +45,10 @@ public final class OneWireAddress {
     return true;
   }
 
+  public boolean isValid() {
+    return value != null && !value.isEmpty();
+  }
+
   @Override
   public String toString() {
     return value;

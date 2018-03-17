@@ -8,7 +8,7 @@ import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
 
 /**
- * 
+ *
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
 public final class TestUtils {

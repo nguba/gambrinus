@@ -1,8 +1,5 @@
 package me.nguba.gambrinus.domain.hardware;
 
-import me.nguba.gambrinus.domain.hardware.OneWireAddress;
-import me.nguba.gambrinus.domain.hardware.OneWireSensor;
-import me.nguba.gambrinus.domain.hardware.Sensor;
 import me.nguba.gambrinus.domain.process.Degree;
 import me.nguba.gambrinus.domain.process.Temperature;
 import nl.jqno.equalsverifier.EqualsVerifier;

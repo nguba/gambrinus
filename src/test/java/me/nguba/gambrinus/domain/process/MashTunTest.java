@@ -19,9 +19,9 @@ class MashTunTest {
   void testId() {
     System.out.println(Vessel
         .vessel(UUID.randomUUID(),
-                   "Mash Tun",
-                   TemperatureSensor
-                       .sensor(OneWireSensor.sensor(OneWireAddress.valueOf("2851B75D07000026")))));
+                "Mash Tun",
+                TemperatureSensor
+                    .sensor(OneWireSensor.sensor(OneWireAddress.valueOf("2851B75D07000026")))));
   }
 
 }

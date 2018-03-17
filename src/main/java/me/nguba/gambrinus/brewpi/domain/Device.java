@@ -9,7 +9,7 @@ import me.nguba.gambrinus.domain.hardware.OneWireAddress;
  * <p>
  * Only the address and the value are used. We are fine with hard-coded values for the unused items.
  * </p>
- * 
+ *
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
 public final class Device implements Entity<OneWireAddress> {
@@ -44,7 +44,7 @@ public final class Device implements Entity<OneWireAddress> {
     return a;
   }
 
-  public static Device from(final OneWireAddress address, final double value) {
+  public static Device make(final OneWireAddress address, final double value) {
     return new Device(address, value);
   }
 
@@ -129,6 +129,10 @@ public final class Device implements Entity<OneWireAddress> {
     final StringBuilder builder = new StringBuilder();
     builder.append("Device [a=").append(a).append(", v=").append(v).append("]");
     return builder.toString();
+  }
+
+  public boolean isValid() {
+    return a != null && a.isValid();
   }
 
 }

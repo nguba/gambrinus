@@ -1,7 +1,5 @@
 package me.nguba.gambrinus.domain.process;
 
-import me.nguba.gambrinus.domain.process.Degree;
-import me.nguba.gambrinus.domain.process.Temperature;
 import nl.jqno.equalsverifier.EqualsVerifier;
 
 import static org.assertj.core.api.Assertions.assertThat;
