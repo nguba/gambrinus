@@ -12,7 +12,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 import java.io.IOException;
 
-public class DeviceDeserializer extends JsonDeserializer<Device> {
+public final class DeviceDeserializer extends JsonDeserializer<Device> {
 
   @Override
   public Device deserialize(final JsonParser p, final DeserializationContext ctxt)

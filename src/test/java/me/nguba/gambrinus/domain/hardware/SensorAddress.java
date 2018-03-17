@@ -10,7 +10,7 @@ public enum SensorAddress {
   HOT_LIQUOR_TANK("2891B95D0700001B"),
   MASH_TUN("282D603507000040");
 
-  private String value;
+  private final String value;
 
   SensorAddress(final String value) {
     this.value = value;

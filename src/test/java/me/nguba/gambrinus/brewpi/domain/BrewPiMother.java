@@ -12,7 +12,7 @@ public final class BrewPiMother {
   private BrewPiMother() {
   }
 
-  public static Device device() {
+  public static Device emptyDevice() {
     return Device.make(null, 0.0);
   }
 
@@ -36,6 +36,18 @@ public final class BrewPiMother {
     return devices;
   }
 
+  public static Device mashTunDevice(double value) {
+    return device(SensorAddress.MASH_TUN, value);
+  }
+  
+  public static Device boilKettleDevice(double value) {
+    return device(SensorAddress.BOIL_KETTLE, value);
+  }
+  
+  public static Device hotLiquorDevice(double value) {
+    return device(SensorAddress.HOT_LIQUOR_TANK, value);
+  }
+  
   public static OneWireAddress mashTunAddress() {
     return OneWireAddress.valueOf(SensorAddress.MASH_TUN.toString());
   }

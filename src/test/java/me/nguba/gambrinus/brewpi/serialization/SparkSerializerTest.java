@@ -20,7 +20,7 @@ class SparkSerializerTest {
 
   private final SparkSerializer serializer = new SparkSerializer();
 
-  private final Device device = BrewPiMother.device();
+  private final Device device = BrewPiMother.emptyDevice();
 
   @Test
   void ignoresNullValues() throws Exception {
