@@ -11,16 +11,14 @@ import org.junit.jupiter.api.Test;
 
 class TemperatureSensorTest {
 
-  private static final OneWireAddress ADDRESS = OneWireAddress
-      .valueOf(SensorAddress.BOIL_KETTLE.toString());
-
-  private final Sensor<OneWireAddress, Temperature> delegate = OneWireSensor.sensor(ADDRESS);
-
+  
+  private OneWireSensor delegate = HardwareMother.boilKettleSensor();
+  
   private TemperatureSensor sensor;
 
   @BeforeEach
   void beforeEach() {
-    sensor = TemperatureSensor.sensor(delegate);
+    sensor = TemperatureSensor.make(delegate);
 
   }
 
@@ -31,7 +29,7 @@ class TemperatureSensorTest {
 
   @Test
   void identityIsAddress() {
-    assertThat(sensor.id()).isEqualTo(ADDRESS);
+    assertThat(sensor.id()).isEqualTo(delegate.id());
   }
 
   @Test

@@ -21,7 +21,7 @@ class OneWireSensorTest {
 
   @BeforeEach
   public void setUp() {
-    sensor = OneWireSensor.sensor(ADDRESS);
+    sensor = OneWireSensor.make(ADDRESS);
   }
 
   @Test

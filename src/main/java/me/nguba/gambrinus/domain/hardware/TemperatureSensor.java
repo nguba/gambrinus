@@ -15,16 +15,16 @@ public final class TemperatureSensor
 
   private static final Logger LOG = LoggerFactory.getLogger(TemperatureSensor.class);
 
-  private final Sensor<OneWireAddress, Temperature> delegate;
+  private final OneWireSensor delegate;
 
   private final OneWireAddress id;
 
-  private TemperatureSensor(final Sensor<OneWireAddress, Temperature> delegate) {
+  private TemperatureSensor(final OneWireSensor delegate) {
     this.delegate = delegate;
     id = delegate.id();
   }
 
-  public static TemperatureSensor sensor(final Sensor<OneWireAddress, Temperature> delegate) {
+  public static TemperatureSensor make(final OneWireSensor delegate) {
     return new TemperatureSensor(delegate);
   }
 

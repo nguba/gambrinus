@@ -18,7 +18,6 @@ public class GambrinusApplication implements CommandLineRunner {
 
   @Override
   public void run(final String... args) throws Exception {
-
   }
 
   @Bean

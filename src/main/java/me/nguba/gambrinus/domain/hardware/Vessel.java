@@ -1,6 +1,9 @@
 package me.nguba.gambrinus.domain.hardware;
 
 import me.nguba.gambrinus.domain.Entity;
+import me.nguba.gambrinus.domain.process.Temperature;
+
+import org.springframework.util.Assert;
 
 import java.util.UUID;
 
@@ -25,15 +28,23 @@ public final class Vessel implements Entity<UUID> {
   }
 
   private Vessel(final UUID id, final String label, final TemperatureSensor sensor) {
+    Assert.notNull(id, "Identity cannot be null");
+    Assert.notNull(label, "Label cannot be null");
+    Assert.notNull(sensor, "Temperature Sensor cannot be null");
+    
     this.id = id;
     this.label = label;
     this.sensor = sensor;
   }
 
-  public static Vessel vessel(final UUID id,
+  public static Vessel make(final UUID id,
                               final String label,
                               final TemperatureSensor sensor) {
     return new Vessel(id, label, sensor);
+  }
+  
+  public Temperature read() {
+    return sensor.read();
   }
 
   @Override

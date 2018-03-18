@@ -17,7 +17,7 @@ public final class OneWireSensor implements Sensor<OneWireAddress, Temperature> 
     this.temperature = temperature;
   }
 
-  public static Sensor<OneWireAddress, Temperature> sensor(final OneWireAddress id) {
+  public static OneWireSensor make(final OneWireAddress id) {
     return new OneWireSensor(id, Temperature.valueOf(0));
   }
 
