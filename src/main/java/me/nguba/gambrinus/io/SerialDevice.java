@@ -1,4 +1,4 @@
-package me.nguba.gambrinus;
+package me.nguba.gambrinus.io;
 
 public interface SerialDevice {
 
