@@ -34,7 +34,7 @@ public final class Bus {
       }
     });
   }
-  
+
   public void publish(final Event<Temperature> event) {
     processor.onNext(event);
   }

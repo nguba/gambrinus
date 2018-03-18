@@ -20,7 +20,7 @@ class ScheduleTest {
 
   private Schedule schedule;
 
-  private UUID uuid = UUID.randomUUID();
+  private final UUID uuid = UUID.randomUUID();
 
   @Test
   void cannotAddDuplicateStep() throws Exception {
@@ -58,7 +58,7 @@ class ScheduleTest {
   @BeforeEach
   void setUp() {
     schedule = Schedule.make(uuid, "Bayrisch Hell");
-        
+
     expected.add(ProcessMother.doughIn());
     expected.add(ProcessMother.betaAmylase());
     expected.add(ProcessMother.alphaAmylase());
@@ -85,7 +85,7 @@ class ScheduleTest {
   void toStringContainsImportantFields() {
     assertThat(schedule.toString()).contains("id=", "name=", "steps=");
   }
-  
+
   @Test
   void identityIsUUID() {
     assertThat(schedule.id()).isEqualTo(uuid);

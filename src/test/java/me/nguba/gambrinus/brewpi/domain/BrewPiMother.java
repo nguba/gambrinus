@@ -36,18 +36,18 @@ public final class BrewPiMother {
     return devices;
   }
 
-  public static Device mashTunDevice(double value) {
+  public static Device mashTunDevice(final double value) {
     return device(SensorAddress.MASH_TUN, value);
   }
-  
-  public static Device boilKettleDevice(double value) {
+
+  public static Device boilKettleDevice(final double value) {
     return device(SensorAddress.BOIL_KETTLE, value);
   }
-  
-  public static Device hotLiquorDevice(double value) {
+
+  public static Device hotLiquorDevice(final double value) {
     return device(SensorAddress.HOT_LIQUOR_TANK, value);
   }
-  
+
   public static OneWireAddress mashTunAddress() {
     return OneWireAddress.valueOf(SensorAddress.MASH_TUN.toString());
   }

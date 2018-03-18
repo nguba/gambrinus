@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 class SparkCommandTest {
 
-  private static void assertToStringReturns(String expected, SparkCommand command) {
+  private static void assertToStringReturns(final String expected, final SparkCommand command) {
     assertThat(command.toString()).isEqualTo(expected);
   }
 

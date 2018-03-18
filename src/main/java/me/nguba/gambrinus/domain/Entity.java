@@ -24,7 +24,7 @@ public interface Entity<T> {
 
   /**
    * Unique identifier to distinguish objects even though they may have the same attributes.
-   * 
+   *
    * @return the identity
    */
   T id();

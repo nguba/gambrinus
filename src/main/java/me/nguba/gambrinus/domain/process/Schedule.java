@@ -22,7 +22,7 @@ public final class Schedule implements Entity<UUID> {
   private final UUID id;
 
   public void add(final Step step) throws DuplicateStep {
-    if(steps.contains(step)) {
+    if (steps.contains(step)) {
       throw new DuplicateStep(step);
     }
     steps.add(step);
