@@ -1,6 +1,7 @@
 package me.nguba.gambrinus.domain.hardware;
 
 import me.nguba.gambrinus.EventListener;
+import me.nguba.gambrinus.domain.Service;
 import me.nguba.gambrinus.domain.process.Event;
 import me.nguba.gambrinus.domain.process.Temperature;
 import reactor.core.publisher.BaseSubscriber;
@@ -11,10 +12,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- *
+ * Broadcasts temperature readings to registered devices.
+ * 
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-public final class TemperatureService {
+public final class TemperatureService implements Service {
 
   private static final Logger LOG = LoggerFactory.getLogger(TemperatureService.class);
 
