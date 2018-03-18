@@ -6,8 +6,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class OneWireAddressTest {
 
   @Test
@@ -27,12 +25,12 @@ class OneWireAddressTest {
 
   @Test
   void toStringReturnsAddressValue() {
-    String expected = SensorAddress.MASH_TUN.toString();
+    final String expected = SensorAddress.MASH_TUN.toString();
     assertThat(OneWireAddress.valueOf(expected).toString()).isEqualTo(expected);
   }
-  
+
   @Test
   void hashCodeEqualsContract() {
-    EqualsVerifier.forClass(OneWireAddress.class);
+    EqualsVerifier.forClass(OneWireAddress.class).verify();
   }
 }

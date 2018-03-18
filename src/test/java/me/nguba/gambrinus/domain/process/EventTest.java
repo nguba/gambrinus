@@ -7,9 +7,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.Test;
 
 class EventTest {
- 
+
   private final Event<String> event = Event.valueOf("expected");
-  
+
   @Test
   void toStringContainsValue() {
     assertThat(event.toString()).contains("value=expected");
@@ -22,6 +22,6 @@ class EventTest {
 
   @Test
   void hashCodeEqualsContract() {
-    EqualsVerifier.forClass(Event.class);
+    EqualsVerifier.forClass(Event.class).verify();
   }
 }
