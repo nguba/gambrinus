@@ -144,14 +144,14 @@
 							<goal>check</goal>
 						</goals>
 						<configuration>
-							<rules><!-- implementation is needed only for Maven 2 -->
-								<rule implementation="org.jacoco.maven.RuleConfiguration">
+							<rules>
+								<rule>
 									<element>BUNDLE</element>
-									<limits><!-- implementation is needed only for Maven 2 -->
-										<limit implementation="org.jacoco.report.check.Limit">
+									<limits>
+										<limit>
 											<counter>COMPLEXITY</counter>
 											<value>COVEREDRATIO</value>
-											<minimum>0.90</minimum>
+											<minimum>0.92</minimum>
 										</limit>
 									</limits>
 								</rule>
