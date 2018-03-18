@@ -166,7 +166,6 @@
 			</plugin>
 		</plugins>
 	</build>
-
 	<repositories>
 		<repository>
 			<id>oss-snapshots-repo</id>
@@ -178,4 +177,17 @@
 			</snapshots>
 		</repository>
 	</repositories>
+	<ciManagement>
+		<system>travis-ci</system>
+		<url>https://travis-ci.org/nguba/gambrinus</url>
+	</ciManagement>
+	<issueManagement>
+		<system>github</system>
+		<url>https://github.com/nguba/gambrinus/issues</url>
+	</issueManagement>
+	<scm>
+		<url>https://github.com/nguba/gambrinus</url>
+		<connection>github</connection>
+		<developerConnection>nguba</developerConnection>
+	</scm>
 </project>
