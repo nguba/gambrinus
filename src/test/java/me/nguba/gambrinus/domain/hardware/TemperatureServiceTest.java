@@ -1,5 +1,7 @@
-package me.nguba.gambrinus;
+package me.nguba.gambrinus.domain.hardware;
 
+import me.nguba.gambrinus.EventListener;
+import me.nguba.gambrinus.domain.hardware.TemperatureService;
 import me.nguba.gambrinus.domain.process.Event;
 import me.nguba.gambrinus.domain.process.Temperature;
 
@@ -8,11 +10,11 @@ import org.slf4j.LoggerFactory;
 
 import org.junit.jupiter.api.Test;
 
-class BusTest {
+class TemperatureServiceTest {
 
-  private static final Logger LOG = LoggerFactory.getLogger(BusTest.class);
+  private static final Logger LOG = LoggerFactory.getLogger(TemperatureServiceTest.class);
 
-  private final Bus bus = new Bus();
+  private final TemperatureService bus = new TemperatureService();
 
   private static class A implements EventListener<Temperature> {
 

@@ -1,5 +1,6 @@
-package me.nguba.gambrinus;
+package me.nguba.gambrinus.domain.hardware;
 
+import me.nguba.gambrinus.EventListener;
 import me.nguba.gambrinus.domain.process.Event;
 import me.nguba.gambrinus.domain.process.Temperature;
 import reactor.core.publisher.BaseSubscriber;
@@ -13,9 +14,9 @@ import org.slf4j.LoggerFactory;
  *
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-public final class Bus {
+public final class TemperatureService {
 
-  private static final Logger LOG = LoggerFactory.getLogger(Bus.class);
+  private static final Logger LOG = LoggerFactory.getLogger(TemperatureService.class);
 
   private final ReplayProcessor<Event<Temperature>> processor = ReplayProcessor.create();
 

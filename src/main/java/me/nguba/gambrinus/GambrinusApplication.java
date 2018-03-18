@@ -1,5 +1,7 @@
 package me.nguba.gambrinus;
 
+import me.nguba.gambrinus.domain.hardware.TemperatureService;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -21,7 +23,7 @@ public class GambrinusApplication implements CommandLineRunner {
   }
 
   @Bean
-  public Bus bus() {
-    return new Bus();
+  public TemperatureService bus() {
+    return new TemperatureService();
   }
 }
