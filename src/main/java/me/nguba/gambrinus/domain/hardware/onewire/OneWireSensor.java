@@ -1,5 +1,6 @@
-package me.nguba.gambrinus.domain.hardware;
+package me.nguba.gambrinus.domain.hardware.onewire;
 
+import me.nguba.gambrinus.domain.hardware.Sensor;
 import me.nguba.gambrinus.domain.process.Temperature;
 
 /**

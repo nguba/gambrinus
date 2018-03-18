@@ -1,7 +1,7 @@
 package me.nguba.gambrinus.brewpi.domain;
 
-import me.nguba.gambrinus.domain.hardware.OneWireAddress;
-import me.nguba.gambrinus.domain.hardware.SensorAddress;
+import me.nguba.gambrinus.domain.hardware.onewire.OneWireAddress;
+import me.nguba.gambrinus.domain.hardware.onewire.AddressMother;
 import nl.jqno.equalsverifier.EqualsVerifier;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -25,7 +25,7 @@ class DeviceTest {
 
     final Device actual = BrewPiMother.boilKettleDevice(0.0);
     assertThat(actual.id())
-        .isEqualTo(OneWireAddress.valueOf(SensorAddress.BOIL_KETTLE.toString()));
+        .isEqualTo(OneWireAddress.valueOf(AddressMother.BOIL_KETTLE.toString()));
   }
 
   @Test
@@ -49,7 +49,7 @@ class DeviceTest {
   @Test
   @DisplayName("is invalid when address invalid")
   void isInvalidWhenAddressValid() {
-    assertThat(BrewPiMother.device(SensorAddress.INVALID, 0.0).isValid()).isFalse();
+    assertThat(BrewPiMother.device(AddressMother.INVALID, 0.0).isValid()).isFalse();
   }
 
   @Test

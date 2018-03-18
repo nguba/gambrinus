@@ -1,5 +1,6 @@
 package me.nguba.gambrinus.domain.hardware;
 
+import me.nguba.gambrinus.domain.hardware.onewire.OneWireAddress;
 import me.nguba.gambrinus.domain.process.Temperature;
 import nl.jqno.equalsverifier.EqualsVerifier;
 
@@ -13,7 +14,7 @@ import java.util.UUID;
 
 class VesselTest {
 
-  private static final TemperatureSensor SENSOR = HardwareMother.boilKettleTemperatureSensor();
+  private static final TemperatureSensor<OneWireAddress, Temperature> SENSOR = HardwareMother.boilKettleTemperatureSensor();
 
   private static final UUID ID = UUID.randomUUID();
 

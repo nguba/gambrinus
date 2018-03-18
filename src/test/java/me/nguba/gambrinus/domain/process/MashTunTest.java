@@ -1,9 +1,9 @@
 package me.nguba.gambrinus.domain.process;
 
-import me.nguba.gambrinus.domain.hardware.OneWireAddress;
-import me.nguba.gambrinus.domain.hardware.OneWireSensor;
-import me.nguba.gambrinus.domain.hardware.TemperatureSensor;
 import me.nguba.gambrinus.domain.hardware.Vessel;
+import me.nguba.gambrinus.domain.hardware.onewire.OneWireAddress;
+import me.nguba.gambrinus.domain.hardware.onewire.OneWireSensor;
+import me.nguba.gambrinus.domain.hardware.onewire.OneWireTemperatureSensor;
 
 import org.junit.jupiter.api.Test;
 
@@ -20,7 +20,7 @@ class MashTunTest {
     System.out.println(Vessel
         .make(UUID.randomUUID(),
                 "Mash Tun",
-                TemperatureSensor
+                OneWireTemperatureSensor
                     .make(OneWireSensor.make(OneWireAddress.valueOf("2851B75D07000026")))));
   }
 

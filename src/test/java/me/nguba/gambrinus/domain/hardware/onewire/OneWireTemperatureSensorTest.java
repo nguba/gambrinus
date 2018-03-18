@@ -1,5 +1,8 @@
-package me.nguba.gambrinus.domain.hardware;
+package me.nguba.gambrinus.domain.hardware.onewire;
 
+import me.nguba.gambrinus.domain.hardware.HardwareMother;
+import me.nguba.gambrinus.domain.hardware.TemperatureSensor;
+import me.nguba.gambrinus.domain.hardware.onewire.OneWireTemperatureSensor;
 import me.nguba.gambrinus.domain.process.Event;
 import me.nguba.gambrinus.domain.process.Temperature;
 import nl.jqno.equalsverifier.EqualsVerifier;
@@ -9,22 +12,22 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class TemperatureSensorTest {
+class OneWireTemperatureSensorTest {
 
   
   private OneWireSensor delegate = HardwareMother.boilKettleSensor();
   
-  private TemperatureSensor sensor;
+  private TemperatureSensor<OneWireAddress, Temperature> sensor;
 
   @BeforeEach
   void beforeEach() {
-    sensor = TemperatureSensor.make(delegate);
+    sensor = OneWireTemperatureSensor.make(delegate);
 
   }
 
   @Test
   void equalityContract() {
-    EqualsVerifier.forClass(TemperatureSensor.class).withOnlyTheseFields("id").verify();
+    EqualsVerifier.forClass(OneWireTemperatureSensor.class).withOnlyTheseFields("id").verify();
   }
 
   @Test

@@ -1,5 +1,6 @@
-package me.nguba.gambrinus.domain.hardware;
+package me.nguba.gambrinus.domain.hardware.onewire;
 
+import me.nguba.gambrinus.domain.hardware.onewire.OneWireAddress;
 import nl.jqno.equalsverifier.EqualsVerifier;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -20,12 +21,12 @@ class OneWireAddressTest {
 
   @Test
   void isNotValidDoesntBeginWithOneWirePrefix() {
-    assertThat(OneWireAddress.valueOf(SensorAddress.INVALID.toString()).isValid()).isFalse();
+    assertThat(OneWireAddress.valueOf(AddressMother.INVALID.toString()).isValid()).isFalse();
   }
 
   @Test
   void toStringReturnsAddressValue() {
-    final String expected = SensorAddress.MASH_TUN.toString();
+    final String expected = AddressMother.MASH_TUN.toString();
     assertThat(OneWireAddress.valueOf(expected).toString()).isEqualTo(expected);
   }
 

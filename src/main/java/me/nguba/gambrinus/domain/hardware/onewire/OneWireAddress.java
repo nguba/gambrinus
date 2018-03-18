@@ -1,4 +1,4 @@
-package me.nguba.gambrinus.domain.hardware;
+package me.nguba.gambrinus.domain.hardware.onewire;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>

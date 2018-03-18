@@ -1,6 +1,6 @@
 package me.nguba.gambrinus.converter;
 
-import me.nguba.gambrinus.domain.hardware.OneWireAddress;
+import me.nguba.gambrinus.domain.hardware.onewire.OneWireAddress;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;

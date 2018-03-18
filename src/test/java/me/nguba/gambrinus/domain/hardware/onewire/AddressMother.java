@@ -1,11 +1,11 @@
-package me.nguba.gambrinus.domain.hardware;
+package me.nguba.gambrinus.domain.hardware.onewire;
 
 /**
  * Real OneWire addresses for use in unit testing.
  *
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-public enum SensorAddress {
+public enum AddressMother {
   BOIL_KETTLE("2851B75D07000026"),
   HOT_LIQUOR_TANK("2891B95D0700001B"),
   MASH_TUN("282D603507000040"),
@@ -13,7 +13,7 @@ public enum SensorAddress {
 
   private final String value;
 
-  SensorAddress(final String value) {
+  AddressMother(final String value) {
     this.value = value;
   }
 

@@ -1,7 +1,7 @@
 package me.nguba.gambrinus.brewpi.domain;
 
 import me.nguba.gambrinus.domain.Entity;
-import me.nguba.gambrinus.domain.hardware.OneWireAddress;
+import me.nguba.gambrinus.domain.hardware.onewire.OneWireAddress;
 
 /**
  * Message from BrewPi Spark.
