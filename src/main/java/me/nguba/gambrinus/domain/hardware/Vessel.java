@@ -38,10 +38,7 @@ public final class Vessel implements Entity<UUID> {
 
   @Override
   public String toString() {
-    final StringBuilder builder = new StringBuilder();
-    builder.append("Vessel [id=").append(id).append(", label=").append(label).append(", sensor=")
-        .append(sensor).append("]");
-    return builder.toString();
+    return label;
   }
 
   @Override
