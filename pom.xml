@@ -125,6 +125,23 @@
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>0.8.0</version>
+				<configuration>
+					<rules>
+						<rule>
+							<element>BUNDLE</element>
+							<limits>
+								<limit>
+									<counter>COMPLEXITY</counter>
+									<value>COVEREDRATIO</value>
+									<minimum>1.0</minimum>
+								</limit>
+							</limits>
+						</rule>
+					</rules>
+					<excludes>
+						<exclude>**/GambrinusApplication.*</exclude>
+					</excludes>
+				</configuration>
 				<executions>
 					<execution>
 						<id>default-prepare-agent</id>
@@ -143,20 +160,6 @@
 						<goals>
 							<goal>check</goal>
 						</goals>
-						<configuration>
-							<rules>
-								<rule>
-									<element>BUNDLE</element>
-									<limits>
-										<limit>
-											<counter>COMPLEXITY</counter>
-											<value>COVEREDRATIO</value>
-											<minimum>0.95</minimum>
-										</limit>
-									</limits>
-								</rule>
-							</rules>
-						</configuration>
 					</execution>
 				</executions>
 			</plugin>
