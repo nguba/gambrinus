@@ -1,6 +1,7 @@
 package me.nguba.gambrinus.brewpi.serialization;
 
 import me.nguba.gambrinus.brewpi.domain.Device;
+import me.nguba.gambrinus.domain.Service;
 
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.MapperFeature;
@@ -13,11 +14,11 @@ import java.io.IOException;
  *
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-public final class SparkSerializer {
+public final class SparkSerializerService implements Service {
 
   private final ObjectMapper mapper = new ObjectMapper();
 
-  public SparkSerializer() {
+  public SparkSerializerService() {
 
     mapper.registerModule(new SparkSerializerModule());
 

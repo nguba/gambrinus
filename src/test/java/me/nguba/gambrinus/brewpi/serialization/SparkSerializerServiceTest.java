@@ -15,11 +15,11 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-class SparkSerializerTest {
+class SparkSerializerServiceTest {
 
-  private static final Logger LOG = LoggerFactory.getLogger(SparkSerializerTest.class);
+  private static final Logger LOG = LoggerFactory.getLogger(SparkSerializerServiceTest.class);
 
-  private final SparkSerializer serializer = new SparkSerializer();
+  private final SparkSerializerService serializer = new SparkSerializerService();
 
   private final Device device = BrewPiMother.emptyDevice();
 

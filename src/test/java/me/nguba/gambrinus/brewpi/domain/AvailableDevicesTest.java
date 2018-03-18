@@ -1,7 +1,7 @@
 package me.nguba.gambrinus.brewpi.domain;
 
 import me.nguba.gambrinus.TestUtils;
-import me.nguba.gambrinus.brewpi.serialization.SparkSerializer;
+import me.nguba.gambrinus.brewpi.serialization.SparkSerializerService;
 import nl.jqno.equalsverifier.EqualsVerifier;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
  */
 class AvailableDevicesTest {
 
-  private final SparkSerializer mapper = new SparkSerializer();
+  private final SparkSerializerService service = new SparkSerializerService();
 
   @Test
   void equalsContract() {
@@ -24,7 +24,7 @@ class AvailableDevicesTest {
   @Test
   void canSerialiseToJson() throws Exception {
 
-    final String json = mapper.toJson(BrewPiMother.availableDevices());
+    final String json = service.toJson(BrewPiMother.availableDevices());
 
     final String expected = TestUtils.readFile("json/availableDevices.json");
 
