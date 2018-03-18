@@ -1,10 +1,16 @@
 package me.nguba.gambrinus;
 
+import me.nguba.gambrinus.domain.process.Event;
 import me.nguba.gambrinus.domain.process.Temperature;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import org.junit.jupiter.api.Test;
 
 class BusTest {
+
+  private static final Logger LOG = LoggerFactory.getLogger(BusTest.class);
 
   private final Bus bus = new Bus();
 
@@ -12,7 +18,7 @@ class BusTest {
 
     @Override
     public void onEvent(final Event<Temperature> event) {
-      System.out.println("A -> " + event);
+      LOG.info("A -> {}", event);
     }
   }
 
@@ -20,7 +26,7 @@ class BusTest {
 
     @Override
     public void onEvent(final Event<Temperature> event) {
-      System.out.println("B -> " + event);
+      LOG.info("B -> {}", event);
     }
   }
 

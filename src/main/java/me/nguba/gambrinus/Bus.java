@@ -1,10 +1,10 @@
 package me.nguba.gambrinus;
 
+import me.nguba.gambrinus.domain.process.Event;
 import me.nguba.gambrinus.domain.process.Temperature;
 import reactor.core.publisher.BaseSubscriber;
 import reactor.core.publisher.ReplayProcessor;
 
-import org.reactivestreams.Processor;
 import org.reactivestreams.Subscription;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,11 +34,7 @@ public final class Bus {
       }
     });
   }
-
-  Processor<Event<Temperature>, Event<Temperature>> processor() {
-    return processor;
-  }
-
+  
   public void publish(final Event<Temperature> event) {
     processor.onNext(event);
   }
