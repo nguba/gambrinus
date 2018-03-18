@@ -51,8 +51,9 @@ public final class TemperatureSensor
 
   @Override
   public String toString() {
-    final StringBuilder builder = new StringBuilder();
-    builder.append("TemperatureSensor [delegate=").append(delegate).append("]");
+    StringBuilder builder = new StringBuilder();
+    builder.append("TemperatureSensor [id=").append(id).append(", delegate=").append(delegate)
+        .append("]");
     return builder.toString();
   }
 
