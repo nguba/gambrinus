@@ -1,6 +1,5 @@
 package me.nguba.gambrinus.domain.hardware;
 
-import me.nguba.gambrinus.EventListener;
 import me.nguba.gambrinus.domain.Service;
 import me.nguba.gambrinus.domain.process.Event;
 import me.nguba.gambrinus.domain.process.Temperature;
@@ -22,7 +21,7 @@ public final class TemperatureService implements Service {
 
   private final ReplayProcessor<Event<Temperature>> processor = ReplayProcessor.create();
 
-  public void subscribe(final EventListener<Temperature> listener) {
+  public void subscribe(final TemperatureObserver observer) {
     processor.subscribe(new BaseSubscriber<Event<Temperature>>() {
 
       @Override
@@ -33,7 +32,7 @@ public final class TemperatureService implements Service {
       @Override
       protected void hookOnNext(final Event<Temperature> event) {
         LOG.debug("Received {}", event);
-        listener.onEvent(event);
+        observer.onEvent(event);
       }
     });
   }

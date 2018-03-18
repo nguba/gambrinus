@@ -1,6 +1,5 @@
 package me.nguba.gambrinus.domain.hardware;
 
-import me.nguba.gambrinus.EventListener;
 import me.nguba.gambrinus.domain.process.Event;
 import me.nguba.gambrinus.domain.process.Temperature;
 
@@ -15,7 +14,7 @@ class TemperatureServiceTest {
 
   private final TemperatureService bus = new TemperatureService();
 
-  private static class A implements EventListener<Temperature> {
+  private static class A implements TemperatureObserver {
 
     @Override
     public void onEvent(final Event<Temperature> event) {
@@ -23,7 +22,7 @@ class TemperatureServiceTest {
     }
   }
 
-  private static class B implements EventListener<Temperature> {
+  private static class B implements TemperatureObserver {
 
     @Override
     public void onEvent(final Event<Temperature> event) {
