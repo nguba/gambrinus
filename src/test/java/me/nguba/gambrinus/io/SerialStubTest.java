@@ -10,21 +10,21 @@ class SerialStubTest {
 
   @Test
   void reportsCorrectNumberOfAvailableBytes() {
-    int length = serial.write("message\n");
+    final int length = serial.write("message\n");
 
     assertThat(serial.available()).isEqualTo(length);
   }
 
   @Test
   void reportsCorrectNumberOfAvailableBytesOnNullMessage() {
-    int length = serial.write(null);
+    final int length = serial.write(null);
 
     assertThat(serial.available()).isEqualTo(length);
   }
 
   @Test
   void reportsCorrectNumberOfAvailableBytesOnEmptyMessage() {
-    int length = serial.write("");
+    final int length = serial.write("");
 
     assertThat(serial.available()).isEqualTo(length);
   }
@@ -68,7 +68,7 @@ class SerialStubTest {
 
     assertThat(serial.hasAvailable()).isFalse();
   }
-  
+
   @Test
   void readReturnsZeroWhenBufferEmpty() throws Exception {
 

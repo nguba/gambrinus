@@ -12,18 +12,18 @@ import java.util.concurrent.atomic.AtomicInteger;
  * the subsequent reads for the same buffer -- which emulates the behaviour of a serial device where
  * the message doesn't necessarily arrive complete.
  * </p>
- * 
+ *
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
 public final class SerialStub implements SerialDevice {
 
   private final BlockingQueue<ByteBuffer> bytes = new ArrayBlockingQueue<ByteBuffer>(10);
-  
+
   private final AtomicInteger available = new AtomicInteger();
-  
-  public int write(String string) {
+
+  public int write(final String string) {
     if (string != null && !string.isEmpty()) {
-      ByteBuffer buf = ByteBuffer.wrap(string.getBytes());
+      final ByteBuffer buf = ByteBuffer.wrap(string.getBytes());
       bytes.add(buf);
       available.addAndGet(buf.remaining());
       return buf.remaining();
@@ -37,7 +37,7 @@ public final class SerialStub implements SerialDevice {
   }
 
   @Override
-  public int read(byte[] buffer, int bytesToRead) throws InterruptedException {
+  public int read(final byte[] buffer, final int bytesToRead) throws InterruptedException {
     return 0;
   }
 

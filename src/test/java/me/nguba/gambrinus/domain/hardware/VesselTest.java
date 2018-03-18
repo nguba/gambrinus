@@ -34,6 +34,5 @@ class VesselTest {
 
     assertThat(vessel.label()).isEqualTo("a");
   }
-  
-  
+
 }
