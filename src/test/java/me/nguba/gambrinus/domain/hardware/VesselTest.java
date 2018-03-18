@@ -10,7 +10,9 @@ import java.util.UUID;
 
 class VesselTest {
 
-  private final Vessel vessel = Vessel.vessel(UUID.randomUUID(), "My label", null);
+  private static final UUID ID = UUID.randomUUID();
+  
+  private final Vessel vessel = Vessel.vessel(ID, "My label", null);
 
   @Test
   void testEqualityContract() {
@@ -35,4 +37,8 @@ class VesselTest {
     assertThat(vessel.label()).isEqualTo("a");
   }
 
+  @Test
+  void identityIsUUID() {
+    assertThat(vessel.id()).isEqualTo(ID);
+  }
 }
