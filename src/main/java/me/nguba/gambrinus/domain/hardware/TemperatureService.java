@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Broadcasts temperature readings to registered devices.
- * 
+ *
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
 public final class TemperatureService implements Service {

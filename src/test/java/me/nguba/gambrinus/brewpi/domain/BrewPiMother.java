@@ -1,7 +1,7 @@
 package me.nguba.gambrinus.brewpi.domain;
 
-import me.nguba.gambrinus.domain.hardware.onewire.OneWireAddress;
 import me.nguba.gambrinus.domain.hardware.onewire.AddressMother;
+import me.nguba.gambrinus.domain.hardware.onewire.OneWireAddress;
 
 /**
  *

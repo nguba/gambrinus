@@ -14,7 +14,8 @@ import java.util.UUID;
 
 class VesselTest {
 
-  private static final TemperatureSensor<OneWireAddress, Temperature> SENSOR = HardwareMother.boilKettleTemperatureSensor();
+  private static final TemperatureSensor<OneWireAddress, Temperature> SENSOR = HardwareMother
+      .boilKettleTemperatureSensor();
 
   private static final UUID ID = UUID.randomUUID();
 
@@ -56,22 +57,22 @@ class VesselTest {
 
   @Test
   void idCannotBeNull() {
-    Exception thrown = assertThrows(IllegalArgumentException.class,
-                 () -> Vessel.make(null, "label", SENSOR));
+    final Exception thrown = assertThrows(IllegalArgumentException.class,
+                                          () -> Vessel.make(null, "label", SENSOR));
     assertThat(thrown.getMessage()).isEqualTo("Identity cannot be null");
   }
-  
+
   @Test
   void labelCannotBeNull() {
-    Exception thrown = assertThrows(IllegalArgumentException.class,
-                 () -> Vessel.make(ID, null, SENSOR));
+    final Exception thrown = assertThrows(IllegalArgumentException.class,
+                                          () -> Vessel.make(ID, null, SENSOR));
     assertThat(thrown.getMessage()).isEqualTo("Label cannot be null");
   }
-  
+
   @Test
   void sensorCannotBeNull() {
-    Exception thrown = assertThrows(IllegalArgumentException.class,
-                 () -> Vessel.make(ID, "label", null));
+    final Exception thrown = assertThrows(IllegalArgumentException.class,
+                                          () -> Vessel.make(ID, "label", null));
     assertThat(thrown.getMessage()).isEqualTo("Temperature Sensor cannot be null");
   }
 }

@@ -1,6 +1,5 @@
 package me.nguba.gambrinus.domain.hardware.onewire;
 
-import me.nguba.gambrinus.domain.hardware.onewire.OneWireAddress;
 import nl.jqno.equalsverifier.EqualsVerifier;
 
 import static org.assertj.core.api.Assertions.assertThat;

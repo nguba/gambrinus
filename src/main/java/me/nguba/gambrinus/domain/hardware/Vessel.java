@@ -28,22 +28,24 @@ public final class Vessel implements Entity<UUID> {
     return label;
   }
 
-  private Vessel(final UUID id, final String label, final TemperatureSensor<OneWireAddress, Temperature> sensor) {
+  private Vessel(final UUID id,
+                 final String label,
+                 final TemperatureSensor<OneWireAddress, Temperature> sensor) {
     Assert.notNull(id, "Identity cannot be null");
     Assert.notNull(label, "Label cannot be null");
     Assert.notNull(sensor, "Temperature Sensor cannot be null");
-    
+
     this.id = id;
     this.label = label;
     this.sensor = sensor;
   }
 
   public static Vessel make(final UUID id,
-                              final String label,
-                              final TemperatureSensor<OneWireAddress, Temperature> sensor) {
+                            final String label,
+                            final TemperatureSensor<OneWireAddress, Temperature> sensor) {
     return new Vessel(id, label, sensor);
   }
-  
+
   public Temperature read() {
     return sensor.read();
   }

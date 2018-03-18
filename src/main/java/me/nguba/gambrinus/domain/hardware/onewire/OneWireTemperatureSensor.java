@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
 public final class OneWireTemperatureSensor
-    implements TemperatureSensor<OneWireAddress, Temperature>{
+    implements TemperatureSensor<OneWireAddress, Temperature> {
 
   private static final Logger LOG = LoggerFactory.getLogger(OneWireTemperatureSensor.class);
 
@@ -51,7 +51,7 @@ public final class OneWireTemperatureSensor
 
   @Override
   public String toString() {
-    StringBuilder builder = new StringBuilder();
+    final StringBuilder builder = new StringBuilder();
     builder.append("TemperatureSensor [id=").append(id).append(", delegate=").append(delegate)
         .append("]");
     return builder.toString();

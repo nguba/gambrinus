@@ -2,7 +2,6 @@ package me.nguba.gambrinus.domain.hardware.onewire;
 
 import me.nguba.gambrinus.domain.hardware.HardwareMother;
 import me.nguba.gambrinus.domain.hardware.TemperatureSensor;
-import me.nguba.gambrinus.domain.hardware.onewire.OneWireTemperatureSensor;
 import me.nguba.gambrinus.domain.process.Event;
 import me.nguba.gambrinus.domain.process.Temperature;
 import nl.jqno.equalsverifier.EqualsVerifier;
@@ -14,9 +13,8 @@ import org.junit.jupiter.api.Test;
 
 class OneWireTemperatureSensorTest {
 
-  
-  private OneWireSensor delegate = HardwareMother.boilKettleSensor();
-  
+  private final OneWireSensor delegate = HardwareMother.boilKettleSensor();
+
   private TemperatureSensor<OneWireAddress, Temperature> sensor;
 
   @BeforeEach
