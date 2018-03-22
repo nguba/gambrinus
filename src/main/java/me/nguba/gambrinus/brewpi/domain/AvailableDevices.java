@@ -2,6 +2,8 @@ package me.nguba.gambrinus.brewpi.domain;
 
 import me.nguba.gambrinus.domain.Aggregate;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -21,7 +23,7 @@ import java.util.List;
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  * @see Device
  */
-public final class AvailableDevices implements Aggregate {
+public final class AvailableDevices implements Aggregate<List<Device>> {
 
   private final List<Device> h = new LinkedList<>();
 
@@ -29,15 +31,11 @@ public final class AvailableDevices implements Aggregate {
     return h.add(e);
   }
 
-  public List<Device> getH() {
-    return h;
-  }
-
   private AvailableDevices() {
     super();
   }
 
-  public static AvailableDevices instance() {
+  public static AvailableDevices make() {
     return new AvailableDevices();
   }
 
@@ -76,5 +74,11 @@ public final class AvailableDevices implements Aggregate {
     final StringBuilder builder = new StringBuilder();
     builder.append("AvailableDevices [h=").append(h).append("]");
     return builder.toString();
+  }
+  
+  @JsonProperty("h")
+  @Override
+  public List<Device> root() {
+    return h;
   }
 }

@@ -7,6 +7,7 @@ package me.nguba.gambrinus.domain;
  * @see ValueObject
  * @see Service
  */
-public interface Aggregate {
+public interface Aggregate<R> {
 
+  R root();
 }

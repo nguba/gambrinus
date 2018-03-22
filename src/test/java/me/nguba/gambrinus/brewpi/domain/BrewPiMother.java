@@ -22,7 +22,7 @@ public final class BrewPiMother {
   }
 
   public static AvailableDevices availableDevices() {
-    final AvailableDevices devices = AvailableDevices.instance();
+    final AvailableDevices devices = AvailableDevices.make();
     devices.add(device(AddressMother.BOIL_KETTLE, 58.0));
     devices.add(device(AddressMother.BOIL_KETTLE, 58.0));
     devices.add(device(AddressMother.BOIL_KETTLE, 58.0));
