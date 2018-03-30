@@ -48,6 +48,10 @@ public final class Device implements Entity<OneWireAddress> {
     return new Device(address, value);
   }
 
+  public static Device make(final OneWireAddress address) {
+    return Device.make(address, 0.0);
+  }
+
   public int getI() {
     return i;
   }

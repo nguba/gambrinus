@@ -1,5 +1,9 @@
 package me.nguba.gambrinus.io;
 
+import me.nguba.gambrinus.brewpi.domain.AvailableDevices;
+import me.nguba.gambrinus.brewpi.serialization.SparkSerializerService;
+
+import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
@@ -20,7 +24,13 @@ public final class SerialStub implements SerialDevice {
   private final BlockingQueue<ByteBuffer> bytes = new ArrayBlockingQueue<ByteBuffer>(10);
 
   private final AtomicInteger available = new AtomicInteger();
-
+  
+  private final SparkSerializerService serializer = new SparkSerializerService();
+  
+  public int write(AvailableDevices devices) throws IOException {
+    return write(serializer.toJson(devices));
+  }
+  
   public int write(final String string) {
     if (string != null && !string.isEmpty()) {
       final ByteBuffer buf = ByteBuffer.wrap(string.getBytes());
@@ -38,6 +48,13 @@ public final class SerialStub implements SerialDevice {
 
   @Override
   public int read(final byte[] buffer, final int bytesToRead) throws InterruptedException {
+    ByteBuffer buf = bytes.poll();
+    System.out.println(buf);
+    if(buf != null) {
+      while(buf.hasRemaining()) {
+        System.out.print((char)buf.get());
+      }
+    }
     return 0;
   }
 

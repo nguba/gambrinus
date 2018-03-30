@@ -17,7 +17,8 @@ class SerialStubTest {
 
   @Test
   void reportsCorrectNumberOfAvailableBytesOnNullMessage() {
-    final int length = serial.write(null);
+    String msg = null;
+    final int length = serial.write(msg);
 
     assertThat(serial.available()).isEqualTo(length);
   }
@@ -31,8 +32,8 @@ class SerialStubTest {
 
   @Test
   void doesNotAddNullMessage() {
-
-    serial.write(null);
+    String msg = null;
+    serial.write(msg);
 
     assertThat(serial.available()).isZero();
   }
