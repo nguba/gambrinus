@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<!--Rezepte-->
+<RECIPES>
+  <!--Rezept-->
+  <RECIPE>
+    <!--Version Rezept Tag-->
+    <VERSION>1</VERSION>
+    <!--Rezeptname-->
+    <NAME>Bayrisch Hell</NAME>
+    <!--Typ (im KBH immer All Grain)-->
+    <TYPE>All Grain</TYPE>
+    <!--Im KBH wird kein Brauer Name angegeben-->
+    <BREWER>Unbekannt</BREWER>
+    <!--Sudmenge in Liter-->
+    <BATCH_SIZE>57.5</BATCH_SIZE>
+    <!--Gesamtkochdauer Zeit im Minuten-->
+    <BOIL_TIME>70</BOIL_TIME>
+    <!--Sudhausausbeute bezogen auf die Ausschlagmenge in Prozent-->
+    <EFFICIENCY>58.899999999999999</EFFICIENCY>
+    <!--Hopfenliste-->
+    <HOPS>
+      <HOP>
+        <!--Version Hopfen Tag-->
+        <VERSION>1</VERSION>
+        <!--Berschreibung Hopfen (Name)-->
+        <NAME>Tettnanger</NAME>
+        <!--Alphaprozent gehalt des Hopfens-->
+        <ALPHA>4</ALPHA>
+        <!--Berechnete Gewichtsmenge in kg-->
+        <AMOUNT>0.08561</AMOUNT>
+        <!--Art der Hopfung  First Wort/Boil/Dry Hop-->
+        <USE>Boil</USE>
+        <!--Zeit in Minuten-->
+        <TIME>60</TIME>
+        <!--Hopfenart Pellet/Leaf-->
+        <FORM>Pellet</FORM>
+      </HOP>
+      <HOP>
+        <!--Version Hopfen Tag-->
+        <VERSION>1</VERSION>
+        <!--Berschreibung Hopfen (Name)-->
+        <NAME>Tettnanger</NAME>
+        <!--Alphaprozent gehalt des Hopfens-->
+        <ALPHA>4</ALPHA>
+        <!--Berechnete Gewichtsmenge in kg-->
+        <AMOUNT>0.0214</AMOUNT>
+        <!--Art der Hopfung  First Wort/Boil/Dry Hop-->
+        <USE>Boil</USE>
+        <!--Zeit in Minuten-->
+        <TIME>15</TIME>
+        <!--Hopfenart Pellet/Leaf-->
+        <FORM>Pellet</FORM>
+      </HOP>
+    </HOPS>
+    <!--Malze und alles mit Ausbeute in den weiteren zutaten-->
+    <FERMENTABLES>
+      <FERMENTABLE>
+        <!--Version Fermentable Tag-->
+        <VERSION>1</VERSION>
+        <!--Malzbeschreibung (Name)-->
+        <NAME>Pilsner (Schill)</NAME>
+        <!--May be Grain, Sugar, Extract, Dry Extract or Adjunct.  Extract refers to liquid extract.-->
+        <TYPE>Grain</TYPE>
+        <!--Berechneter Gewichtsanteil der Schuettung in KG-->
+        <AMOUNT>11.19</AMOUNT>
+        <!--Ausbeute (Percent dry yield (fine grain) for the grain, or the raw yield by weight if this is an extract adjunct or sugar.)-->
+        <YIELD>80</YIELD>
+        <!--Farbwert (The color of the item in Lovibond Units (SRM for liquid extracts).)-->
+        <COLOR>1.79861</COLOR>
+      </FERMENTABLE>
+      <FERMENTABLE>
+        <!--Version Fermentable Tag-->
+        <VERSION>1</VERSION>
+        <!--Malzbeschreibung (Name)-->
+        <NAME>Wiener Malz  (Best)</NAME>
+        <!--May be Grain, Sugar, Extract, Dry Extract or Adjunct.  Extract refers to liquid extract.-->
+        <TYPE>Grain</TYPE>
+        <!--Berechneter Gewichtsanteil der Schuettung in KG-->
+        <AMOUNT>0.80700000000000005</AMOUNT>
+        <!--Ausbeute (Percent dry yield (fine grain) for the grain, or the raw yield by weight if this is an extract adjunct or sugar.)-->
+        <YIELD>80</YIELD>
+        <!--Farbwert (The color of the item in Lovibond Units (SRM for liquid extracts).)-->
+        <COLOR>3.5612</COLOR>
+      </FERMENTABLE>
+      <FERMENTABLE>
+        <!--Version Fermentable Tag-->
+        <VERSION>1</VERSION>
+        <!--Malzbeschreibung (Name)-->
+        <NAME>Munich (Best)</NAME>
+        <!--May be Grain, Sugar, Extract, Dry Extract or Adjunct.  Extract refers to liquid extract.-->
+        <TYPE>Grain</TYPE>
+        <!--Berechneter Gewichtsanteil der Schuettung in KG-->
+        <AMOUNT>0.36399999999999999</AMOUNT>
+        <!--Ausbeute (Percent dry yield (fine grain) for the grain, or the raw yield by weight if this is an extract adjunct or sugar.)-->
+        <YIELD>80</YIELD>
+        <!--Farbwert (The color of the item in Lovibond Units (SRM for liquid extracts).)-->
+        <COLOR>6.18633</COLOR>
+      </FERMENTABLE>
+      <FERMENTABLE>
+        <!--Version Fermentable Tag-->
+        <VERSION>1</VERSION>
+        <!--Malzbeschreibung (Name)-->
+        <NAME>Karapils (Best)</NAME>
+        <!--May be Grain, Sugar, Extract, Dry Extract or Adjunct.  Extract refers to liquid extract.-->
+        <TYPE>Grain</TYPE>
+        <!--Berechneter Gewichtsanteil der Schuettung in KG-->
+        <AMOUNT>0.52000000000000002</AMOUNT>
+        <!--Ausbeute (Percent dry yield (fine grain) for the grain, or the raw yield by weight if this is an extract adjunct or sugar.)-->
+        <YIELD>80</YIELD>
+        <!--Farbwert (The color of the item in Lovibond Units (SRM for liquid extracts).)-->
+        <COLOR>2.43614</COLOR>
+      </FERMENTABLE>
+      <FERMENTABLE>
+        <!--Version Fermentable Tag-->
+        <VERSION>1</VERSION>
+        <!--Malzbeschreibung (Name)-->
+        <NAME>Karamunich II (Best)</NAME>
+        <!--May be Grain, Sugar, Extract, Dry Extract or Adjunct.  Extract refers to liquid extract.-->
+        <TYPE>Grain</TYPE>
+        <!--Berechneter Gewichtsanteil der Schuettung in KG-->
+        <AMOUNT>0.13</AMOUNT>
+        <!--Ausbeute (Percent dry yield (fine grain) for the grain, or the raw yield by weight if this is an extract adjunct or sugar.)-->
+        <YIELD>80</YIELD>
+        <!--Farbwert (The color of the item in Lovibond Units (SRM for liquid extracts).)-->
+        <COLOR>45.5633</COLOR>
+      </FERMENTABLE>
+    </FERMENTABLES>
+    <!--Hefe-->
+    <YEASTS>
+      <YEAST>
+        <!--Version Yeast Tag-->
+        <VERSION>1</VERSION>
+        <!--Name Hefe-->
+        <NAME>W34/70</NAME>
+        <!--May be Ale, Lager, Wheat, Wine or Champagne (Wird im KBH nicht definiert, deshalb immer Lager-->
+        <TYPE>Lager</TYPE>
+        <!--May be Liquid, Dry, Slant or Culture-->
+        <FORM>Dry</FORM>
+        <!--The amount of yeast, measured in liters.  For a starter this is the size of the starter.  If the flag AMOUNT_IS_WEIGHT is set to TRUE then this measurement is in kilograms and not liters.-->
+        <AMOUNT>0</AMOUNT>
+      </YEAST>
+    </YEASTS>
+    <!--Hefe-->
+    <MISCS/>
+    <!--A mash profile is a record used either within a recipe or outside the recipe to precisely specify the mash method used-->
+    <MASH>
+      <!--Version MASH Tag-->
+      <VERSION>1</VERSION>
+      <!--Name of the mash profile.-->
+      <NAME>Temperatur</NAME>
+      <!--The temperature of the grain before adding it to the mash in degrees Celsius.-->
+      <GRAIN_TEMP>20</GRAIN_TEMP>
+      <!--A mash step is an internal record used within a mash profile to denote a separate step in a multi-step mash.  A mash step is not intended for use outside of a mash profile.-->
+      <MASH_STEPS>
+        <MASH_STEP>
+          <!--Version MASH_STEP Tag-->
+          <VERSION>1</VERSION>
+          <!--Einmaischen bei:-->
+          <NAME>Einmaischen</NAME>
+          <!--May be Infusion, Temperature or Decoction depending on the type of step.  Infusion denotes adding hot water, Temperature denotes heating with an outside heat source, and decoction denotes drawing off some mash for boiling.-->
+          <!--Im KBH immer Temperature-->
+          <TYPE>Temperature</TYPE>
+          <!--Temperatur der Rast-->
+          <STEP_TEMP>66</STEP_TEMP>
+          <!--Rastdauer-->
+          <STEP_TIME>0</STEP_TIME>
+        </MASH_STEP>
+        <MASH_STEP>
+          <!--Version MASH_STEP Tag-->
+          <VERSION>1</VERSION>
+          <!--Berschreibung der Rast-->
+          <NAME>Maltoserast (60&#176;-65&#176;)</NAME>
+          <!--May be Infusion, Temperature or Decoction depending on the type of step.  Infusion denotes adding hot water, Temperature denotes heating with an outside heat source, and decoction denotes drawing off some mash for boiling.-->
+          <!--Im KBH immer Temperature-->
+          <TYPE>Temperature</TYPE>
+          <!--Temperatur der Rast-->
+          <STEP_TEMP>63</STEP_TEMP>
+          <!--Rastdauer-->
+          <STEP_TIME>35</STEP_TIME>
+        </MASH_STEP>
+        <MASH_STEP>
+          <!--Version MASH_STEP Tag-->
+          <VERSION>1</VERSION>
+          <!--Berschreibung der Rast-->
+          <NAME>Maltoserast (60&#176;-65&#176;)</NAME>
+          <!--May be Infusion, Temperature or Decoction depending on the type of step.  Infusion denotes adding hot water, Temperature denotes heating with an outside heat source, and decoction denotes drawing off some mash for boiling.-->
+          <!--Im KBH immer Temperature-->
+          <TYPE>Temperature</TYPE>
+          <!--Temperatur der Rast-->
+          <STEP_TEMP>65</STEP_TEMP>
+          <!--Rastdauer-->
+          <STEP_TIME>30</STEP_TIME>
+        </MASH_STEP>
+        <MASH_STEP>
+          <!--Version MASH_STEP Tag-->
+          <VERSION>1</VERSION>
+          <!--Berschreibung der Rast-->
+          <NAME>Kombirast (66&#176;-69&#176;)</NAME>
+          <!--May be Infusion, Temperature or Decoction depending on the type of step.  Infusion denotes adding hot water, Temperature denotes heating with an outside heat source, and decoction denotes drawing off some mash for boiling.-->
+          <!--Im KBH immer Temperature-->
+          <TYPE>Temperature</TYPE>
+          <!--Temperatur der Rast-->
+          <STEP_TEMP>68</STEP_TEMP>
+          <!--Rastdauer-->
+          <STEP_TIME>10</STEP_TIME>
+        </MASH_STEP>
+        <MASH_STEP>
+          <!--Version MASH_STEP Tag-->
+          <VERSION>1</VERSION>
+          <!--Berschreibung der Rast-->
+          <NAME>Verzuckerung (70&#176;-75&#176;)</NAME>
+          <!--May be Infusion, Temperature or Decoction depending on the type of step.  Infusion denotes adding hot water, Temperature denotes heating with an outside heat source, and decoction denotes drawing off some mash for boiling.-->
+          <!--Im KBH immer Temperature-->
+          <TYPE>Temperature</TYPE>
+          <!--Temperatur der Rast-->
+          <STEP_TEMP>70</STEP_TEMP>
+          <!--Rastdauer-->
+          <STEP_TIME>40</STEP_TIME>
+        </MASH_STEP>
+        <MASH_STEP>
+          <!--Version MASH_STEP Tag-->
+          <VERSION>1</VERSION>
+          <!--Berschreibung der Rast-->
+          <NAME>Abmaischen (78&#176;)</NAME>
+          <!--May be Infusion, Temperature or Decoction depending on the type of step.  Infusion denotes adding hot water, Temperature denotes heating with an outside heat source, and decoction denotes drawing off some mash for boiling.-->
+          <!--Im KBH immer Temperature-->
+          <TYPE>Temperature</TYPE>
+          <!--Temperatur der Rast-->
+          <STEP_TEMP>77</STEP_TEMP>
+          <!--Rastdauer-->
+          <STEP_TIME>10</STEP_TIME>
+        </MASH_STEP>
+      </MASH_STEPS>
+    </MASH>
+  </RECIPE>
+</RECIPES>

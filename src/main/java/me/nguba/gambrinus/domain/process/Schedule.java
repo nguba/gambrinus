@@ -1,53 +1,31 @@
 package me.nguba.gambrinus.domain.process;
 
 import me.nguba.gambrinus.domain.Entity;
-import me.nguba.gambrinus.domain.process.exception.DuplicateStep;
 
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
+import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
-import java.util.UUID;
 
 /**
  *
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-public final class Schedule implements Entity<UUID> {
+public final class Schedule implements Entity<String> {
 
-  private final String name;
+  private final List<Step> steps;
 
-  private final Set<Step> steps = new LinkedHashSet<>();
+  private final String id;
 
-  private final UUID id;
+  private Iterator<Step> iterator;
 
-  public void add(final Step step) throws DuplicateStep {
-    if (steps.contains(step)) {
-      throw new DuplicateStep(step);
-    }
-    steps.add(step);
-  }
-
-  private Schedule(final UUID id, final String name) {
-    this.id = id;
-    this.name = name;
-  }
-
-  public static final Schedule make(final UUID id, final String name) {
-    return new Schedule(id, name);
-  }
-
-  @Override
-  public UUID id() {
-    return id;
+  Schedule(final String name, List<Step> steps) {
+    this.id = name;
+    this.steps = steps;
+    iterator = steps.iterator();
   }
 
   @Override
   public String toString() {
-    final StringBuilder builder = new StringBuilder();
-    builder.append("Schedule [id=").append(id).append(", name=").append(name).append(", steps=")
-        .append(steps).append("]");
-    return builder.toString();
+    return id;
   }
 
   @Override
@@ -55,33 +33,46 @@ public final class Schedule implements Entity<UUID> {
     final int prime = 31;
     int result = 1;
     result = prime * result + ((id == null) ? 0 : id.hashCode());
+    result = prime * result + ((steps == null) ? 0 : steps.hashCode());
     return result;
   }
 
   @Override
-  public boolean equals(final Object obj) {
-    if (this == obj) {
+  public boolean equals(Object obj) {
+    if (this == obj)
       return true;
-    }
-    if (obj == null) {
+    if (obj == null)
       return false;
-    }
-    if (getClass() != obj.getClass()) {
+    if (getClass() != obj.getClass())
       return false;
-    }
-    final Schedule other = (Schedule) obj;
+    Schedule other = (Schedule) obj;
     if (id == null) {
-      if (other.id != null) {
+      if (other.id != null)
         return false;
-      }
-    } else if (!id.equals(other.id)) {
+    } else if (!id.equals(other.id))
       return false;
-    }
+    if (steps == null) {
+      if (other.steps != null)
+        return false;
+    } else if (!steps.equals(other.steps))
+      return false;
     return true;
   }
 
-  public List<Step> steps() {
-    return new ArrayList<Step>(steps);
+  public boolean hasCompleted() {
+    return !iterator.hasNext();
   }
 
+  public void reset() {
+    iterator = steps.iterator();
+  }
+
+  public Step currentStep() {
+    return iterator.next();
+  }
+
+  @Override
+  public String id() {
+    return id;
+  }
 }
