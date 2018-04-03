@@ -20,12 +20,12 @@ class OneWireAddressTest {
 
   @Test
   void isNotValidDoesntBeginWithOneWirePrefix() {
-    assertThat(OneWireAddress.valueOf(AddressMother.INVALID.toString()).isValid()).isFalse();
+    assertThat(OneWireAddress.valueOf(OneWireAddressRegistry.INVALID.toString()).isValid()).isFalse();
   }
 
   @Test
   void toStringReturnsAddressValue() {
-    final String expected = AddressMother.MASH_TUN.toString();
+    final String expected = OneWireAddressRegistry.MASH_TUN.toString();
     assertThat(OneWireAddress.valueOf(expected).toString()).isEqualTo(expected);
   }
 

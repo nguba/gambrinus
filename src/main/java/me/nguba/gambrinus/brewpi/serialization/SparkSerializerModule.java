@@ -1,7 +1,7 @@
 package me.nguba.gambrinus.brewpi.serialization;
 
 import me.nguba.gambrinus.brewpi.domain.Device;
-import me.nguba.gambrinus.converter.OneWireAddressSerializer;
+import me.nguba.gambrinus.domain.hardware.onewire.OneWireAddressSerializer;
 
 import com.fasterxml.jackson.databind.module.SimpleModule;
 
@@ -12,7 +12,7 @@ public final class SparkSerializerModule extends SimpleModule {
   public SparkSerializerModule() {
     super("Spark Serializer Module");
 
-    addSerializer(OneWireAddressSerializer.serializer());
+    addSerializer(new OneWireAddressSerializer());
     addDeserializer(Device.class, new DeviceDeserializer());
   }
 

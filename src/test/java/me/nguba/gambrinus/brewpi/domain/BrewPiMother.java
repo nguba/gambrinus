@@ -1,6 +1,6 @@
 package me.nguba.gambrinus.brewpi.domain;
 
-import me.nguba.gambrinus.domain.hardware.onewire.AddressMother;
+import me.nguba.gambrinus.domain.hardware.onewire.OneWireAddressRegistry;
 import me.nguba.gambrinus.domain.hardware.onewire.OneWireAddress;
 
 /**
@@ -16,7 +16,7 @@ public final class BrewPiMother {
     return Device.make(null, 0.0);
   }
 
-  public static Device device(final AddressMother address, final double value) {
+  public static Device device(final OneWireAddressRegistry address, final double value) {
     return Device
         .make(OneWireAddress.valueOf(address.toString()), value);
   }
@@ -33,22 +33,22 @@ public final class BrewPiMother {
   }
 
   public static Device mashTunDevice(final double value) {
-    return device(AddressMother.MASH_TUN, value);
+    return device(OneWireAddressRegistry.MASH_TUN, value);
   }
 
   public static Device boilKettleDevice(final double value) {
-    return device(AddressMother.BOIL_KETTLE, value);
+    return device(OneWireAddressRegistry.BOIL_KETTLE, value);
   }
 
   public static Device hotLiquorDevice(final double value) {
-    return device(AddressMother.HOT_LIQUOR_TANK, value);
+    return device(OneWireAddressRegistry.HOT_LIQUOR_TANK, value);
   }
 
   public static OneWireAddress mashTunAddress() {
-    return OneWireAddress.valueOf(AddressMother.MASH_TUN.toString());
+    return OneWireAddress.valueOf(OneWireAddressRegistry.MASH_TUN.toString());
   }
 
   public static OneWireAddress boilKettleAddress() {
-    return OneWireAddress.valueOf(AddressMother.BOIL_KETTLE.toString());
+    return OneWireAddress.valueOf(OneWireAddressRegistry.BOIL_KETTLE.toString());
   }
 }

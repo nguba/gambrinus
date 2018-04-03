@@ -1,6 +1,4 @@
-package me.nguba.gambrinus.converter;
-
-import me.nguba.gambrinus.domain.hardware.onewire.OneWireAddress;
+package me.nguba.gambrinus.domain.hardware.onewire;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
@@ -12,12 +10,8 @@ public final class OneWireAddressSerializer extends StdSerializer<OneWireAddress
 
   private static final long serialVersionUID = -4645656429676121404L;
 
-  private OneWireAddressSerializer(final Class<OneWireAddress> t) {
-    super(t);
-  }
-
-  public static OneWireAddressSerializer serializer() {
-    return new OneWireAddressSerializer(OneWireAddress.class);
+  public OneWireAddressSerializer() {
+    super(OneWireAddress.class);
   }
 
   @Override

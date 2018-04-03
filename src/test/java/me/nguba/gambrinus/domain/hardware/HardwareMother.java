@@ -1,7 +1,7 @@
 package me.nguba.gambrinus.domain.hardware;
 
 import me.nguba.gambrinus.brewpi.domain.Device;
-import me.nguba.gambrinus.domain.hardware.onewire.AddressMother;
+import me.nguba.gambrinus.domain.hardware.onewire.OneWireAddressRegistry;
 import me.nguba.gambrinus.domain.hardware.onewire.OneWireAddress;
 import me.nguba.gambrinus.domain.hardware.onewire.OneWireSensor;
 import me.nguba.gambrinus.domain.hardware.onewire.OneWireTemperatureSensor;
@@ -17,12 +17,12 @@ public enum HardwareMother {
 
   public static OneWireAddress boilKettleAddress() {
     return OneWireAddress
-        .valueOf(AddressMother.BOIL_KETTLE.toString());
+        .valueOf(OneWireAddressRegistry.BOIL_KETTLE.toString());
   }
 
   public static OneWireAddress hotLiquorTankAddress() {
     return OneWireAddress
-        .valueOf(AddressMother.HOT_LIQUOR_TANK.toString());
+        .valueOf(OneWireAddressRegistry.HOT_LIQUOR_TANK.toString());
   }
 
   public static OneWireSensor mashTunSensor() {
@@ -31,7 +31,7 @@ public enum HardwareMother {
 
   public static OneWireAddress mashTunAddress() {
     return OneWireAddress
-        .valueOf(AddressMother.MASH_TUN.toString());
+        .valueOf(OneWireAddressRegistry.MASH_TUN.toString());
   }
 
   public static TemperatureSensor<OneWireAddress> boilKettleTemperatureSensor() {
