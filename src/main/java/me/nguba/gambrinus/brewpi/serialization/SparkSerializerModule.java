@@ -1,6 +1,6 @@
 package me.nguba.gambrinus.brewpi.serialization;
 
-import me.nguba.gambrinus.brewpi.domain.Device;
+import me.nguba.gambrinus.brewpi.Device;
 import me.nguba.gambrinus.domain.hardware.onewire.OneWireAddressSerializer;
 
 import com.fasterxml.jackson.databind.module.SimpleModule;

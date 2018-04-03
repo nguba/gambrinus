@@ -1,7 +1,7 @@
 package me.nguba.gambrinus.brewpi.serialization;
 
-import me.nguba.gambrinus.brewpi.domain.AvailableDevices;
-import me.nguba.gambrinus.brewpi.domain.Device;
+import me.nguba.gambrinus.brewpi.AvailableDevices;
+import me.nguba.gambrinus.brewpi.Device;
 import me.nguba.gambrinus.domain.Service;
 
 import com.fasterxml.jackson.annotation.JsonInclude.Include;

@@ -1,4 +1,4 @@
-package me.nguba.gambrinus.brewpi.domain;
+package me.nguba.gambrinus.brewpi;
 
 import me.nguba.gambrinus.domain.Entity;
 import me.nguba.gambrinus.domain.hardware.onewire.OneWireAddress;

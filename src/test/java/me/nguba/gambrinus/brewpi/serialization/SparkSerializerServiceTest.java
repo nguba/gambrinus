@@ -1,9 +1,9 @@
 package me.nguba.gambrinus.brewpi.serialization;
 
 import me.nguba.gambrinus.TestUtils;
-import me.nguba.gambrinus.brewpi.domain.AvailableDevices;
-import me.nguba.gambrinus.brewpi.domain.BrewPiMother;
-import me.nguba.gambrinus.brewpi.domain.Device;
+import me.nguba.gambrinus.brewpi.AvailableDevices;
+import me.nguba.gambrinus.brewpi.BrewPiMother;
+import me.nguba.gambrinus.brewpi.Device;
 import me.nguba.gambrinus.domain.hardware.onewire.OneWireAddress;
 
 import org.slf4j.Logger;

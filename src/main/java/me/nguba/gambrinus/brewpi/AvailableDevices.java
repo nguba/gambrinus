@@ -1,6 +1,4 @@
-package me.nguba.gambrinus.brewpi.domain;
-
-import me.nguba.gambrinus.brewpi.SparkResponse;
+package me.nguba.gambrinus.brewpi;
 
 import java.util.LinkedList;
 import java.util.List;

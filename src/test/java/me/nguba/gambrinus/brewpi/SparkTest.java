@@ -1,6 +1,5 @@
 package me.nguba.gambrinus.brewpi;
 
-import me.nguba.gambrinus.brewpi.domain.BrewPiMother;
 import me.nguba.gambrinus.brewpi.serialization.SparkSerializerService;
 import me.nguba.gambrinus.domain.hardware.Function;
 import me.nguba.gambrinus.domain.hardware.onewire.OneWireTemperatureSensor;

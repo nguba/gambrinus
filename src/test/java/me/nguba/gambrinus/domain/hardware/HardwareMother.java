@@ -1,7 +1,7 @@
 package me.nguba.gambrinus.domain.hardware;
 
-import me.nguba.gambrinus.brewpi.domain.Device;
 import me.nguba.gambrinus.domain.hardware.onewire.OneWireAddressRegistry;
+import me.nguba.gambrinus.brewpi.Device;
 import me.nguba.gambrinus.domain.hardware.onewire.OneWireAddress;
 import me.nguba.gambrinus.domain.hardware.onewire.OneWireSensor;
 import me.nguba.gambrinus.domain.hardware.onewire.OneWireTemperatureSensor;
