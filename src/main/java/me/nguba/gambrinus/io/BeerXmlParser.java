@@ -53,7 +53,7 @@ public final class BeerXmlParser {
   }
 
   private List<Step> parseSteps(final NodeList nl) throws XPathException {
-    List<Step> steps = new LinkedList<>();
+    final List<Step> steps = new LinkedList<>();
     for (int i = 0; i < nl.getLength(); i++) {
       final Step step = parseStep(nl, i);
 

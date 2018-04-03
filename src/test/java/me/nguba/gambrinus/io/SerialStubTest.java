@@ -20,7 +20,7 @@ class SerialStubTest {
 
   @Test
   void reportsCorrectNumberOfAvailableBytesOnNullMessage() {
-    ByteBuffer msg = null;
+    final ByteBuffer msg = null;
     final int length = serial.write(msg);
 
     assertThat(serial.available()).isEqualTo(length);
@@ -35,7 +35,7 @@ class SerialStubTest {
 
   @Test
   void doesNotAddNullMessage() {
-    ByteBuffer msg = null;
+    final ByteBuffer msg = null;
     serial.write(msg);
 
     assertThat(serial.available()).isZero();
@@ -82,15 +82,15 @@ class SerialStubTest {
   void readsPartialWritesAsFullMessage() throws Exception {
     final ByteBuffer message = ByteBuffer.wrap("Hello Pi!".getBytes());
     while (message.hasRemaining()) {
-      ByteBuffer out = ByteBuffer.allocate(1);
+      final ByteBuffer out = ByteBuffer.allocate(1);
       out.put(message.get());
       serial.write(out);
     }
 
-    ByteBuffer actual = ByteBuffer.allocate(message.capacity());
+    final ByteBuffer actual = ByteBuffer.allocate(message.capacity());
 
     while (serial.hasAvailable()) {
-      ByteBuffer in = ByteBuffer.allocate(serial.available());
+      final ByteBuffer in = ByteBuffer.allocate(serial.available());
       serial.read(in);
       actual.put(in);
     }
@@ -101,44 +101,46 @@ class SerialStubTest {
 
   @Test
   void writeChuncked_returnsCountOfTotalBytesWritten() {
-    String message = "123456789";
+    final int written = writeChunked("123456789");
+
+    assertThat(written).isEqualTo("123456789".length());
+  }
+
+  /**
+   * @param message
+   * @return
+   */
+  private int writeChunked(final String message) {
     final ByteBuffer buf = ByteBuffer.wrap(message.getBytes());
 
-    int written = serial.writeChunked(buf);
-
-    assertThat(written).isEqualTo(message.length());
+    final int written = serial.writeChunked(buf);
+    return written;
   }
 
   @Test
   void readChunkedMessageReturnsByteCountOfEntireMessage() {
-    String message = "123456789";
-    final ByteBuffer buf = ByteBuffer.wrap(message.getBytes());
+    final int written = writeChunked("123456789");
 
-    serial.writeChunked(buf);
-
-    ByteBuffer in = ByteBuffer.allocate(serial.available());
+    final ByteBuffer in = ByteBuffer.allocate(serial.available());
     int read = 0;
-    while(serial.hasAvailable()) {
+    while (serial.hasAvailable()) {
       read += serial.read(in);
     }
 
-    assertThat(read).isEqualTo(message.length());
+    assertThat(read).isEqualTo(written);
   }
-  
+
   @Test
   void readChunkedMessageInChunks() {
-    String message = "123456789";
-    final ByteBuffer buf = ByteBuffer.wrap(message.getBytes());
+    final int written = writeChunked("123456789");
 
-    serial.writeChunked(buf);
- 
     int read = 0;
-    ByteBuffer in = ByteBuffer.allocate(serial.available() - 1);
+    final ByteBuffer in = ByteBuffer.allocate(serial.available() - 1);
     read += serial.read(in);
-    
-    ByteBuffer in2 = ByteBuffer.allocate(serial.available());
+
+    final ByteBuffer in2 = ByteBuffer.allocate(serial.available());
     read += serial.read(in2);
 
-    assertThat(read).isEqualTo(message.length());
+    assertThat(read).isEqualTo(written);
   }
 }

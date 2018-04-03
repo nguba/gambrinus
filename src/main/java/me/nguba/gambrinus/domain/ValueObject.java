@@ -14,9 +14,9 @@ package me.nguba.gambrinus.domain;
  * </p>
  * <p>
  * When required, Value Objects are often part of a shared kernel to encourage software re-use and
- * consistency across projects.  This sharing should happen judiciously.
+ * consistency across projects. This sharing should happen judiciously.
  * </p>
- * 
+ *
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  * @see Entity
  * @see Service

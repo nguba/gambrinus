@@ -36,7 +36,7 @@ public final class SparkSerializerService implements Service {
   public Device toDevice(final String json) throws IOException {
     return mapper.readValue(json, Device.class);
   }
-  
+
   public AvailableDevices toAvailable(final String json) throws IOException {
     return mapper.readValue(json, AvailableDevices.class);
   }

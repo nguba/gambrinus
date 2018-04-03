@@ -49,6 +49,10 @@ public final class SerialStub implements SerialDevice {
     return written;
   }
 
+  public int write(final String message) {
+    return write(ByteBuffer.wrap(message.getBytes()));
+  }
+
   @Override
   public int write(final ByteBuffer buffer) {
     if (buffer != null && buffer.hasRemaining()) {

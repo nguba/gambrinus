@@ -30,7 +30,7 @@ class BeerXmlParserTest {
   public void parseSchedule() throws Exception {
     final Schedule expected = parser.parse(stream);
 
-    List<Step> steps = new LinkedList<>();
+    final List<Step> steps = new LinkedList<>();
     steps.add(Step.valueOf("Einmaischen", Temperature.valueOf(66.0), Duration.ZERO));
     steps.add(Step
         .valueOf("Maltoserast (60°-65°)", Temperature.valueOf(63.0), Duration.ofMinutes(35)));
@@ -42,8 +42,8 @@ class BeerXmlParserTest {
         .valueOf("Verzuckerung (70°-75°)", Temperature.valueOf(70.0), Duration.ofMinutes(40)));
     steps.add(Step.valueOf("Abmaischen (78°)", Temperature.valueOf(77.0), Duration.ofMinutes(10)));
 
-    Schedule actual = new Schedule("Bayrisch Hell", steps);
-   
+    final Schedule actual = new Schedule("Bayrisch Hell", steps);
+
     assertThat(actual.getSteps()).isEqualTo(expected.getSteps());
   }
 

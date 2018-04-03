@@ -73,7 +73,7 @@ public final class AvailableDevices implements SparkResponse {
     builder.append("AvailableDevices [h=").append(h).append("]");
     return builder.toString();
   }
-  
+
   public List<Device> getH() {
     return h;
   }

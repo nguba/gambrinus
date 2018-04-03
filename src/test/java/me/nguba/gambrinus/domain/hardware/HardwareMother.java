@@ -5,7 +5,6 @@ import me.nguba.gambrinus.domain.hardware.onewire.AddressMother;
 import me.nguba.gambrinus.domain.hardware.onewire.OneWireAddress;
 import me.nguba.gambrinus.domain.hardware.onewire.OneWireSensor;
 import me.nguba.gambrinus.domain.hardware.onewire.OneWireTemperatureSensor;
-import me.nguba.gambrinus.domain.process.Temperature;
 
 import java.util.UUID;
 
@@ -35,7 +34,7 @@ public enum HardwareMother {
         .valueOf(AddressMother.MASH_TUN.toString());
   }
 
-  public static TemperatureSensor<OneWireAddress, Temperature> boilKettleTemperatureSensor() {
+  public static TemperatureSensor<OneWireAddress> boilKettleTemperatureSensor() {
     return OneWireTemperatureSensor.make(boilKettleSensor());
   }
 

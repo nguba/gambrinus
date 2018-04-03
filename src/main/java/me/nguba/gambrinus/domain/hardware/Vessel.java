@@ -17,7 +17,7 @@ public final class Vessel implements Entity<UUID> {
 
   private final String label;
 
-  private final TemperatureSensor<OneWireAddress, Temperature> sensor;
+  private final TemperatureSensor<OneWireAddress> sensor;
 
   @Override
   public UUID id() {
@@ -30,7 +30,7 @@ public final class Vessel implements Entity<UUID> {
 
   private Vessel(final UUID id,
                  final String label,
-                 final TemperatureSensor<OneWireAddress, Temperature> sensor) {
+                 final TemperatureSensor<OneWireAddress> sensor) {
     Assert.notNull(id, "Identity cannot be null");
     Assert.notNull(label, "Label cannot be null");
     Assert.notNull(sensor, "Temperature Sensor cannot be null");
@@ -42,7 +42,7 @@ public final class Vessel implements Entity<UUID> {
 
   public static Vessel make(final UUID id,
                             final String label,
-                            final TemperatureSensor<OneWireAddress, Temperature> sensor) {
+                            final TemperatureSensor<OneWireAddress> sensor) {
     return new Vessel(id, label, sensor);
   }
 

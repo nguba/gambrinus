@@ -18,7 +18,7 @@ public final class Schedule implements Entity<String> {
 
   private Iterator<Step> iterator;
 
-  public Schedule(final String name, List<Step> steps) {
+  public Schedule(final String name, final List<Step> steps) {
     this.id = name;
     this.steps = steps;
     iterator = steps.iterator();
@@ -39,24 +39,31 @@ public final class Schedule implements Entity<String> {
   }
 
   @Override
-  public boolean equals(Object obj) {
-    if (this == obj)
+  public boolean equals(final Object obj) {
+    if (this == obj) {
       return true;
-    if (obj == null)
+    }
+    if (obj == null) {
       return false;
-    if (getClass() != obj.getClass())
+    }
+    if (getClass() != obj.getClass()) {
       return false;
-    Schedule other = (Schedule) obj;
+    }
+    final Schedule other = (Schedule) obj;
     if (id == null) {
-      if (other.id != null)
+      if (other.id != null) {
         return false;
-    } else if (!id.equals(other.id))
+      }
+    } else if (!id.equals(other.id)) {
       return false;
+    }
     if (steps == null) {
-      if (other.steps != null)
+      if (other.steps != null) {
         return false;
-    } else if (!steps.equals(other.steps))
+      }
+    } else if (!steps.equals(other.steps)) {
       return false;
+    }
     return true;
   }
 
@@ -71,8 +78,6 @@ public final class Schedule implements Entity<String> {
   public Step currentStep() {
     return iterator.next();
   }
-  
-  
 
   public List<Step> getSteps() {
     return new ArrayList<Step>(steps);

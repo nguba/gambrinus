@@ -22,7 +22,7 @@ public final class BrewPiMother {
   }
 
   public static AvailableDevices availableDevices() {
-    AvailableDevices devices = AvailableDevices.make();
+    final AvailableDevices devices = AvailableDevices.make();
     devices.add(BrewPiMother.emptyDevice());
     devices.add(BrewPiMother.boilKettleDevice(0));
     devices.add(BrewPiMother.hotLiquorDevice(0));

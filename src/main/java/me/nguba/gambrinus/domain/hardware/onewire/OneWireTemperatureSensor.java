@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
 public final class OneWireTemperatureSensor
-    implements TemperatureSensor<OneWireAddress, Temperature> {
+    implements TemperatureSensor<OneWireAddress> {
 
   private static final Logger LOG = LoggerFactory.getLogger(OneWireTemperatureSensor.class);
 

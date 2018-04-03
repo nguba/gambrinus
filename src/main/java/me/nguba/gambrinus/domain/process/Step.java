@@ -3,6 +3,7 @@ package me.nguba.gambrinus.domain.process;
 import me.nguba.gambrinus.domain.ValueObject;
 
 import java.time.Duration;
+
 import javax.annotation.Generated;
 
 /**
@@ -18,7 +19,7 @@ public final class Step implements ValueObject {
   private final String name;
 
   @Generated("SparkTools")
-  private Step(Builder builder) {
+  private Step(final Builder builder) {
     this.target = builder.target;
     this.duration = builder.duration;
     this.name = builder.name;
@@ -90,6 +91,7 @@ public final class Step implements ValueObject {
 
   /**
    * Creates builder to build {@link Step}.
+   * 
    * @return created builder
    */
   @Generated("SparkTools")
@@ -109,17 +111,17 @@ public final class Step implements ValueObject {
     private Builder() {
     }
 
-    public Builder withTarget(Temperature target) {
+    public Builder withTarget(final Temperature target) {
       this.target = target;
       return this;
     }
 
-    public Builder withDuration(Duration duration) {
+    public Builder withDuration(final Duration duration) {
       this.duration = duration;
       return this;
     }
 
-    public Builder withName(String name) {
+    public Builder withName(final String name) {
       this.name = name;
       return this;
     }

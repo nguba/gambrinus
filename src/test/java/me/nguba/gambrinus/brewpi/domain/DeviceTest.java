@@ -27,7 +27,7 @@ class DeviceTest {
     assertThat(actual.id())
         .isEqualTo(OneWireAddress.valueOf(AddressMother.BOIL_KETTLE.toString()));
   }
-  
+
   @Test
   void makesWithZeroValueByDefault() {
 

@@ -25,7 +25,7 @@ package me.nguba.gambrinus.domain;
  * <li>The operation is stateless.
  * </ol>
  * </p>
- * 
+ *
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  * @see Entity
  * @see ValueObject

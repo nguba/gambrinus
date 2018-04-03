@@ -15,7 +15,7 @@ class OneWireTemperatureSensorTest {
 
   private final OneWireSensor delegate = HardwareMother.boilKettleSensor();
 
-  private TemperatureSensor<OneWireAddress, Temperature> sensor;
+  private TemperatureSensor<OneWireAddress> sensor;
 
   @BeforeEach
   void beforeEach() {

@@ -14,7 +14,7 @@ import java.util.UUID;
 
 class VesselTest {
 
-  private static final TemperatureSensor<OneWireAddress, Temperature> SENSOR = HardwareMother
+  private static final TemperatureSensor<OneWireAddress> SENSOR = HardwareMother
       .boilKettleTemperatureSensor();
 
   private static final UUID ID = UUID.randomUUID();
