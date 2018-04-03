@@ -1,9 +1,6 @@
 package me.nguba.gambrinus.brewpi.domain;
 
 import me.nguba.gambrinus.brewpi.SparkResponse;
-import me.nguba.gambrinus.domain.Aggregate;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -24,7 +21,7 @@ import java.util.List;
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  * @see Device
  */
-public final class AvailableDevices implements Aggregate<List<Device>>, SparkResponse {
+public final class AvailableDevices implements SparkResponse {
 
   private final List<Device> h = new LinkedList<>();
 
@@ -77,9 +74,7 @@ public final class AvailableDevices implements Aggregate<List<Device>>, SparkRes
     return builder.toString();
   }
   
-  @JsonProperty("h")
-  @Override
-  public List<Device> root() {
+  public List<Device> getH() {
     return h;
   }
 }
