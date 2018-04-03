@@ -2,8 +2,8 @@ package me.nguba.gambrinus.brewpi;
 
 import me.nguba.gambrinus.brewpi.serialization.SparkSerializerService;
 import me.nguba.gambrinus.domain.Entity;
-import me.nguba.gambrinus.domain.hardware.Function;
-import me.nguba.gambrinus.domain.hardware.onewire.OneWireTemperatureSensor;
+import me.nguba.gambrinus.hardware.Function;
+import me.nguba.gambrinus.hardware.onewire.OneWireTemperatureSensor;
 import me.nguba.gambrinus.io.SerialDevice;
 
 import java.io.IOException;

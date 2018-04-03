@@ -1,9 +1,9 @@
 package me.nguba.gambrinus.brewpi;
 
-import me.nguba.gambrinus.domain.hardware.onewire.OneWireAddressRegistry;
+import me.nguba.gambrinus.hardware.onewire.OneWireAddress;
+import me.nguba.gambrinus.hardware.onewire.OneWireAddressRegistry;
 import me.nguba.gambrinus.brewpi.AvailableDevices;
 import me.nguba.gambrinus.brewpi.Device;
-import me.nguba.gambrinus.domain.hardware.onewire.OneWireAddress;
 
 /**
  *

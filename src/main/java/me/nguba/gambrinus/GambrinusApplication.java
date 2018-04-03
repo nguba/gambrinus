@@ -1,6 +1,6 @@
 package me.nguba.gambrinus;
 
-import me.nguba.gambrinus.domain.hardware.TemperatureService;
+import me.nguba.gambrinus.hardware.TemperatureService;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

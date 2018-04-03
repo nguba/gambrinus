@@ -3,11 +3,11 @@
  */
 package me.nguba.gambrinus.io;
 
-import me.nguba.gambrinus.domain.process.DomainFactory;
-import me.nguba.gambrinus.domain.process.Schedule;
-import me.nguba.gambrinus.domain.process.Step;
-import me.nguba.gambrinus.domain.process.Step.Builder;
-import me.nguba.gambrinus.domain.process.Temperature;
+import me.nguba.gambrinus.process.DomainFactory;
+import me.nguba.gambrinus.process.Schedule;
+import me.nguba.gambrinus.process.Step;
+import me.nguba.gambrinus.process.Temperature;
+import me.nguba.gambrinus.process.Step.Builder;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

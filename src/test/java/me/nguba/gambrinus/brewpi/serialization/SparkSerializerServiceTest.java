@@ -4,7 +4,7 @@ import me.nguba.gambrinus.TestUtils;
 import me.nguba.gambrinus.brewpi.AvailableDevices;
 import me.nguba.gambrinus.brewpi.BrewPiMother;
 import me.nguba.gambrinus.brewpi.Device;
-import me.nguba.gambrinus.domain.hardware.onewire.OneWireAddress;
+import me.nguba.gambrinus.hardware.onewire.OneWireAddress;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

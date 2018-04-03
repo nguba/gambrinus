@@ -1,8 +1,8 @@
 package me.nguba.gambrinus.brewpi;
 
 import me.nguba.gambrinus.brewpi.serialization.SparkSerializerService;
-import me.nguba.gambrinus.domain.hardware.Function;
-import me.nguba.gambrinus.domain.hardware.onewire.OneWireTemperatureSensor;
+import me.nguba.gambrinus.hardware.Function;
+import me.nguba.gambrinus.hardware.onewire.OneWireTemperatureSensor;
 import me.nguba.gambrinus.io.SerialStub;
 
 import org.junit.jupiter.api.BeforeEach;

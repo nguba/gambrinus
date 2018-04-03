@@ -1,8 +1,8 @@
 package me.nguba.gambrinus.io;
 
-import me.nguba.gambrinus.domain.process.Schedule;
-import me.nguba.gambrinus.domain.process.Step;
-import me.nguba.gambrinus.domain.process.Temperature;
+import me.nguba.gambrinus.process.Schedule;
+import me.nguba.gambrinus.process.Step;
+import me.nguba.gambrinus.process.Temperature;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

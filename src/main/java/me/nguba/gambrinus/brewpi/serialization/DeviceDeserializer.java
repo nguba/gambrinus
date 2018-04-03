@@ -1,7 +1,7 @@
 package me.nguba.gambrinus.brewpi.serialization;
 
 import me.nguba.gambrinus.brewpi.Device;
-import me.nguba.gambrinus.domain.hardware.onewire.OneWireAddress;
+import me.nguba.gambrinus.hardware.onewire.OneWireAddress;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
