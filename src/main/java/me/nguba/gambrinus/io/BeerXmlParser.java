@@ -8,7 +8,6 @@ import me.nguba.gambrinus.domain.process.Schedule;
 import me.nguba.gambrinus.domain.process.Step;
 import me.nguba.gambrinus.domain.process.Step.Builder;
 import me.nguba.gambrinus.domain.process.Temperature;
-import me.nguba.gambrinus.domain.process.exception.DuplicateStep;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,8 +51,7 @@ public final class BeerXmlParser {
     return domain.makeSchedule(name, parseSteps(stepNodes));
   }
 
-  private static List<Step> parseSteps(final NodeList nl) throws DuplicateStep {
-
+  private static List<Step> parseSteps(final NodeList nl) {
     List<Step> steps = new LinkedList<>();
     for (int i = 0; i < nl.getLength(); i++) {
       final Step step = parseStep(nl, i);
