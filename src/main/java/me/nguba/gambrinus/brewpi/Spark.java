@@ -1,11 +1,13 @@
 package me.nguba.gambrinus.brewpi;
 
+import me.nguba.gambrinus.brewpi.serialization.SparkSerializerService;
 import me.nguba.gambrinus.domain.Entity;
-import me.nguba.gambrinus.domain.hardware.TemperatureSensor;
 import me.nguba.gambrinus.domain.hardware.onewire.OneWireAddress;
 import me.nguba.gambrinus.domain.hardware.onewire.OneWireTemperatureSensor;
 import me.nguba.gambrinus.io.SerialDevice;
 
+import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -15,6 +17,10 @@ public class Spark implements Entity<Integer> {
   private SerialDevice                                  serialDevice;
   private Map<OneWireAddress, OneWireTemperatureSensor> sensors = new ConcurrentHashMap<>();
 
+  private final SparkSerializerService serializer = new SparkSerializerService();
+  
+  private final StringBuilder outputBuffer = new StringBuilder();
+  
   public Spark(Integer id, SerialDevice serialDevice) {
     this.id = id;
     this.serialDevice = serialDevice;
@@ -31,6 +37,27 @@ public class Spark implements Entity<Integer> {
   public void listenForMessages() {
   }
 
+  public void send(final SparkRequest request) throws IOException {
+
+    final String message = serializer.toJson(request);
+    serialDevice.write(ByteBuffer.wrap(message.getBytes()));
+
+  }
+
+  public SparkResponse receive() throws IOException {
+    while (serialDevice.hasAvailable()) {
+      final ByteBuffer in = ByteBuffer.allocate(serialDevice.available());
+      serialDevice.read(in);
+
+      in.flip();
+
+      while (in.hasRemaining()) {
+        outputBuffer.append((char) in.get());
+      }
+    }
+    return serializer.toAvailable(outputBuffer.toString());
+  }
+  
   @Override
   public int hashCode() {
     final int prime = 31;

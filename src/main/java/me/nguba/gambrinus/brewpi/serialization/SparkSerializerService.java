@@ -1,5 +1,6 @@
 package me.nguba.gambrinus.brewpi.serialization;
 
+import me.nguba.gambrinus.brewpi.domain.AvailableDevices;
 import me.nguba.gambrinus.brewpi.domain.Device;
 import me.nguba.gambrinus.domain.Service;
 
@@ -32,7 +33,11 @@ public final class SparkSerializerService implements Service {
     return mapper.writeValueAsString(object);
   }
 
-  public Device readDevice(final String json) throws IOException {
+  public Device toDevice(final String json) throws IOException {
     return mapper.readValue(json, Device.class);
+  }
+  
+  public AvailableDevices toAvailable(final String json) throws IOException {
+    return mapper.readValue(json, AvailableDevices.class);
   }
 }

@@ -27,31 +27,32 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathException;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
 public final class BeerXmlParser {
-  
-  private static final Logger          LOGGER  = LoggerFactory.getLogger(BeerXmlParser.class);
-  
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(BeerXmlParser.class);
+
   private final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 
   private final DomainFactory domain = new DomainFactory();
-  
+
+  final XPath xpath = initXpath();
+
   public Schedule parse(final InputStream stream) throws Exception {
     final Document doc = initDocument(stream);
 
-    final XPath xpath = initXpath();
-
     final String name = parsePofileName(doc, xpath);
 
-    final NodeList stepNodes = parseMashSteps(doc, xpath);
+    final NodeList stepNodes = findMashSteps(doc, xpath);
 
     return domain.makeSchedule(name, parseSteps(stepNodes));
   }
 
-  private static List<Step> parseSteps(final NodeList nl) {
+  private List<Step> parseSteps(final NodeList nl) throws XPathException {
     List<Step> steps = new LinkedList<>();
     for (int i = 0; i < nl.getLength(); i++) {
       final Step step = parseStep(nl, i);
@@ -77,14 +78,15 @@ public final class BeerXmlParser {
     return doc;
   }
 
-  private static Step parseStep(final NodeList nl, final int i) {
+  private Step parseStep(final NodeList nl, final int i) throws XPathException {
     final Node rast = nl.item(i);
     final NodeList children = rast.getChildNodes();
 
-    Builder builder = Step.builder();
+    final Builder builder = Step.builder();
 
     for (int j = 0; j < children.getLength(); j++) {
       final Node node = children.item(j);
+
       switch (node.getNodeName()) {
       case "NAME":
         builder.withName(node.getTextContent());
@@ -95,25 +97,27 @@ public final class BeerXmlParser {
       case "STEP_TIME":
         builder.withDuration(Duration.ofMinutes(Long.parseLong(node.getTextContent())));
         break;
+      default:
       }
     }
     return builder.build();
   }
 
-  static NodeList parseMashSteps(final Document doc, final XPath xpath)
+  NodeList findMashSteps(final Document doc, final XPath xpath)
       throws XPathExpressionException {
-    final XPathExpression expr = xpath.compile("/RECIPES/RECIPE/MASH/MASH_STEPS/*");
+    final XPathExpression expr = xpath.compile("//MASH_STEPS/*");
+
     final NodeList nl = (NodeList) expr.evaluate(doc, XPathConstants.NODESET);
     return nl;
   }
 
-  static String parseBoilTime(final Document doc, final XPath xpath)
-      throws XPathExpressionException {
-    final XPathExpression expr = xpath.compile("/RECIPES/RECIPE/BOIL_TIME/text()");
-    final String boilTime = (String) expr.evaluate(doc, XPathConstants.STRING);
-    LOGGER.trace("Boil Time: {}", boilTime);
-    return boilTime;
-  }
+  // static String parseBoilTime(final Document doc, final XPath xpath)
+  // throws XPathExpressionException {
+  // final XPathExpression expr = xpath.compile("/RECIPES/RECIPE/BOIL_TIME/text()");
+  // final String boilTime = (String) expr.evaluate(doc, XPathConstants.STRING);
+  // LOGGER.trace("Boil Time: {}", boilTime);
+  // return boilTime;
+  // }
 
   static String parsePofileName(final Document doc, final XPath xpath)
       throws XPathExpressionException {

@@ -1,6 +1,7 @@
 package me.nguba.gambrinus.brewpi.serialization;
 
 import me.nguba.gambrinus.TestUtils;
+import me.nguba.gambrinus.brewpi.domain.AvailableDevices;
 import me.nguba.gambrinus.brewpi.domain.BrewPiMother;
 import me.nguba.gambrinus.brewpi.domain.Device;
 import me.nguba.gambrinus.domain.hardware.onewire.OneWireAddress;
@@ -65,15 +66,21 @@ class SparkSerializerServiceTest {
 
     final Device expected = Device.make(OneWireAddress.valueOf("2851B75D07000026"), 58.0);
 
-    final Device actual = convert("json/device.json");
+    final Device actual = convertDevice("json/device.json");
 
     assertThat(actual).isEqualTo(expected);
   }
 
-  private Device convert(final String path) throws IOException {
-    final Device readDevice = serializer.readDevice(readFile(path));
+  private Device convertDevice(final String path) throws IOException {
+    final Device readDevice = serializer.toDevice(readFile(path));
     LOG.info("fromJson: {}", readDevice);
     return readDevice;
+  }
+  
+  private AvailableDevices convertAvailable(final String path) throws IOException {
+    final AvailableDevices read = serializer.toAvailable(readFile(path));
+    LOG.info("fromJson: {}", read);
+    return read;
   }
 
   @Test
@@ -82,8 +89,19 @@ class SparkSerializerServiceTest {
 
     final Device expected = Device.make(null, 0.0);
 
-    final Device actual = convert("json/unpluggedDevice.json");
+    final Device actual = convertDevice("json/unpluggedDevice.json");
 
+    assertThat(actual).isEqualTo(expected);
+  }
+  
+  @Test
+  @DisplayName("read available devices")
+  void canReadAvailableDevices() throws Exception {
+    
+    AvailableDevices expected = BrewPiMother.availableDevices();
+    
+    AvailableDevices actual = convertAvailable("json/availableDevices.json");
+    
     assertThat(actual).isEqualTo(expected);
   }
 }

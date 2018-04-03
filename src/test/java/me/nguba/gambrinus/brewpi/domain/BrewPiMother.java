@@ -22,17 +22,13 @@ public final class BrewPiMother {
   }
 
   public static AvailableDevices availableDevices() {
-    final AvailableDevices devices = AvailableDevices.make();
-    devices.add(device(AddressMother.BOIL_KETTLE, 58.0));
-    devices.add(device(AddressMother.BOIL_KETTLE, 58.0));
-    devices.add(device(AddressMother.BOIL_KETTLE, 58.0));
-    devices.add(device(AddressMother.BOIL_KETTLE, 58.0));
-    devices.add(device(AddressMother.BOIL_KETTLE, 58.0));
-    devices.add(device(AddressMother.BOIL_KETTLE, 58.0));
-    devices.add(device(AddressMother.BOIL_KETTLE, 58.0));
-    devices.add(device(AddressMother.BOIL_KETTLE, 58.0));
-    devices.add(device(AddressMother.BOIL_KETTLE, 58.0));
-    devices.add(device(AddressMother.BOIL_KETTLE, 58.0));
+    AvailableDevices devices = AvailableDevices.make();
+    devices.add(BrewPiMother.emptyDevice());
+    devices.add(BrewPiMother.boilKettleDevice(0));
+    devices.add(BrewPiMother.hotLiquorDevice(0));
+    devices.add(BrewPiMother.emptyDevice());
+    devices.add(BrewPiMother.mashTunDevice(0));
+    devices.add(BrewPiMother.emptyDevice());
     return devices;
   }
 

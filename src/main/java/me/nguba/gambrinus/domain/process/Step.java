@@ -88,10 +88,6 @@ public final class Step implements ValueObject {
     return builder.toString();
   }
 
-  public String name() {
-    return name;
-  }
-
   /**
    * Creates builder to build {@link Step}.
    * @return created builder

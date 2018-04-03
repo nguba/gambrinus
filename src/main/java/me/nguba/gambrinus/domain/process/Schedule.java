@@ -2,6 +2,7 @@ package me.nguba.gambrinus.domain.process;
 
 import me.nguba.gambrinus.domain.Entity;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -17,7 +18,7 @@ public final class Schedule implements Entity<String> {
 
   private Iterator<Step> iterator;
 
-  Schedule(final String name, List<Step> steps) {
+  public Schedule(final String name, List<Step> steps) {
     this.id = name;
     this.steps = steps;
     iterator = steps.iterator();
@@ -69,6 +70,12 @@ public final class Schedule implements Entity<String> {
 
   public Step currentStep() {
     return iterator.next();
+  }
+  
+  
+
+  public List<Step> getSteps() {
+    return new ArrayList<Step>(steps);
   }
 
   @Override

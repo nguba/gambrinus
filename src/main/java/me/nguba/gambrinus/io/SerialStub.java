@@ -1,12 +1,12 @@
 package me.nguba.gambrinus.io;
 
-import me.nguba.gambrinus.brewpi.domain.AvailableDevices;
-import me.nguba.gambrinus.brewpi.serialization.SparkSerializerService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
 import java.nio.ByteBuffer;
-import java.util.concurrent.ArrayBlockingQueue;
+import java.util.Random;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -21,22 +21,40 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public final class SerialStub implements SerialDevice {
 
-  private final BlockingQueue<ByteBuffer> bytes = new ArrayBlockingQueue<ByteBuffer>(10);
+  private static final Logger LOG = LoggerFactory.getLogger(SerialStub.class);
+
+  private final Random random = new Random();
+
+  private final BlockingQueue<ByteBuffer> queue = new LinkedBlockingQueue<ByteBuffer>();
 
   private final AtomicInteger available = new AtomicInteger();
-  
-  private final SparkSerializerService serializer = new SparkSerializerService();
-  
-  public int write(AvailableDevices devices) throws IOException {
-    return write(serializer.toJson(devices));
+
+  public int writeChunked(final ByteBuffer buffer) {
+    int written = 0;
+
+    while (buffer.hasRemaining()) {
+
+      final int bound = random.nextInt(buffer.remaining() + 1);
+
+      final ByteBuffer chunck = ByteBuffer.allocate(bound);
+      for (int i = 0; i < bound; i++) {
+        chunck.put(buffer.get());
+      }
+
+      chunck.flip();
+      final int sent = write(chunck);
+      written += sent;
+      LOG.info("WRITE | remaining={}, bound={}, sent={}", buffer.remaining(), bound, sent);
+    }
+    return written;
   }
-  
-  public int write(final String string) {
-    if (string != null && !string.isEmpty()) {
-      final ByteBuffer buf = ByteBuffer.wrap(string.getBytes());
-      bytes.add(buf);
-      available.addAndGet(buf.remaining());
-      return buf.remaining();
+
+  @Override
+  public int write(final ByteBuffer buffer) {
+    if (buffer != null && buffer.hasRemaining()) {
+      queue.add(buffer);
+      available.addAndGet(buffer.remaining());
+      return buffer.remaining();
     }
     return 0;
   }
@@ -47,15 +65,22 @@ public final class SerialStub implements SerialDevice {
   }
 
   @Override
-  public int read(final byte[] buffer, final int bytesToRead) throws InterruptedException {
-    ByteBuffer buf = bytes.poll();
-    System.out.println(buf);
-    if(buf != null) {
-      while(buf.hasRemaining()) {
-        System.out.print((char)buf.get());
+  public int read(final ByteBuffer buffer) {
+    int read = 0;
+    ByteBuffer queueBuffer = null;
+    while ((queueBuffer = queue.peek()) != null && buffer.hasRemaining()) {
+      while (queueBuffer.hasRemaining() && buffer.hasRemaining()) {
+        final byte b = queueBuffer.get();
+        buffer.put(b);
+        available.decrementAndGet();
+        read++;
+        if (!queueBuffer.hasRemaining()) {
+          queue.remove();
+        }
       }
     }
-    return 0;
+    LOG.info(" READ | remaining={}, read={}", available(), read);
+    return read;
   }
 
   @Override

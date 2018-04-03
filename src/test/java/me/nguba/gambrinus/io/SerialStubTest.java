@@ -4,20 +4,23 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
 
+import java.nio.ByteBuffer;
+
 class SerialStubTest {
 
-  private final SerialStub serial = new SerialStub();
+  private static final ByteBuffer MSG    = ByteBuffer.wrap("message\n".getBytes());
+  private final SerialStub        serial = new SerialStub();
 
   @Test
   void reportsCorrectNumberOfAvailableBytes() {
-    final int length = serial.write("message\n");
+    final int length = serial.write(MSG);
 
     assertThat(serial.available()).isEqualTo(length);
   }
 
   @Test
   void reportsCorrectNumberOfAvailableBytesOnNullMessage() {
-    String msg = null;
+    ByteBuffer msg = null;
     final int length = serial.write(msg);
 
     assertThat(serial.available()).isEqualTo(length);
@@ -25,14 +28,14 @@ class SerialStubTest {
 
   @Test
   void reportsCorrectNumberOfAvailableBytesOnEmptyMessage() {
-    final int length = serial.write("");
+    final int length = serial.write(ByteBuffer.wrap("".getBytes()));
 
     assertThat(serial.available()).isEqualTo(length);
   }
 
   @Test
   void doesNotAddNullMessage() {
-    String msg = null;
+    ByteBuffer msg = null;
     serial.write(msg);
 
     assertThat(serial.available()).isZero();
@@ -40,26 +43,25 @@ class SerialStubTest {
 
   @Test
   void reportsZeroAvailableOnEmptyString() {
-    serial.write("");
+    serial.write(ByteBuffer.wrap("".getBytes()));
 
     assertThat(serial.available()).isZero();
   }
 
   @Test
   void writesMultipleMessages() {
-    int lenght = 0;
+    int length = 0;
 
-    lenght += serial.write("hello");
-    lenght += serial.write(", ");
-    lenght += serial.write("world!");
-    lenght += serial.write("\n");
+    length += serial.write(ByteBuffer.wrap("hello".getBytes()));
+    length += serial.write(ByteBuffer.wrap(", ".getBytes()));
+    length += serial.write(ByteBuffer.wrap("world!".getBytes()));
 
-    assertThat(serial.available()).isEqualTo(lenght);
+    assertThat(serial.available()).isEqualTo(length);
   }
 
   @Test
   void hasAvailableWhenBufferHasMessages() {
-    serial.write("message\n");
+    serial.write(ByteBuffer.wrap("message\n".getBytes()));
 
     assertThat(serial.hasAvailable()).isTrue();
   }
@@ -73,6 +75,70 @@ class SerialStubTest {
   @Test
   void readReturnsZeroWhenBufferEmpty() throws Exception {
 
-    assertThat(serial.read(null, 10)).isZero();
+    assertThat(serial.read(ByteBuffer.allocate(0))).isZero();
+  }
+
+  @Test
+  void readsPartialWritesAsFullMessage() throws Exception {
+    final ByteBuffer message = ByteBuffer.wrap("Hello Pi!".getBytes());
+    while (message.hasRemaining()) {
+      ByteBuffer out = ByteBuffer.allocate(1);
+      out.put(message.get());
+      serial.write(out);
+    }
+
+    ByteBuffer actual = ByteBuffer.allocate(message.capacity());
+
+    while (serial.hasAvailable()) {
+      ByteBuffer in = ByteBuffer.allocate(serial.available());
+      serial.read(in);
+      actual.put(in);
+    }
+
+    actual.flip();
+    assertThat(actual).isEqualTo(message);
+  }
+
+  @Test
+  void writeChuncked_returnsCountOfTotalBytesWritten() {
+    String message = "123456789";
+    final ByteBuffer buf = ByteBuffer.wrap(message.getBytes());
+
+    int written = serial.writeChunked(buf);
+
+    assertThat(written).isEqualTo(message.length());
+  }
+
+  @Test
+  void readChunkedMessageReturnsByteCountOfEntireMessage() {
+    String message = "123456789";
+    final ByteBuffer buf = ByteBuffer.wrap(message.getBytes());
+
+    serial.writeChunked(buf);
+
+    ByteBuffer in = ByteBuffer.allocate(serial.available());
+    int read = 0;
+    while(serial.hasAvailable()) {
+      read += serial.read(in);
+    }
+
+    assertThat(read).isEqualTo(message.length());
+  }
+  
+  @Test
+  void readChunkedMessageInChunks() {
+    String message = "123456789";
+    final ByteBuffer buf = ByteBuffer.wrap(message.getBytes());
+
+    serial.writeChunked(buf);
+ 
+    int read = 0;
+    ByteBuffer in = ByteBuffer.allocate(serial.available() - 1);
+    read += serial.read(in);
+    
+    ByteBuffer in2 = ByteBuffer.allocate(serial.available());
+    read += serial.read(in2);
+
+    assertThat(read).isEqualTo(message.length());
   }
 }

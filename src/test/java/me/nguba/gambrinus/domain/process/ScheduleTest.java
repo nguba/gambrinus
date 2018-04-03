@@ -49,6 +49,11 @@ class ScheduleTest {
   }
   
   @Test
+  void isIdentifiedByName() {
+     assertThat(schedule.id()).isEqualTo("Bayrisch Hell");
+  }
+  
+  @Test
   void executesStepsInSameOrder() {
     
     List<Step> executed = runSchedule();

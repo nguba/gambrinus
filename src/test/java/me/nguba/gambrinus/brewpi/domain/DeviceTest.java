@@ -27,6 +27,13 @@ class DeviceTest {
     assertThat(actual.id())
         .isEqualTo(OneWireAddress.valueOf(AddressMother.BOIL_KETTLE.toString()));
   }
+  
+  @Test
+  void makesWithZeroValueByDefault() {
+
+    final Device device = Device.make(BrewPiMother.boilKettleAddress());
+    assertThat(device.getV()).isEqualTo(0.0);
+  }
 
   @Test
   @DisplayName("not assigned when no address present")
