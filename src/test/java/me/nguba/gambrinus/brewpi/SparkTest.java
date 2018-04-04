@@ -6,7 +6,6 @@ import me.nguba.gambrinus.hardware.onewire.OneWireTemperatureSensor;
 import me.nguba.gambrinus.io.SerialStub;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.assertNotNull;
@@ -32,12 +31,11 @@ class SparkTest {
   }
 
   @Test
-  @Disabled("WIP")
   void listDevices() throws Exception {
     final String json = serializer.toJson(BrewPiMother.availableDevices());
     serial.write(json);
 
-    Map<Function, OneWireTemperatureSensor> available = spark.listProbes();
+    Map<Function, OneWireTemperatureSensor> available = spark.detectSensors();
     
     assertNotNull(available);
 

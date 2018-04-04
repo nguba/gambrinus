@@ -35,11 +35,10 @@ public class Spark implements Entity<Integer> {
   public void listenForMessages() {
   }
 
-  public void send(final SparkRequest request) throws IOException {
+  public void send(final SparkCommand command) throws IOException {
 
-    final String message = serializer.toJson(request);
+    final String message = serializer.toJson(command);
     serialDevice.write(ByteBuffer.wrap(message.getBytes()));
-
   }
 
   public SparkResponse receive() throws IOException {
@@ -94,7 +93,8 @@ public class Spark implements Entity<Integer> {
     return builder.toString();
   }
 
-  public Map<Function, OneWireTemperatureSensor> listProbes() {
+  public Map<Function, OneWireTemperatureSensor> detectSensors() {
+    
     return null;
   }
 }
