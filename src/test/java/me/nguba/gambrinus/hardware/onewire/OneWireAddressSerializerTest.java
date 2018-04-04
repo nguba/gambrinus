@@ -1,8 +1,6 @@
 package me.nguba.gambrinus.hardware.onewire;
 
 import me.nguba.gambrinus.hardware.HardwareMother;
-import me.nguba.gambrinus.hardware.onewire.OneWireAddress;
-import me.nguba.gambrinus.hardware.onewire.OneWireAddressSerializer;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;

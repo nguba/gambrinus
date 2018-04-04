@@ -1,7 +1,5 @@
 package me.nguba.gambrinus.hardware;
 
-import me.nguba.gambrinus.hardware.TemperatureSensor;
-import me.nguba.gambrinus.hardware.Vessel;
 import me.nguba.gambrinus.hardware.onewire.OneWireAddress;
 import me.nguba.gambrinus.process.Temperature;
 import nl.jqno.equalsverifier.EqualsVerifier;

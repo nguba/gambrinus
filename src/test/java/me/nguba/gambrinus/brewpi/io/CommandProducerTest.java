@@ -30,13 +30,13 @@ class CommandProducerTest {
   @DisplayName("should not instantiate with null queue as parameter")
   void shouldNotBeAbleToConstructWithNullQueue() {
     @SuppressWarnings("unused")
-    IllegalArgumentException throwable = assertThrows(IllegalArgumentException.class, () -> {
+    final IllegalArgumentException throwable = assertThrows(IllegalArgumentException.class, () -> {
       new CommandProducer(null);
     });
 
     assertAll(() -> assertThat(throwable.getMessage())
         .isEqualTo("Cannot assign producer to a null queue"));
-  } 
+  }
 
   @Test
   @DisplayName("should add commands to the queue")
@@ -50,14 +50,13 @@ class CommandProducerTest {
               () -> assertThat(queue.isEmpty()).isTrue());
   }
 
-  
   @Test
   @DisplayName("should block interruptidly when full")
   void shouldBlockInterrupted() throws Exception {
     queue.offer(SparkCommand.RESET);
 
     final CountDownLatch threadStarted = new CountDownLatch(1);
-    Thread t = new Thread(() -> {
+    final Thread t = new Thread(() -> {
       threadStarted.countDown();
       producer.queue(() -> SparkCommand.RESET);
     });

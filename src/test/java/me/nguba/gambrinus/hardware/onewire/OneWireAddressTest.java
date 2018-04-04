@@ -1,6 +1,5 @@
 package me.nguba.gambrinus.hardware.onewire;
 
-import me.nguba.gambrinus.hardware.onewire.OneWireAddress;
 import nl.jqno.equalsverifier.EqualsVerifier;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -21,7 +20,8 @@ class OneWireAddressTest {
 
   @Test
   void isNotValidDoesntBeginWithOneWirePrefix() {
-    assertThat(OneWireAddress.valueOf(OneWireAddressRegistry.INVALID.toString()).isValid()).isFalse();
+    assertThat(OneWireAddress.valueOf(OneWireAddressRegistry.INVALID.toString()).isValid())
+        .isFalse();
   }
 
   @Test

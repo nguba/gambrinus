@@ -91,7 +91,7 @@ public final class Step implements ValueObject {
 
   /**
    * Creates builder to build {@link Step}.
-   * 
+   *
    * @return created builder
    */
   @Generated("SparkTools")

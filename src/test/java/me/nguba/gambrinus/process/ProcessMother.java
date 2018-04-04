@@ -1,8 +1,5 @@
 package me.nguba.gambrinus.process;
 
-import me.nguba.gambrinus.process.Step;
-import me.nguba.gambrinus.process.Temperature;
-
 import java.time.Duration;
 
 public enum ProcessMother {

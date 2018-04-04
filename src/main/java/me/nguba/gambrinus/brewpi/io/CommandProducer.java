@@ -13,20 +13,20 @@ public class CommandProducer {
 
   private static final Logger LOG = LoggerFactory.getLogger(CommandProducer.class);
 
-  private BlockingQueue<SparkCommand> queue;
+  private final BlockingQueue<SparkCommand> queue;
 
-  public CommandProducer(BlockingQueue<SparkCommand> queue) {
+  public CommandProducer(final BlockingQueue<SparkCommand> queue) {
     Assert.notNull(queue, "Cannot assign producer to a null queue");
 
     this.queue = queue;
   }
 
-  public void queue(Supplier<SparkCommand> supplier) {
-    SparkCommand e = supplier.get();
+  public void queue(final Supplier<SparkCommand> supplier) {
+    final SparkCommand e = supplier.get();
     try {
       queue.put(e);
       LOG.info("OFFER '{}'", e);
-    } catch (@SuppressWarnings("unused") InterruptedException interrupt) {
+    } catch (@SuppressWarnings("unused") final InterruptedException interrupt) {
       Thread.currentThread().interrupt();
     }
 

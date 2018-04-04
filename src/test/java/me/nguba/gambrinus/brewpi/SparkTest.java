@@ -37,8 +37,8 @@ class SparkTest {
     final String json = serializer.toJson(BrewPiMother.availableDevices());
     serial.write(json);
 
-    Map<Function, OneWireTemperatureSensor> available = spark.detectSensors();
-    
+    final Map<Function, OneWireTemperatureSensor> available = spark.detectSensors();
+
     assertNotNull(available);
 
   }

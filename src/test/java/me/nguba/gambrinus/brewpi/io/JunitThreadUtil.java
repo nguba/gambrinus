@@ -9,26 +9,28 @@ public final class JunitThreadUtil {
   }
 
   static void delay(long millis) throws InterruptedException {
-    long startTime = System.nanoTime();
-    long ns = millis * 1000 * 1000;
+    final long startTime = System.nanoTime();
+    final long ns = millis * 1000 * 1000;
     for (;;) {
-      if (millis > 0L)
+      if (millis > 0L) {
         Thread.sleep(millis);
-      else
+      } else {
         Thread.yield();
-      long d = ns - (System.nanoTime() - startTime);
-      if (d > 0L)
+      }
+      final long d = ns - (System.nanoTime() - startTime);
+      if (d > 0L) {
         millis = d / (1000 * 1000);
-      else
+      } else {
         break;
+      }
     }
   }
 
-  static void assertThreadStaysAlive(Thread thread) {
+  static void assertThreadStaysAlive(final Thread thread) {
     try {
       delay(50);
       assertTrue(thread.isAlive());
-    } catch (@SuppressWarnings("unused") InterruptedException ie) {
+    } catch (@SuppressWarnings("unused") final InterruptedException ie) {
       fail("Unexpected InterruptedException");
     }
   }

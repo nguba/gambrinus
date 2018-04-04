@@ -1,8 +1,5 @@
 package me.nguba.gambrinus.process;
 
-import me.nguba.gambrinus.process.DomainFactory;
-import me.nguba.gambrinus.process.Schedule;
-import me.nguba.gambrinus.process.Step;
 import nl.jqno.equalsverifier.EqualsVerifier;
 
 import org.slf4j.Logger;

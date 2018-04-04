@@ -1,12 +1,10 @@
 package me.nguba.gambrinus.hardware;
 
-import me.nguba.gambrinus.hardware.TemperatureSensor;
-import me.nguba.gambrinus.hardware.Vessel;
+import me.nguba.gambrinus.brewpi.Device;
 import me.nguba.gambrinus.hardware.onewire.OneWireAddress;
 import me.nguba.gambrinus.hardware.onewire.OneWireAddressRegistry;
 import me.nguba.gambrinus.hardware.onewire.OneWireSensor;
 import me.nguba.gambrinus.hardware.onewire.OneWireTemperatureSensor;
-import me.nguba.gambrinus.brewpi.Device;
 
 import java.util.UUID;
 

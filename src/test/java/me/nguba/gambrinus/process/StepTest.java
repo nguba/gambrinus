@@ -1,6 +1,5 @@
 package me.nguba.gambrinus.process;
 
-import me.nguba.gambrinus.process.Step;
 import nl.jqno.equalsverifier.EqualsVerifier;
 
 import static org.assertj.core.api.Assertions.assertThat;

@@ -29,7 +29,7 @@ class CommandConsumerTest {
   @DisplayName("should not instantiate with null queue as parameter")
   void shouldNotBeAbleToConstructWithNullQueue() {
     @SuppressWarnings("unused")
-    IllegalArgumentException throwable = assertThrows(IllegalArgumentException.class, () -> {
+    final IllegalArgumentException throwable = assertThrows(IllegalArgumentException.class, () -> {
       new CommandConsumer(null);
     });
 
@@ -52,7 +52,7 @@ class CommandConsumerTest {
     queue.clear();
 
     final CountDownLatch threadStarted = new CountDownLatch(1);
-    Thread t = new Thread(() -> {
+    final Thread t = new Thread(() -> {
       threadStarted.countDown();
       consumer.take((c) -> {
       });

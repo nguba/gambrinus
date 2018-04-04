@@ -1,7 +1,5 @@
 package me.nguba.gambrinus.hardware;
 
-import me.nguba.gambrinus.hardware.TemperatureObserver;
-import me.nguba.gambrinus.hardware.TemperatureService;
 import me.nguba.gambrinus.process.Event;
 import me.nguba.gambrinus.process.Temperature;
 

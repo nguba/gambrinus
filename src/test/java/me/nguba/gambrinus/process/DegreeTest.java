@@ -1,7 +1,5 @@
 package me.nguba.gambrinus.process;
 
-import me.nguba.gambrinus.process.Degree;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.DisplayName;

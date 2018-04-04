@@ -12,8 +12,8 @@ import java.util.Map;
 
 public class Spark implements Entity<Integer> {
 
-  private final Integer                                       id;
-  private final SerialDevice                                  serialDevice;
+  private final Integer      id;
+  private final SerialDevice serialDevice;
 
   private final SparkSerializerService serializer = new SparkSerializerService();
 
@@ -94,7 +94,7 @@ public class Spark implements Entity<Integer> {
   }
 
   public Map<Function, OneWireTemperatureSensor> detectSensors() {
-    
+
     return null;
   }
 }

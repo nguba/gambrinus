@@ -12,20 +12,20 @@ import java.util.function.Consumer;
 public class CommandConsumer {
 
   private static final Logger LOG = LoggerFactory.getLogger(CommandConsumer.class);
-  
-  private BlockingQueue<SparkCommand> queue;
-  
-  public CommandConsumer(BlockingQueue<SparkCommand> queue) {
+
+  private final BlockingQueue<SparkCommand> queue;
+
+  public CommandConsumer(final BlockingQueue<SparkCommand> queue) {
     Assert.notNull(queue, "Cannot assign consumer to a null queue");
     this.queue = queue;
   }
 
-  public void take(Consumer<SparkCommand> consumer) {
+  public void take(final Consumer<SparkCommand> consumer) {
     try {
-      SparkCommand command = queue.take();
+      final SparkCommand command = queue.take();
       LOG.info("TAKE '{}'", command);
       consumer.accept(command);
-    } catch (@SuppressWarnings("unused") InterruptedException e) {
+    } catch (@SuppressWarnings("unused") final InterruptedException e) {
       Thread.currentThread().interrupt();
     }
   }

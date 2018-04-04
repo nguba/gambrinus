@@ -1,7 +1,6 @@
 package me.nguba.gambrinus.brewpi;
 
 import me.nguba.gambrinus.TestUtils;
-import me.nguba.gambrinus.brewpi.AvailableDevices;
 import me.nguba.gambrinus.brewpi.serialization.SparkSerializerService;
 import nl.jqno.equalsverifier.EqualsVerifier;
 
