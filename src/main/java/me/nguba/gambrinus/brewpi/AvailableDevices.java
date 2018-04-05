@@ -19,7 +19,7 @@ import java.util.List;
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  * @see Device
  */
-public final class AvailableDevices implements SparkResponse {
+public final class AvailableDevices implements SparkMessage {
 
   private final List<Device> h = new LinkedList<>();
 

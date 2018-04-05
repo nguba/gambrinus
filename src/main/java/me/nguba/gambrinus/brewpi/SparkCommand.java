@@ -1,9 +1,5 @@
 package me.nguba.gambrinus.brewpi;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-
 public enum SparkCommand {
 
   DEVICE_APPLY("l"), // l
@@ -24,20 +20,5 @@ public enum SparkCommand {
   @Override
   public String toString() {
     return value;
-  }
-
-  private final Map<String, Object> properties = new HashMap<String, Object>();
-
-  /**
-   * Properties to send along with this command.
-   *
-   * @return unmodifiable map of properties
-   */
-  public Map<String, Object> getProperties() {
-    return Collections.unmodifiableMap(properties);
-  }
-
-  public Object put(final String key, final Object value) {
-    return properties.put(key, value);
   }
 }

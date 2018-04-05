@@ -41,7 +41,7 @@ public class Spark implements Entity<Integer> {
     serialDevice.write(ByteBuffer.wrap(message.getBytes()));
   }
 
-  public SparkResponse receive() throws IOException {
+  public SparkMessage receive() throws IOException {
     while (serialDevice.hasAvailable()) {
       final ByteBuffer in = ByteBuffer.allocate(serialDevice.available());
       serialDevice.read(in);
