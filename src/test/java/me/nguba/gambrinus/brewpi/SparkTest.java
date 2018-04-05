@@ -3,6 +3,7 @@ package me.nguba.gambrinus.brewpi;
 import me.nguba.gambrinus.brewpi.serialization.SparkSerializerService;
 import me.nguba.gambrinus.hardware.Function;
 import me.nguba.gambrinus.hardware.onewire.OneWireTemperatureSensor;
+import me.nguba.gambrinus.io.SerialDevice;
 import me.nguba.gambrinus.io.SerialStub;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -17,7 +18,7 @@ class SparkTest {
 
   private Spark spark;
 
-  private final SerialStub serial = new SerialStub();
+  private final SerialDevice serial = new SerialStub();
 
   private final SparkSerializerService serializer = new SparkSerializerService();
 

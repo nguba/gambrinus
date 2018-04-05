@@ -10,9 +10,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.function.Consumer;
 
 public class CommandConsumer {
-
-  private static final Logger LOG = LoggerFactory.getLogger(CommandConsumer.class);
-
+  private static final Logger               LOG = LoggerFactory.getLogger(CommandConsumer.class);
   private final BlockingQueue<SparkCommand> queue;
 
   public CommandConsumer(final BlockingQueue<SparkCommand> queue) {
@@ -23,8 +21,9 @@ public class CommandConsumer {
   public void take(final Consumer<SparkCommand> consumer) {
     try {
       final SparkCommand command = queue.take();
-      LOG.info("TAKE '{}'", command);
       consumer.accept(command);
+      LOG.info("ACCEPTED '{}'", command);
+
     } catch (@SuppressWarnings("unused") final InterruptedException e) {
       Thread.currentThread().interrupt();
     }

@@ -14,4 +14,6 @@ public interface SerialDevice extends Service {
 
   int write(ByteBuffer buffer);
 
+  int write(final String message);
+
 }

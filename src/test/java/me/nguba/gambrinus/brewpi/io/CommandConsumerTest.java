@@ -54,7 +54,7 @@ class CommandConsumerTest {
     final CountDownLatch threadStarted = new CountDownLatch(1);
     final Thread t = new Thread(() -> {
       threadStarted.countDown();
-      consumer.take((c) -> {
+      consumer.take((command) -> {
       });
     });
     t.start();
