@@ -1,0 +1,82 @@
+buildscript {
+	ext {
+		springBootVersion = '2.0.3.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+allprojects {
+
+    apply plugin: 'java'
+    apply plugin: 'eclipse'
+    apply plugin: 'io.spring.dependency-management'
+   
+    sourceCompatibility = 1.8
+    group = 'me.nguba'
+    version = '3.0.0-SNAPSHOT'
+    
+    repositories {
+    	mavenCentral()
+    	maven { url "https://repo.spring.io/milestone" }
+    }
+    
+    ext {
+    	springCloudServicesVersion = '2.0.0.RC1'
+    	springCloudVersion = 'Finchley.RC2'
+    }
+    
+    test {
+        useJUnitPlatform {
+            includeEngines 'junit-jupiter'
+        }
+    
+        failFast = true
+    }
+    
+    dependencies {
+        compileOnly('org.springframework.boot:spring-boot-configuration-processor')
+    }
+}
+
+subprojects {
+    eclipse {
+        project {
+            name = rootProject.name + "-" + project.name
+        }
+    }
+    
+    apply plugin: 'org.springframework.boot' 
+    
+    jar {
+        enabled = true
+    }
+    
+    bootJar {
+        enabled = false
+    }
+    
+}
+
+apply plugin: 'org.springframework.boot' 
+ 
+dependencies {
+    compile('org.springframework.boot:spring-boot-starter-actuator')
+    compile('org.springframework.boot:spring-boot-starter-web')
+ 
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+
+project(':modules:infrastructure')  {
+    dependencies {
+        testCompile('org.springframework.boot:spring-boot-starter-test') {
+            exclude group: 'junit', module: 'junit'
+        }
+        testImplementation 'org.junit.jupiter:junit-jupiter-api:5.1.0'
+        testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.1.0'
+    }
+}

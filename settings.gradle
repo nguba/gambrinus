@@ -1,0 +1,6 @@
+rootProject.name = 'gambrinus'
+
+include 'modules:domain:mash'
+include 'modules:domain:setup'
+include 'modules:application'
+include 'modules:infrastructure'
