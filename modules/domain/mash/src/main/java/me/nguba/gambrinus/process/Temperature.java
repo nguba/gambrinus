@@ -11,7 +11,7 @@ public final class Temperature implements ValueObject {
   public enum Scale implements ValueObject {
     CELSIUS("C"), KELVIN("K"), FARENHEIT("F");
 
-    String symbol;
+    private final String symbol;
 
     Scale(final String symbol) {
       this.symbol = symbol;
@@ -74,7 +74,7 @@ public final class Temperature implements ValueObject {
   @Override
   public String toString() {
     final StringBuilder builder = new StringBuilder();
-    builder.append(value).append(" (").append(scale.symbol).append(")");
+    builder.append(value).append(" (").append(scale).append(")");
     return builder.toString();
   }
 
