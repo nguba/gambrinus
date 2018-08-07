@@ -33,5 +33,7 @@ public final class CommandProcessor
         }
         
         mutator.mutate(command);
+        
+        System.out.println(">>> Mutated: " + command);
     }
 }
