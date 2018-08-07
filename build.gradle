@@ -71,12 +71,3 @@ dependencies {
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
-project(':modules:infrastructure')  {
-    dependencies {
-        testCompile('org.springframework.boot:spring-boot-starter-test') {
-            exclude group: 'junit', module: 'junit'
-        }
-        testImplementation 'org.junit.jupiter:junit-jupiter-api:5.1.0'
-        testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.1.0'
-    }
-}
