@@ -7,20 +7,23 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
-class CommandProcessorTest implements CommandMutator<CommandProcessorTest>, Command, Validated
+class CommandProcessorTest
+        implements CommandMutator<CommandProcessorTest>, Command, Validated, EventPublisher
 {
-    private final CommandProcessor processor = new CommandProcessor();
+    private final CommandProcessor processor = new CommandProcessor(this);
 
     private final AtomicBoolean executed = new AtomicBoolean();
-    
+
     private final AtomicBoolean validated = new AtomicBoolean();
+
+    private CommandMutatedEvent event;
     
     @Test
     @DisplayName("Can register a mutator")
     void registerMutator()
     {
         register();
-        
+
         assertTrue(processor.supports(getClass()));
     }
 
@@ -28,22 +31,24 @@ class CommandProcessorTest implements CommandMutator<CommandProcessorTest>, Comm
     {
         processor.register(getClass(), this);
     }
-    
+
     @Test
     @DisplayName("Returns false when mutator not supported")
-    void noMutator() {
+    void noMutator()
+    {
         assertFalse(processor.supports(getClass()));
     }
-    
+
     @Test
     @DisplayName("Executes registered mutator")
-    void execute() {
+    void execute()
+    {
         register();
-        
+
         assertFalse(executed.get());
-        
+
         processor.execute(this);
-        
+
         assertTrue(executed.get());
     }
 
@@ -55,14 +60,28 @@ class CommandProcessorTest implements CommandMutator<CommandProcessorTest>, Comm
 
     @Test
     @DisplayName("Executes validator when requested")
-    void validator() {
+    void validator()
+    {
         register();
-        
+
         assertFalse(validated.get());
-        
+
         processor.execute(this);
-        
+
         assertTrue(validated.get());
+    }
+    
+    @Test
+    @DisplayName("Publishes event with command as entity")
+    void publish()
+    {
+        register();
+
+        assertNull(event);
+
+        processor.execute(this);
+
+        assertEquals(this, event.getEntity());
     }
 
     @Override
@@ -70,4 +89,11 @@ class CommandProcessorTest implements CommandMutator<CommandProcessorTest>, Comm
     {
         validated.getAndSet(true);
     }
+    
+    @Override
+    public void publish(CommandMutatedEvent event)
+    {
+        this.event = event;
+    }
+
 }

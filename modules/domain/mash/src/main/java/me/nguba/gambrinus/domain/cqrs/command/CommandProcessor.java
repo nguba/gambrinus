@@ -10,6 +10,13 @@ public final class CommandProcessor
 {
     private final ConcurrentHashMap<Object, CommandMutator<?>> mutators = new ConcurrentHashMap<>();
 
+    private final EventPublisher publisher;
+    
+    public CommandProcessor(EventPublisher publisher)
+    {
+        this.publisher = publisher;
+    }
+
     public void register(final Class<? extends Command> command, final CommandMutator<?> mutator)
     {
         mutators.put(command, mutator);
@@ -34,6 +41,6 @@ public final class CommandProcessor
         
         mutator.mutate(command);
         
-        System.out.println(">>> Mutated: " + command);
+        publisher.publish(CommandMutatedEvent.from(command));
     }
 }

@@ -5,9 +5,9 @@ import java.time.LocalDateTime;
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-public interface MutatedEvent<T>
+public interface MutatedEvent<C>
 {
-    T getEntityId();
+    C getEntity();
 
     default LocalDateTime timestamp()
     {
