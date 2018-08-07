@@ -22,5 +22,6 @@ package me.nguba.gambrinus.domain;
  * @see Service
  * @see Aggregate
  */
-public interface ValueObject {
+public interface ValueObject
+{
 }

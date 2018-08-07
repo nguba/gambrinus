@@ -1,7 +1,7 @@
 package me.nguba.gambrinus.domain;
 
 /**
- * Services model importan domain operations that can't find a natural home in an {@link Entity} or
+ * Services model important domain operations that can't find a natural home in an {@link Entity} or
  * {@link ValueObject}.
  * <p>
  * A Service is an operation offered as an interface that stands alone in the model, without
@@ -31,6 +31,7 @@ package me.nguba.gambrinus.domain;
  * @see ValueObject
  * @see Aggregate
  */
-public interface Service {
+public interface Service
+{
 
 }

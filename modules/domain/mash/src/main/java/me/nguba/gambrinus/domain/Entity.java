@@ -23,12 +23,13 @@ package me.nguba.gambrinus.domain;
  * @see ValueObject
  * @see Aggregate
  */
-public interface Entity<T> {
+public interface Entity<T>
+{
 
-  /**
-   * Unique identifier to distinguish objects even though they may have the same attributes.
-   *
-   * @return the identity
-   */
-  T getId();
+    /**
+     * Unique identifier to distinguish objects even though they may have the same attributes.
+     *
+     * @return the identity
+     */
+    T getId();
 }
