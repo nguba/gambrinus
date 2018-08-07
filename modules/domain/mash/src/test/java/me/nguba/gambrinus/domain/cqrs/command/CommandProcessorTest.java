@@ -3,7 +3,10 @@ package me.nguba.gambrinus.domain.cqrs.command;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -17,7 +20,7 @@ class CommandProcessorTest
     private final AtomicBoolean validated = new AtomicBoolean();
 
     private CommandMutatedEvent event;
-    
+
     @Test
     @DisplayName("Can register a mutator")
     void registerMutator()
@@ -53,7 +56,7 @@ class CommandProcessorTest
     }
 
     @Override
-    public void mutate(CommandProcessorTest command)
+    public void mutate(final CommandProcessorTest command)
     {
         executed.getAndSet(true);
     }
@@ -70,7 +73,7 @@ class CommandProcessorTest
 
         assertTrue(validated.get());
     }
-    
+
     @Test
     @DisplayName("Publishes event with command as entity")
     void publish()
@@ -89,9 +92,9 @@ class CommandProcessorTest
     {
         validated.getAndSet(true);
     }
-    
+
     @Override
-    public void publish(CommandMutatedEvent event)
+    public void publish(final CommandMutatedEvent event)
     {
         this.event = event;
     }

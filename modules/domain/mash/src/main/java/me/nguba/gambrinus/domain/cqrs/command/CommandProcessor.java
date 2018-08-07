@@ -11,8 +11,8 @@ public final class CommandProcessor
     private final ConcurrentHashMap<Object, CommandMutator<?>> mutators = new ConcurrentHashMap<>();
 
     private final EventPublisher publisher;
-    
-    public CommandProcessor(EventPublisher publisher)
+
+    public CommandProcessor(final EventPublisher publisher)
     {
         this.publisher = publisher;
     }
@@ -30,7 +30,8 @@ public final class CommandProcessor
     public <C extends Command> void execute(final C command)
     {
         @SuppressWarnings("unchecked")
-        final CommandMutator<Command> mutator = (CommandMutator<Command>) mutators.get(command.getClass());
+        final CommandMutator<Command> mutator = (CommandMutator<Command>) mutators
+                .get(command.getClass());
         if (mutator == null) {
             return;
         }
@@ -38,9 +39,9 @@ public final class CommandProcessor
         if (command instanceof Validated) {
             ((Validated) command).validate();
         }
-        
+
         mutator.mutate(command);
-        
+
         publisher.publish(CommandMutatedEvent.from(command));
     }
 }

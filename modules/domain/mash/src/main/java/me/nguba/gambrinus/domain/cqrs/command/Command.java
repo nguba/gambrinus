@@ -6,5 +6,5 @@ package me.nguba.gambrinus.domain.cqrs.command;
  */
 public interface Command
 {
-    
+
 }
