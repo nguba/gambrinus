@@ -1,4 +1,5 @@
 rootProject.name = 'gambrinus'
 
-include 'kernel:gambrinus-domain:mash'
-include 'kernel:gambrinus-infrastructure'
+include 'kernel'
+include 'kernel:mash'
+include 'infrastructure'

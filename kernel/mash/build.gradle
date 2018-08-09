@@ -1,6 +1,11 @@
-dependencies {
+eclipse {
+    project {
+        name = rootProject.name + "-kernel-mash"
+    }
+}
 
-    testImplementation project(":kernel")
+dependencies {
+    compile project(':kernel')
     testImplementation('org.springframework.boot:spring-boot-starter-test')
     testImplementation('org.junit.jupiter:junit-jupiter-api:5.1.0')
     testImplementation('nl.jqno.equalsverifier:equalsverifier:2.+')
