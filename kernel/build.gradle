@@ -1,0 +1,12 @@
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'eclipse'
+
+jar {
+    enabled = true
+}
+
+bootJar {
+    enabled = false
+}
+    

@@ -65,6 +65,9 @@ subprojects {
 apply plugin: 'org.springframework.boot' 
  
 dependencies {
+
+    compile project (":kernel")
+    
     compile('org.springframework.boot:spring-boot-starter-actuator')
     compile('org.springframework.boot:spring-boot-starter-web')
  
