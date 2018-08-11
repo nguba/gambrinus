@@ -27,7 +27,7 @@ public abstract class Entity<I>
 {
     private final I id;
 
-    protected Entity(I id)
+    protected Entity(final I id)
     {
         this.id = id;
     }
@@ -52,20 +52,25 @@ public abstract class Entity<I>
     }
 
     @Override
-    public boolean equals(Object obj)
+    public boolean equals(final Object obj)
     {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
-        Entity<?> other = (Entity<?>) obj;
+        }
+        final Entity<?> other = (Entity<?>) obj;
         if (id == null) {
-            if (other.id != null)
+            if (other.id != null) {
                 return false;
-        } else if (!id.equals(other.id))
+            }
+        } else if (!id.equals(other.id)) {
             return false;
+        }
         return true;
     }
 }

@@ -17,6 +17,7 @@ public final class OwfsAddress extends SingleValueObject<String>
         return new OwfsAddress(address);
     }
 
+    @Override
     public boolean isValid()
     {
         if (super.isValid() && !getValue().isEmpty() && getValue().length() == 15) {

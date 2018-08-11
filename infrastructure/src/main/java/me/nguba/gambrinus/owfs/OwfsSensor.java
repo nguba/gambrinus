@@ -15,17 +15,18 @@ import java.nio.file.StandardOpenOption;
  */
 public class OwfsSensor extends Aggregate<OwfsAddress>
 {
-    private OwfsMount mount;
-    private final Path latesttemp;
-    
-    private OwfsSensor(OwfsMount mount, OwfsAddress address) throws IOException
+    private final OwfsMount mount;
+    private final Path      latesttemp;
+
+    private OwfsSensor(final OwfsMount mount, final OwfsAddress address) throws IOException
     {
         super(address);
         this.mount = mount;
         latesttemp = Paths.get(mount.getValue().getPath(), "latesttemp");
     }
 
-    public static OwfsSensor mount(OwfsRoot root, OwfsAddress address) throws IOException
+    public static OwfsSensor mount(final OwfsRoot root, final OwfsAddress address)
+            throws IOException
     {
         final OwfsMount mount = OwfsMount.from(root, address);
         if (!mount.isValid()) {
@@ -42,8 +43,8 @@ public class OwfsSensor extends Aggregate<OwfsAddress>
     public Temperature read()
     {
         try (final FileChannel channel = FileChannel.open(latesttemp, StandardOpenOption.READ)) {
-            ByteBuffer buf = ByteBuffer.allocate(8);
-            StringBuilder builder = new StringBuilder();
+            final ByteBuffer buf = ByteBuffer.allocate(8);
+            final StringBuilder builder = new StringBuilder();
             while ((channel.read(buf)) != -1) {
                 buf.flip();
                 while (buf.hasRemaining()) {
@@ -52,8 +53,7 @@ public class OwfsSensor extends Aggregate<OwfsAddress>
                 buf.clear();
                 return Temperature.celsius(Double.parseDouble(builder.toString()));
             }
-        }
-        catch (IOException e) {
+        } catch (final IOException e) {
             e.printStackTrace();
         }
         return null;

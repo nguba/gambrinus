@@ -27,9 +27,9 @@ class OwfsSensorTest
     @Test
     void mountFailure() throws Exception
     {
-        IOException exception = assertThrows(IOException.class,
-                                             () -> OwfsSensor.mount(OwfsRoot.of("foo"),
-                                                                    OwfsMother.address()));
+        final IOException exception = assertThrows(IOException.class,
+                                                   () -> OwfsSensor.mount(OwfsRoot.of("foo"),
+                                                                          OwfsMother.address()));
 
         assertThat(exception.getMessage()).startsWith("Mountpoint does not exist:");
     }
@@ -44,18 +44,18 @@ class OwfsSensorTest
     @Test
     void read()
     {
-        Temperature t1 = sensor.read();
-        Temperature expected = Temperature.celsius(25.7);
-        
+        final Temperature t1 = sensor.read();
+        final Temperature expected = Temperature.celsius(25.7);
+
         assertThat(t1).isEqualTo(expected);
     }
-    
+
     @Test
     void readMultiple()
     {
-        Temperature t1 = sensor.read();
-        Temperature t2 = sensor.read();
-     
+        final Temperature t1 = sensor.read();
+        final Temperature t2 = sensor.read();
+
         assertThat(t1).isEqualTo(t2);
     }
 }

@@ -2,14 +2,14 @@ package me.nguba.gambrinus.ddd.support;
 
 /**
  * Encapsulates common functionality for a Value objects whose identity is a single field only.
- * 
+ *
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
 public abstract class SingleValueObject<T>
 {
     private final T value;
 
-    protected SingleValueObject(T value)
+    protected SingleValueObject(final T value)
     {
         this.value = value;
     }
@@ -29,24 +29,30 @@ public abstract class SingleValueObject<T>
     }
 
     @Override
-    public boolean equals(Object obj)
+    public boolean equals(final Object obj)
     {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
-        SingleValueObject<?> other = (SingleValueObject<?>) obj;
+        }
+        final SingleValueObject<?> other = (SingleValueObject<?>) obj;
         if (value == null) {
-            if (other.value != null)
+            if (other.value != null) {
                 return false;
-        } else if (!value.equals(other.value))
+            }
+        } else if (!value.equals(other.value)) {
             return false;
+        }
         return true;
     }
-    
-    public boolean isValid() {
+
+    public boolean isValid()
+    {
         return value != null;
     }
 
@@ -54,5 +60,5 @@ public abstract class SingleValueObject<T>
     public String toString()
     {
         return value.toString();
-    }  
+    }
 }

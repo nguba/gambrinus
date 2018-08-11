@@ -9,11 +9,11 @@ import java.io.File;
  */
 public abstract class OwfsFile extends SingleValueObject<File>
 {
-    protected OwfsFile(File value)
+    protected OwfsFile(final File value)
     {
         super(value);
     }
-    
+
     @Override
     public boolean isValid()
     {

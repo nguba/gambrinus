@@ -9,14 +9,14 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public abstract class SingleValueObjectFixture<I, V extends SingleValueObject<I>>
-{  
+{
     protected V getValueObject()
     {
         return valueObject;
     }
 
     private final V valueObject = makeValueObject();
-    
+
     @Test
     @DisplayName("Is valid when not null")
     protected void isValidWhenNotNull()

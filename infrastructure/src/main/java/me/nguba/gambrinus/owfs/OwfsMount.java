@@ -7,16 +7,17 @@ import java.io.File;
  */
 public final class OwfsMount extends OwfsFile
 {
-    private OwfsMount(File value)
+    private OwfsMount(final File value)
     {
         super(value);
     }
 
-    public static OwfsMount from(OwfsRoot root, OwfsAddress address)
+    public static OwfsMount from(final OwfsRoot root, final OwfsAddress address)
     {
         return new OwfsMount(new File(root.getValue(), address.getValue()));
     }
 
+    @Override
     public boolean isValid()
     {
         return getValue().isDirectory();

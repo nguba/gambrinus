@@ -7,12 +7,12 @@ import java.io.File;
  */
 public final class OwfsRoot extends OwfsFile
 {
-    private OwfsRoot(File value)
+    private OwfsRoot(final File value)
     {
         super(value);
     }
 
-    public static OwfsRoot of(String path)
+    public static OwfsRoot of(final String path)
     {
         return new OwfsRoot(new File(path));
     }
