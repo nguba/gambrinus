@@ -1,4 +1,4 @@
-package me.nguba.gambrinus.domain.cqrs.command;
+package me.nguba.gambrinus.cqrs.command;
 
 import java.util.concurrent.ConcurrentHashMap;
 

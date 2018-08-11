@@ -1,4 +1,4 @@
-package me.nguba.gambrinus.domain;
+package me.nguba.gambrinus.ddd;
 
 /**
  * Value Objects are object that <em>describe things</em>.

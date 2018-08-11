@@ -1,6 +1,6 @@
 package me.nguba.gambrinus.process;
 
-import me.nguba.gambrinus.domain.ValueObject;
+import me.nguba.gambrinus.ddd.ValueObject;
 
 /**
  *

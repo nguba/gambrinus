@@ -1,4 +1,4 @@
-package me.nguba.gambrinus.domain;
+package me.nguba.gambrinus.ddd;
 
 /**
  * An object defined primarily by its identiy and <em>not</em> by their attributes.

@@ -1,4 +1,11 @@
-package me.nguba.gambrinus.domain.cqrs.command;
+package me.nguba.gambrinus.cqrs.command;
+
+import me.nguba.gambrinus.cqrs.command.Command;
+import me.nguba.gambrinus.cqrs.command.CommandMutatedEvent;
+import me.nguba.gambrinus.cqrs.command.CommandMutator;
+import me.nguba.gambrinus.cqrs.command.CommandProcessor;
+import me.nguba.gambrinus.cqrs.command.EventPublisher;
+import me.nguba.gambrinus.cqrs.command.Validated;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

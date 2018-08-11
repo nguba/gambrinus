@@ -1,4 +1,4 @@
-package me.nguba.gambrinus.domain;
+package me.nguba.gambrinus.ddd;
 
 /**
  * Services model important domain operations that can't find a natural home in an {@link Entity} or
