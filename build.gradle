@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		springBootVersion = '2.0.3.RELEASE'
+		springBootVersion = '2.0.4.RELEASE'
 	}
 	repositories {
 		mavenCentral()
@@ -14,7 +14,6 @@ allprojects {
 
     apply plugin: 'java'
     apply plugin: 'eclipse'
-    apply plugin: 'io.spring.dependency-management'
    
     sourceCompatibility = 1.8
     group = 'me.nguba'
@@ -38,9 +37,7 @@ allprojects {
         failFast = true
     }
     
-    dependencies {
-        compileOnly('org.springframework.boot:spring-boot-configuration-processor')
-    }
+    
 }
 
 subprojects {
@@ -49,20 +46,16 @@ subprojects {
             name = rootProject.name + "-" + project.name
         }
     }
-    
-    apply plugin: 'org.springframework.boot' 
-    
-    jar {
-        enabled = true
-    }
-    
-    bootJar {
-        enabled = false
+    dependencies {
+        testImplementation('nl.jqno.equalsverifier:equalsverifier:2.+')
+        testImplementation('org.junit.jupiter:junit-jupiter-api:5.1.0')
+        testRuntimeOnly('org.junit.jupiter:junit-jupiter-engine:5.1.0')
     }
     
 }
 
 apply plugin: 'org.springframework.boot' 
+apply plugin: 'io.spring.dependency-management'
  
 dependencies {
 
@@ -71,6 +64,12 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-actuator')
     compile('org.springframework.boot:spring-boot-starter-web')
  
-    testCompile('org.springframework.boot:spring-boot-starter-test')
+    compileOnly('org.springframework.boot:spring-boot-configuration-processor')
+    
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+    
+    testImplementation('nl.jqno.equalsverifier:equalsverifier:2.+')
+    testImplementation('org.junit.jupiter:junit-jupiter-api:5.1.0')
+    testRuntimeOnly('org.junit.jupiter:junit-jupiter-engine:5.1.0')
 }
 
