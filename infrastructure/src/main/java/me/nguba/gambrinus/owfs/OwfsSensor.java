@@ -16,13 +16,12 @@ import java.nio.file.StandardOpenOption;
 public class OwfsSensor extends Aggregate<OwfsAddress>
 {
     private final OwfsMount mount;
-    private final Path      latesttemp;
-
+  
     private OwfsSensor(final OwfsMount mount, final OwfsAddress address) throws IOException
     {
         super(address);
         this.mount = mount;
-        latesttemp = Paths.get(mount.getValue().getPath(), "latesttemp");
+     
     }
 
     public static OwfsSensor mount(final OwfsRoot root, final OwfsAddress address)
@@ -42,6 +41,8 @@ public class OwfsSensor extends Aggregate<OwfsAddress>
 
     public Temperature read() throws IOException
     {
+        final Path latesttemp = Paths.get(mount.getValue().getPath(), "latesttemp");
+        
         try (final FileChannel channel = FileChannel.open(latesttemp, StandardOpenOption.READ)) {
             final ByteBuffer buf = ByteBuffer.allocate(8);
             final StringBuilder builder = new StringBuilder();
