@@ -10,6 +10,9 @@ bootJar {
 }
 
 dependencies {
+
+    compile project(":kernel")
+    
     runtime('org.springframework.boot:spring-boot-devtools')
     compileOnly('org.springframework.boot:spring-boot-configuration-processor')
     
