@@ -40,7 +40,7 @@ public class OwfsSensor extends Aggregate<OwfsAddress>
         return mount;
     }
 
-    public Temperature read()
+    public Temperature read() throws IOException
     {
         try (final FileChannel channel = FileChannel.open(latesttemp, StandardOpenOption.READ)) {
             final ByteBuffer buf = ByteBuffer.allocate(8);
@@ -53,8 +53,6 @@ public class OwfsSensor extends Aggregate<OwfsAddress>
                 buf.clear();
                 return Temperature.celsius(Double.parseDouble(builder.toString()));
             }
-        } catch (final IOException e) {
-            e.printStackTrace();
         }
         return null;
     }

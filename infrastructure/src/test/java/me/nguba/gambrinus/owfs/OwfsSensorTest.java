@@ -42,7 +42,7 @@ class OwfsSensorTest
     }
 
     @Test
-    void read()
+    void read() throws Exception
     {
         final Temperature t1 = sensor.read();
         final Temperature expected = Temperature.celsius(25.7);
@@ -51,11 +51,31 @@ class OwfsSensorTest
     }
 
     @Test
-    void readMultiple()
+    void readMultiple() throws Exception
     {
         final Temperature t1 = sensor.read();
         final Temperature t2 = sensor.read();
 
         assertThat(t1).isEqualTo(t2);
+    }
+
+    @Test
+    void readFromDefectFs() throws Exception
+    {
+        final OwfsSensor defect = OwfsSensor.mount(OwfsRoot.of("src/test/resources/defectfs"),
+                                                   OwfsMother.address());
+
+        assertThrows(IOException.class, () -> defect.read());
+    }
+
+    @Test
+    void readFromEmptyFs() throws Exception
+    {
+        final OwfsSensor empty = OwfsSensor.mount(OwfsRoot.of("src/test/resources/emptyfs"),
+                                                  OwfsMother.address());
+
+        final Temperature temperature = empty.read();
+
+        assertThat(temperature).isNull();
     }
 }
