@@ -7,14 +7,14 @@ import org.junit.jupiter.api.Test;
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-class OwfsTest
+class OwfsSensorTest
 {
     private final OwfsAddress address = OwfsAddress.of("28.4BBB68080000");
     
     @Test
     void testGetId()
     {
-        assertThat(Owfs.of(address).getId()).isEqualTo(address);
+        assertThat(OwfsSensor.of(address).getId()).isEqualTo(address);
     }
 
 }
