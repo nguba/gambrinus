@@ -1,8 +1,14 @@
 package me.nguba.gambrinus.owfs;
 
 import me.nguba.gambrinus.ddd.Aggregate;
+import me.nguba.gambrinus.process.Temperature;
 
 import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.channels.FileChannel;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
@@ -10,17 +16,19 @@ import java.io.IOException;
 public class OwfsSensor extends Aggregate<OwfsAddress>
 {
     private OwfsMount mount;
-
-    private OwfsSensor(OwfsMount mount, OwfsAddress address)
+    private final Path latesttemp;
+    
+    private OwfsSensor(OwfsMount mount, OwfsAddress address) throws IOException
     {
         super(address);
-        this.mount = mount;   
+        this.mount = mount;
+        latesttemp = Paths.get(mount.getValue().getPath(), "latesttemp");
     }
-    
+
     public static OwfsSensor mount(OwfsRoot root, OwfsAddress address) throws IOException
     {
         final OwfsMount mount = OwfsMount.from(root, address);
-        if(!mount.isValid()) {
+        if (!mount.isValid()) {
             throw new IOException("Mountpoint does not exist: " + mount.getValue());
         }
         return new OwfsSensor(mount, address);
@@ -30,5 +38,24 @@ public class OwfsSensor extends Aggregate<OwfsAddress>
     {
         return mount;
     }
-   
+
+    public Temperature read()
+    {
+        try (final FileChannel channel = FileChannel.open(latesttemp, StandardOpenOption.READ)) {
+            ByteBuffer buf = ByteBuffer.allocate(8);
+            StringBuilder builder = new StringBuilder();
+            while ((channel.read(buf)) != -1) {
+                buf.flip();
+                while (buf.hasRemaining()) {
+                    builder.append((char) buf.get());
+                }
+                buf.clear();
+                return Temperature.celsius(Double.parseDouble(builder.toString()));
+            }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

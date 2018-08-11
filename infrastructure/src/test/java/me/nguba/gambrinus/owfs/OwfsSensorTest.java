@@ -1,7 +1,10 @@
 package me.nguba.gambrinus.owfs;
 
+import me.nguba.gambrinus.process.Temperature;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -13,6 +16,14 @@ import java.io.IOException;
  */
 class OwfsSensorTest
 {
+    private OwfsSensor sensor;
+
+    @BeforeEach
+    void setUp() throws Exception
+    {
+        sensor = OwfsSensor.mount(OwfsMother.root(), OwfsMother.address());
+    }
+
     @Test
     void mountFailure() throws Exception
     {
@@ -26,9 +37,25 @@ class OwfsSensorTest
     @Test
     void mount() throws Exception
     {
-        OwfsSensor sensor = OwfsSensor.mount(OwfsMother.root(), OwfsMother.address());
         assertThat(sensor.getMount())
                 .isEqualTo(OwfsMount.from(OwfsMother.root(), OwfsMother.address()));
     }
 
+    @Test
+    void read()
+    {
+        Temperature t1 = sensor.read();
+        Temperature expected = Temperature.celsius(25.7);
+        
+        assertThat(t1).isEqualTo(expected);
+    }
+    
+    @Test
+    void readMultiple()
+    {
+        Temperature t1 = sensor.read();
+        Temperature t2 = sensor.read();
+     
+        assertThat(t1).isEqualTo(t2);
+    }
 }
