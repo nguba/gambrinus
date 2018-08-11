@@ -1,4 +1,4 @@
-package me.nguba.gambrinus.owfs;
+package me.nguba.gambrinus;
 
 import me.nguba.gambrinus.ddd.support.SingleValueObject;
 import nl.jqno.equalsverifier.EqualsVerifier;
@@ -19,12 +19,12 @@ public abstract class SingleValueObjectFixture<I, V extends SingleValueObject<I>
     
     @Test
     @DisplayName("Is valid when not null")
-    void isValidWhenNotNull()
+    protected void isValidWhenNotNull()
     {
         assertThat(valueObject.isValid()).isTrue();
     }
 
-    abstract V makeValueObject();
+    protected abstract V makeValueObject();
 
     @Test
     @DisplayName("toString() returns value as string")

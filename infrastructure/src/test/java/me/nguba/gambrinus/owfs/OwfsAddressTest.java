@@ -1,13 +1,13 @@
 package me.nguba.gambrinus.owfs;
 
+import me.nguba.gambrinus.SingleValueObjectFixture;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
 
 class OwfsAddressTest extends SingleValueObjectFixture<String, OwfsAddress>
 {
-    private static final String VALUE = "28.4BBB68080000";
-
     @Test
     void isNull()
     {
@@ -23,12 +23,13 @@ class OwfsAddressTest extends SingleValueObjectFixture<String, OwfsAddress>
     @Test
     void isShort()
     {
-        assertThat(OwfsAddress.of(VALUE.substring(1)).isValid()).isFalse();
+        final String shortAddress = getValueObject().getValue().substring(1);
+        assertThat(OwfsAddress.of(shortAddress).isValid()).isFalse();
     }
 
     @Override
-    OwfsAddress makeValueObject()
+    protected OwfsAddress makeValueObject()
     {
-        return OwfsAddress.of(VALUE);
+        return OwfsMother.address();
     }
 }

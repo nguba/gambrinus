@@ -1,5 +1,7 @@
 package me.nguba.gambrinus.owfs;
 
+import me.nguba.gambrinus.SingleValueObjectFixture;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.DisplayName;
@@ -24,13 +26,13 @@ class OwfsRootTest extends SingleValueObjectFixture<File, OwfsRoot>
     }
 
     @Override
-    OwfsRoot makeValueObject()
+    protected OwfsRoot makeValueObject()
     {
         return OwfsRoot.of("owfs");
     }
 
     @Override
-    void isValidWhenNotNull()
+    protected void isValidWhenNotNull()
     {
         // disabled for this suite
     }
