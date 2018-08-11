@@ -60,15 +60,6 @@ class OwfsSensorTest
     }
 
     @Test
-    void readFromDefectFs() throws Exception
-    {
-        final OwfsSensor defect = OwfsSensor.mount(OwfsRoot.of("src/test/resources/defectfs"),
-                                                   OwfsMother.address());
-
-        assertThrows(IOException.class, () -> defect.read());
-    }
-
-    @Test
     void readFromEmptyFs() throws Exception
     {
         final OwfsSensor empty = OwfsSensor.mount(OwfsRoot.of("src/test/resources/emptyfs"),
