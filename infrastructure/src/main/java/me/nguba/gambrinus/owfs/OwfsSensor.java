@@ -16,13 +16,13 @@ import java.nio.file.StandardOpenOption;
 public class OwfsSensor extends Aggregate<OwfsAddress>
 {
     private final OwfsMount mount;
-    private final Path latesttemp;
-  
+    private final Path      latesttemp;
+
     private OwfsSensor(final OwfsMount mount, final OwfsAddress address) throws IOException
     {
         super(address);
         this.mount = mount;
-        
+
         latesttemp = Paths.get(mount.getValue().getPath(), "latesttemp");
     }
 

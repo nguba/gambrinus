@@ -7,7 +7,7 @@ import me.nguba.gambrinus.ddd.Entity;
  */
 public final class MashTun extends Entity<VesselId>
 {
-    private MashTun(VesselId id)
+    private MashTun(final VesselId id)
     {
         super(id);
     }
@@ -17,7 +17,7 @@ public final class MashTun extends Entity<VesselId>
         return new MashTun(VesselId.generate());
     }
 
-    public static MashTun from(VesselId id)
+    public static MashTun from(final VesselId id)
     {
         return new MashTun(id);
     }
