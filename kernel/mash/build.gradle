@@ -6,6 +6,4 @@ eclipse {
 
 dependencies {
     compile project(':kernel')  
-    
-    testCompile("org.assertj:assertj-core:3.+")
 }

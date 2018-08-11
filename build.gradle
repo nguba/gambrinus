@@ -37,6 +37,12 @@ allprojects {
         failFast = true
     }
     
+     dependencies {
+        testImplementation("org.assertj:assertj-core:3.+")
+        testImplementation('nl.jqno.equalsverifier:equalsverifier:2.+')
+        testImplementation('org.junit.jupiter:junit-jupiter-api:5.1.0')
+        testRuntimeOnly('org.junit.jupiter:junit-jupiter-engine:5.1.0')
+    }
     
 }
 
@@ -46,12 +52,7 @@ subprojects {
             name = rootProject.name + "-" + project.name
         }
     }
-    dependencies {
-        testImplementation('nl.jqno.equalsverifier:equalsverifier:2.+')
-        testImplementation('org.junit.jupiter:junit-jupiter-api:5.1.0')
-        testRuntimeOnly('org.junit.jupiter:junit-jupiter-engine:5.1.0')
-    }
-    
+   
 }
 
 apply plugin: 'org.springframework.boot' 
@@ -67,9 +68,5 @@ dependencies {
     compileOnly('org.springframework.boot:spring-boot-configuration-processor')
     
     testImplementation('org.springframework.boot:spring-boot-starter-test')
-    
-    testImplementation('nl.jqno.equalsverifier:equalsverifier:2.+')
-    testImplementation('org.junit.jupiter:junit-jupiter-api:5.1.0')
-    testRuntimeOnly('org.junit.jupiter:junit-jupiter-engine:5.1.0')
 }
 
