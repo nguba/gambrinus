@@ -1,4 +1,4 @@
-package me.nguba.gambrinus.domain.cqrs.query;
+package me.nguba.gambrinus.cqrs.query;
 
 /**
  *
