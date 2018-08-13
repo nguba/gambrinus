@@ -17,20 +17,20 @@ public final class CommandProcessor
         this.publisher = publisher;
     }
 
-    public void register(final Class<? extends Command> command, final CommandMutator<?> mutator)
+    public void register(final Class<? extends Command<?>> command, final CommandMutator<?> mutator)
     {
         mutators.put(command, mutator);
     }
 
-    public boolean supports(final Class<? extends Command> command)
+    public boolean supports(final Class<? extends Command<?>> command)
     {
         return mutators.containsKey(command);
     }
 
-    public <C extends Command> void execute(final C command)
+    public <C extends Command<?>> void execute(final C command)
     {
         @SuppressWarnings("unchecked")
-        final CommandMutator<Command> mutator = (CommandMutator<Command>) mutators
+        final CommandMutator<Command<?>> mutator = (CommandMutator<Command<?>>) mutators
                 .get(command.getClass());
         if (mutator == null) {
             return;
@@ -42,6 +42,6 @@ public final class CommandProcessor
 
         mutator.mutate(command);
 
-        publisher.publish(CommandMutatedEvent.from(command));
+        publisher.publish(command.onCompletion());
     }
 }

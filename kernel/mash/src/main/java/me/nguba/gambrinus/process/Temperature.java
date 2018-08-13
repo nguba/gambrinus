@@ -8,7 +8,6 @@ import me.nguba.gambrinus.ddd.ValueObject;
  */
 public final class Temperature implements ValueObject
 {
-
     public enum Scale implements ValueObject
     {
         CELSIUS("C"), KELVIN("K"), FARENHEIT("F");

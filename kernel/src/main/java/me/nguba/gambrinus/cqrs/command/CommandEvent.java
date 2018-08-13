@@ -5,10 +5,8 @@ import java.time.LocalDateTime;
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-public interface MutatedEvent<C>
+public interface CommandEvent
 {
-    C getEntity();
-
     default LocalDateTime timestamp()
     {
         return LocalDateTime.now();

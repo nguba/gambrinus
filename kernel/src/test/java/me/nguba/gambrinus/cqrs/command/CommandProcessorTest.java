@@ -3,15 +3,14 @@ package me.nguba.gambrinus.cqrs.command;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
 class CommandProcessorTest
-        implements CommandMutator<CommandProcessorTest>, Command, Validated, EventPublisher
+        implements CommandMutator<CommandProcessorTest>, Command<CommandEvent>, Validated,
+        EventPublisher, CommandEvent
 {
     private final CommandProcessor processor = new CommandProcessor(this);
 
@@ -19,8 +18,8 @@ class CommandProcessorTest
 
     private final AtomicBoolean validated = new AtomicBoolean();
 
-    private CommandMutatedEvent event;
-
+    private final AtomicBoolean published = new AtomicBoolean();
+    
     @Test
     @DisplayName("Can register a mutator")
     void registerMutator()
@@ -76,15 +75,13 @@ class CommandProcessorTest
 
     @Test
     @DisplayName("Publishes event with command as entity")
-    void publish()
+    void published()
     {
         register();
 
-        assertNull(event);
-
         processor.execute(this);
 
-        assertEquals(this, event.getEntity());
+        assertTrue(published.get());
     }
 
     @Override
@@ -94,9 +91,15 @@ class CommandProcessorTest
     }
 
     @Override
-    public void publish(final CommandMutatedEvent event)
+    public <E extends CommandEvent> void publish(E onCompletion)
     {
-        this.event = event;
+    }
+
+    @Override
+    public CommandEvent onCompletion()
+    {
+        published.getAndSet(true);
+        return null;
     }
 
 }
