@@ -73,4 +73,13 @@ public final class SetpointChanged implements CommandEvent
         }
         return true;
     }
+
+    @Override
+    public String toString()
+    {
+        StringBuilder builder = new StringBuilder();
+        builder.append("SetpointChanged [vesselId=").append(vesselId).append(", setpoint=")
+                .append(setpoint).append("]");
+        return builder.toString();
+    }
 }
