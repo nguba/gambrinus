@@ -19,8 +19,9 @@ public final class Errors implements ValueObject
 
     public void verify() throws ValidationFailed
     {
-        if (!errors.isEmpty())
+        if (!errors.isEmpty()) {
             throw new ValidationFailed(this);
+        }
     }
 
     @Override
@@ -32,30 +33,35 @@ public final class Errors implements ValueObject
         return result;
     }
 
-    public boolean has(Reason reason)
+    public boolean has(final Reason reason)
     {
         return errors.contains(reason);
     }
 
     @Override
-    public boolean equals(Object obj)
+    public boolean equals(final Object obj)
     {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
-        Errors other = (Errors) obj;
+        }
+        final Errors other = (Errors) obj;
         if (errors == null) {
-            if (other.errors != null)
+            if (other.errors != null) {
                 return false;
-        } else if (!errors.equals(other.errors))
+            }
+        } else if (!errors.equals(other.errors)) {
             return false;
+        }
         return true;
     }
 
-    public void add(Reason reason)
+    public void add(final Reason reason)
     {
         errors.add(reason);
     }
@@ -63,7 +69,7 @@ public final class Errors implements ValueObject
     @Override
     public String toString()
     {
-        StringBuilder builder = new StringBuilder();
+        final StringBuilder builder = new StringBuilder();
         builder.append("Errors [errors=").append(errors).append("]");
         return builder.toString();
     }

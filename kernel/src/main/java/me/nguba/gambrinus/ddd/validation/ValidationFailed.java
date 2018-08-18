@@ -7,9 +7,9 @@ public final class ValidationFailed extends Exception
 {
     private static final long serialVersionUID = -6165488948892216564L;
 
-    private Errors            errors;
+    private final Errors errors;
 
-    public ValidationFailed(Errors errors)
+    public ValidationFailed(final Errors errors)
     {
         this.errors = errors;
     }
@@ -29,20 +29,25 @@ public final class ValidationFailed extends Exception
     }
 
     @Override
-    public boolean equals(Object obj)
+    public boolean equals(final Object obj)
     {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
-        ValidationFailed other = (ValidationFailed) obj;
+        }
+        final ValidationFailed other = (ValidationFailed) obj;
         if (errors == null) {
-            if (other.errors != null)
+            if (other.errors != null) {
                 return false;
-        } else if (!errors.equals(other.errors))
+            }
+        } else if (!errors.equals(other.errors)) {
             return false;
+        }
         return true;
     }
 

@@ -13,16 +13,16 @@ import org.junit.jupiter.api.Test;
 class BrewmasterTest implements EventPublisher
 {
     private final VesselRepository vessels = new VesselRepository();
-    
+
     private Brewmaster brewmaster;
 
     @BeforeEach
     void setUp()
     {
         vessels.create(Vessel.of(VesselId.of("mash")));
-        
-        CommandProcessorFactory factory = new CommandProcessorFactory(this, vessels);
-        
+
+        final CommandProcessorFactory factory = new CommandProcessorFactory(this, vessels);
+
         brewmaster = new Brewmaster(factory.make());
     }
 

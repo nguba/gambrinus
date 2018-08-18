@@ -1,4 +1,4 @@
- package me.nguba.gambrinus.owfs;
+package me.nguba.gambrinus.owfs;
 
 import me.nguba.gambrinus.ddd.Aggregate;
 import me.nguba.gambrinus.process.Temperature;

@@ -87,19 +87,19 @@ class CommandProcessorTest
     }
 
     @Override
-    public <E extends CommandEvent> void publish(E onCompletion)
+    public <E extends CommandEvent> void publish(final E onCompletion)
     {
     }
 
     @Override
-    public CommandProcessorTest onCompletion(CommandProcessorTest command)
+    public CommandProcessorTest onCompletion(final CommandProcessorTest command)
     {
         published.getAndSet(true);
         return this;
     }
 
     @Override
-    public void validate(CommandProcessorTest command, Errors errors)
+    public void validate(final CommandProcessorTest command, final Errors errors)
     {
         validated.getAndSet(true);
     }
