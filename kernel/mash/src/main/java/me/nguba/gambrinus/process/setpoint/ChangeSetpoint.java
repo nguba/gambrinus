@@ -1,14 +1,13 @@
 package me.nguba.gambrinus.process.setpoint;
 
 import me.nguba.gambrinus.cqrs.command.Command;
-import me.nguba.gambrinus.ddd.ValueObject;
 import me.nguba.gambrinus.equipment.VesselId;
 import me.nguba.gambrinus.process.Temperature;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-public final class ChangeSetpoint implements Command<SetpointChanged>, ValueObject
+public final class ChangeSetpoint implements Command
 {
     private final VesselId vesselId;
 

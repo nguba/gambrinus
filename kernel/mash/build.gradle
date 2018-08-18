@@ -5,5 +5,5 @@ eclipse {
 }
 
 dependencies {
-    compile project(':kernel')  
+    compile project(':kernel')
 }

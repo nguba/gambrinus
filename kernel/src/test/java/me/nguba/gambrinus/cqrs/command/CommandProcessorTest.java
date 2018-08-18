@@ -1,5 +1,7 @@
 package me.nguba.gambrinus.cqrs.command;
 
+import me.nguba.gambrinus.ddd.validation.Errors;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -9,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 class CommandProcessorTest
-        implements CommandMutator<CommandProcessorTest>, Command<CommandEvent>, Validated,
+        implements CommandMutator<CommandProcessorTest, CommandProcessorTest>, Command,
         EventPublisher, CommandEvent
 {
     private final CommandProcessor processor = new CommandProcessor(this);
@@ -19,7 +21,7 @@ class CommandProcessorTest
     private final AtomicBoolean validated = new AtomicBoolean();
 
     private final AtomicBoolean published = new AtomicBoolean();
-    
+
     @Test
     @DisplayName("Can register a mutator")
     void registerMutator()
@@ -43,7 +45,7 @@ class CommandProcessorTest
 
     @Test
     @DisplayName("Executes registered mutator")
-    void execute()
+    void execute() throws Exception
     {
         register();
 
@@ -62,7 +64,7 @@ class CommandProcessorTest
 
     @Test
     @DisplayName("Executes validator when requested")
-    void validator()
+    void validator() throws Exception
     {
         register();
 
@@ -75,7 +77,7 @@ class CommandProcessorTest
 
     @Test
     @DisplayName("Publishes event with command as entity")
-    void published()
+    void published() throws Exception
     {
         register();
 
@@ -85,21 +87,21 @@ class CommandProcessorTest
     }
 
     @Override
-    public void validate()
-    {
-        validated.getAndSet(true);
-    }
-
-    @Override
     public <E extends CommandEvent> void publish(E onCompletion)
     {
     }
 
     @Override
-    public CommandEvent onCompletion()
+    public CommandProcessorTest onCompletion(CommandProcessorTest command)
     {
         published.getAndSet(true);
-        return null;
+        return this;
+    }
+
+    @Override
+    public void validate(CommandProcessorTest command, Errors errors)
+    {
+        validated.getAndSet(true);
     }
 
 }

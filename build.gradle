@@ -37,7 +37,7 @@ allprojects {
         failFast = true
     }
     
-     dependencies {
+     dependencies {     
         testImplementation("org.assertj:assertj-core:3.+")
         testImplementation('nl.jqno.equalsverifier:equalsverifier:2.+')
         testImplementation('org.junit.jupiter:junit-jupiter-api:5.1.0')
