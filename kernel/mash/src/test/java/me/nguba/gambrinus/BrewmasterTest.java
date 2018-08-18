@@ -7,6 +7,8 @@ import me.nguba.gambrinus.equipment.VesselId;
 import me.nguba.gambrinus.equipment.VesselRepository;
 import me.nguba.gambrinus.process.Temperature;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -16,14 +18,17 @@ class BrewmasterTest implements EventPublisher
 
     private Brewmaster brewmaster;
 
+    private final VesselId vesselId = VesselId.of("mash");
+
     @BeforeEach
     void setUp()
     {
-        vessels.create(Vessel.of(VesselId.of("mash")));
+        vessels.create(Vessel.of(vesselId));
 
-        final CommandProcessorFactory factory = new CommandProcessorFactory(this, vessels);
+        final CommandProcessorFactory commandFactory = new CommandProcessorFactory(this, vessels);
+        final QueryProcessorFactory queryFactory = new QueryProcessorFactory(vessels);
 
-        brewmaster = new Brewmaster(factory.make());
+        brewmaster = new Brewmaster(commandFactory.make(), queryFactory.make());
     }
 
     @Test
@@ -39,4 +44,10 @@ class BrewmasterTest implements EventPublisher
         System.out.println(onCompletion);
     }
 
+    @Test
+    void readTemperarture() throws Exception
+    {
+        final Temperature temperature = brewmaster.readTemperature(vesselId);
+        assertThat(temperature).isEqualTo(Temperature.celsius(0));
+    }
 }

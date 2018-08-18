@@ -8,7 +8,9 @@ import me.nguba.gambrinus.process.Temperature;
  */
 public final class Vessel extends Aggregate<VesselId>
 {
-    private Temperature setpoint;
+    private Temperature setpoint = Temperature.celsius(0);
+
+    private final Temperature processValue = Temperature.celsius(0);
 
     private Vessel(final VesselId id)
     {
@@ -17,9 +19,7 @@ public final class Vessel extends Aggregate<VesselId>
 
     public static Vessel of(final VesselId id)
     {
-        final Vessel vessel = new Vessel(id);
-        vessel.setpoint(Temperature.celsius(0));
-        return vessel;
+        return new Vessel(id);
     }
 
     public Temperature setpoint()
@@ -30,5 +30,10 @@ public final class Vessel extends Aggregate<VesselId>
     public void setpoint(final Temperature setpoint)
     {
         this.setpoint = setpoint;
+    }
+
+    public Temperature processValue()
+    {
+        return processValue;
     }
 }
