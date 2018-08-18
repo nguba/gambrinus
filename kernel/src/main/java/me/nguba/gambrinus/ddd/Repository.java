@@ -1,13 +1,15 @@
 package me.nguba.gambrinus.ddd;
 
+import java.util.Optional;
+
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
 public interface Repository<I, A extends Aggregate<I>>
 {
-    I create(A agggregate);
+    Optional<I> create(A aggregate);
 
-    A read(I identifier);
+    Optional<A> read(I identifier);
 
     void update(A aggregate);
 
