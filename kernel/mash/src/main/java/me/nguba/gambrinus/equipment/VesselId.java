@@ -12,7 +12,7 @@ public class VesselId extends SingleValueObject<String>
         super(value);
     }
 
-    public static VesselId of(String name)
+    public static VesselId of(final String name)
     {
         return new VesselId(name);
     }

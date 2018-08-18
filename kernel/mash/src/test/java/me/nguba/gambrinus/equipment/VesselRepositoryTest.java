@@ -20,21 +20,21 @@ class VesselRepositoryTest
     @Test
     void createReturnsId()
     {
-        Optional<VesselId> id = create(mashTun);
+        final Optional<VesselId> id = create(mashTun);
 
         assertThat(id.get()).isEqualTo(VesselId.of("mash"));
     }
 
-    private Optional<VesselId> create(Vessel vessel)
+    private Optional<VesselId> create(final Vessel vessel)
     {
-        Optional<VesselId> id = repository.create(vessel);
+        final Optional<VesselId> id = repository.create(vessel);
         return id;
     }
 
     @Test
     void canReadStoredObject()
     {
-        Optional<VesselId> id = create(mashTun);
+        final Optional<VesselId> id = create(mashTun);
 
         assertThat(repository.read(id.get()).get()).isEqualTo(mashTun);
     }
@@ -42,8 +42,8 @@ class VesselRepositoryTest
     @Test
     void canReadDifferentStoredObject()
     {
-        Vessel vessel = Vessel.of(VesselId.of("hlt"));
-        Optional<VesselId> id = create(vessel);
+        final Vessel vessel = Vessel.of(VesselId.of("hlt"));
+        final Optional<VesselId> id = create(vessel);
 
         assertThat(repository.read(id.get()).get()).isEqualTo(vessel);
     }
@@ -63,7 +63,7 @@ class VesselRepositoryTest
     @Test
     void deleteVessel()
     {
-        Optional<VesselId> id = create(mashTun);
+        final Optional<VesselId> id = create(mashTun);
 
         repository.delete(id.get());
 
@@ -75,14 +75,13 @@ class VesselRepositoryTest
     {
         repository.delete(null);
     }
-    
+
     @Test
     void readNull()
     {
         assertThat(repository.read(null).isPresent()).isFalse();
     }
-    
-    
+
     @Test
     void createNull()
     {

@@ -17,12 +17,13 @@ class VesselTest
     {
         assertThat(vessel.setpoint()).isEqualTo(Temperature.celsius(0));
     }
-    
+
     @Test
     @DisplayName("Temperature is mutable")
-    public void canChangeTemperature() {      
+    public void canChangeTemperature()
+    {
         vessel.setpoint(Temperature.celsius(65.5));
-        
+
         assertThat(vessel.setpoint()).isEqualTo(Temperature.celsius(65.5));
     }
 }

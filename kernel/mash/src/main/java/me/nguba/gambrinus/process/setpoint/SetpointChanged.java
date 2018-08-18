@@ -13,13 +13,13 @@ public final class SetpointChanged implements CommandEvent
 
     private final Temperature setpoint;
 
-    private SetpointChanged(VesselId vesselId, Temperature setpoint)
+    private SetpointChanged(final VesselId vesselId, final Temperature setpoint)
     {
         this.vesselId = vesselId;
         this.setpoint = setpoint;
     }
 
-    public static SetpointChanged on(VesselId vesselId, Temperature setpoint)
+    public static SetpointChanged on(final VesselId vesselId, final Temperature setpoint)
     {
         return new SetpointChanged(vesselId, setpoint);
     }
@@ -45,25 +45,32 @@ public final class SetpointChanged implements CommandEvent
     }
 
     @Override
-    public boolean equals(Object obj)
+    public boolean equals(final Object obj)
     {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
-        SetpointChanged other = (SetpointChanged) obj;
+        }
+        final SetpointChanged other = (SetpointChanged) obj;
         if (setpoint == null) {
-            if (other.setpoint != null)
+            if (other.setpoint != null) {
                 return false;
-        } else if (!setpoint.equals(other.setpoint))
+            }
+        } else if (!setpoint.equals(other.setpoint)) {
             return false;
+        }
         if (vesselId == null) {
-            if (other.vesselId != null)
+            if (other.vesselId != null) {
                 return false;
-        } else if (!vesselId.equals(other.vesselId))
+            }
+        } else if (!vesselId.equals(other.vesselId)) {
             return false;
+        }
         return true;
     }
 }

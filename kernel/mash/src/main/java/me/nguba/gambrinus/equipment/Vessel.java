@@ -17,7 +17,7 @@ public final class Vessel extends Aggregate<VesselId>
 
     public static Vessel of(final VesselId id)
     {
-        Vessel vessel = new Vessel(id);
+        final Vessel vessel = new Vessel(id);
         vessel.setpoint(Temperature.celsius(0));
         return vessel;
     }
@@ -27,7 +27,7 @@ public final class Vessel extends Aggregate<VesselId>
         return setpoint;
     }
 
-    public void setpoint(Temperature setpoint)
+    public void setpoint(final Temperature setpoint)
     {
         this.setpoint = setpoint;
     }
