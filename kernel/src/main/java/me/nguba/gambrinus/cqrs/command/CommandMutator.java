@@ -6,4 +6,6 @@ package me.nguba.gambrinus.cqrs.command;
 public interface CommandMutator<V extends Command<?>>
 {
     void mutate(V command);
+    
+    <E extends CommandEvent> E onCompletion();
 }

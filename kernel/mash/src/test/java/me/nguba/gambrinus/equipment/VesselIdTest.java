@@ -11,7 +11,7 @@ class VesselIdTest
     @Test
     void identifiersAreEqual()
     {
-        assertThat(VesselId.from("Mash")).isEqualTo(VesselId.from("Mash"));
+        assertThat(VesselId.of("Mash")).isEqualTo(VesselId.of("Mash"));
     }
 
     @Test

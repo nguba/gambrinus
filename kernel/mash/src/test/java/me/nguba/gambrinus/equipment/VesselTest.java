@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 class VesselTest
 {
-    private final Vessel vessel = Vessel.of(VesselId.from("junit"));
+    private final Vessel vessel = Vessel.of(VesselId.of("junit"));
 
     @Test
     @DisplayName("Temperature should be 0 Celsius by default")

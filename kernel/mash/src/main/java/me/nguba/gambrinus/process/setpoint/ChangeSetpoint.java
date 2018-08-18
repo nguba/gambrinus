@@ -67,10 +67,4 @@ public final class ChangeSetpoint implements Command<SetpointChanged>, ValueObje
             return false;
         return true;
     }
-
-    @Override
-    public SetpointChanged onCompletion()
-    {
-        return SetpointChanged.on(vesselId, setpoint);
-    }
 }

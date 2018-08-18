@@ -1,28 +1,26 @@
 package me.nguba.gambrinus.process.setpoint;
 
+import me.nguba.gambrinus.equipment.VesselId;
+import me.nguba.gambrinus.process.Temperature;
+
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class ChangeSetpointTest
 {
-    
+    private final ChangeSetpoint command = ChangeSetpoint.on(VesselId.of("setpoint test"),
+                                               Temperature.celsius(58.0));
+
     @Test
-    void testGetVesselId()
+    void hasVesselId()
     {
-        fail("Not yet implemented");
+        assertEquals(command.getVesselId(), VesselId.of("setpoint test"));
     }
 
     @Test
-    void testGetSetpoint()
+    void hasSetpoint()
     {
-        fail("Not yet implemented");
+        assertEquals(command.getSetpoint(), Temperature.celsius(58.0));
     }
-
-    @Test
-    void testOnCompletion()
-    {
-        fail("Not yet implemented");
-    }
-
 }

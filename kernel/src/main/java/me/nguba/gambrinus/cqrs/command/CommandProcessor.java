@@ -42,6 +42,6 @@ public final class CommandProcessor
 
         mutator.mutate(command);
 
-        publisher.publish(command.onCompletion());
+        publisher.publish(mutator.onCompletion());
     }
 }
