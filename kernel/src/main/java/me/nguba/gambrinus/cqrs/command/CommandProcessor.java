@@ -38,7 +38,8 @@ public final class CommandProcessor
                 .get(command.getClass());
 
         if (mutator == null) {
-            return;
+            throw new UnsupportedOperationException(String.format("No mutator for: %s",
+                                                                  command.getClass()));
         }
 
         validate(command, mutator);
