@@ -4,6 +4,8 @@ import me.nguba.gambrinus.cqrs.query.QueryProcessor;
 import me.nguba.gambrinus.equipment.VesselRepository;
 import me.nguba.gambrinus.process.query.ReadTemperature;
 import me.nguba.gambrinus.process.query.ReadTemperatureHandler;
+import me.nguba.gambrinus.query.vessel.FindVessels;
+import me.nguba.gambrinus.query.vessel.FindVesselsHandler;
 
 public class QueryProcessorFactory
 {
@@ -18,6 +20,7 @@ public class QueryProcessorFactory
     {
         final QueryProcessor processor = new QueryProcessor();
         processor.register(ReadTemperature.class, new ReadTemperatureHandler(vessels));
+        processor.register(FindVessels.class, new FindVesselsHandler(vessels));
         return processor;
     }
 }
