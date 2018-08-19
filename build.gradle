@@ -68,6 +68,7 @@ configurations {
 
 dependencies {
 
+    compile project (":kernel:admin")
     compile project (":kernel:mash")
     compile project (":infrastructure")
      

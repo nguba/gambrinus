@@ -35,7 +35,7 @@ public class GambrinusApplication
     }
 
     @Bean
-    public MashQueryProcessorFactory queryProcessor(final VesselRepository vessels)
+    public MashQueryProcessorFactory mashQueryProcessor(final VesselRepository vessels)
     {
         return new MashQueryProcessorFactory(vessels);
     }
@@ -45,5 +45,24 @@ public class GambrinusApplication
                                  final MashQueryProcessorFactory queries)
     {
         return new Brewmaster(commands, queries);
+    }
+
+    @Bean
+    public AdminQueryProcessorFactory adminQueryProcessor(final VesselRepository vessels)
+    {
+        return new AdminQueryProcessorFactory(vessels);
+    }
+
+    @Bean
+    public AdminCommandProcessorFactory adminCommandProcessor(final EventPublisher publisher)
+    {
+        return new AdminCommandProcessorFactory(publisher);
+    }
+
+    @Bean
+    public Administrator administrator(final AdminCommandProcessorFactory commands,
+                                       final AdminQueryProcessorFactory queries)
+    {
+        return new Administrator(commands, queries);
     }
 }

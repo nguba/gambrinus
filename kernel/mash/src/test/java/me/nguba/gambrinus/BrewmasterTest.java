@@ -54,16 +54,4 @@ class BrewmasterTest implements EventPublisher
         final Temperature temperature = brewmaster.readTemperature(vesselId);
         assertThat(temperature).isEqualTo(Temperature.celsius(0));
     }
-
-    @Test
-    void findVessels() throws Exception
-    {
-        final Vessel[] expected = { Vessel.of(VesselId.of("a")), Vessel.of(VesselId.of("b")) };
-        for (final Vessel v : expected) {
-            vessels.create(v);
-        }
-
-        assertThat(brewmaster.findVessels()).contains(expected);
-
-    }
 }
