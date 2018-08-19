@@ -28,7 +28,7 @@ class OwfsRootTest extends SingleValueObjectFixture<File, OwfsRoot>
     @Override
     protected OwfsRoot makeValueObject()
     {
-        return OwfsRoot.of("owfs");
+        return OwfsRoot.of("src/test/resources/owfs");
     }
 
     @Override
@@ -42,5 +42,18 @@ class OwfsRootTest extends SingleValueObjectFixture<File, OwfsRoot>
     void isValidWhenPathExists()
     {
         assertThat(OwfsRoot.of("src/test/resources/owfs").isValid()).isTrue();
+    }
+
+    @Test
+    void listAllSensors() throws Exception
+    {
+        final OwfsSensor one = OwfsSensor.mount(getValueObject(),
+                                                OwfsAddress.of("28.273B5D070000"));
+        final OwfsSensor two = OwfsSensor.mount(getValueObject(),
+                                                OwfsAddress.of("28.4BBB68080000"));
+
+        final OwfsSensor[] expected = { one, two };
+
+        assertThat(getValueObject().listSensors()).contains(expected);
     }
 }

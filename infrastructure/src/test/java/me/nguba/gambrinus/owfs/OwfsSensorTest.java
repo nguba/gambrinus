@@ -60,7 +60,7 @@ class OwfsSensorTest
     }
 
     @Test
-    void readFromEmptyFs() throws Exception
+    void readFromEmptyTemperatureFile() throws Exception
     {
         final OwfsSensor empty = OwfsSensor.mount(OwfsRoot.of("src/test/resources/emptyfs"),
                                                   OwfsMother.address());
