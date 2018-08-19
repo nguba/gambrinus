@@ -1,8 +1,6 @@
 package me.nguba.gambrinus;
 
-import me.nguba.gambrinus.cqrs.command.CommandProcessor;
 import me.nguba.gambrinus.cqrs.command.EventPublisher;
-import me.nguba.gambrinus.cqrs.query.QueryProcessor;
 import me.nguba.gambrinus.equipment.VesselRepository;
 
 import org.springframework.boot.SpringApplication;
@@ -30,20 +28,20 @@ public class GambrinusApplication
     }
 
     @Bean
-    public CommandProcessor commandProcessor(final EventPublisher publisher,
+    public MashCommandProcessorFactory mashCommandProcessor(final EventPublisher publisher,
                                              final VesselRepository vessels)
     {
-        return new MashCommandProcessorFactory(publisher, vessels).make();
+        return new MashCommandProcessorFactory(publisher, vessels);
     }
 
     @Bean
-    public QueryProcessor queryProcessor(final VesselRepository vessels)
+    public MashQueryProcessorFactory queryProcessor(final VesselRepository vessels)
     {
-        return new MashQueryProcessorFactory(vessels).make();
+        return new MashQueryProcessorFactory(vessels);
     }
 
     @Bean
-    public Brewmaster brewmaster(final CommandProcessor commands, final QueryProcessor queries)
+    public Brewmaster brewmaster(final MashCommandProcessorFactory commands, final MashQueryProcessorFactory queries)
     {
         return new Brewmaster(commands, queries);
     }

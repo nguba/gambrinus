@@ -23,10 +23,11 @@ public final class Brewmaster
 
     private final QueryProcessor queries;
 
-    public Brewmaster(final CommandProcessor commands, final QueryProcessor queries)
+    public Brewmaster(MashCommandProcessorFactory commandFactory,
+                      MashQueryProcessorFactory queryFactory)
     {
-        this.commands = commands;
-        this.queries = queries;
+        commands = commandFactory.make();
+        queries = queryFactory.make();
     }
 
     public void heat(final VesselId vessel, final Temperature target) throws ValidationFailed
