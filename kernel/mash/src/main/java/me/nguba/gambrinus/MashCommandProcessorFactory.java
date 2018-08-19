@@ -9,12 +9,12 @@ import me.nguba.gambrinus.process.setpoint.ChangeSetpointMutator;
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-public final class CommandProcessorFactory
+public final class MashCommandProcessorFactory
 {
     private final VesselRepository vessels;
     private final EventPublisher   publisher;
 
-    public CommandProcessorFactory(final EventPublisher publisher, final VesselRepository vessels)
+    public MashCommandProcessorFactory(final EventPublisher publisher, final VesselRepository vessels)
     {
         this.publisher = publisher;
         this.vessels = vessels;

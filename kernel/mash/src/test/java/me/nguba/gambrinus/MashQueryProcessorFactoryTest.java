@@ -9,9 +9,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
 
-class QueryProcessorFactoryTest
+class MashQueryProcessorFactoryTest
 {
-    private final QueryProcessor processor = new QueryProcessorFactory(new VesselRepository()).make();
+    private final QueryProcessor processor = new MashQueryProcessorFactory(new VesselRepository()).make();
 
     @Test
     void supportsReadTemperature()

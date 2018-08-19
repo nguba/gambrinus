@@ -33,13 +33,13 @@ public class GambrinusApplication
     public CommandProcessor commandProcessor(final EventPublisher publisher,
                                              final VesselRepository vessels)
     {
-        return new CommandProcessorFactory(publisher, vessels).make();
+        return new MashCommandProcessorFactory(publisher, vessels).make();
     }
 
     @Bean
     public QueryProcessor queryProcessor(final VesselRepository vessels)
     {
-        return new QueryProcessorFactory(vessels).make();
+        return new MashQueryProcessorFactory(vessels).make();
     }
 
     @Bean
