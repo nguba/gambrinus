@@ -68,8 +68,9 @@ configurations {
 
 dependencies {
 
-    compile project (":kernel")
-    
+    compile project (":kernel:mash")
+    compile project (":infrastructure")
+     
     compile('org.springframework.boot:spring-boot-starter-actuator')
     compile('org.springframework.boot:spring-boot-starter-web')
     compile('org.springframework.boot:spring-boot-starter-undertow')

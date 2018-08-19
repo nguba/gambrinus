@@ -73,4 +73,9 @@ public final class Errors implements ValueObject
         builder.append("Errors [errors=").append(errors).append("]");
         return builder.toString();
     }
+
+    public boolean hasErrors()
+    {
+        return !errors.isEmpty();
+    }
 }
