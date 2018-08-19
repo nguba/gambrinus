@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Default event publisher that logs to the configured logging system but does not broadcast any
  * events to subscribers. Useful during testing.
- * 
+ *
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
 public final class GuavaEventPublisher implements EventPublisher
@@ -19,7 +19,7 @@ public final class GuavaEventPublisher implements EventPublisher
     private static final Logger LOGGER = LoggerFactory.getLogger(EventPublisher.class);
 
     private final EventBus bus = new EventBus();
-    
+
     @Override
     public <E extends CommandEvent> void publish(final E event)
     {
@@ -28,7 +28,7 @@ public final class GuavaEventPublisher implements EventPublisher
     }
 
     @Override
-    public void subscribe(Object recipient)
+    public void subscribe(final Object recipient)
     {
         bus.register(recipient);
     }

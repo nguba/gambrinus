@@ -1,28 +1,29 @@
 package me.nguba.gambrinus;
 
-import me.nguba.gambrinus.equipment.VesselId;
+import me.nguba.gambrinus.cqrs.command.CommandEvent;
+import me.nguba.gambrinus.onewire.OneWireAddress;
 import me.nguba.gambrinus.process.Temperature;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-public final class ProcessValueChanged
+public final class ProcessValueChanged implements CommandEvent
 {
-    public static ProcessValueChanged on(VesselId vesselId, Temperature expected)
+    public static ProcessValueChanged on(final OneWireAddress address, final Temperature expected)
     {
-        if (vesselId == null) {
-            throw new IllegalArgumentException("VesselId cannot be null.");
+        if (address == null) {
+            throw new IllegalArgumentException("OneWireAddres cannot be null.");
         }
-        return new ProcessValueChanged(vesselId, expected);
+        return new ProcessValueChanged(address, expected);
     }
 
-    private Temperature processValue;
+    private final Temperature processValue;
 
-    private VesselId vesselId;
+    private final OneWireAddress address;
 
-    private ProcessValueChanged(VesselId vesselId, Temperature processValue)
+    private ProcessValueChanged(final OneWireAddress adddress, final Temperature processValue)
     {
-        this.vesselId = vesselId;
+        this.address = adddress;
         this.processValue = processValue == null ? Temperature.celsius(0) : processValue;
     }
 
@@ -31,8 +32,50 @@ public final class ProcessValueChanged
         return processValue;
     }
 
-    public VesselId getVesselId()
+    public OneWireAddress getAddress()
     {
-        return vesselId;
+        return address;
+    }
+
+    @Override
+    public String toString()
+    {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("ProcessValueChanged [address=").append(address).append(", processValue=")
+                .append(processValue).append("]");
+        return builder.toString();
+    }
+
+    @Override
+    public int hashCode()
+    {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((address == null) ? 0 : address.hashCode());
+        result = prime * result + ((processValue == null) ? 0 : processValue.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        ProcessValueChanged other = (ProcessValueChanged) obj;
+        if (address == null) {
+            if (other.address != null)
+                return false;
+        } else if (!address.equals(other.address))
+            return false;
+        if (processValue == null) {
+            if (other.processValue != null)
+                return false;
+        } else if (!processValue.equals(other.processValue))
+            return false;
+        return true;
     }
 }

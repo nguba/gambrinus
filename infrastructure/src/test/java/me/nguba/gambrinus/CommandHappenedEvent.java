@@ -13,5 +13,5 @@ public final class CommandHappenedEvent implements CommandEvent
     {
         return timestamp().toString();
     }
-    
+
 }

@@ -16,28 +16,28 @@ class GuavaEventPublisherTest
     private final GuavaEventPublisher publisher = new GuavaEventPublisher();
 
     private CommandEvent event;
-    
+
     @Test
     void publishSubscribed()
     {
         publisher.subscribe(this);
 
         publisher.publish(new CommandHappenedEvent());
-        
+
         assertThat(event).isInstanceOf(CommandHappenedEvent.class);
     }
-    
+
     @Test
     void publishNotSubscribed()
     {
- 
+
         publisher.publish(new CommandHappenedEvent());
-        
+
         assertThat(event).isNull();
     }
 
     @Subscribe
-    public void callback(CommandHappenedEvent event)
+    public void callback(final CommandHappenedEvent event)
     {
         this.event = event;
     }

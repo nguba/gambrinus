@@ -10,17 +10,14 @@ bootJar {
 }
 
 dependencies {
-
-    compile project(":kernel")
     compile project(":kernel:mash")
-    
     compile('org.springframework.boot:spring-boot-starter')
     compile('com.google.guava:guava:26.0-jre')
+   
     runtime('org.springframework.boot:spring-boot-devtools')
+   
     compileOnly('org.springframework.boot:spring-boot-configuration-processor')
     
-    testCompile('org.springframework.boot:spring-boot-starter-test') {
-        exclude group: 'junit', module: 'junit'
-    }
+    testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
