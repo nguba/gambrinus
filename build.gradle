@@ -37,7 +37,11 @@ allprojects {
         failFast = true
     }
     
-     dependencies {     
+    configurations {
+        compile.exclude module: 'junit'
+    }
+    
+    dependencies {     
         testImplementation("org.assertj:assertj-core:3.+")
         testImplementation('nl.jqno.equalsverifier:equalsverifier:2.+')
         testImplementation('org.junit.jupiter:junit-jupiter-api:5.1.0')
@@ -57,14 +61,19 @@ subprojects {
 
 apply plugin: 'org.springframework.boot' 
 apply plugin: 'io.spring.dependency-management'
- 
+
+configurations {
+    compile.exclude module: 'spring-boot-starter-tomcat'
+}
+
 dependencies {
 
     compile project (":kernel")
     
     compile('org.springframework.boot:spring-boot-starter-actuator')
     compile('org.springframework.boot:spring-boot-starter-web')
- 
+    compile('org.springframework.boot:spring-boot-starter-undertow')
+    
     compileOnly('org.springframework.boot:spring-boot-configuration-processor')
     
     testImplementation('org.springframework.boot:spring-boot-starter-test')
