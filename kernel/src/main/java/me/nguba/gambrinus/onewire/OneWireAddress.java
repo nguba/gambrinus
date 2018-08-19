@@ -1,20 +1,20 @@
-package me.nguba.gambrinus.owfs;
+package me.nguba.gambrinus.onewire;
 
 import me.nguba.gambrinus.ddd.support.SingleValueObject;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-public final class OwfsAddress extends SingleValueObject<String>
+public final class OneWireAddress extends SingleValueObject<String>
 {
-    private OwfsAddress(final String value)
+    private OneWireAddress(final String value)
     {
         super(value);
     }
 
-    public static OwfsAddress of(final String address)
+    public static OneWireAddress of(final String address)
     {
-        return new OwfsAddress(address);
+        return new OneWireAddress(address);
     }
 
     @Override

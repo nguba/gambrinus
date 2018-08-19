@@ -1,5 +1,7 @@
 package me.nguba.gambrinus.owfs;
 
+import me.nguba.gambrinus.onewire.OneWireAddress;
+
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
@@ -15,8 +17,8 @@ public final class OwfsMother
         return OwfsRoot.of("src/test/resources/owfs");
     }
 
-    public static OwfsAddress address()
+    public static OneWireAddress address()
     {
-        return OwfsAddress.of("28.4BBB68080000");
+        return OneWireAddress.of("28.4BBB68080000");
     }
 }

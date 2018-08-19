@@ -2,6 +2,8 @@ package me.nguba.gambrinus;
 
 import me.nguba.gambrinus.cqrs.query.QueryProcessor;
 import me.nguba.gambrinus.equipment.VesselRepository;
+import me.nguba.gambrinus.query.onewire.FindOneWireAddresses;
+import me.nguba.gambrinus.query.onewire.FindOneWireAddressesHandler;
 import me.nguba.gambrinus.query.vessel.FindVessels;
 import me.nguba.gambrinus.query.vessel.FindVesselsHandler;
 
@@ -18,6 +20,7 @@ public class AdminQueryProcessorFactory
     {
         final QueryProcessor processor = new QueryProcessor();
         processor.register(FindVessels.class, new FindVesselsHandler(vessels));
+        processor.register(FindOneWireAddresses.class, new FindOneWireAddressesHandler());
         return processor;
     }
 }

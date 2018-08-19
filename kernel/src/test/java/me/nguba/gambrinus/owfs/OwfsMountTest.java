@@ -1,5 +1,7 @@
 package me.nguba.gambrinus.owfs;
 
+import me.nguba.gambrinus.onewire.OneWireAddress;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.DisplayName;
@@ -27,6 +29,6 @@ class OwfsMountTest
     @DisplayName("Is Not Valid when path doesn't exist")
     void isInvalid()
     {
-        assertThat(OwfsMount.from(OwfsMother.root(), OwfsAddress.of("arse")).isValid()).isFalse();
+        assertThat(OwfsMount.from(OwfsMother.root(), OneWireAddress.of("arse")).isValid()).isFalse();
     }
 }

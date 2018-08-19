@@ -1,6 +1,7 @@
 package me.nguba.gambrinus.owfs;
 
 import me.nguba.gambrinus.SingleValueObjectFixture;
+import me.nguba.gambrinus.onewire.OneWireAddress;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -48,9 +49,9 @@ class OwfsRootTest extends SingleValueObjectFixture<File, OwfsRoot>
     void listAllSensors() throws Exception
     {
         final OwfsSensor one = OwfsSensor.mount(getValueObject(),
-                                                OwfsAddress.of("28.273B5D070000"));
+                                                OneWireAddress.of("28.273B5D070000"));
         final OwfsSensor two = OwfsSensor.mount(getValueObject(),
-                                                OwfsAddress.of("28.4BBB68080000"));
+                                                OneWireAddress.of("28.4BBB68080000"));
 
         final OwfsSensor[] expected = { one, two };
 

@@ -8,7 +8,7 @@ import me.nguba.gambrinus.cqrs.command.EventPublisher;
  */
 public final class AdminCommandProcessorFactory
 {
-    private final EventPublisher   publisher;
+    private final EventPublisher publisher;
 
     public AdminCommandProcessorFactory(final EventPublisher publisher)
     {

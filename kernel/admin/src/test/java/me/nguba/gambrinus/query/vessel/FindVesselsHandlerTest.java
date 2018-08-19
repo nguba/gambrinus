@@ -49,7 +49,7 @@ class FindVesselsHandlerTest
 
         final FindVesselsResult result = handler.run(FindVessels.create());
 
-        assertThat(result.getResult().get()).contains(expected);
+        assertThat(result.getResult().get()).containsOnly(expected);
     }
 
 }

@@ -1,6 +1,7 @@
 package me.nguba.gambrinus.owfs;
 
 import me.nguba.gambrinus.ddd.Aggregate;
+import me.nguba.gambrinus.onewire.OneWireAddress;
 import me.nguba.gambrinus.process.Temperature;
 
 import java.io.IOException;
@@ -13,12 +14,12 @@ import java.nio.file.StandardOpenOption;
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-public class OwfsSensor extends Aggregate<OwfsAddress>
+public class OwfsSensor extends Aggregate<OneWireAddress>
 {
     private final OwfsMount mount;
     private final Path      latesttemp;
 
-    private OwfsSensor(final OwfsMount mount, final OwfsAddress address) throws IOException
+    private OwfsSensor(final OwfsMount mount, final OneWireAddress address) throws IOException
     {
         super(address);
         this.mount = mount;
@@ -26,7 +27,7 @@ public class OwfsSensor extends Aggregate<OwfsAddress>
         latesttemp = Paths.get(mount.getValue().getPath(), "latesttemp");
     }
 
-    public static OwfsSensor mount(final OwfsRoot root, final OwfsAddress address)
+    public static OwfsSensor mount(final OwfsRoot root, final OneWireAddress address)
             throws IOException
     {
         final OwfsMount mount = OwfsMount.from(root, address);

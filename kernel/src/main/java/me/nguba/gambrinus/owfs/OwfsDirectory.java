@@ -7,9 +7,9 @@ import java.io.File;
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-public abstract class OwfsFile extends SingleValueObject<File>
+public abstract class OwfsDirectory extends SingleValueObject<File>
 {
-    protected OwfsFile(final File value)
+    protected OwfsDirectory(final File value)
     {
         super(value);
     }
@@ -17,6 +17,6 @@ public abstract class OwfsFile extends SingleValueObject<File>
     @Override
     public boolean isValid()
     {
-        return getValue().exists();
+        return getValue().isDirectory();
     }
 }

@@ -10,7 +10,8 @@ import org.junit.jupiter.api.Test;
 
 class AdminQueryProcessorFactoryTest
 {
-    private final QueryProcessor processor = new AdminQueryProcessorFactory(new VesselRepository()).make();
+    private final QueryProcessor processor = new AdminQueryProcessorFactory(new VesselRepository())
+            .make();
 
     @Test
     void supportsFindVessels()
