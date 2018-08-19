@@ -25,7 +25,7 @@ public class QueryProcessor
     }
 
     @SuppressWarnings("unchecked")
-    public <Q extends Query, R extends Result<?>> R execute(final Q query) throws ValidationFailed
+    public <Q extends Query, R extends Result<?>> R process(final Q query) throws ValidationFailed
     {
         final QueryHandler<Query, ? extends Result<?>> handler = (QueryHandler<Query, ? extends Result<?>>) handlers
                 .get(query.getClass());

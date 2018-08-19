@@ -15,6 +15,7 @@ import me.nguba.gambrinus.process.setpoint.ChangeSetpoint;
 public final class Brewmaster
 {
     private final CommandProcessor commands;
+    
     private final QueryProcessor   queries;
 
     public Brewmaster(final CommandProcessor commands, final QueryProcessor queries)
@@ -25,12 +26,12 @@ public final class Brewmaster
 
     public void heat(final VesselId vessel, final Temperature target) throws ValidationFailed
     {
-        commands.execute(ChangeSetpoint.on(vessel, target));
+        commands.process(ChangeSetpoint.on(vessel, target));
     }
 
     public Temperature readTemperature(final VesselId vessel) throws ValidationFailed
     {
-        final ReadTemperatureResult result = queries.execute(ReadTemperature.from(vessel));
+        final ReadTemperatureResult result = queries.process(ReadTemperature.from(vessel));
         return result.getResult().get();
     }
 }

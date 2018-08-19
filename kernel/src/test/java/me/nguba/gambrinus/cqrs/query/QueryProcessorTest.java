@@ -40,7 +40,7 @@ class QueryProcessorTest
     void executeNoHandlerRegistered()
     {
         final UnsupportedOperationException exception = assertThrows(UnsupportedOperationException.class,
-                                                                     () -> processor.execute(this));
+                                                                     () -> processor.process(this));
 
         assertThat(exception).hasMessageStartingWith("No handler registered for query: ");
     }
@@ -50,7 +50,7 @@ class QueryProcessorTest
     {
         register();
 
-        processor.execute(this);
+        processor.process(this);
 
         assertThat(hasValidated.get()).isTrue();
     }
@@ -61,7 +61,7 @@ class QueryProcessorTest
 
         register();
 
-        final QueryProcessorTest execute = processor.execute(this);
+        final QueryProcessorTest execute = processor.process(this);
         assertThat(execute).isInstanceOf(getClass());
     }
 

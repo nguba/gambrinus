@@ -51,7 +51,7 @@ class CommandProcessorTest
 
         assertFalse(executed.get());
 
-        processor.execute(this);
+        processor.process(this);
 
         assertTrue(executed.get());
     }
@@ -70,7 +70,7 @@ class CommandProcessorTest
 
         assertFalse(validated.get());
 
-        processor.execute(this);
+        processor.process(this);
 
         assertTrue(validated.get());
     }
@@ -81,7 +81,7 @@ class CommandProcessorTest
     {
         register();
 
-        processor.execute(this);
+        processor.process(this);
 
         assertTrue(published.get());
     }

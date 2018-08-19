@@ -31,7 +31,7 @@ public final class CommandProcessor
         return mutators.containsKey(command);
     }
 
-    public <C extends Command> void execute(final C command) throws ValidationFailed
+    public <C extends Command> void process(final C command) throws ValidationFailed
     {
         @SuppressWarnings("unchecked")
         final CommandMutator<Command, ?> mutator = (CommandMutator<Command, ?>) mutators
