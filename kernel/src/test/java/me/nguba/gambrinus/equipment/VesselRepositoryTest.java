@@ -87,4 +87,17 @@ class VesselRepositoryTest
     {
         assertThat(repository.create(null).isPresent()).isFalse();
     }
+
+    @Test
+    void readAll()
+    {
+        final Vessel[] expected = { Vessel.of(VesselId.of("1")), Vessel.of(VesselId.of("2")) };
+        for (final Vessel v : expected) {
+            repository.create(v);
+        }
+
+        final Vessel[] actual = repository.findAll();
+
+        assertThat(actual).isEqualTo(expected);
+    }
 }

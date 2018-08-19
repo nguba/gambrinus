@@ -48,4 +48,9 @@ public class VesselRepository implements Repository<VesselId, Vessel>
         }
         store.remove(identifier);
     }
+
+    public Vessel[] findAll()
+    {
+        return store.values().toArray(new Vessel[store.size()]);
+    }
 }
