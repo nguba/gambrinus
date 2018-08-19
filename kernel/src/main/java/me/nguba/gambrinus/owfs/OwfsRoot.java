@@ -22,16 +22,20 @@ public final class OwfsRoot extends OwfsDirectory
         return new OwfsRoot(new File(path));
     }
 
-    public OwfsSensor[] listSensors() throws IOException
+    public OwfsSensor[] listSensors()
     {
         final Set<OwfsSensor> sensors = new HashSet<>();
 
-        File value = getValue();
         if (isValid()) {
-            for (final File file : value.listFiles((file) -> {
-                return (file.isDirectory() && file.canRead() && file.getName().startsWith("28."));
-            })) {
-                sensors.add(OwfsSensor.mount(this, OneWireAddress.of(file.getName())));
+            try {
+                for (final File file : getValue().listFiles((file) -> {
+                    return (file.isDirectory() && file.canRead()
+                            && file.getName().startsWith("28."));
+                })) {
+                    sensors.add(OwfsSensor.mount(this, OneWireAddress.of(file.getName())));
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         }
         return sensors.toArray(new OwfsSensor[sensors.size()]);

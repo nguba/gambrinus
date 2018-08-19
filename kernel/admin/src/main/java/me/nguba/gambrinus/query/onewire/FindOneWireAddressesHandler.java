@@ -7,7 +7,6 @@ import me.nguba.gambrinus.onewire.OneWireAddress;
 import me.nguba.gambrinus.owfs.OwfsRoot;
 import me.nguba.gambrinus.owfs.OwfsSensor;
 
-import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -31,12 +30,9 @@ public final class FindOneWireAddressesHandler
     {
         final OwfsRoot root = OwfsRoot.of(query.getMountpoint());
         final Set<OneWireAddress> addresses = new HashSet<>();
-        try {
-            for (final OwfsSensor sensor : root.listSensors()) {
-                addresses.add(sensor.getId());
-            }
-        } catch (final IOException e) {
-            e.printStackTrace();
+
+        for (final OwfsSensor sensor : root.listSensors()) {
+            addresses.add(sensor.getId());
         }
         return FindOneWireAddressResult
                 .from(addresses.toArray(new OneWireAddress[addresses.size()]));
