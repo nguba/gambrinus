@@ -1,7 +1,8 @@
-package me.nguba.gambrinus;
+package me.nguba.gambrinus.admin;
 
 import me.nguba.gambrinus.equipment.Vessel;
 
+import org.springframework.hateoas.ResourceSupport;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,9 +17,9 @@ import java.util.Set;
 @RequestMapping(path = "/api/admin")
 public class AdminController
 {
-    private final Administrator admin;
+    private final AdminService admin;
 
-    private AdminController(final Administrator admin)
+    private AdminController(final AdminService admin)
     {
         this.admin = admin;
     }
@@ -27,5 +28,11 @@ public class AdminController
     public Set<Vessel> getVessels() throws Exception
     {
         return admin.findVessels();
+    }
+
+    @GetMapping(path = "sensor")
+    public Set<ResourceSupport> getSensors() throws Exception
+    {
+        return admin.findAddresses("src/test/resources/owfs");
     }
 }

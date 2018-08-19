@@ -1,5 +1,6 @@
-package me.nguba.gambrinus;
+package me.nguba.gambrinus.admin;
 
+import me.nguba.gambrinus.GambrinusControllerTest;
 import me.nguba.gambrinus.equipment.Vessel;
 import me.nguba.gambrinus.equipment.VesselId;
 import me.nguba.gambrinus.equipment.VesselRepository;
@@ -47,6 +48,15 @@ class AdminControllerTest
         }
 
         mvc.perform(get("/api/admin/vessel")).andDo(print())
+                .andExpect(status().isOk()).andReturn();
+
+        // assertEquals("[ ]", result.getResponse().getContentAsString());
+    }
+
+    @Test
+    void getSensors() throws Exception
+    {
+        mvc.perform(get("/api/admin/sensor")).andDo(print())
                 .andExpect(status().isOk()).andReturn();
 
         // assertEquals("[ ]", result.getResponse().getContentAsString());
