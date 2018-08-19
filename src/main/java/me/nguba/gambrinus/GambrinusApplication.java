@@ -1,6 +1,5 @@
 package me.nguba.gambrinus;
 
-import me.nguba.gambrinus.admin.AdminConverter;
 import me.nguba.gambrinus.admin.AdminService;
 import me.nguba.gambrinus.cqrs.command.EventPublisher;
 import me.nguba.gambrinus.equipment.VesselRepository;
@@ -8,7 +7,6 @@ import me.nguba.gambrinus.equipment.VesselRepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.core.convert.support.ConfigurableConversionService;
 
 @SpringBootApplication
 public class GambrinusApplication
@@ -70,14 +68,8 @@ public class GambrinusApplication
     }
 
     @Bean
-    public AdminConverter adminConverter(final ConfigurableConversionService converter)
+    public AdminService adminService(final Administrator admin)
     {
-        return new AdminConverter(converter);
-    }
-
-    @Bean
-    public AdminService adminService(final Administrator admin, final AdminConverter converter)
-    {
-        return new AdminService(admin, converter);
+        return new AdminService(admin);
     }
 }

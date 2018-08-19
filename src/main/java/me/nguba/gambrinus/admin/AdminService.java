@@ -21,12 +21,9 @@ public final class AdminService implements Service
 {
     private final Administrator admin;
 
-    private final AdminConverter converter;
-
-    public AdminService(final Administrator admin, final AdminConverter converter)
+    public AdminService(final Administrator admin)
     {
         this.admin = admin;
-        this.converter = converter;
     }
 
     public Set<Vessel> findVessels() throws ValidationFailed, IOException
