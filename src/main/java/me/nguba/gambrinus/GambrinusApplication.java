@@ -24,7 +24,7 @@ public class GambrinusApplication
     @Bean
     public EventPublisher eventPublisher()
     {
-        return new DefaultEventPublisher();
+        return new GuavaEventPublisher();
     }
 
     @Bean
