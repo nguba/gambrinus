@@ -57,4 +57,10 @@ class OwfsRootTest extends SingleValueObjectFixture<File, OwfsRoot>
 
         assertThat(getValueObject().listSensors()).contains(expected);
     }
+    
+    @Test
+    void listAllSensorsOnInvalidDirectory() throws Exception
+    {
+        assertThat(OwfsRoot.of("invalid").listSensors()).isEmpty();
+    }
 }
