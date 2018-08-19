@@ -1,5 +1,6 @@
 rootProject.name = 'gambrinus'
 
 include 'kernel'
+include 'kernel:admin'
 include 'kernel:mash'
 include 'infrastructure'

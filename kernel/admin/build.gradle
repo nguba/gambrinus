@@ -1,0 +1,9 @@
+eclipse {
+    project {
+        name = rootProject.name + "-kernel-admin"
+    }
+}
+
+dependencies {
+    compile project(':kernel')
+}
