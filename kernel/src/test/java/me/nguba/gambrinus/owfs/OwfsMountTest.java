@@ -29,6 +29,7 @@ class OwfsMountTest
     @DisplayName("Is Not Valid when path doesn't exist")
     void isInvalid()
     {
-        assertThat(OwfsMount.from(OwfsMother.root(), OneWireAddress.of("arse")).isValid()).isFalse();
+        assertThat(OwfsMount.from(OwfsMother.root(), OneWireAddress.of("arse")).isValid())
+                .isFalse();
     }
 }

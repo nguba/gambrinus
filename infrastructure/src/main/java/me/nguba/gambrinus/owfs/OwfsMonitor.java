@@ -28,7 +28,6 @@ public final class OwfsMonitor
             } catch (final IOException e) {
                 e.printStackTrace();
             }
-
         }
     }
 

@@ -34,7 +34,7 @@ public final class OwfsRoot extends OwfsDirectory
                 })) {
                     sensors.add(OwfsSensor.mount(this, OneWireAddress.of(file.getName())));
                 }
-            } catch (IOException e) {
+            } catch (final IOException e) {
                 throw new RuntimeException(e);
             }
         }

@@ -56,7 +56,7 @@ class BrewmasterTest implements EventPublisher
     }
 
     @Override
-    public void subscribe(Object recipient)
+    public void subscribe(final Object recipient)
     {
     }
 }

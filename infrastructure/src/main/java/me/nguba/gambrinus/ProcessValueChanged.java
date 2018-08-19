@@ -57,25 +57,32 @@ public final class ProcessValueChanged implements CommandEvent
     }
 
     @Override
-    public boolean equals(Object obj)
+    public boolean equals(final Object obj)
     {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
-        ProcessValueChanged other = (ProcessValueChanged) obj;
+        }
+        final ProcessValueChanged other = (ProcessValueChanged) obj;
         if (address == null) {
-            if (other.address != null)
+            if (other.address != null) {
                 return false;
-        } else if (!address.equals(other.address))
+            }
+        } else if (!address.equals(other.address)) {
             return false;
+        }
         if (processValue == null) {
-            if (other.processValue != null)
+            if (other.processValue != null) {
                 return false;
-        } else if (!processValue.equals(other.processValue))
+            }
+        } else if (!processValue.equals(other.processValue)) {
             return false;
+        }
         return true;
     }
 }

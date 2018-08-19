@@ -36,5 +36,4 @@ public final class Brewmaster
         return result.getResult().get();
     }
 
- 
 }

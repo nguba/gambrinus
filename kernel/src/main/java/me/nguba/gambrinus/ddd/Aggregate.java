@@ -1,7 +1,7 @@
 package me.nguba.gambrinus.ddd;
 
 /**
- * 
+ *
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  * @param <I>
  */

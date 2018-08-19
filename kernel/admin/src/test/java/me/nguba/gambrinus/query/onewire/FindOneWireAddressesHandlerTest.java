@@ -8,7 +8,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class FindOneWireAddressesHandlerTest
 {
@@ -35,7 +35,7 @@ class FindOneWireAddressesHandlerTest
     @Test
     void emptyResultOnIOFailure()
     {
-        FindOneWireAddressResult result = handler.run(FindOneWireAddresses.on("unavailable"));
+        final FindOneWireAddressResult result = handler.run(FindOneWireAddresses.on("unavailable"));
 
         assertThat(result.getResult().get()).isEmpty();
     }
@@ -43,7 +43,7 @@ class FindOneWireAddressesHandlerTest
     @Test
     void result()
     {
-        FindOneWireAddressResult result = handler
+        final FindOneWireAddressResult result = handler
                 .run(FindOneWireAddresses.on("src/test/resources/owfs"));
 
         assertThat(result.getResult().get()).containsOnly(OneWireAddress.of("28.273B5D070000"),

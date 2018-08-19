@@ -26,7 +26,7 @@ class FindOneWireAddressResultTest
 
         assertThat(FindOneWireAddressResult.from(sensors).getResult().get()).containsOnly(a, c);
     }
-    
+
     @Test
     void nullAddresses()
     {

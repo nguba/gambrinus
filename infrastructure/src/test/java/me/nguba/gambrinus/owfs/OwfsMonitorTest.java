@@ -28,8 +28,8 @@ class OwfsMonitorTest
 
     private final OwfsRoot root = OwfsRoot.of("src/test/resources/owfs");
 
-    private List<ProcessValueChanged> events = new ArrayList<>();
-    
+    private final List<ProcessValueChanged> events = new ArrayList<>();
+
     @BeforeEach
     void setUp()
     {
@@ -41,9 +41,12 @@ class OwfsMonitorTest
     void broadcastTemperatureFromExpectedAddresses()
     {
         monitor.read(root);
-        
-        assertThat(events).containsOnlyOnce(ProcessValueChanged.on(OneWireAddress.of("28.273B5D070000"), Temperature.celsius(25.7)),
-                                            ProcessValueChanged.on(OneWireAddress.of("28.4BBB68080000"), Temperature.celsius(27.3)));
+
+        assertThat(events)
+                .containsOnlyOnce(ProcessValueChanged.on(OneWireAddress.of("28.273B5D070000"),
+                                                         Temperature.celsius(25.7)),
+                                  ProcessValueChanged.on(OneWireAddress.of("28.4BBB68080000"),
+                                                         Temperature.celsius(27.3)));
     }
 
     @Subscribe

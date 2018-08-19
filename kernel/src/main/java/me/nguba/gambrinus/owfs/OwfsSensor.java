@@ -62,7 +62,7 @@ public class OwfsSensor extends Aggregate<OneWireAddress>
     @Override
     public String toString()
     {
-        StringBuilder builder = new StringBuilder();
+        final StringBuilder builder = new StringBuilder();
         builder.append("OwfsSensor [mount=").append(mount).append(", latesttemp=")
                 .append(latesttemp).append("]");
         return builder.toString();
