@@ -104,4 +104,9 @@ class CommandProcessorTest
         validated.getAndSet(true);
     }
 
+    @Override
+    public void subscribe(Object recipient)
+    {
+    }
+
 }

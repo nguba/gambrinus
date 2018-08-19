@@ -52,4 +52,9 @@ class AdministratorTest implements EventPublisher
     {
         this.event = event;
     }
+
+    @Override
+    public void subscribe(Object recipient)
+    {
+    }
 }

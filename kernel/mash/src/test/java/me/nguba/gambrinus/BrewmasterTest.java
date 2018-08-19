@@ -54,4 +54,9 @@ class BrewmasterTest implements EventPublisher
         final Temperature temperature = brewmaster.readTemperature(vesselId);
         assertThat(temperature).isEqualTo(Temperature.celsius(0));
     }
+
+    @Override
+    public void subscribe(Object recipient)
+    {
+    }
 }
