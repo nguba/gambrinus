@@ -6,6 +6,7 @@ import me.nguba.gambrinus.equipment.Vessel;
 import me.nguba.gambrinus.equipment.VesselId;
 import me.nguba.gambrinus.equipment.VesselRepository;
 import me.nguba.gambrinus.process.Temperature;
+import me.nguba.gambrinus.process.setpoint.SetpointChanged;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -19,6 +20,8 @@ class BrewmasterTest implements EventPublisher
     private Brewmaster brewmaster;
 
     private final VesselId vesselId = VesselId.of("mash");
+
+    private CommandEvent event;
 
     @BeforeEach
     void setUp()
@@ -36,13 +39,13 @@ class BrewmasterTest implements EventPublisher
     void heatResultsInEventPublished() throws Exception
     {
         brewmaster.heat(VesselId.of("mash"), Temperature.celsius(55.5));
-
+        assertThat(event).isInstanceOf(SetpointChanged.class);
     }
 
     @Override
-    public <E extends CommandEvent> void publish(final E onCompletion)
+    public <E extends CommandEvent> void publish(final E event)
     {
-        System.out.println(onCompletion);
+        this.event = event;
     }
 
     @Test
