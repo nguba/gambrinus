@@ -29,7 +29,7 @@ public class GambrinusApplication
 
     @Bean
     public MashCommandProcessorFactory mashCommandProcessor(final EventPublisher publisher,
-                                             final VesselRepository vessels)
+                                                            final VesselRepository vessels)
     {
         return new MashCommandProcessorFactory(publisher, vessels);
     }
@@ -41,7 +41,8 @@ public class GambrinusApplication
     }
 
     @Bean
-    public Brewmaster brewmaster(final MashCommandProcessorFactory commands, final MashQueryProcessorFactory queries)
+    public Brewmaster brewmaster(final MashCommandProcessorFactory commands,
+                                 final MashQueryProcessorFactory queries)
     {
         return new Brewmaster(commands, queries);
     }

@@ -28,7 +28,7 @@ class BrewmasterTest implements EventPublisher
         final MashCommandProcessorFactory commandFactory = new MashCommandProcessorFactory(this, vessels);
         final MashQueryProcessorFactory queryFactory = new MashQueryProcessorFactory(vessels);
 
-        brewmaster = new Brewmaster(commandFactory.make(), queryFactory.make());
+        brewmaster = new Brewmaster(commandFactory, queryFactory);
     }
 
     @Test
