@@ -11,14 +11,15 @@ import org.junit.jupiter.api.Test;
 
 class MashQueryProcessorFactoryTest
 {
-    private final QueryProcessor processor = new MashQueryProcessorFactory(new VesselRepository()).make();
+    private final QueryProcessor processor = new MashQueryProcessorFactory(new VesselRepository())
+            .make();
 
     @Test
     void supportsReadTemperature()
     {
         assertThat(processor.supports(ReadTemperature.class));
     }
-    
+
     @Test
     void supportsFindVessels()
     {

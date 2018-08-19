@@ -23,8 +23,8 @@ public final class Brewmaster
 
     private final QueryProcessor queries;
 
-    public Brewmaster(MashCommandProcessorFactory commandFactory,
-                      MashQueryProcessorFactory queryFactory)
+    public Brewmaster(final MashCommandProcessorFactory commandFactory,
+                      final MashQueryProcessorFactory queryFactory)
     {
         commands = commandFactory.make();
         queries = queryFactory.make();

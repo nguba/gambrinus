@@ -25,7 +25,8 @@ class BrewmasterTest implements EventPublisher
     {
         vessels.create(Vessel.of(vesselId));
 
-        final MashCommandProcessorFactory commandFactory = new MashCommandProcessorFactory(this, vessels);
+        final MashCommandProcessorFactory commandFactory = new MashCommandProcessorFactory(this,
+                                                                                           vessels);
         final MashQueryProcessorFactory queryFactory = new MashQueryProcessorFactory(vessels);
 
         brewmaster = new Brewmaster(commandFactory, queryFactory);
@@ -60,6 +61,6 @@ class BrewmasterTest implements EventPublisher
         }
 
         assertThat(brewmaster.findVessels()).contains(expected);
-        
+
     }
 }

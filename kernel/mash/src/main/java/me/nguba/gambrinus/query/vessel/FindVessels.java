@@ -8,7 +8,7 @@ import me.nguba.gambrinus.cqrs.query.Query;
 public enum FindVessels implements Query
 {
     INSTANCE;
-    
+
     public static FindVessels create()
     {
         return INSTANCE;

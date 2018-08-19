@@ -11,18 +11,18 @@ public final class FindVesselsHandler implements QueryHandler<FindVessels, FindV
 {
     private final VesselRepository repository;
 
-    public FindVesselsHandler(VesselRepository repository)
+    public FindVesselsHandler(final VesselRepository repository)
     {
         this.repository = repository;
     }
 
     @Override
-    public void validate(FindVessels query, Errors errors)
+    public void validate(final FindVessels query, final Errors errors)
     {
     }
 
     @Override
-    public FindVesselsResult run(FindVessels query)
+    public FindVesselsResult run(final FindVessels query)
     {
         return FindVesselsResult.from(repository.findAll());
     }

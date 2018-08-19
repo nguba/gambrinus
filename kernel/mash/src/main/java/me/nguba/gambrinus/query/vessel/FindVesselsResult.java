@@ -20,14 +20,14 @@ public final class FindVesselsResult implements Result<Set<Vessel>>
         return Optional.of(vessels);
     }
 
-    private FindVesselsResult(Vessel[] vessels)
+    private FindVesselsResult(final Vessel[] vessels)
     {
-        for (Vessel v : vessels) {
+        for (final Vessel v : vessels) {
             this.vessels.add(v);
         }
     }
 
-    public static FindVesselsResult from(Vessel[] vessels)
+    public static FindVesselsResult from(final Vessel[] vessels)
     {
         return new FindVesselsResult(vessels);
     }

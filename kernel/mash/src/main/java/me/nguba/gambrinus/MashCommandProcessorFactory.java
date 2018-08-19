@@ -14,7 +14,8 @@ public final class MashCommandProcessorFactory
     private final VesselRepository vessels;
     private final EventPublisher   publisher;
 
-    public MashCommandProcessorFactory(final EventPublisher publisher, final VesselRepository vessels)
+    public MashCommandProcessorFactory(final EventPublisher publisher,
+                                       final VesselRepository vessels)
     {
         this.publisher = publisher;
         this.vessels = vessels;
