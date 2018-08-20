@@ -1,9 +1,11 @@
 package me.nguba.gambrinus;
 
+import me.nguba.gambrinus.command.vessel.create.CreateVessel;
 import me.nguba.gambrinus.cqrs.command.CommandProcessor;
 import me.nguba.gambrinus.cqrs.query.QueryProcessor;
 import me.nguba.gambrinus.ddd.validation.ValidationFailed;
 import me.nguba.gambrinus.equipment.Vessel;
+import me.nguba.gambrinus.equipment.VesselId;
 import me.nguba.gambrinus.onewire.OneWireAddress;
 import me.nguba.gambrinus.query.onewire.FindOneWireAddressResult;
 import me.nguba.gambrinus.query.onewire.FindOneWireAddresses;
@@ -40,5 +42,10 @@ public class Administrator
         final FindOneWireAddressResult result = queries
                 .process(FindOneWireAddresses.on(mountpoint));
         return result.getResult().get();
+    }
+
+    public void createVessel(VesselId vesselId, OneWireAddress address) throws ValidationFailed
+    {
+        commands.process(CreateVessel.from(vesselId, address));
     }
 }

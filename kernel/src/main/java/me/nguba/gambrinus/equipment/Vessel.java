@@ -1,6 +1,7 @@
 package me.nguba.gambrinus.equipment;
 
 import me.nguba.gambrinus.ddd.Aggregate;
+import me.nguba.gambrinus.owfs.OwfsSensor;
 import me.nguba.gambrinus.process.Temperature;
 
 /**
@@ -12,6 +13,8 @@ public final class Vessel extends Aggregate<VesselId>
 
     private final Temperature processValue = Temperature.celsius(0);
 
+    private OwfsSensor sensor;
+    
     private Vessel(final VesselId id)
     {
         super(id);
@@ -36,4 +39,8 @@ public final class Vessel extends Aggregate<VesselId>
     {
         return processValue;
     }
-}
+    
+    public void assign(OwfsSensor sensor) {
+       this.sensor = sensor; 
+    }
+ }

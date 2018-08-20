@@ -25,7 +25,7 @@ class ChangeSetpointMutatorTest
     @BeforeEach
     void setUp()
     {
-        mutator = new ChangeSetpointMutator(repo);
+        mutator = ChangeSetpointMutator.from(repo);
     }
 
     @Test

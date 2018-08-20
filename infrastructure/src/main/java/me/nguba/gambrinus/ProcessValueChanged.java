@@ -1,13 +1,13 @@
 package me.nguba.gambrinus;
 
-import me.nguba.gambrinus.cqrs.command.CommandEvent;
+import me.nguba.gambrinus.cqrs.command.MutatorEvent;
 import me.nguba.gambrinus.onewire.OneWireAddress;
 import me.nguba.gambrinus.process.Temperature;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-public final class ProcessValueChanged implements CommandEvent
+public final class ProcessValueChanged implements MutatorEvent
 {
     public static ProcessValueChanged on(final OneWireAddress address, final Temperature expected)
     {

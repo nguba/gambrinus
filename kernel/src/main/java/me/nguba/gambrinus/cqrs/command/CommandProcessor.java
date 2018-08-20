@@ -11,7 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public final class CommandProcessor
 {
-    private final ConcurrentHashMap<Object, CommandMutator<?, ?>> mutators = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<Object, MutatorFactory> mutators = new ConcurrentHashMap<>();
 
     private final EventPublisher publisher;
 
@@ -21,26 +21,19 @@ public final class CommandProcessor
     }
 
     public void register(final Class<? extends Command> command,
-                         final CommandMutator<?, ?> mutator)
+                         final MutatorFactory factory)
     {
-        mutators.put(command, mutator);
+        mutators.put(command, factory);
     }
 
     public boolean supports(final Class<? extends Command> command)
     {
-        return mutators.containsKey(command);
+        return mutators.get(command) != null;
     }
 
     public <C extends Command> void process(final C command) throws ValidationFailed
     {
-        @SuppressWarnings("unchecked")
-        final CommandMutator<Command, ?> mutator = (CommandMutator<Command, ?>) mutators
-                .get(command.getClass());
-
-        if (mutator == null) {
-            throw new UnsupportedOperationException(String.format("No mutator for: %s",
-                                                                  command.getClass()));
-        }
+        final Mutator<Command> mutator = getMutator(command);
 
         validate(command, mutator);
 
@@ -49,8 +42,23 @@ public final class CommandProcessor
         publisher.publish(mutator.onCompletion(command));
     }
 
+   
+    private <C extends Command> Mutator<Command> getMutator(final C command)
+    {
+        MutatorFactory factory = mutators.get(command.getClass());
+        
+        @SuppressWarnings("unchecked")
+        final Mutator<Command> mutator = (Mutator<Command>) factory.make();
+        
+        if (mutator == null) {
+            throw new UnsupportedOperationException(String.format("No mutator for: %s",
+                                                                  command.getClass()));
+        }
+        return mutator;
+    }
+
     private static <C extends Command> void validate(final C command,
-                                                     final CommandMutator<Command, ?> mutator)
+                                                     final Mutator<Command> mutator)
             throws ValidationFailed
     {
         final Errors errors = Errors.empty();

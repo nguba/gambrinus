@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-public interface CommandEvent
+public interface MutatorEvent
 {
     default LocalDateTime timestamp()
     {

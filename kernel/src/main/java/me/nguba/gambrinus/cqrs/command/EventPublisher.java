@@ -5,7 +5,7 @@ package me.nguba.gambrinus.cqrs.command;
  */
 public interface EventPublisher
 {
-    <E extends CommandEvent> void publish(E event);
+    <E extends MutatorEvent> void publish(E event);
 
     public void subscribe(Object recipient);
 }

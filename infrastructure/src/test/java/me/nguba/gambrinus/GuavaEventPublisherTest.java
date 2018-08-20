@@ -1,6 +1,6 @@
 package me.nguba.gambrinus;
 
-import me.nguba.gambrinus.cqrs.command.CommandEvent;
+import me.nguba.gambrinus.cqrs.command.MutatorEvent;
 
 import com.google.common.eventbus.Subscribe;
 
@@ -15,7 +15,7 @@ class GuavaEventPublisherTest
 {
     private final GuavaEventPublisher publisher = new GuavaEventPublisher();
 
-    private CommandEvent event;
+    private MutatorEvent event;
 
     @Test
     void publishSubscribed()

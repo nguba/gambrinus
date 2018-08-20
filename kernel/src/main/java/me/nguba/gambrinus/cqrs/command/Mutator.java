@@ -5,11 +5,12 @@ import me.nguba.gambrinus.ddd.validation.Errors;
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-public interface CommandMutator<C extends Command, E extends CommandEvent>
+public interface Mutator<C extends Command>
 {
     void mutate(C command);
 
-    E onCompletion(C command);
+    MutatorEvent onCompletion(C command);
 
     void validate(C command, Errors errors);
+
 }

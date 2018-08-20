@@ -11,8 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 class CommandProcessorTest
-        implements CommandMutator<CommandProcessorTest, CommandProcessorTest>, Command,
-        EventPublisher, CommandEvent
+        implements Command, EventPublisher, MutatorEvent, MutatorFactory, Mutator<CommandProcessorTest>
 {
     private final CommandProcessor processor = new CommandProcessor(this);
 
@@ -87,7 +86,7 @@ class CommandProcessorTest
     }
 
     @Override
-    public <E extends CommandEvent> void publish(final E onCompletion)
+    public <E extends MutatorEvent> void publish(final E onCompletion)
     {
     }
 
@@ -109,4 +108,9 @@ class CommandProcessorTest
     {
     }
 
+    @Override
+    public CommandProcessorTest make()
+    {
+        return this;
+    }
 }

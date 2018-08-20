@@ -1,6 +1,6 @@
 package me.nguba.gambrinus;
 
-import me.nguba.gambrinus.cqrs.command.CommandEvent;
+import me.nguba.gambrinus.cqrs.command.MutatorEvent;
 import me.nguba.gambrinus.cqrs.command.EventPublisher;
 
 import com.google.common.eventbus.EventBus;
@@ -21,7 +21,7 @@ public final class GuavaEventPublisher implements EventPublisher
     private final EventBus bus = new EventBus();
 
     @Override
-    public <E extends CommandEvent> void publish(final E event)
+    public <E extends MutatorEvent> void publish(final E event)
     {
         LOGGER.trace("{}", event);
         bus.post(event);

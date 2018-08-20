@@ -1,13 +1,13 @@
 package me.nguba.gambrinus.process.setpoint;
 
-import me.nguba.gambrinus.cqrs.command.CommandEvent;
+import me.nguba.gambrinus.cqrs.command.MutatorEvent;
 import me.nguba.gambrinus.equipment.VesselId;
 import me.nguba.gambrinus.process.Temperature;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-public final class SetpointChanged implements CommandEvent
+public final class SetpointChanged implements MutatorEvent
 {
     private final VesselId vesselId;
 

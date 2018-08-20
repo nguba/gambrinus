@@ -1,6 +1,6 @@
 package me.nguba.gambrinus;
 
-import me.nguba.gambrinus.cqrs.command.CommandEvent;
+import me.nguba.gambrinus.cqrs.command.MutatorEvent;
 import me.nguba.gambrinus.cqrs.command.EventPublisher;
 import me.nguba.gambrinus.equipment.Vessel;
 import me.nguba.gambrinus.equipment.VesselId;
@@ -21,7 +21,7 @@ class BrewmasterTest implements EventPublisher
 
     private final VesselId vesselId = VesselId.of("mash");
 
-    private CommandEvent event;
+    private MutatorEvent event;
 
     @BeforeEach
     void setUp()
@@ -43,7 +43,7 @@ class BrewmasterTest implements EventPublisher
     }
 
     @Override
-    public <E extends CommandEvent> void publish(final E event)
+    public <E extends MutatorEvent> void publish(final E event)
     {
         this.event = event;
     }
