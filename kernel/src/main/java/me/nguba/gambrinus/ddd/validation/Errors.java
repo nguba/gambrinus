@@ -35,8 +35,6 @@ public final class Errors implements ValueObject
 
     public boolean has(final Reason reason)
     {
-        System.out.println(errors);
-        System.out.println(reason);
         return errors.contains(reason);
     }
 
@@ -71,8 +69,10 @@ public final class Errors implements ValueObject
     @Override
     public String toString()
     {
-        final StringBuilder builder = new StringBuilder();
-        builder.append("Errors [errors=").append(errors).append("]");
+        StringBuilder builder = new StringBuilder();
+        for (Reason reason : errors) {
+            builder.append(reason).append("\n");
+        }
         return builder.toString();
     }
 
