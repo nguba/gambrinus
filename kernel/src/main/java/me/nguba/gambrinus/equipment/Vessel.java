@@ -1,6 +1,7 @@
 package me.nguba.gambrinus.equipment;
 
 import me.nguba.gambrinus.ddd.Aggregate;
+import me.nguba.gambrinus.onewire.OneWireAddress;
 import me.nguba.gambrinus.owfs.OwfsSensor;
 import me.nguba.gambrinus.process.Temperature;
 
@@ -15,14 +16,20 @@ public final class Vessel extends Aggregate<VesselId>
 
     private OwfsSensor sensor;
 
-    private Vessel(final VesselId id)
+    private Vessel(final VesselId id, OwfsSensor sensor)
     {
         super(id);
+        this.sensor = sensor;
     }
 
-    public static Vessel of(final VesselId id)
+    public static Vessel inactive(final VesselId id)
     {
-        return new Vessel(id);
+        return new Vessel(id, null);
+    }
+
+    public static Vessel of(final VesselId id, OwfsSensor sensor)
+    {
+        return new Vessel(id, sensor);
     }
 
     public Temperature setpoint()
@@ -43,5 +50,13 @@ public final class Vessel extends Aggregate<VesselId>
     public void assign(final OwfsSensor sensor)
     {
         this.sensor = sensor;
+    }
+
+    public OneWireAddress address()
+    {
+        if (sensor == null)
+            return OneWireAddress.empty();
+
+        return sensor.getId();
     }
 }

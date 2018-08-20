@@ -23,14 +23,14 @@ class AdministratorTest implements EventPublisher
     @BeforeEach
     void setUp()
     {
-        admin = new Administrator(new AdminCommandProcessorFactory(this),
+        admin = new Administrator(new AdminCommandProcessorFactory(this, vessels),
                                   new AdminQueryProcessorFactory(vessels));
     }
 
     @Test
     void findVessels() throws Exception
     {
-        final Vessel[] expected = { Vessel.of(VesselId.of("a")), Vessel.of(VesselId.of("b")) };
+        final Vessel[] expected = { Vessel.inactive(VesselId.of("a")), Vessel.inactive(VesselId.of("b")) };
         for (final Vessel v : expected) {
             vessels.create(v);
         }

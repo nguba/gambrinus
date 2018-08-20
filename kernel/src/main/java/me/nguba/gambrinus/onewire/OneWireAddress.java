@@ -25,4 +25,9 @@ public final class OneWireAddress extends SingleValueObject<String>
         }
         return false;
     }
+
+    public static OneWireAddress empty()
+    {
+        return of("");
+    }
 }

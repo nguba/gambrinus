@@ -45,6 +45,10 @@ public final class CommandProcessor
     private <C extends Command> Mutator<Command> getMutator(final C command)
     {
         final MutatorFactory factory = mutators.get(command.getClass());
+        if (factory == null) {
+            throw new UnsupportedOperationException(String.format("No factory registered for: %s",
+                                                                  command.getClass().getName()));
+        }
 
         @SuppressWarnings("unchecked")
         final Mutator<Command> mutator = (Mutator<Command>) factory.make();

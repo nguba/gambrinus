@@ -7,6 +7,8 @@ import me.nguba.gambrinus.equipment.Vessel;
 import me.nguba.gambrinus.equipment.VesselId;
 import me.nguba.gambrinus.equipment.VesselRepository;
 import me.nguba.gambrinus.onewire.OneWireAddress;
+import me.nguba.gambrinus.owfs.OwfsMount;
+import me.nguba.gambrinus.owfs.OwfsRoot;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -35,6 +37,7 @@ class CreateVesselMutatorTest
         mutator = new CreateVesselMutator(repo);
 
         command = CreateVessel.from(vesselId,
+                                    OwfsRoot.of("src/test/resources/owfs"),
                                     OneWireAddress.of("28.273B5D070000"));
     }
 
@@ -56,35 +59,59 @@ class CreateVesselMutatorTest
     @Test
     void noVesselId()
     {
-        mutator.validate(CreateVessel.from(null, null), errors);
+        mutator.validate(CreateVessel.from(null, null, null), errors);
 
         final ValidationFailed failed = verify();
 
-        assertThat(failed.getErrors().has(Reason.from("VesselId cannot be null.")));
+        assertThat(failed.getErrors().has(Reason.from("VesselId cannot be null"))).isTrue();
     }
 
     @Test
     void alreadyExists()
     {
-        repo.create(Vessel.of(vesselId));
+        repo.create(Vessel.inactive(vesselId));
 
         mutator.validate(command, errors);
 
         final ValidationFailed failed = verify();
 
         assertThat(failed.getErrors().has(Reason
-                .from(String.format("Vessel already configured.", command.getVesselId()))))
+                .from(String.format("Vessel already configured", command.getVesselId()))))
                         .isTrue();
     }
 
     @Test
     void noAddress()
     {
-        mutator.validate(CreateVessel.from(null, null), errors);
+        mutator.validate(CreateVessel.from(null, null, null), errors);
 
         final ValidationFailed failed = verify();
 
-        assertThat(failed.getErrors().has(Reason.from("OneWireAddress cannot be null.")));
+        assertThat(failed.getErrors().has(Reason.from("OneWireAddress cannot be null"))).isTrue();
+    }
+
+    @Test
+    void noRoot()
+    {
+        mutator.validate(CreateVessel.from(null, null, null), errors);
+
+        final ValidationFailed failed = verify();
+
+        assertThat(failed.getErrors().has(Reason.from("OwfsRoot cannot be null"))).isTrue();
+    }
+
+    @Test
+    void cannotMount()
+    {
+        OwfsRoot root = OwfsRoot.of("non/existing/path");
+        OneWireAddress address = OneWireAddress.of("28.273B5D070000");
+
+        mutator.validate(CreateVessel.from(null, root, address), errors);
+        final ValidationFailed failed = verify();
+
+        assertThat(failed.getErrors()
+                .has(Reason.from("Mountpoint does not exist: " + OwfsMount.from(root, address))))
+                        .isTrue();
     }
 
     private ValidationFailed verify()

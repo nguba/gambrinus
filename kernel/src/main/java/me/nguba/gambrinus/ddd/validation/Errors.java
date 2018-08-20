@@ -35,6 +35,8 @@ public final class Errors implements ValueObject
 
     public boolean has(final Reason reason)
     {
+        System.out.println(errors);
+        System.out.println(reason);
         return errors.contains(reason);
     }
 

@@ -26,7 +26,7 @@ class BrewmasterTest implements EventPublisher
     @BeforeEach
     void setUp()
     {
-        vessels.create(Vessel.of(vesselId));
+        vessels.create(Vessel.inactive(vesselId));
 
         final MashCommandProcessorFactory commandFactory = new MashCommandProcessorFactory(this,
                                                                                            vessels);

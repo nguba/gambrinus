@@ -15,7 +15,7 @@ import java.util.Optional;
 class VesselRepositoryTest
 {
     private final VesselRepository repository = new VesselRepository();
-    private final Vessel           mashTun    = Vessel.of(VesselId.of("mash"));
+    private final Vessel           mashTun    = Vessel.inactive(VesselId.of("mash"));
 
     @Test
     void createReturnsId()
@@ -42,7 +42,7 @@ class VesselRepositoryTest
     @Test
     void canReadDifferentStoredObject()
     {
-        final Vessel vessel = Vessel.of(VesselId.of("hlt"));
+        final Vessel vessel = Vessel.inactive(VesselId.of("hlt"));
         final Optional<VesselId> id = create(vessel);
 
         assertThat(repository.read(id.get()).get()).isEqualTo(vessel);
@@ -91,7 +91,7 @@ class VesselRepositoryTest
     @Test
     void readAll()
     {
-        final Vessel[] expected = { Vessel.of(VesselId.of("1")), Vessel.of(VesselId.of("2")) };
+        final Vessel[] expected = { Vessel.inactive(VesselId.of("1")), Vessel.inactive(VesselId.of("2")) };
         for (final Vessel v : expected) {
             repository.create(v);
         }

@@ -38,7 +38,7 @@ class ChangeSetpointMutatorTest
     @Test
     void mutateMofifiesSetpoint()
     {
-        repo.create(Vessel.of(id));
+        repo.create(Vessel.inactive(id));
 
         mutator.mutate(ChangeSetpoint.on(id, setpoint));
 

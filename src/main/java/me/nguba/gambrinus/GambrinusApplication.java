@@ -10,14 +10,14 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
-@EnableConfigurationProperties({GambrinusOptions.class})
+@EnableConfigurationProperties({ GambrinusOptions.class })
 public class GambrinusApplication
 {
     public static void main(final String... args)
     {
         SpringApplication.run(GambrinusApplication.class, args);
     }
-    
+
     @Bean
     public VesselRepository vesselRepository()
     {
@@ -57,9 +57,10 @@ public class GambrinusApplication
     }
 
     @Bean
-    public AdminCommandProcessorFactory adminCommandProcessor(final EventPublisher publisher)
+    public AdminCommandProcessorFactory adminCommandProcessor(final EventPublisher publisher,
+                                                              final VesselRepository vessels)
     {
-        return new AdminCommandProcessorFactory(publisher);
+        return new AdminCommandProcessorFactory(publisher, vessels);
     }
 
     @Bean

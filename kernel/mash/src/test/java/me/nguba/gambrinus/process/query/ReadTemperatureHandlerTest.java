@@ -44,7 +44,7 @@ class ReadTemperatureHandlerTest
     void temperatureResult()
     {
         final VesselId vesselId = VesselId.of("boil");
-        vessels.create(Vessel.of(vesselId));
+        vessels.create(Vessel.inactive(vesselId));
 
         final ReadTemperatureResult result = handler.run(ReadTemperature.from(vesselId));
 

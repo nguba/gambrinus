@@ -42,7 +42,7 @@ class FindVesselsHandlerTest
     @Test
     void returnVessels()
     {
-        final Vessel[] expected = { Vessel.of(VesselId.of("a")), Vessel.of(VesselId.of("b")) };
+        final Vessel[] expected = { Vessel.inactive(VesselId.of("a")), Vessel.inactive(VesselId.of("b")) };
         for (final Vessel v : expected) {
             repository.create(v);
         }

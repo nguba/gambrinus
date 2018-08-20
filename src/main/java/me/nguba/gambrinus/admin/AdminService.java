@@ -4,7 +4,9 @@ import me.nguba.gambrinus.Administrator;
 import me.nguba.gambrinus.ddd.Service;
 import me.nguba.gambrinus.ddd.validation.ValidationFailed;
 import me.nguba.gambrinus.equipment.Vessel;
+import me.nguba.gambrinus.equipment.VesselId;
 import me.nguba.gambrinus.onewire.OneWireAddress;
+import me.nguba.gambrinus.owfs.OwfsRoot;
 
 import org.springframework.hateoas.ResourceSupport;
 
@@ -39,6 +41,13 @@ public final class AdminService implements Service
             resources.add(SensorAddressAdapter.adapt(address));
         });
         return resources;
+    }
+
+    public ResourceSupport createVessel(VesselId id, OneWireAddress address, String mountpoint)
+            throws ValidationFailed, IOException
+    {
+        Vessel vessel= admin.createVessel(id, OwfsRoot.of(mountpoint), address);
+        return VesselAdapter.adapt(vessel);
     }
 
 }
