@@ -14,7 +14,7 @@ public final class Vessel extends Aggregate<VesselId>
     private final Temperature processValue = Temperature.celsius(0);
 
     private OwfsSensor sensor;
-    
+
     private Vessel(final VesselId id)
     {
         super(id);
@@ -39,8 +39,9 @@ public final class Vessel extends Aggregate<VesselId>
     {
         return processValue;
     }
-    
-    public void assign(OwfsSensor sensor) {
-       this.sensor = sensor; 
+
+    public void assign(final OwfsSensor sensor)
+    {
+        this.sensor = sensor;
     }
- }
+}

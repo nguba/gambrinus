@@ -1,7 +1,7 @@
 package me.nguba.gambrinus;
 
-import me.nguba.gambrinus.cqrs.command.MutatorEvent;
 import me.nguba.gambrinus.cqrs.command.EventPublisher;
+import me.nguba.gambrinus.cqrs.command.MutatorEvent;
 import me.nguba.gambrinus.equipment.Vessel;
 import me.nguba.gambrinus.equipment.VesselId;
 import me.nguba.gambrinus.equipment.VesselRepository;

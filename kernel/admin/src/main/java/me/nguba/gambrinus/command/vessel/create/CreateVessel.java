@@ -13,13 +13,13 @@ public final class CreateVessel implements Command
 
     private final OneWireAddress address;
 
-    private CreateVessel(VesselId vesselId, OneWireAddress address)
+    private CreateVessel(final VesselId vesselId, final OneWireAddress address)
     {
         this.vesselId = vesselId;
         this.address = address;
     }
 
-    public static CreateVessel from(VesselId vesselId, OneWireAddress sensor)
+    public static CreateVessel from(final VesselId vesselId, final OneWireAddress sensor)
     {
         return new CreateVessel(vesselId, sensor);
     }

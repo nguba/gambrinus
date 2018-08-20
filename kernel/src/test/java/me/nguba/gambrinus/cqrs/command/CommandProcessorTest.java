@@ -11,7 +11,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 class CommandProcessorTest
-        implements Command, EventPublisher, MutatorEvent, MutatorFactory, Mutator<CommandProcessorTest>
+        implements Command, EventPublisher, MutatorEvent, MutatorFactory,
+        Mutator<CommandProcessorTest>
 {
     private final CommandProcessor processor = new CommandProcessor(this);
 

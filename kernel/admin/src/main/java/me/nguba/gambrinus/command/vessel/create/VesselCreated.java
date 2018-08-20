@@ -10,12 +10,12 @@ public final class VesselCreated implements MutatorEvent
 {
     private final VesselId vesselId;
 
-    private VesselCreated(VesselId vesselId)
+    private VesselCreated(final VesselId vesselId)
     {
         this.vesselId = vesselId;
     }
 
-    public static VesselCreated from(VesselId id)
+    public static VesselCreated from(final VesselId id)
     {
         return new VesselCreated(id);
     }
@@ -35,27 +35,32 @@ public final class VesselCreated implements MutatorEvent
     }
 
     @Override
-    public boolean equals(Object obj)
+    public boolean equals(final Object obj)
     {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
-        VesselCreated other = (VesselCreated) obj;
+        }
+        final VesselCreated other = (VesselCreated) obj;
         if (vesselId == null) {
-            if (other.vesselId != null)
+            if (other.vesselId != null) {
                 return false;
-        } else if (!vesselId.equals(other.vesselId))
+            }
+        } else if (!vesselId.equals(other.vesselId)) {
             return false;
+        }
         return true;
     }
 
     @Override
     public String toString()
     {
-        StringBuilder builder = new StringBuilder();
+        final StringBuilder builder = new StringBuilder();
         builder.append("VesselCreated [vesselId=").append(vesselId).append("]");
         return builder.toString();
     }

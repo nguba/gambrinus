@@ -11,14 +11,15 @@ import me.nguba.gambrinus.equipment.VesselRepository;
 public final class ChangeSetpointMutatorFactory implements MutatorFactory
 {
 
-    private VesselRepository vessels;
+    private final VesselRepository vessels;
 
-    private ChangeSetpointMutatorFactory(VesselRepository vessels)
+    private ChangeSetpointMutatorFactory(final VesselRepository vessels)
     {
         this.vessels = vessels;
     }
-    
-    public static ChangeSetpointMutatorFactory from(VesselRepository vessels) {
+
+    public static ChangeSetpointMutatorFactory from(final VesselRepository vessels)
+    {
         return new ChangeSetpointMutatorFactory(vessels);
     }
 

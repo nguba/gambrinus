@@ -1,7 +1,7 @@
 package me.nguba.gambrinus;
 
-import me.nguba.gambrinus.cqrs.command.MutatorEvent;
 import me.nguba.gambrinus.cqrs.command.EventPublisher;
+import me.nguba.gambrinus.cqrs.command.MutatorEvent;
 import me.nguba.gambrinus.equipment.Vessel;
 import me.nguba.gambrinus.equipment.VesselId;
 import me.nguba.gambrinus.equipment.VesselRepository;
@@ -18,7 +18,7 @@ class AdministratorTest implements EventPublisher
 
     private Administrator admin;
 
-    //private CommandEvent event;
+    // private CommandEvent event;
 
     @BeforeEach
     void setUp()
@@ -50,7 +50,7 @@ class AdministratorTest implements EventPublisher
     @Override
     public <E extends MutatorEvent> void publish(final E event)
     {
-       // this.event = event;
+        // this.event = event;
     }
 
     @Override

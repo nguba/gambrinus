@@ -44,7 +44,8 @@ public class Administrator
         return result.getResult().get();
     }
 
-    public void createVessel(VesselId vesselId, OneWireAddress address) throws ValidationFailed
+    public void createVessel(final VesselId vesselId, final OneWireAddress address)
+            throws ValidationFailed
     {
         commands.process(CreateVessel.from(vesselId, address));
     }

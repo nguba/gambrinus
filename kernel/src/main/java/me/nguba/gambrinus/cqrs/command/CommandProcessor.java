@@ -42,14 +42,13 @@ public final class CommandProcessor
         publisher.publish(mutator.onCompletion(command));
     }
 
-   
     private <C extends Command> Mutator<Command> getMutator(final C command)
     {
-        MutatorFactory factory = mutators.get(command.getClass());
-        
+        final MutatorFactory factory = mutators.get(command.getClass());
+
         @SuppressWarnings("unchecked")
         final Mutator<Command> mutator = (Mutator<Command>) factory.make();
-        
+
         if (mutator == null) {
             throw new UnsupportedOperationException(String.format("No mutator for: %s",
                                                                   command.getClass()));

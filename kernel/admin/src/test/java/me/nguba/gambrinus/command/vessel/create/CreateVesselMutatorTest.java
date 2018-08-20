@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Optional;
 
@@ -43,7 +43,7 @@ class CreateVesselMutatorTest
     {
         mutator.mutate(command);
 
-        Optional<Vessel> actual = repo.read(vesselId);
+        final Optional<Vessel> actual = repo.read(vesselId);
         assertThat(actual.isPresent()).isTrue();
     }
 
@@ -58,7 +58,7 @@ class CreateVesselMutatorTest
     {
         mutator.validate(CreateVessel.from(null, null), errors);
 
-        ValidationFailed failed = verify();
+        final ValidationFailed failed = verify();
 
         assertThat(failed.getErrors().has(Reason.from("VesselId cannot be null.")));
     }
@@ -70,7 +70,7 @@ class CreateVesselMutatorTest
 
         mutator.validate(command, errors);
 
-        ValidationFailed failed = verify();
+        final ValidationFailed failed = verify();
 
         assertThat(failed.getErrors().has(Reason
                 .from(String.format("Vessel already configured.", command.getVesselId()))))
@@ -82,14 +82,14 @@ class CreateVesselMutatorTest
     {
         mutator.validate(CreateVessel.from(null, null), errors);
 
-        ValidationFailed failed = verify();
+        final ValidationFailed failed = verify();
 
         assertThat(failed.getErrors().has(Reason.from("OneWireAddress cannot be null.")));
     }
 
     private ValidationFailed verify()
     {
-        ValidationFailed failed = assertThrows(ValidationFailed.class, () -> errors.verify());
+        final ValidationFailed failed = assertThrows(ValidationFailed.class, () -> errors.verify());
         return failed;
     }
 
