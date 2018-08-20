@@ -11,14 +11,15 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 /**
- * 
+ *
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
 @ControllerAdvice
 public class GambrinusErrorHandler extends ResponseEntityExceptionHandler
 {
     @ExceptionHandler({ ValidationFailed.class })
-    public ResponseEntity<Object> validationError(ValidationFailed ex, WebRequest request)
+    public ResponseEntity<Object> validationError(final ValidationFailed ex,
+                                                  final WebRequest request)
     {
         return handleExceptionInternal(ex,
                                        ex.getErrors().toString(),

@@ -69,8 +69,8 @@ public final class Errors implements ValueObject
     @Override
     public String toString()
     {
-        StringBuilder builder = new StringBuilder();
-        for (Reason reason : errors) {
+        final StringBuilder builder = new StringBuilder();
+        for (final Reason reason : errors) {
             builder.append(reason).append("\n");
         }
         return builder.toString();
