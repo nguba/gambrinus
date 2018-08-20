@@ -43,7 +43,8 @@ class AdminControllerTest
     @Test
     void getVessels() throws Exception
     {
-        final Vessel[] expected = { Vessel.inactive(VesselId.of("a")), Vessel.inactive(VesselId.of("b")) };
+        final Vessel[] expected = { Vessel.inactive(VesselId.of("a")),
+                Vessel.inactive(VesselId.of("b")) };
         for (final Vessel v : expected) {
             vessels.create(v);
         }
@@ -62,11 +63,12 @@ class AdminControllerTest
 
         // assertEquals("[ ]", result.getResponse().getContentAsString());
     }
-    
+
     @Test
     void createVessel() throws Exception
     {
-        mvc.perform(post("/api/admin/vessel/{name}/{address}", "mash", "28.273B5D070000")).andDo(print())
+        mvc.perform(post("/api/admin/vessel/{name}/{address}", "mash", "28.273B5D070000"))
+                .andDo(print())
                 .andExpect(status().isCreated()).andReturn();
 
         // assertEquals("[ ]", result.getResponse().getContentAsString());

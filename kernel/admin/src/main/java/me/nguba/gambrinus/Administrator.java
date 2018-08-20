@@ -45,13 +45,15 @@ public class Administrator
         return result.getResult().get();
     }
 
-    public Vessel createVessel(final VesselId vesselId, OwfsRoot root, OneWireAddress address)
+    public Vessel createVessel(final VesselId vesselId,
+                               final OwfsRoot root,
+                               final OneWireAddress address)
             throws ValidationFailed
-    {    
+    {
         commands.process(CreateVessel.from(vesselId, root, address));
-        
+
         // TODO replace with single lookup (gross hack)
         final FindVesselsResult result = queries.process(FindVessels.create());
-        return result.getResult().get().iterator().next();   
+        return result.getResult().get().iterator().next();
     }
 }

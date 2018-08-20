@@ -16,7 +16,7 @@ public final class Vessel extends Aggregate<VesselId>
 
     private OwfsSensor sensor;
 
-    private Vessel(final VesselId id, OwfsSensor sensor)
+    private Vessel(final VesselId id, final OwfsSensor sensor)
     {
         super(id);
         this.sensor = sensor;
@@ -27,7 +27,7 @@ public final class Vessel extends Aggregate<VesselId>
         return new Vessel(id, null);
     }
 
-    public static Vessel of(final VesselId id, OwfsSensor sensor)
+    public static Vessel of(final VesselId id, final OwfsSensor sensor)
     {
         return new Vessel(id, sensor);
     }
@@ -54,8 +54,9 @@ public final class Vessel extends Aggregate<VesselId>
 
     public OneWireAddress address()
     {
-        if (sensor == null)
+        if (sensor == null) {
             return OneWireAddress.empty();
+        }
 
         return sensor.getId();
     }

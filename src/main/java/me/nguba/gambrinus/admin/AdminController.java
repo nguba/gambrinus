@@ -23,9 +23,9 @@ public class AdminController
 {
     private final AdminService admin;
 
-    private GambrinusOptions options;
+    private final GambrinusOptions options;
 
-    private AdminController(final AdminService admin, GambrinusOptions options)
+    private AdminController(final AdminService admin, final GambrinusOptions options)
     {
         this.admin = admin;
         this.options = options;
@@ -44,15 +44,15 @@ public class AdminController
     }
 
     @PostMapping(path = "vessel/{id}/{sensor}")
-    public Object createVessel(@PathVariable("id") VesselId id,
-                               @PathVariable("sensor") OneWireAddress address,
-                               UriComponentsBuilder builder)
+    public Object createVessel(@PathVariable("id") final VesselId id,
+                               @PathVariable("sensor") final OneWireAddress address,
+                               final UriComponentsBuilder builder)
             throws Exception
     {
         admin.createVessel(id, address, options.getMountpoint());
-       
-        UriComponents uriComponents = 
-                builder.path("/vessel/{id}/{sensor}").buildAndExpand(id, address);
+
+        final UriComponents uriComponents = builder.path("/vessel/{id}/{sensor}")
+                .buildAndExpand(id, address);
 
         return ResponseEntity.created(uriComponents.toUri()).build();
     }

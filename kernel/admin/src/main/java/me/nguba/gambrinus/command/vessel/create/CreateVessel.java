@@ -12,18 +12,20 @@ public final class CreateVessel implements Command
 {
     private final VesselId vesselId;
 
-    private OwfsRoot root;
+    private final OwfsRoot root;
 
-    private OneWireAddress address;
+    private final OneWireAddress address;
 
-    private CreateVessel(final VesselId vesselId, OwfsRoot root, OneWireAddress address)
+    private CreateVessel(final VesselId vesselId, final OwfsRoot root, final OneWireAddress address)
     {
         this.vesselId = vesselId;
         this.root = root;
         this.address = address;
     }
 
-    public static CreateVessel from(final VesselId vesselId, OwfsRoot root, OneWireAddress address)
+    public static CreateVessel from(final VesselId vesselId,
+                                    final OwfsRoot root,
+                                    final OneWireAddress address)
     {
         return new CreateVessel(vesselId, root, address);
     }

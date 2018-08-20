@@ -103,8 +103,8 @@ class CreateVesselMutatorTest
     @Test
     void cannotMount()
     {
-        OwfsRoot root = OwfsRoot.of("non/existing/path");
-        OneWireAddress address = OneWireAddress.of("28.273B5D070000");
+        final OwfsRoot root = OwfsRoot.of("non/existing/path");
+        final OneWireAddress address = OneWireAddress.of("28.273B5D070000");
 
         mutator.validate(CreateVessel.from(null, root, address), errors);
         final ValidationFailed failed = verify();

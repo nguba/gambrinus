@@ -28,7 +28,7 @@ public final class CreateVesselMutator implements Mutator<CreateVessel>
         try {
             repo.create(Vessel.of(command.getVesselId(),
                                   OwfsSensor.mount(command.getRoot(), command.getAddress())));
-        } catch (IOException e) {
+        } catch (final IOException e) {
             throw new IllegalStateException(e);
         }
     }
@@ -57,7 +57,7 @@ public final class CreateVesselMutator implements Mutator<CreateVessel>
         if (command.getRoot() != null && command.getAddress() != null) {
             try {
                 OwfsSensor.mount(command.getRoot(), command.getAddress());
-            } catch (IOException e) {
+            } catch (final IOException e) {
                 errors.add(Reason.from(e.getMessage()));
             }
         }

@@ -7,7 +7,7 @@ import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.hateoas.mvc.ResourceAssemblerSupport;
 
 /**
- * 
+ *
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
 public class VesselAdapter extends ResourceAssemblerSupport<Vessel, ResourceSupport>
@@ -18,7 +18,7 @@ public class VesselAdapter extends ResourceAssemblerSupport<Vessel, ResourceSupp
     }
 
     @Override
-    public ResourceSupport toResource(Vessel entity)
+    public ResourceSupport toResource(final Vessel entity)
     {
         final ResourceSupport resource = new ResourceSupport();
         resource.add(ControllerLinkBuilder.linkTo(AdminController.class).slash("vessel")

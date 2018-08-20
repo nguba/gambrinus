@@ -12,12 +12,12 @@ public final class CreateVesselFactory implements MutatorFactory
 {
     private final VesselRepository repo;
 
-    private CreateVesselFactory(VesselRepository repo)
+    private CreateVesselFactory(final VesselRepository repo)
     {
         this.repo = repo;
     }
 
-    public static CreateVesselFactory on(VesselRepository repo)
+    public static CreateVesselFactory on(final VesselRepository repo)
     {
         return new CreateVesselFactory(repo);
     }

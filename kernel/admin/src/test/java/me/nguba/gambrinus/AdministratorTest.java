@@ -30,7 +30,8 @@ class AdministratorTest implements EventPublisher
     @Test
     void findVessels() throws Exception
     {
-        final Vessel[] expected = { Vessel.inactive(VesselId.of("a")), Vessel.inactive(VesselId.of("b")) };
+        final Vessel[] expected = { Vessel.inactive(VesselId.of("a")),
+                Vessel.inactive(VesselId.of("b")) };
         for (final Vessel v : expected) {
             vessels.create(v);
         }

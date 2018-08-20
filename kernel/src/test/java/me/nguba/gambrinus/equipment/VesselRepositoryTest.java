@@ -91,7 +91,8 @@ class VesselRepositoryTest
     @Test
     void readAll()
     {
-        final Vessel[] expected = { Vessel.inactive(VesselId.of("1")), Vessel.inactive(VesselId.of("2")) };
+        final Vessel[] expected = { Vessel.inactive(VesselId.of("1")),
+                Vessel.inactive(VesselId.of("2")) };
         for (final Vessel v : expected) {
             repository.create(v);
         }

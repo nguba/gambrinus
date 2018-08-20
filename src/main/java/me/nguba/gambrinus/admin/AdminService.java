@@ -43,10 +43,12 @@ public final class AdminService implements Service
         return resources;
     }
 
-    public ResourceSupport createVessel(VesselId id, OneWireAddress address, String mountpoint)
+    public ResourceSupport createVessel(final VesselId id,
+                                        final OneWireAddress address,
+                                        final String mountpoint)
             throws ValidationFailed, IOException
     {
-        Vessel vessel= admin.createVessel(id, OwfsRoot.of(mountpoint), address);
+        final Vessel vessel = admin.createVessel(id, OwfsRoot.of(mountpoint), address);
         return VesselAdapter.adapt(vessel);
     }
 

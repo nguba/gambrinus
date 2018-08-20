@@ -12,10 +12,10 @@ import me.nguba.gambrinus.equipment.VesselRepository;
 public final class AdminCommandProcessorFactory
 {
     private final EventPublisher publisher;
-    
-    private VesselRepository     repo;
 
-    public AdminCommandProcessorFactory(final EventPublisher publisher, VesselRepository repo)
+    private final VesselRepository repo;
+
+    public AdminCommandProcessorFactory(final EventPublisher publisher, final VesselRepository repo)
     {
         this.publisher = publisher;
         this.repo = repo;
