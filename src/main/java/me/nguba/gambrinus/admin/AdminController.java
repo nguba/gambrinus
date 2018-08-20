@@ -1,7 +1,9 @@
 package me.nguba.gambrinus.admin;
 
+import me.nguba.gambrinus.GambrinusOptions;
 import me.nguba.gambrinus.equipment.Vessel;
 
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.hateoas.ResourceSupport;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,10 +20,13 @@ import java.util.Set;
 public class AdminController
 {
     private final AdminService admin;
+    
+    private GambrinusOptions options;
 
-    private AdminController(final AdminService admin)
+    private AdminController(final AdminService admin, GambrinusOptions options)
     {
         this.admin = admin;
+        this.options = options;
     }
 
     @GetMapping(path = "vessel")
@@ -33,6 +38,6 @@ public class AdminController
     @GetMapping(path = "sensor")
     public Set<ResourceSupport> getSensors() throws Exception
     {
-        return admin.findAddresses("src/test/resources/owfs");
+        return admin.findAddresses(options.getMountpoint());
     }
 }
