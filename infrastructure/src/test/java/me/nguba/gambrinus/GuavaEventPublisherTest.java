@@ -1,6 +1,6 @@
 package me.nguba.gambrinus;
 
-import me.nguba.gambrinus.cqrs.command.MutatorEvent;
+import me.nguba.gambrinus.event.MutatorEvent;
 
 import com.google.common.eventbus.Subscribe;
 

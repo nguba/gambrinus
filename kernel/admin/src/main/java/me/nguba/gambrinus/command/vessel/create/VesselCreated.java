@@ -1,7 +1,7 @@
 package me.nguba.gambrinus.command.vessel.create;
 
-import me.nguba.gambrinus.cqrs.command.MutatorEvent;
 import me.nguba.gambrinus.equipment.VesselId;
+import me.nguba.gambrinus.event.MutatorEvent;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>

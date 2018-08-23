@@ -1,4 +1,4 @@
-package me.nguba.gambrinus.cqrs.command;
+package me.nguba.gambrinus.event;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>

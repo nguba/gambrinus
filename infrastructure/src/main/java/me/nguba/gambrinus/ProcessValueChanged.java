@@ -1,6 +1,6 @@
 package me.nguba.gambrinus;
 
-import me.nguba.gambrinus.cqrs.command.MutatorEvent;
+import me.nguba.gambrinus.event.MutatorEvent;
 import me.nguba.gambrinus.onewire.OneWireAddress;
 import me.nguba.gambrinus.process.Temperature;
 

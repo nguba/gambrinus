@@ -1,7 +1,7 @@
 package me.nguba.gambrinus.owfs;
 
 import me.nguba.gambrinus.ProcessValueChanged;
-import me.nguba.gambrinus.cqrs.command.EventPublisher;
+import me.nguba.gambrinus.event.EventPublisher;
 import me.nguba.gambrinus.process.Temperature;
 
 import java.io.IOException;

@@ -32,7 +32,7 @@ class ChangeSetpointMutatorTest
     void mutateNonExistingVessel()
     {
         assertThrows(IllegalArgumentException.class,
-                     () -> mutator.mutate(ChangeSetpoint.on(id, setpoint)));
+                     () -> mutator.changeStateFor(ChangeSetpoint.on(id, setpoint)));
     }
 
     @Test
@@ -40,7 +40,7 @@ class ChangeSetpointMutatorTest
     {
         repo.create(Vessel.inactive(id));
 
-        mutator.mutate(ChangeSetpoint.on(id, setpoint));
+        mutator.changeStateFor(ChangeSetpoint.on(id, setpoint));
 
         assertThat(repo.read(id).get().setpoint()).isEqualTo(Temperature.celsius(68));
     }
@@ -48,7 +48,7 @@ class ChangeSetpointMutatorTest
     @Test
     void mutateNullCommand()
     {
-        mutator.mutate(null);
+        mutator.changeStateFor(null);
     }
 
     @Test
@@ -63,12 +63,5 @@ class ChangeSetpointMutatorTest
 
         assertThat(exception.getErrors().has(Reason.from("No vesselId"))).isTrue();
         assertThat(exception.getErrors().has(Reason.from("No setpoint"))).isTrue();
-    }
-
-    @Test
-    void returnsEvent()
-    {
-        assertThat(mutator.onCompletion(ChangeSetpoint.on(id, setpoint)))
-                .isEqualTo(SetpointChanged.on(id, setpoint));
     }
 }

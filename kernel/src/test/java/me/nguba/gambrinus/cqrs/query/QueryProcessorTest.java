@@ -1,6 +1,7 @@
 package me.nguba.gambrinus.cqrs.query;
 
 import me.nguba.gambrinus.ddd.validation.Errors;
+import me.nguba.gambrinus.ddd.validation.ValidationFailed;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -17,51 +18,45 @@ import java.util.concurrent.atomic.AtomicBoolean;
 class QueryProcessorTest
         implements Query, Result<String>, QueryHandler<QueryProcessorTest, QueryProcessorTest>
 {
-    private final QueryProcessor processor = new QueryProcessor();
-
     private final AtomicBoolean hasValidated = new AtomicBoolean(false);
 
     @Test
-    void registerHandler()
-    {
-        assertThat(processor.supports(QueryProcessorTest.class)).isFalse();
-
-        register();
-
-        assertThat(processor.supports(QueryProcessorTest.class)).isTrue();
-    }
-
-    private void register()
-    {
-        processor.register(getClass(), this);
-    }
-
-    @Test
-    void executeNoHandlerRegistered()
+    void executeNullHandler()
     {
         final UnsupportedOperationException exception = assertThrows(UnsupportedOperationException.class,
-                                                                     () -> processor.process(this));
+                                                                     () -> QueryProcessor
+                                                                             .query(this, null));
 
-        assertThat(exception).hasMessageStartingWith("No handler registered for query: ");
+        assertThat(exception).hasMessage("Handler cannot be null");
+    }
+    
+    @Test
+    void executeNullQuery()
+    {
+        final UnsupportedOperationException exception = assertThrows(UnsupportedOperationException.class,
+                                                                     () -> QueryProcessor
+                                                                             .query(null, this));
+
+        assertThat(exception).hasMessage("Query cannot be null");
     }
 
     @Test
     void runsValidation() throws Exception
     {
-        register();
-
-        processor.process(this);
+        query();
 
         assertThat(hasValidated.get()).isTrue();
+    }
+
+    private QueryProcessorTest query() throws ValidationFailed
+    {
+        return QueryProcessor.query(this, this);
     }
 
     @Test
     void returnsResult() throws Exception
     {
-
-        register();
-
-        final QueryProcessorTest execute = processor.process(this);
+        final QueryProcessorTest execute = query();
         assertThat(execute).isInstanceOf(getClass());
     }
 
@@ -72,7 +67,7 @@ class QueryProcessorTest
     }
 
     @Override
-    public QueryProcessorTest run(final QueryProcessorTest query)
+    public QueryProcessorTest query(final QueryProcessorTest query)
     {
         return this;
     }

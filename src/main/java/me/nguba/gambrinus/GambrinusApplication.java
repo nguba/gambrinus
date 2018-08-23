@@ -1,8 +1,8 @@
 package me.nguba.gambrinus;
 
 import me.nguba.gambrinus.admin.AdminService;
-import me.nguba.gambrinus.cqrs.command.EventPublisher;
 import me.nguba.gambrinus.equipment.VesselRepository;
+import me.nguba.gambrinus.event.EventPublisher;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -31,41 +31,39 @@ public class GambrinusApplication
     }
 
     @Bean
-    public MashCommandProcessorFactory mashCommandProcessor(final EventPublisher publisher,
-                                                            final VesselRepository vessels)
+    public MashQueries mashQueries(final VesselRepository vessels)
     {
-        return new MashCommandProcessorFactory(publisher, vessels);
+        return new MashQueries(vessels);
     }
 
     @Bean
-    public MashQueryProcessorFactory mashQueryProcessor(final VesselRepository vessels)
+    public MashCommands mashCommands(final VesselRepository vessels)
     {
-        return new MashQueryProcessorFactory(vessels);
+        return new MashCommands(vessels);
     }
 
     @Bean
-    public Brewmaster brewmaster(final MashCommandProcessorFactory commands,
-                                 final MashQueryProcessorFactory queries)
+    public Brewmaster brewmaster(final MashCommands commands,
+                                 final MashQueries queries)
     {
         return new Brewmaster(commands, queries);
     }
 
     @Bean
-    public AdminQueryProcessorFactory adminQueryProcessor(final VesselRepository vessels)
+    public AdminQueries adminQueries(final VesselRepository vessels)
     {
-        return new AdminQueryProcessorFactory(vessels);
+        return new AdminQueries(vessels);
+    }
+    
+    @Bean
+    public AdminCommands adminCommands(final VesselRepository vessels)
+    {
+        return new AdminCommands(vessels);
     }
 
     @Bean
-    public AdminCommandProcessorFactory adminCommandProcessor(final EventPublisher publisher,
-                                                              final VesselRepository vessels)
-    {
-        return new AdminCommandProcessorFactory(publisher, vessels);
-    }
-
-    @Bean
-    public Administrator administrator(final AdminCommandProcessorFactory commands,
-                                       final AdminQueryProcessorFactory queries)
+    public Administrator administrator(final AdminCommands commands,
+                                       final AdminQueries queries)
     {
         return new Administrator(commands, queries);
     }

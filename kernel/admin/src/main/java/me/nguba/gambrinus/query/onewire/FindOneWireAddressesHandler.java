@@ -16,6 +16,16 @@ import java.util.Set;
 public final class FindOneWireAddressesHandler
         implements QueryHandler<FindOneWireAddresses, FindOneWireAddressResult>
 {
+    private FindOneWireAddressesHandler()
+    {
+        super();
+    }
+
+    public static FindOneWireAddressesHandler on()
+    {
+        return new FindOneWireAddressesHandler();
+    }
+
     @Override
     public void validate(final FindOneWireAddresses query, final Errors errors)
     {
@@ -26,7 +36,7 @@ public final class FindOneWireAddressesHandler
     }
 
     @Override
-    public FindOneWireAddressResult run(final FindOneWireAddresses query)
+    public FindOneWireAddressResult query(final FindOneWireAddresses query)
     {
         final OwfsRoot root = OwfsRoot.of(query.getMountpoint());
         final Set<OneWireAddress> addresses = new HashSet<>();

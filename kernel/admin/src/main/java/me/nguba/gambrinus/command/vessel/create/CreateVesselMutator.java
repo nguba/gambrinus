@@ -1,7 +1,6 @@
 package me.nguba.gambrinus.command.vessel.create;
 
-import me.nguba.gambrinus.cqrs.command.Mutator;
-import me.nguba.gambrinus.cqrs.command.MutatorEvent;
+import me.nguba.gambrinus.cqrs.command.CommandHandler;
 import me.nguba.gambrinus.ddd.validation.Errors;
 import me.nguba.gambrinus.ddd.validation.Reason;
 import me.nguba.gambrinus.equipment.Vessel;
@@ -13,7 +12,7 @@ import java.io.IOException;
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-public final class CreateVesselMutator implements Mutator<CreateVessel>
+public final class CreateVesselMutator implements CommandHandler<CreateVessel>
 {
     private final VesselRepository repo;
 
@@ -23,7 +22,7 @@ public final class CreateVesselMutator implements Mutator<CreateVessel>
     }
 
     @Override
-    public void mutate(final CreateVessel command)
+    public void changeStateFor(final CreateVessel command)
     {
         try {
             repo.create(Vessel.of(command.getVesselId(),
@@ -31,12 +30,6 @@ public final class CreateVesselMutator implements Mutator<CreateVessel>
         } catch (final IOException e) {
             throw new IllegalStateException(e);
         }
-    }
-
-    @Override
-    public MutatorEvent onCompletion(final CreateVessel command)
-    {
-        return VesselCreated.from(command.getVesselId());
     }
 
     @Override

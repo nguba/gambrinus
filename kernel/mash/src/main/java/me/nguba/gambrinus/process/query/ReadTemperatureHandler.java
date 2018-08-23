@@ -16,9 +16,14 @@ public final class ReadTemperatureHandler
 {
     private final VesselRepository vessels;
 
-    public ReadTemperatureHandler(final VesselRepository vessels)
+    private ReadTemperatureHandler(final VesselRepository vessels)
     {
         this.vessels = vessels;
+    }
+    
+    public static ReadTemperatureHandler on(final VesselRepository vessels)
+    {
+        return new ReadTemperatureHandler(vessels);
     }
 
     @Override
@@ -30,7 +35,7 @@ public final class ReadTemperatureHandler
     }
 
     @Override
-    public ReadTemperatureResult run(final ReadTemperature query)
+    public ReadTemperatureResult query(final ReadTemperature query)
     {
         final Optional<Vessel> vessel = vessels.read(query.getVesselId());
         return ReadTemperatureResult.of(vessel.get().processValue());

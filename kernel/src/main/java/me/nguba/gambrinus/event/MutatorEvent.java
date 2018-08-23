@@ -1,4 +1,4 @@
-package me.nguba.gambrinus.cqrs.command;
+package me.nguba.gambrinus.event;
 
 import java.time.LocalDateTime;
 

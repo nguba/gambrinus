@@ -2,7 +2,7 @@ package me.nguba.gambrinus.owfs;
 
 import me.nguba.gambrinus.GuavaEventPublisher;
 import me.nguba.gambrinus.ProcessValueChanged;
-import me.nguba.gambrinus.cqrs.command.EventPublisher;
+import me.nguba.gambrinus.event.EventPublisher;
 import me.nguba.gambrinus.onewire.OneWireAddress;
 import me.nguba.gambrinus.process.Temperature;
 

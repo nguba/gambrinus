@@ -1,46 +1,43 @@
 package me.nguba.gambrinus.cqrs.query;
 
+import me.nguba.gambrinus.cqrs.CqrsUtil;
 import me.nguba.gambrinus.ddd.validation.Errors;
 import me.nguba.gambrinus.ddd.validation.ValidationFailed;
-
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  *
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-public class QueryProcessor
+public final class QueryProcessor
 {
-    private final ConcurrentHashMap<Object, QueryHandler<? extends Query, ? extends Result<?>>> handlers = new ConcurrentHashMap<>();
-
-    public <H extends QueryHandler<? extends Query, ? extends Result<?>>> void register(final Class<? extends Query> key,
-                                                                                        final H handler)
+    private QueryProcessor()
     {
-        handlers.put(key, handler);
+        super();
     }
 
-    public boolean supports(final Class<? extends Query> key)
+    public static <Q extends Query, R extends Result<?>> R query(final Q query,
+                                                                   QueryHandler<Q, R> handler)
+            throws ValidationFailed
     {
-        return handlers.get(key) != null;
+        CqrsUtil.notNull(handler, "Handler cannot be null");
+        
+        CqrsUtil.notNull(query, "Query cannot be null");
+
+        validate(query, handler);
+
+        return handler.query(query);
     }
 
-    @SuppressWarnings("unchecked")
-    public <Q extends Query, R extends Result<?>> R process(final Q query) throws ValidationFailed
+    private static <Q extends Query, R extends Result<?>> void validate(final Q query,
+                                                                        QueryHandler<Q, R> handler)
+            throws ValidationFailed
     {
-        final QueryHandler<Query, ? extends Result<?>> handler = (QueryHandler<Query, ? extends Result<?>>) handlers
-                .get(query.getClass());
-
-        if (handler == null) {
-            throw new UnsupportedOperationException(String
-                    .format("No handler registered for query: %s", query.getClass()));
-        }
-
         final Errors errors = Errors.empty();
 
         handler.validate(query, errors);
 
         errors.verify();
-
-        return (R) handler.run(query);
     }
+
+   
 }

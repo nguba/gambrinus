@@ -6,5 +6,5 @@ public interface QueryHandler<Q extends Query, R extends Result<?>>
 {
     void validate(Q query, Errors errors);
 
-    R run(Q query);
+    R query(Q query);
 }

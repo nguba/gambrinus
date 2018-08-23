@@ -44,16 +44,10 @@ class CreateVesselMutatorTest
     @Test
     void createsEntryInRepository()
     {
-        mutator.mutate(command);
+        mutator.changeStateFor(command);
 
         final Optional<Vessel> actual = repo.read(vesselId);
         assertThat(actual.isPresent()).isTrue();
-    }
-
-    @Test
-    void onCompletion()
-    {
-        assertThat(mutator.onCompletion(command)).isEqualTo(VesselCreated.from(vesselId));
     }
 
     @Test

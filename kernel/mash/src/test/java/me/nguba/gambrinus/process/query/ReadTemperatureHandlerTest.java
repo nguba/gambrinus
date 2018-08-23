@@ -24,7 +24,7 @@ class ReadTemperatureHandlerTest
     @BeforeEach
     void setUp()
     {
-        handler = new ReadTemperatureHandler(vessels);
+        handler = ReadTemperatureHandler.on(vessels);
     }
 
     @Test
@@ -46,7 +46,7 @@ class ReadTemperatureHandlerTest
         final VesselId vesselId = VesselId.of("boil");
         vessels.create(Vessel.inactive(vesselId));
 
-        final ReadTemperatureResult result = handler.run(ReadTemperature.from(vesselId));
+        final ReadTemperatureResult result = handler.query(ReadTemperature.from(vesselId));
 
         assertThat(result.getResult().get()).isEqualTo(Temperature.celsius(0));
     }

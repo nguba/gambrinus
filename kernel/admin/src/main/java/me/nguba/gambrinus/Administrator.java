@@ -1,17 +1,13 @@
 package me.nguba.gambrinus;
 
 import me.nguba.gambrinus.command.vessel.create.CreateVessel;
-import me.nguba.gambrinus.cqrs.command.CommandProcessor;
-import me.nguba.gambrinus.cqrs.query.QueryProcessor;
 import me.nguba.gambrinus.ddd.validation.ValidationFailed;
 import me.nguba.gambrinus.equipment.Vessel;
 import me.nguba.gambrinus.equipment.VesselId;
 import me.nguba.gambrinus.onewire.OneWireAddress;
 import me.nguba.gambrinus.owfs.OwfsRoot;
-import me.nguba.gambrinus.query.onewire.FindOneWireAddressResult;
 import me.nguba.gambrinus.query.onewire.FindOneWireAddresses;
 import me.nguba.gambrinus.query.vessel.FindVessels;
-import me.nguba.gambrinus.query.vessel.FindVesselsResult;
 
 import java.io.IOException;
 import java.util.Set;
@@ -21,28 +17,25 @@ import java.util.Set;
  */
 public class Administrator
 {
-    private final CommandProcessor commands;
+    private final AdminCommands commands;
 
-    private final QueryProcessor queries;
+    private final AdminQueries queries;
 
-    public Administrator(final AdminCommandProcessorFactory commandFactory,
-                         final AdminQueryProcessorFactory queryFactory)
+    public Administrator(final AdminCommands commands,
+                         final AdminQueries queries)
     {
-        commands = commandFactory.make();
-        queries = queryFactory.make();
+        this.commands = commands;
+        this.queries = queries;
     }
 
     public Set<Vessel> findVessels() throws ValidationFailed, IOException
     {
-        final FindVesselsResult result = queries.process(FindVessels.create());
-        return result.getResult().get();
+        return queries.run(FindVessels.create());
     }
 
     public Set<OneWireAddress> findAddresses(final String mountpoint) throws ValidationFailed
     {
-        final FindOneWireAddressResult result = queries
-                .process(FindOneWireAddresses.on(mountpoint));
-        return result.getResult().get();
+        return queries.run(FindOneWireAddresses.on(mountpoint));
     }
 
     public Vessel createVessel(final VesselId vesselId,
@@ -50,10 +43,9 @@ public class Administrator
                                final OneWireAddress address)
             throws ValidationFailed
     {
-        commands.process(CreateVessel.from(vesselId, root, address));
+        commands.execute(CreateVessel.from(vesselId, root, address));
 
-        // TODO replace with single lookup (gross hack)
-        final FindVesselsResult result = queries.process(FindVessels.create());
-        return result.getResult().get().iterator().next();
+        final Set<Vessel> result = queries.run(FindVessels.create());
+        return result.iterator().next();
     }
 }

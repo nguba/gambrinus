@@ -1,7 +1,6 @@
 package me.nguba.gambrinus.process.setpoint;
 
-import me.nguba.gambrinus.cqrs.command.Mutator;
-import me.nguba.gambrinus.cqrs.command.MutatorEvent;
+import me.nguba.gambrinus.cqrs.command.CommandHandler;
 import me.nguba.gambrinus.ddd.validation.Errors;
 import me.nguba.gambrinus.ddd.validation.Reason;
 import me.nguba.gambrinus.equipment.Vessel;
@@ -12,7 +11,7 @@ import java.util.Optional;
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-public final class ChangeSetpointMutator implements Mutator<ChangeSetpoint>
+public final class ChangeSetpointMutator implements CommandHandler<ChangeSetpoint>
 {
     private final VesselRepository repo;
 
@@ -27,7 +26,7 @@ public final class ChangeSetpointMutator implements Mutator<ChangeSetpoint>
     }
 
     @Override
-    public void mutate(final ChangeSetpoint command)
+    public void changeStateFor(final ChangeSetpoint command)
     {
         if (command == null) {
             return;
@@ -35,12 +34,6 @@ public final class ChangeSetpointMutator implements Mutator<ChangeSetpoint>
 
         final Vessel vessel = findVessel(command);
         vessel.setpoint(command.getSetpoint());
-    }
-
-    @Override
-    public MutatorEvent onCompletion(final ChangeSetpoint command)
-    {
-        return SetpointChanged.on(command.getVesselId(), command.getSetpoint());
     }
 
     @Override

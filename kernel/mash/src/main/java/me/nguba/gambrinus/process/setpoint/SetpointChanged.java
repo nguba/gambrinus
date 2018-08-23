@@ -1,7 +1,7 @@
 package me.nguba.gambrinus.process.setpoint;
 
-import me.nguba.gambrinus.cqrs.command.MutatorEvent;
 import me.nguba.gambrinus.equipment.VesselId;
+import me.nguba.gambrinus.event.MutatorEvent;
 import me.nguba.gambrinus.process.Temperature;
 
 /**

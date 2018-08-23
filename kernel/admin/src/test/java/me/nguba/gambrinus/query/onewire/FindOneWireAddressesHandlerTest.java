@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class FindOneWireAddressesHandlerTest
 {
-    private final FindOneWireAddressesHandler handler = new FindOneWireAddressesHandler();
+    private final FindOneWireAddressesHandler handler = FindOneWireAddressesHandler.on();
 
     private final Errors errors = Errors.empty();
 
@@ -35,7 +35,7 @@ class FindOneWireAddressesHandlerTest
     @Test
     void emptyResultOnIOFailure()
     {
-        final FindOneWireAddressResult result = handler.run(FindOneWireAddresses.on("unavailable"));
+        final FindOneWireAddressResult result = handler.query(FindOneWireAddresses.on("unavailable"));
 
         assertThat(result.getResult().get()).isEmpty();
     }
@@ -44,7 +44,7 @@ class FindOneWireAddressesHandlerTest
     void result()
     {
         final FindOneWireAddressResult result = handler
-                .run(FindOneWireAddresses.on("src/test/resources/owfs"));
+                .query(FindOneWireAddresses.on("src/test/resources/owfs"));
 
         assertThat(result.getResult().get()).containsOnly(OneWireAddress.of("28.273B5D070000"),
                                                           OneWireAddress.of("28.4BBB68080000"));

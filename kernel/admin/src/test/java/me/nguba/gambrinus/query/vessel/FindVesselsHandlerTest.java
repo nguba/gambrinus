@@ -19,7 +19,7 @@ class FindVesselsHandlerTest
     @BeforeEach
     void setup()
     {
-        handler = new FindVesselsHandler(repository);
+        handler = FindVesselsHandler.on(repository);
     }
 
     @Test
@@ -34,7 +34,7 @@ class FindVesselsHandlerTest
     @Test
     void noVesselsFound()
     {
-        final FindVesselsResult result = handler.run(FindVessels.create());
+        final FindVesselsResult result = handler.query(FindVessels.create());
 
         assertThat(result.getResult().get()).isEmpty();
     }
@@ -48,7 +48,7 @@ class FindVesselsHandlerTest
             repository.create(v);
         }
 
-        final FindVesselsResult result = handler.run(FindVessels.create());
+        final FindVesselsResult result = handler.query(FindVessels.create());
 
         assertThat(result.getResult().get()).containsOnly(expected);
     }
