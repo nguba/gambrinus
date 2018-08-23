@@ -37,21 +37,21 @@ class BrewmasterTest implements EventPublisher
         final Temperature temperature = brewmaster.readTemperature(vesselId);
         assertThat(temperature).isEqualTo(Temperature.celsius(0));
     }
-    
+
     @Test
-    void heat() throws Exception 
+    void heat() throws Exception
     {
         brewmaster.heat(vesselId, Temperature.celsius(65.5));
     }
 
     @Override
-    public <E extends MutatorEvent> void publish(E event)
+    public <E extends MutatorEvent> void publish(final E event)
     {
         System.out.println(event);
     }
 
     @Override
-    public void subscribe(Object recipient)
+    public void subscribe(final Object recipient)
     {
     }
 

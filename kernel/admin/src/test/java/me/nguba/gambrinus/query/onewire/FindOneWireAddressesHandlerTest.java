@@ -35,7 +35,8 @@ class FindOneWireAddressesHandlerTest
     @Test
     void emptyResultOnIOFailure()
     {
-        final FindOneWireAddressResult result = handler.query(FindOneWireAddresses.on("unavailable"));
+        final FindOneWireAddressResult result = handler
+                .query(FindOneWireAddresses.on("unavailable"));
 
         assertThat(result.getResult().get()).isEmpty();
     }

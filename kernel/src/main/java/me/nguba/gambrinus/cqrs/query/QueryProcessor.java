@@ -16,11 +16,11 @@ public final class QueryProcessor
     }
 
     public static <Q extends Query, R extends Result<?>> R query(final Q query,
-                                                                   QueryHandler<Q, R> handler)
+                                                                 final QueryHandler<Q, R> handler)
             throws ValidationFailed
     {
         CqrsUtil.notNull(handler, "Handler cannot be null");
-        
+
         CqrsUtil.notNull(query, "Query cannot be null");
 
         validate(query, handler);
@@ -29,7 +29,7 @@ public final class QueryProcessor
     }
 
     private static <Q extends Query, R extends Result<?>> void validate(final Q query,
-                                                                        QueryHandler<Q, R> handler)
+                                                                        final QueryHandler<Q, R> handler)
             throws ValidationFailed
     {
         final Errors errors = Errors.empty();
@@ -39,5 +39,4 @@ public final class QueryProcessor
         errors.verify();
     }
 
-   
 }

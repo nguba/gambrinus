@@ -15,8 +15,8 @@ public final class FindVesselsHandler implements QueryHandler<FindVessels, FindV
     {
         this.repository = repository;
     }
-    
-    public static FindVesselsHandler on(VesselRepository repository)
+
+    public static FindVesselsHandler on(final VesselRepository repository)
     {
         return new FindVesselsHandler(repository);
     }

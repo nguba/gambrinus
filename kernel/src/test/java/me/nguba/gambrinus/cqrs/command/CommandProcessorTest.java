@@ -39,7 +39,7 @@ class CommandProcessorTest
         assertThrows(UnsupportedOperationException.class,
                      () -> CommandProcessor.process(this, null));
     }
-    
+
     @Test
     @DisplayName("Error on null command")
     void processNullCommand() throws Exception

@@ -16,7 +16,7 @@ public class MashQueries
         this.vessels = vessels;
     }
 
-    public Temperature run(ReadTemperature query) throws ValidationFailed
+    public Temperature run(final ReadTemperature query) throws ValidationFailed
     {
         return QueryProcessor.query(query, ReadTemperatureHandler.on(vessels)).getResult()
                 .orElse(Temperature.celsius(0));

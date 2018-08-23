@@ -29,7 +29,7 @@ class QueryProcessorTest
 
         assertThat(exception).hasMessage("Handler cannot be null");
     }
-    
+
     @Test
     void executeNullQuery()
     {

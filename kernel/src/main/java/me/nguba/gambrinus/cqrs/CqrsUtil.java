@@ -9,10 +9,10 @@ public enum CqrsUtil
 {
     ;
 
-    public static void notNull(Object object, String msg)
+    public static void notNull(final Object object, final String msg)
     {
         Optional.ofNullable(object)
-        .orElseThrow(() -> new UnsupportedOperationException(msg));
+                .orElseThrow(() -> new UnsupportedOperationException(msg));
     }
-    
+
 }

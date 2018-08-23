@@ -15,7 +15,7 @@ public final class CommandProcessor
         super();
     }
 
-    public static <C extends Command> void process(final C command, CommandHandler<C> handler)
+    public static <C extends Command> void process(final C command, final CommandHandler<C> handler)
             throws ValidationFailed
     {
         CqrsUtil.notNull(command, "Command cannot be null");

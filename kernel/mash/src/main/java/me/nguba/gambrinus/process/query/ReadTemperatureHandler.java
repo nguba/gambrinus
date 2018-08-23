@@ -20,7 +20,7 @@ public final class ReadTemperatureHandler
     {
         this.vessels = vessels;
     }
-    
+
     public static ReadTemperatureHandler on(final VesselRepository vessels)
     {
         return new ReadTemperatureHandler(vessels);

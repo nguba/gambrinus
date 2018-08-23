@@ -37,7 +37,7 @@ public class GambrinusApplication
     }
 
     @Bean
-    public MashCommands mashCommands(final VesselRepository vessels, EventPublisher events)
+    public MashCommands mashCommands(final VesselRepository vessels, final EventPublisher events)
     {
         return new MashCommands(vessels, events);
     }
@@ -54,7 +54,7 @@ public class GambrinusApplication
     {
         return new AdminQueries(vessels);
     }
-    
+
     @Bean
     public AdminCommands adminCommands(final VesselRepository vessels)
     {

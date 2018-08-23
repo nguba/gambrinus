@@ -9,24 +9,25 @@ import me.nguba.gambrinus.ddd.validation.ValidationFailed;
  */
 public final class PublishinCommandProcessor
 {
-    private EventPublisher publisher;
+    private final EventPublisher publisher;
 
-    private PublishinCommandProcessor(EventPublisher publisher)
+    private PublishinCommandProcessor(final EventPublisher publisher)
     {
         super();
         this.publisher = publisher;
     }
 
-    public static PublishinCommandProcessor create(EventPublisher publisher)
+    public static PublishinCommandProcessor create(final EventPublisher publisher)
     {
         return new PublishinCommandProcessor(publisher);
     }
 
     public <C extends Command> void process(final C command,
-                                                   PublishingCommandHandler<C> handler) throws ValidationFailed
+                                            final PublishingCommandHandler<C> handler)
+            throws ValidationFailed
     {
         CommandProcessor.process(command, handler);
-        
+
         publisher.publish(handler.onCompletion(command));
     }
 }

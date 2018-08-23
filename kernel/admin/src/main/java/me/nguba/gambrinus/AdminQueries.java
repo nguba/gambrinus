@@ -22,13 +22,13 @@ public class AdminQueries
         this.vessels = vessels;
     }
 
-    public Set<Vessel> run(FindVessels query) throws ValidationFailed
+    public Set<Vessel> run(final FindVessels query) throws ValidationFailed
     {
         return QueryProcessor.query(query, FindVesselsHandler.on(vessels)).getResult()
                 .orElse(new HashSet<Vessel>());
     }
 
-    public Set<OneWireAddress> run(FindOneWireAddresses query) throws ValidationFailed
+    public Set<OneWireAddress> run(final FindOneWireAddresses query) throws ValidationFailed
     {
         return QueryProcessor.query(query, FindOneWireAddressesHandler.on()).getResult().get();
     }
