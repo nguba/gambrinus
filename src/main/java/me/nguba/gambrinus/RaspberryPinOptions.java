@@ -1,5 +1,7 @@
 package me.nguba.gambrinus;
 
+import me.nguba.gambrinus.raspberry.GPIO;
+
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
@@ -8,40 +10,40 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "gambrinus.raspberry.pin")
 public class RaspberryPinOptions
 {
-    private String mt;
+    private GPIO mt;
 
-    private String hlt;
+    private GPIO hlt;
 
-    private String bk;
+    private GPIO bk;
 
-    public void setMt(final String mt)
-    {
-        this.mt = mt;
-    }
-
-    public void setHlt(final String hlt)
-    {
-        this.hlt = hlt;
-    }
-
-    public void setBk(final String bk)
-    {
-        this.bk = bk;
-    }
-
-    public String getMt()
+    public GPIO getMt()
     {
         return mt;
     }
 
-    public String getHlt()
+    public void setMt(GPIO mt)
+    {
+        this.mt = mt;
+    }
+
+    public GPIO getHlt()
     {
         return hlt;
     }
 
-    public String getBk()
+    public void setHlt(GPIO hlt)
+    {
+        this.hlt = hlt;
+    }
+
+    public GPIO getBk()
     {
         return bk;
+    }
+
+    public void setBk(GPIO bk)
+    {
+        this.bk = bk;
     }
 
     @Override

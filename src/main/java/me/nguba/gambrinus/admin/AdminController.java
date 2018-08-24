@@ -5,6 +5,9 @@ import me.nguba.gambrinus.RaspberryPinOptions;
 import me.nguba.gambrinus.equipment.VesselId;
 import me.nguba.gambrinus.onewire.OneWireAddress;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.core.convert.converter.Converter;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +25,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RequestMapping(path = "/api/admin")
 public class AdminController
 {
+    private static final Logger LOGGER = LoggerFactory.getLogger(AdminController.class);
+    
     private final AdminService admin;
 
     private final GambrinusOptions options;
@@ -33,7 +38,7 @@ public class AdminController
         this.admin = admin;
         this.options = options;
 
-        System.out.println(pins);
+        LOGGER.info("{}", pins);
     }
 
     @GetMapping(path = "vessel")

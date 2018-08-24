@@ -17,6 +17,11 @@ public class GambrinusApplication
     {
         SpringApplication.run(GambrinusApplication.class, args);
     }
+    
+    @Bean
+    public PinConverter pinConverter() {
+        return new PinConverter();
+    }
 
     @Bean
     public VesselRepository vesselRepository()
