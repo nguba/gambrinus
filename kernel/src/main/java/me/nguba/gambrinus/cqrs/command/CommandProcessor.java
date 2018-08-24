@@ -10,10 +10,10 @@ import me.nguba.gambrinus.ddd.validation.ValidationFailed;
  */
 public final class CommandProcessor<C extends Command>
 {
-    private C                 command;
-    private CommandHandler<C> handler;
+    private final C                 command;
+    private final CommandHandler<C> handler;
 
-    public CommandProcessor(C command, CommandHandler<C> handler)
+    public CommandProcessor(final C command, final CommandHandler<C> handler)
     {
         CqrsUtil.notNull(command, "Command cannot be null");
         CqrsUtil.notNull(handler, "Handler cannot be null");
@@ -29,11 +29,11 @@ public final class CommandProcessor<C extends Command>
     }
 
     public void mutate() throws ValidationFailed
-    {    
+    {
         final Errors errors = Errors.empty();
-        
+
         handler.validate(command, errors);
-        
+
         errors.verify();
 
         handler.changeStateFor(command);

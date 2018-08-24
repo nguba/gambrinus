@@ -10,7 +10,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
-@EnableConfigurationProperties({ GambrinusOptions.class })
+@EnableConfigurationProperties({ GambrinusOptions.class, RaspberryPinOptions.class })
 public class GambrinusApplication
 {
     public static void main(final String... args)

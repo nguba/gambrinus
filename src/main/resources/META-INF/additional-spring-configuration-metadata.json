@@ -1,5 +1,47 @@
-{"properties": [{
-  "name": "gambrinus.mountpoint",
-  "type": "java.lang.String",
-  "description": "A description for 'gambrinus.mountpoint'"
-}]}
+{"properties": [
+  {
+    "name": "gambrinus.mountpoint",
+    "type": "java.lang.String",
+    "description": "A description for 'gambrinus.mountpoint'"
+  },
+  {
+    "name": "gambrinus.mt.pin",
+    "type": "java.lang.String",
+    "description": "A description for 'gambrinus.mt.pin'"
+  },
+  {
+    "name": "gambrinus.hlt.pin",
+    "type": "java.lang.String",
+    "description": "A description for 'gambrinus.hlt.pin'"
+  },
+  {
+    "name": "gambrinus.mt.pin",
+    "type": "java.lang.String",
+    "description": "A description for 'gambrinus.mt.pin'"
+  },
+  {
+    "name": "gambrinus.hlt.pin",
+    "type": "java.lang.String",
+    "description": "A description for 'gambrinus.hlt.pin'"
+  },
+  {
+    "name": "gambrinus.hlt.pin",
+    "type": "java.lang.String",
+    "description": "A description for 'gambrinus.hlt.pin'"
+  },
+  {
+    "name": "gambrinus.raspberry.pin.mt",
+    "type": "java.lang.String",
+    "description": "A description for 'gambrinus.raspberry.pin.mt'"
+  },
+  {
+    "name": "gambrinus.raspberry.pin.hlt",
+    "type": "java.lang.String",
+    "description": "A description for 'gambrinus.raspberry.pin.hlt'"
+  },
+  {
+    "name": "gambrinus.raspberry.pin.bk",
+    "type": "java.lang.String",
+    "description": "A description for 'gambrinus.raspberry.pin.bk'"
+  }
+]}

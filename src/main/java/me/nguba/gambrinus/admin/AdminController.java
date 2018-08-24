@@ -1,6 +1,7 @@
 package me.nguba.gambrinus.admin;
 
 import me.nguba.gambrinus.GambrinusOptions;
+import me.nguba.gambrinus.RaspberryPinOptions;
 import me.nguba.gambrinus.equipment.VesselId;
 import me.nguba.gambrinus.onewire.OneWireAddress;
 
@@ -25,10 +26,14 @@ public class AdminController
 
     private final GambrinusOptions options;
 
-    private AdminController(final AdminService admin, final GambrinusOptions options)
+    private AdminController(final AdminService admin,
+                            final GambrinusOptions options,
+                            final RaspberryPinOptions pins)
     {
         this.admin = admin;
         this.options = options;
+
+        System.out.println(pins);
     }
 
     @GetMapping(path = "vessel")
