@@ -1,4 +1,4 @@
-package me.nguba.gambrinus;
+package me.nguba.gambrinus.owfs;
 
 import me.nguba.gambrinus.event.MutatorEvent;
 import me.nguba.gambrinus.onewire.OneWireAddress;

@@ -1,6 +1,5 @@
 package me.nguba.gambrinus.owfs;
 
-import me.nguba.gambrinus.ProcessValueChanged;
 import me.nguba.gambrinus.event.EventPublisher;
 import me.nguba.gambrinus.process.Temperature;
 
