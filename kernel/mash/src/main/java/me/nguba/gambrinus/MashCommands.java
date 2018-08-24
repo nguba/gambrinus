@@ -25,7 +25,7 @@ public final class MashCommands
 
     public void execute(final ChangeSetpoint command) throws ValidationFailed
     {
-        CommandProcessor.process(command, ChangeSetpointMutator.from(vessels));
+        CommandProcessor.from(command, ChangeSetpointMutator.from(vessels)).mutate();
         events.publish(SetpointChanged.on(command.getVesselId(), command.getSetpoint()));
     }
 }

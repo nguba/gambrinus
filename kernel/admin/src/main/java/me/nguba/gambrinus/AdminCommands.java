@@ -20,6 +20,6 @@ public final class AdminCommands
 
     public void execute(final CreateVessel command) throws ValidationFailed
     {
-        CommandProcessor.process(command, new CreateVesselMutator(repo));
+        CommandProcessor.from(command, new CreateVesselMutator(repo)).mutate();
     }
 }

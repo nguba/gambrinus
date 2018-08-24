@@ -20,7 +20,6 @@ public final class Brewmaster
     {
         this.commands = commands;
         this.queries = queries;
-
     }
 
     public void heat(final VesselId vessel, final Temperature target) throws ValidationFailed

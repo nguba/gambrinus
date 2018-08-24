@@ -37,7 +37,7 @@ class CommandProcessorTest
         assertFalse(executed.get());
 
         assertThrows(UnsupportedOperationException.class,
-                     () -> CommandProcessor.process(this, null));
+                     () -> CommandProcessor.from(this, null).mutate());
     }
 
     @Test
@@ -47,7 +47,7 @@ class CommandProcessorTest
         assertFalse(executed.get());
 
         assertThrows(UnsupportedOperationException.class,
-                     () -> CommandProcessor.process(null, this));
+                     () -> CommandProcessor.from(null, this).mutate());
     }
 
     /**
@@ -55,7 +55,7 @@ class CommandProcessorTest
      */
     private void process() throws ValidationFailed
     {
-        CommandProcessor.process(this, this);
+        CommandProcessor.from(this, this).mutate();
     }
 
     @Override

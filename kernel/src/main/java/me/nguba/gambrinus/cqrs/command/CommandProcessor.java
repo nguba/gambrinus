@@ -8,33 +8,34 @@ import me.nguba.gambrinus.ddd.validation.ValidationFailed;
  *
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-public final class CommandProcessor
+public final class CommandProcessor<C extends Command>
 {
-    private CommandProcessor()
-    {
-        super();
-    }
+    private C                 command;
+    private CommandHandler<C> handler;
 
-    public static <C extends Command> void process(final C command, final CommandHandler<C> handler)
-            throws ValidationFailed
+    public CommandProcessor(C command, CommandHandler<C> handler)
     {
         CqrsUtil.notNull(command, "Command cannot be null");
-
         CqrsUtil.notNull(handler, "Handler cannot be null");
 
-        validate(command, handler);
-
-        handler.changeStateFor(command);
+        this.command = command;
+        this.handler = handler;
     }
 
-    private static <C extends Command> void validate(final C command,
-                                                     final CommandHandler<C> mutator)
-            throws ValidationFailed
+    public static <C extends Command> CommandProcessor<C> from(final C command,
+                                                               final CommandHandler<C> handler)
     {
+        return new CommandProcessor<C>(command, handler);
+    }
+
+    public void mutate() throws ValidationFailed
+    {    
         final Errors errors = Errors.empty();
-
-        mutator.validate(command, errors);
-
+        
+        handler.validate(command, errors);
+        
         errors.verify();
+
+        handler.changeStateFor(command);
     }
 }
