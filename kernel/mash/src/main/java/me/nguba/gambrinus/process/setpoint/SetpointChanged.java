@@ -1,5 +1,7 @@
 package me.nguba.gambrinus.process.setpoint;
 
+import java.time.Instant;
+
 import me.nguba.gambrinus.equipment.VesselId;
 import me.nguba.gambrinus.event.MutatorEvent;
 import me.nguba.gambrinus.process.Temperature;
@@ -7,7 +9,7 @@ import me.nguba.gambrinus.process.Temperature;
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-public final class SetpointChanged implements MutatorEvent
+public final class SetpointChanged extends MutatorEvent
 {
     private final VesselId vesselId;
 
@@ -15,6 +17,7 @@ public final class SetpointChanged implements MutatorEvent
 
     private SetpointChanged(final VesselId vesselId, final Temperature setpoint)
     {
+    	super(Instant.now());
         this.vesselId = vesselId;
         this.setpoint = setpoint;
     }

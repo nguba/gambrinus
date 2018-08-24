@@ -1,17 +1,20 @@
 package me.nguba.gambrinus.command.vessel.create;
 
+import java.time.Instant;
+
 import me.nguba.gambrinus.equipment.VesselId;
 import me.nguba.gambrinus.event.MutatorEvent;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-public final class VesselCreated implements MutatorEvent
+public final class VesselCreated extends MutatorEvent
 {
     private final VesselId vesselId;
 
     private VesselCreated(final VesselId vesselId)
     {
+    	super(Instant.now());
         this.vesselId = vesselId;
     }
 
