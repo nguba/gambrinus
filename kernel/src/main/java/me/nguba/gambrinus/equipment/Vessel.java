@@ -22,6 +22,12 @@ public final class Vessel extends Aggregate<VesselId>
         this.sensor = sensor;
     }
 
+    /**
+     * Returns a vessel without assigned sensor.
+     * 
+     * @param id
+     * @return the inactive vessel
+     */
     public static Vessel inactive(final VesselId id)
     {
         return new Vessel(id, null);

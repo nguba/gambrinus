@@ -16,7 +16,7 @@ class ChangeSetpointTest
     @Test
     void hasVesselId()
     {
-        assertEquals(command.getVesselId(), VesselId.of("setpoint test"));
+        assertEquals(command.getId(), VesselId.of("setpoint test"));
     }
 
     @Test

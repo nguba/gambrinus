@@ -1,7 +1,7 @@
 package me.nguba.gambrinus;
 
 import me.nguba.gambrinus.command.temperature.setpoint.ChangeSetpoint;
-import me.nguba.gambrinus.command.temperature.setpoint.ChangeSetpointMutator;
+import me.nguba.gambrinus.command.temperature.setpoint.ChangeSetpointHandler;
 import me.nguba.gambrinus.command.temperature.setpoint.SetpointChanged;
 import me.nguba.gambrinus.cqrs.command.CommandProcessor;
 import me.nguba.gambrinus.ddd.validation.ValidationFailed;
@@ -25,7 +25,7 @@ public final class MashCommands
 
     public void execute(final ChangeSetpoint command) throws ValidationFailed
     {
-        CommandProcessor.from(command, ChangeSetpointMutator.from(vessels)).mutate();
-        events.publish(SetpointChanged.on(command.getVesselId(), command.getSetpoint()));
+        CommandProcessor.from(command, ChangeSetpointHandler.from(vessels)).mutate();
+        events.publish(SetpointChanged.on(command.getId(), command.getSetpoint()));
     }
 }

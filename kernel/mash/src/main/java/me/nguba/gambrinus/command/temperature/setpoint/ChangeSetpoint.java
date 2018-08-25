@@ -1,13 +1,13 @@
 package me.nguba.gambrinus.command.temperature.setpoint;
 
-import me.nguba.gambrinus.cqrs.command.Command;
+import me.nguba.gambrinus.command.VesselCommand;
 import me.nguba.gambrinus.equipment.VesselId;
 import me.nguba.gambrinus.process.Temperature;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-public final class ChangeSetpoint implements Command
+public final class ChangeSetpoint implements VesselCommand
 {
     private final VesselId vesselId;
 
@@ -24,7 +24,8 @@ public final class ChangeSetpoint implements Command
         return new ChangeSetpoint(vesselId, setpoint);
     }
 
-    public VesselId getVesselId()
+    @Override
+    public VesselId getId()
     {
         return vesselId;
     }
