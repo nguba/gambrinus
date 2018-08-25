@@ -8,5 +8,5 @@ import java.util.Optional;
  */
 public interface Result<T>
 {
-    Optional<T> getResult();
+  Optional<T> getResult();
 }

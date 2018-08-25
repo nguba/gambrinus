@@ -8,27 +8,31 @@ import me.nguba.gambrinus.equipment.VesselRepository;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
- * 
+ *
  */
-public class SetProcessValueHandler extends VesselHandler<SetProcessValue> {
+public class SetProcessValueHandler extends VesselHandler<SetProcessValue>
+{
 
-	private SetProcessValueHandler(VesselRepository repo) {
-		super(repo);
-	}
+  private SetProcessValueHandler(final VesselRepository repo)
+  {
+    super(repo);
+  }
 
-	public static SetProcessValueHandler from(VesselRepository repo) {
-		return new SetProcessValueHandler(repo);
-	}
+  public static SetProcessValueHandler from(final VesselRepository repo)
+  {
+    return new SetProcessValueHandler(repo);
+  }
 
-	@Override
-	protected void onValidate(SetProcessValue command, Errors errors) {
-		if(command.getProcessValue() == null) {
-			errors.add(Reason.from("No processValue"));
-		}
-	}
+  @Override
+  protected void onValidate(final SetProcessValue command, final Errors errors)
+  {
+    if (command.getProcessValue() == null)
+      errors.add(Reason.from("No processValue"));
+  }
 
-	@Override
-	protected void onVessel(Vessel vessel, SetProcessValue command) {
-		vessel.processValue(command.getProcessValue());
-	}
+  @Override
+  protected void onVessel(final Vessel vessel, final SetProcessValue command)
+  {
+    vessel.processValue(command.getProcessValue());
+  }
 }

@@ -10,39 +10,39 @@ import me.nguba.gambrinus.owfs.OwfsRoot;
  */
 public final class CreateVessel implements Command
 {
-    private final VesselId vesselId;
+  private final VesselId vesselId;
 
-    private final OwfsRoot root;
+  private final OwfsRoot root;
 
-    private final OneWireAddress address;
+  private final OneWireAddress address;
 
-    private CreateVessel(final VesselId vesselId, final OwfsRoot root, final OneWireAddress address)
-    {
-        this.vesselId = vesselId;
-        this.root = root;
-        this.address = address;
-    }
+  private CreateVessel(final VesselId vesselId, final OwfsRoot root, final OneWireAddress address)
+  {
+    this.vesselId = vesselId;
+    this.root = root;
+    this.address = address;
+  }
 
-    public static CreateVessel from(final VesselId vesselId,
-                                    final OwfsRoot root,
-                                    final OneWireAddress address)
-    {
-        return new CreateVessel(vesselId, root, address);
-    }
+  public static CreateVessel from(final VesselId vesselId,
+                                  final OwfsRoot root,
+                                  final OneWireAddress address)
+  {
+    return new CreateVessel(vesselId, root, address);
+  }
 
-    protected VesselId getVesselId()
-    {
-        return vesselId;
-    }
+  protected VesselId getVesselId()
+  {
+    return vesselId;
+  }
 
-    protected OwfsRoot getRoot()
-    {
-        return root;
-    }
+  protected OwfsRoot getRoot()
+  {
+    return root;
+  }
 
-    protected OneWireAddress getAddress()
-    {
-        return address;
-    }
+  protected OneWireAddress getAddress()
+  {
+    return address;
+  }
 
 }

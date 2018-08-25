@@ -11,15 +11,15 @@ import me.nguba.gambrinus.equipment.VesselRepository;
  */
 public final class AdminCommands
 {
-    private final VesselRepository repo;
+  private final VesselRepository repo;
 
-    public AdminCommands(final VesselRepository repo)
-    {
-        this.repo = repo;
-    }
+  public AdminCommands(final VesselRepository repo)
+  {
+    this.repo = repo;
+  }
 
-    public void execute(final CreateVessel command) throws ValidationFailed
-    {
-        CommandProcessor.from(command, new CreateVesselMutator(repo)).mutate();
-    }
+  public void execute(final CreateVessel command) throws ValidationFailed
+  {
+    CommandProcessor.from(command, new CreateVesselMutator(repo)).mutate();
+  }
 }

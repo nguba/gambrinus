@@ -7,11 +7,11 @@ import java.util.Optional;
  */
 public interface Repository<I, A extends Aggregate<I>>
 {
-    Optional<I> create(A aggregate);
+  Optional<I> create(A aggregate);
 
-    Optional<A> read(I identifier);
+  Optional<A> read(I identifier);
 
-    void update(A aggregate);
+  void update(A aggregate);
 
-    void delete(I identifier);
+  void delete(I identifier);
 }

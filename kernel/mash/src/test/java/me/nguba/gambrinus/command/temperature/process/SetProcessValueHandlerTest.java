@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package me.nguba.gambrinus.command.temperature.process;
 
@@ -19,63 +19,70 @@ import me.nguba.gambrinus.process.Temperature;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
- * 
+ *
  */
-class SetProcessValueHandlerTest {
+class SetProcessValueHandlerTest
+{
 
-	private SetProcessValueHandler handler;
+  private SetProcessValueHandler handler;
 
-	private VesselRepository repo = new VesselRepository();
-	
-	private VesselId id = VesselId.of("bk");
-	
-	private Temperature processValue = Temperature.celsius(68.0);
+  private final VesselRepository repo = new VesselRepository();
 
-	@BeforeEach
-	void setUp() {
-		handler = SetProcessValueHandler.from(repo);
-	}
-	
-	@Test
-	void mutateNonExistingVessel() {
-		assertThrows(IllegalArgumentException.class, () -> handler.changeStateFor(SetProcessValue.on(id, processValue)));
-	}
+  private final VesselId id = VesselId.of("bk");
 
-	@Test
-    void mutateNullCommand()
-    {
-        assertThrows(IllegalArgumentException.class, ()-> handler.changeStateFor(null));
-    }
-	
-	@Test
-	void mutateMofifiesAggregate() {
-		repo.create(Vessel.inactive(id));
+  private final Temperature processValue = Temperature.celsius(68.0);
 
-		handler.changeStateFor(SetProcessValue.on(id, processValue));
+  @BeforeEach
+  void setUp()
+  {
+    handler = SetProcessValueHandler.from(repo);
+  }
 
-		assertThat(repo.read(id).get().processValue()).isEqualTo(processValue);
-	}
-	
-	@Test
-	void validation() throws Exception {
-		final Errors results = Errors.empty();
+  @Test
+  void mutateNonExistingVessel()
+  {
+    assertThrows(IllegalArgumentException.class,
+                 () -> handler.changeStateFor(SetProcessValue.on(id, processValue)));
+  }
 
-		handler.validate(SetProcessValue.on(null, null), results);
+  @Test
+  void mutateNullCommand()
+  {
+    assertThrows(IllegalArgumentException.class, () -> handler.changeStateFor(null));
+  }
 
-		final ValidationFailed exception = assertThrows(ValidationFailed.class, () -> results.verify());
+  @Test
+  void mutateMofifiesAggregate()
+  {
+    repo.create(Vessel.inactive(id));
 
-		assertThat(exception.getErrors().has(Reason.from("No vesselId"))).isTrue();
-		assertThat(exception.getErrors().has(Reason.from("No processValue"))).isTrue();
-	}
-	
-	@Test
-	void validateVesselExists() throws Exception {
-		final Errors results = Errors.empty();
+    handler.changeStateFor(SetProcessValue.on(id, processValue));
 
-		handler.validate(SetProcessValue.on(id, processValue), results);
+    assertThat(repo.read(id).get().processValue()).isEqualTo(processValue);
+  }
 
-		final ValidationFailed exception = assertThrows(ValidationFailed.class, () -> results.verify());
+  @Test
+  void validation() throws Exception
+  {
+    final Errors results = Errors.empty();
 
-		assertThat(exception.getErrors().has(Reason.from("Vessel not found: bk"))).isTrue();
-	}
+    handler.validate(SetProcessValue.on(null, null), results);
+
+    final ValidationFailed exception = assertThrows(ValidationFailed.class, () -> results.verify());
+
+    assertThat(exception.getErrors().has(Reason.from("No vesselId"))).isTrue();
+    assertThat(exception.getErrors().has(Reason.from("No processValue"))).isTrue();
+  }
+
+  @Test
+  void validateVesselExists() throws Exception
+  {
+    final Errors results = Errors.empty();
+
+    handler.validate(SetProcessValue.on(id, processValue), results);
+
+    final ValidationFailed exception = assertThrows(ValidationFailed.class, () -> results.verify());
+
+    assertThat(exception.getErrors().has(Reason.from("Vessel not found: bk"))).isTrue();
+  }
 }

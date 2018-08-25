@@ -11,25 +11,25 @@ import me.nguba.gambrinus.query.temperature.read.ReadTemperature;
  */
 public final class Brewmaster
 {
-    private final MashCommands commands;
+  private final MashCommands commands;
 
-    private final MashQueries queries;
+  private final MashQueries queries;
 
-    public Brewmaster(final MashCommands commands,
-                      final MashQueries queries)
-    {
-        this.commands = commands;
-        this.queries = queries;
-    }
+  public Brewmaster(final MashCommands commands,
+                    final MashQueries queries)
+  {
+    this.commands = commands;
+    this.queries = queries;
+  }
 
-    public void heat(final VesselId vessel, final Temperature target) throws ValidationFailed
-    {
-        commands.execute(ChangeSetpoint.on(vessel, target));
-    }
+  public void heat(final VesselId vessel, final Temperature target) throws ValidationFailed
+  {
+    commands.execute(ChangeSetpoint.on(vessel, target));
+  }
 
-    public Temperature readTemperature(final VesselId vessel) throws ValidationFailed
-    {
-        return queries.run(ReadTemperature.from(vessel));
-    }
+  public Temperature readTemperature(final VesselId vessel) throws ValidationFailed
+  {
+    return queries.run(ReadTemperature.from(vessel));
+  }
 
 }

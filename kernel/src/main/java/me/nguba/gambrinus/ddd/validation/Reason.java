@@ -7,13 +7,13 @@ import me.nguba.gambrinus.ddd.support.SingleValueObject;
  */
 public final class Reason extends SingleValueObject<String>
 {
-    private Reason(final String value)
-    {
-        super(value);
-    }
+  private Reason(final String value)
+  {
+    super(value);
+  }
 
-    public static final Reason from(final String reason)
-    {
-        return new Reason(reason);
-    }
+  public static Reason from(final String reason)
+  {
+    return new Reason(reason);
+  }
 }

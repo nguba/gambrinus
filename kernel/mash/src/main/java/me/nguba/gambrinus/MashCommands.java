@@ -13,19 +13,19 @@ import me.nguba.gambrinus.event.EventPublisher;
  */
 public final class MashCommands
 {
-    private final VesselRepository vessels;
+  private final VesselRepository vessels;
 
-    private final EventPublisher events;
+  private final EventPublisher events;
 
-    public MashCommands(final VesselRepository vessels, final EventPublisher events)
-    {
-        this.vessels = vessels;
-        this.events = events;
-    }
+  public MashCommands(final VesselRepository vessels, final EventPublisher events)
+  {
+    this.vessels = vessels;
+    this.events = events;
+  }
 
-    public void execute(final ChangeSetpoint command) throws ValidationFailed
-    {
-        CommandProcessor.from(command, ChangeSetpointHandler.from(vessels)).mutate();
-        events.publish(SetpointChanged.on(command.getId(), command.getSetpoint()));
-    }
+  public void execute(final ChangeSetpoint command) throws ValidationFailed
+  {
+    CommandProcessor.from(command, ChangeSetpointHandler.from(vessels)).mutate();
+    events.publish(SetpointChanged.on(command.getId(), command.getSetpoint()));
+  }
 }

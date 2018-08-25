@@ -4,7 +4,7 @@ import me.nguba.gambrinus.ddd.validation.Errors;
 
 public interface QueryHandler<Q extends Query, R extends Result<?>>
 {
-    void validate(Q query, Errors errors);
+  void validate(Q query, Errors errors);
 
-    R query(Q query);
+  R query(Q query);
 }

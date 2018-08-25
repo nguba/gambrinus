@@ -9,30 +9,33 @@ import me.nguba.gambrinus.equipment.VesselRepository;
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-public final class ChangeSetpointHandler extends VesselHandler<ChangeSetpoint> {
-	
-	private ChangeSetpointHandler(final VesselRepository repo) {
-		super(repo);
-	}
+public final class ChangeSetpointHandler extends VesselHandler<ChangeSetpoint>
+{
 
-	public static ChangeSetpointHandler from(final VesselRepository repo) {
-		return new ChangeSetpointHandler(repo);
-	}
+  private ChangeSetpointHandler(final VesselRepository repo)
+  {
+    super(repo);
+  }
 
-	@Override
-	protected void onVessel(Vessel vessel, ChangeSetpoint command) {
-		vessel.setpoint(command.getSetpoint());
-	}
+  public static ChangeSetpointHandler from(final VesselRepository repo)
+  {
+    return new ChangeSetpointHandler(repo);
+  }
 
-	@Override
-	protected void onValidate(ChangeSetpoint command, Errors errors) {
-		if (command.getId() == null) {
-			errors.add(Reason.from("No vesselId"));
-		}
+  @Override
+  protected void onVessel(final Vessel vessel, final ChangeSetpoint command)
+  {
+    vessel.setpoint(command.getSetpoint());
+  }
 
-		if (command.getSetpoint() == null) {
-			errors.add(Reason.from("No setpoint"));
-		}
-	}
+  @Override
+  protected void onValidate(final ChangeSetpoint command, final Errors errors)
+  {
+    if (command.getId() == null)
+      errors.add(Reason.from("No vesselId"));
+
+    if (command.getSetpoint() == null)
+      errors.add(Reason.from("No setpoint"));
+  }
 
 }

@@ -10,8 +10,9 @@ import me.nguba.gambrinus.event.MutatorEvent;
 public final class CommandHappenedEvent extends MutatorEvent
 {
 
-	public CommandHappenedEvent() {
-		super(Instant.now());
-	}
+  public CommandHappenedEvent()
+  {
+    super(Instant.now());
+  }
 
 }

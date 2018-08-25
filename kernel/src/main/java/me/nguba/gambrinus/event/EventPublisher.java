@@ -5,7 +5,7 @@ package me.nguba.gambrinus.event;
  */
 public interface EventPublisher
 {
-    <E extends MutatorEvent> void publish(E event);
+  <E extends MutatorEvent> void publish(E event);
 
-    public void subscribe(Object recipient);
+  void subscribe(Object recipient);
 }

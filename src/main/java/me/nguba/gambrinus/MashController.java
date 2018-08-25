@@ -10,10 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(path = "/api/mash")
 public final class MashController
 {
-    private final Brewmaster brewmaster;
-
-    private MashController(final Brewmaster brewmaster)
-    {
-        this.brewmaster = brewmaster;
-    }
+  private MashController(final Brewmaster brewmaster)
+  {
+  }
 }

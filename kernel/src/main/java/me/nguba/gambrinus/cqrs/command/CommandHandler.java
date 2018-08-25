@@ -7,8 +7,8 @@ import me.nguba.gambrinus.ddd.validation.Errors;
  */
 public interface CommandHandler<C extends Command>
 {
-    void changeStateFor(C command);
+  void changeStateFor(C command);
 
-    void validate(C command, Errors errors);
+  void validate(C command, Errors errors);
 
 }

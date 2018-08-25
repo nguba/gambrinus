@@ -7,18 +7,18 @@ import me.nguba.gambrinus.onewire.OneWireAddress;
  */
 public final class OwfsMother
 {
-    private OwfsMother()
-    {
-        super();
-    }
+  private OwfsMother()
+  {
+    super();
+  }
 
-    public static OwfsRoot root()
-    {
-        return OwfsRoot.of("src/test/resources/owfs");
-    }
+  public static OwfsRoot root()
+  {
+    return OwfsRoot.of("src/test/resources/owfs");
+  }
 
-    public static OneWireAddress address()
-    {
-        return OneWireAddress.of("28.4BBB68080000");
-    }
+  public static OneWireAddress address()
+  {
+    return OneWireAddress.of("28.4BBB68080000");
+  }
 }

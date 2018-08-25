@@ -8,21 +8,21 @@ import me.nguba.gambrinus.equipment.VesselId;
  */
 public final class ReadTemperature implements Query
 {
-    private final VesselId vesselId;
+  private final VesselId vesselId;
 
-    private ReadTemperature(final VesselId vesselId)
-    {
-        this.vesselId = vesselId;
-    }
+  private ReadTemperature(final VesselId vesselId)
+  {
+    this.vesselId = vesselId;
+  }
 
-    public static ReadTemperature from(final VesselId vesselId)
-    {
-        return new ReadTemperature(vesselId);
-    }
+  public static ReadTemperature from(final VesselId vesselId)
+  {
+    return new ReadTemperature(vesselId);
+  }
 
-    public VesselId getVesselId()
-    {
-        return vesselId;
-    }
+  public VesselId getVesselId()
+  {
+    return vesselId;
+  }
 
 }
