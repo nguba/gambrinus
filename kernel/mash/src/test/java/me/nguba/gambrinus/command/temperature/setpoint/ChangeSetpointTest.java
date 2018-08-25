@@ -1,5 +1,6 @@
-package me.nguba.gambrinus.process.setpoint;
+package me.nguba.gambrinus.command.temperature.setpoint;
 
+import me.nguba.gambrinus.command.temperature.setpoint.ChangeSetpoint;
 import me.nguba.gambrinus.equipment.VesselId;
 import me.nguba.gambrinus.process.Temperature;
 

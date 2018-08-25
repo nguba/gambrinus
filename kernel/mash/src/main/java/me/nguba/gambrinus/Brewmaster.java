@@ -1,10 +1,10 @@
 package me.nguba.gambrinus;
 
+import me.nguba.gambrinus.command.temperature.setpoint.ChangeSetpoint;
 import me.nguba.gambrinus.ddd.validation.ValidationFailed;
 import me.nguba.gambrinus.equipment.VesselId;
 import me.nguba.gambrinus.process.Temperature;
-import me.nguba.gambrinus.process.query.ReadTemperature;
-import me.nguba.gambrinus.process.setpoint.ChangeSetpoint;
+import me.nguba.gambrinus.query.temperature.read.ReadTemperature;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>

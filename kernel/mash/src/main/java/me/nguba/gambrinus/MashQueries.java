@@ -4,8 +4,8 @@ import me.nguba.gambrinus.cqrs.query.QueryProcessor;
 import me.nguba.gambrinus.ddd.validation.ValidationFailed;
 import me.nguba.gambrinus.equipment.VesselRepository;
 import me.nguba.gambrinus.process.Temperature;
-import me.nguba.gambrinus.process.query.ReadTemperature;
-import me.nguba.gambrinus.process.query.ReadTemperatureHandler;
+import me.nguba.gambrinus.query.temperature.read.ReadTemperature;
+import me.nguba.gambrinus.query.temperature.read.ReadTemperatureHandler;
 
 public class MashQueries
 {

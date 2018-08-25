@@ -1,12 +1,12 @@
 package me.nguba.gambrinus;
 
+import me.nguba.gambrinus.command.temperature.setpoint.ChangeSetpoint;
+import me.nguba.gambrinus.command.temperature.setpoint.ChangeSetpointMutator;
+import me.nguba.gambrinus.command.temperature.setpoint.SetpointChanged;
 import me.nguba.gambrinus.cqrs.command.CommandProcessor;
 import me.nguba.gambrinus.ddd.validation.ValidationFailed;
 import me.nguba.gambrinus.equipment.VesselRepository;
 import me.nguba.gambrinus.event.EventPublisher;
-import me.nguba.gambrinus.process.setpoint.ChangeSetpoint;
-import me.nguba.gambrinus.process.setpoint.ChangeSetpointMutator;
-import me.nguba.gambrinus.process.setpoint.SetpointChanged;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>

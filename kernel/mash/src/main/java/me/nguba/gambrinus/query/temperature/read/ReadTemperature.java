@@ -1,4 +1,4 @@
-package me.nguba.gambrinus.process.query;
+package me.nguba.gambrinus.query.temperature.read;
 
 import me.nguba.gambrinus.cqrs.query.Query;
 import me.nguba.gambrinus.equipment.VesselId;

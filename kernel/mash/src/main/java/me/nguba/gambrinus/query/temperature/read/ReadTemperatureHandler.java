@@ -1,4 +1,4 @@
-package me.nguba.gambrinus.process.query;
+package me.nguba.gambrinus.query.temperature.read;
 
 import me.nguba.gambrinus.cqrs.query.QueryHandler;
 import me.nguba.gambrinus.ddd.validation.Errors;

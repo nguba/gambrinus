@@ -1,4 +1,4 @@
-package me.nguba.gambrinus.process.setpoint;
+package me.nguba.gambrinus.command.temperature.setpoint;
 
 import me.nguba.gambrinus.cqrs.command.CommandHandler;
 import me.nguba.gambrinus.ddd.validation.Errors;

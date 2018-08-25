@@ -1,4 +1,4 @@
-package me.nguba.gambrinus.process.query;
+package me.nguba.gambrinus.query.temperature.read;
 
 import me.nguba.gambrinus.ddd.validation.Errors;
 import me.nguba.gambrinus.ddd.validation.Reason;
@@ -7,6 +7,9 @@ import me.nguba.gambrinus.equipment.Vessel;
 import me.nguba.gambrinus.equipment.VesselId;
 import me.nguba.gambrinus.equipment.VesselRepository;
 import me.nguba.gambrinus.process.Temperature;
+import me.nguba.gambrinus.query.temperature.read.ReadTemperature;
+import me.nguba.gambrinus.query.temperature.read.ReadTemperatureHandler;
+import me.nguba.gambrinus.query.temperature.read.ReadTemperatureResult;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
