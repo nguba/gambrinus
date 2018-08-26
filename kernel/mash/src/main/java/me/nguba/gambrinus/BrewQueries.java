@@ -7,11 +7,11 @@ import me.nguba.gambrinus.process.Temperature;
 import me.nguba.gambrinus.query.temperature.read.ReadTemperature;
 import me.nguba.gambrinus.query.temperature.read.ReadTemperatureHandler;
 
-public class MashQueries
+public class BrewQueries
 {
   private final VesselRepository vessels;
 
-  public MashQueries(final VesselRepository vessels)
+  public BrewQueries(final VesselRepository vessels)
   {
     this.vessels = vessels;
   }

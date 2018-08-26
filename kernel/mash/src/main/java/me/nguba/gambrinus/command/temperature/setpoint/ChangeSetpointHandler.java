@@ -33,9 +33,15 @@ public final class ChangeSetpointHandler extends VesselHandler<ChangeSetpoint>
   {
     if (command.getId() == null)
       errors.add(Reason.from("No vesselId"));
+    else
+      findVessel(command).ifPresent(vessel -> {
+        if (!vessel.isActive())
+          errors.add(Reason.from("No sensor assigned to vessel: " + vessel.getId()));
+      });
 
     if (command.getSetpoint() == null)
       errors.add(Reason.from("No setpoint"));
+
   }
 
 }

@@ -11,12 +11,12 @@ import me.nguba.gambrinus.query.temperature.read.ReadTemperature;
  */
 public final class Brewmaster
 {
-  private final MashCommands commands;
+  private final BrewCommands commands;
 
-  private final MashQueries queries;
+  private final BrewQueries queries;
 
-  public Brewmaster(final MashCommands commands,
-                    final MashQueries queries)
+  public Brewmaster(final BrewCommands commands,
+                    final BrewQueries queries)
   {
     this.commands = commands;
     this.queries = queries;

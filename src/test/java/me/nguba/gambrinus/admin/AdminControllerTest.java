@@ -12,13 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
+import me.nguba.gambrinus.ApplicationMother;
 import me.nguba.gambrinus.GambrinusControllerTest;
 import me.nguba.gambrinus.equipment.Vessel;
 import me.nguba.gambrinus.equipment.VesselId;
 import me.nguba.gambrinus.equipment.VesselRepository;
-import me.nguba.gambrinus.onewire.OneWireAddress;
-import me.nguba.gambrinus.owfs.OwfsRoot;
-import me.nguba.gambrinus.owfs.OwfsSensor;
 
 /**
  *
@@ -71,9 +69,8 @@ class AdminControllerTest
   @Test
   void getVessel() throws Exception
   {
-    final Vessel vessel = Vessel.of(VesselId.of("mash"),
-                                    OwfsSensor.from(OwfsRoot.test(),
-                                                    OneWireAddress.of("28.273B5D070000")));
+    final Vessel vessel = ApplicationMother.mashTun();
+
     vessels.create(vessel);
 
     mvc.perform(get("/api/admin/vessel/{name}", "mash")).andDo(print())

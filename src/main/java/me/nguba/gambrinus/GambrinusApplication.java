@@ -37,20 +37,20 @@ public class GambrinusApplication
   }
 
   @Bean
-  public MashQueries mashQueries(final VesselRepository vessels)
+  public BrewQueries mashQueries(final VesselRepository vessels)
   {
-    return new MashQueries(vessels);
+    return new BrewQueries(vessels);
   }
 
   @Bean
-  public MashCommands mashCommands(final VesselRepository vessels, final EventPublisher events)
+  public BrewCommands mashCommands(final VesselRepository vessels, final EventPublisher events)
   {
-    return new MashCommands(vessels, events);
+    return new BrewCommands(vessels, events);
   }
 
   @Bean
-  public Brewmaster brewmaster(final MashCommands commands,
-                               final MashQueries queries)
+  public Brewmaster brewmaster(final BrewCommands commands,
+                               final BrewQueries queries)
   {
     return new Brewmaster(commands, queries);
   }

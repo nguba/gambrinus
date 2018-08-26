@@ -70,4 +70,9 @@ public final class Vessel extends Aggregate<VesselId>
 
     return sensor.getId();
   }
+
+  public boolean isActive()
+  {
+    return sensor != null;
+  }
 }
