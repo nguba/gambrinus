@@ -11,6 +11,8 @@ bootJar {
 
 dependencies {
     compile project(":kernel:mash")
+    compile project(":kernel:admin")
+      
     compile('org.springframework.boot:spring-boot-starter')
     compile('org.springframework.boot:spring-boot-starter-json')
     compile('com.google.guava:guava:26.0-jre')

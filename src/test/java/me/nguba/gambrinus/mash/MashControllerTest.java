@@ -1,4 +1,6 @@
-package me.nguba.gambrinus;
+package me.nguba.gambrinus.mash;
+
+import me.nguba.gambrinus.GambrinusControllerTest;
 
 /**
  *

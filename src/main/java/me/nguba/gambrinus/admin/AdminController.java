@@ -2,17 +2,16 @@ package me.nguba.gambrinus.admin;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import me.nguba.gambrinus.GambrinusOptions;
 import me.nguba.gambrinus.RaspberryPinOptions;
+import me.nguba.gambrinus.WebMvcUtil;
 import me.nguba.gambrinus.equipment.VesselId;
 import me.nguba.gambrinus.onewire.OneWireAddress;
 
@@ -60,9 +59,6 @@ public class AdminController
   {
     admin.createVessel(id, address, options.getMountpoint());
 
-    final UriComponents uriComponents = builder.path("/vessel/{id}/{sensor}")
-        .buildAndExpand(id, address);
-
-    return ResponseEntity.created(uriComponents.toUri()).build();
+    return WebMvcUtil.created(builder, "/vessel/{id}/{sensor}", id, address);
   }
 }
