@@ -6,6 +6,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.web.servlet.MockMvc;
@@ -15,6 +16,9 @@ import me.nguba.gambrinus.GambrinusControllerTest;
 import me.nguba.gambrinus.equipment.Vessel;
 import me.nguba.gambrinus.equipment.VesselId;
 import me.nguba.gambrinus.equipment.VesselRepository;
+import me.nguba.gambrinus.onewire.OneWireAddress;
+import me.nguba.gambrinus.owfs.OwfsRoot;
+import me.nguba.gambrinus.owfs.OwfsSensor;
 
 /**
  *
@@ -28,6 +32,14 @@ class AdminControllerTest
 
   @Autowired
   private VesselRepository vessels;
+
+  @AfterEach
+  void tearDown()
+  {
+    for (Vessel v : vessels.findAll()) {
+      vessels.delete(v.getId());
+    }
+  }
 
   @Test
   void emptyVessels() throws Exception
@@ -48,8 +60,25 @@ class AdminControllerTest
 
     mvc.perform(get("/api/admin/vessel")).andDo(print())
         .andExpect(status().isOk()).andReturn();
+  }
 
-    // assertEquals("[ ]", result.getResponse().getContentAsString());
+  @Test
+  void getVesselNotFound() throws Exception
+  {
+    mvc.perform(get("/api/admin/vessel/{name}", "mash")).andDo(print())
+        .andExpect(status().isNotFound());
+  }
+
+  @Test
+  void getVessel() throws Exception
+  {
+    Vessel vessel = Vessel.of(VesselId.of("mash"),
+                              OwfsSensor.from(OwfsRoot.test(),
+                                              OneWireAddress.of("28.273B5D070000")));
+    vessels.create(vessel);
+    
+    mvc.perform(get("/api/admin/vessel/{name}", "mash")).andDo(print())
+        .andExpect(status().isOk()).andReturn();
   }
 
   @Test
@@ -58,7 +87,6 @@ class AdminControllerTest
     mvc.perform(get("/api/admin/sensor")).andDo(print())
         .andExpect(status().isOk()).andReturn();
 
-    // assertEquals("[ ]", result.getResponse().getContentAsString());
   }
 
   @Test
@@ -67,7 +95,5 @@ class AdminControllerTest
     mvc.perform(post("/api/admin/vessel/{name}/{address}", "mash", "28.273B5D070000"))
         .andDo(print())
         .andExpect(status().isCreated()).andReturn();
-
-    // assertEquals("[ ]", result.getResponse().getContentAsString());
   }
 }

@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 
-import me.nguba.gambrinus.admin.AdminService;
+import me.nguba.gambrinus.admin.AdminResourceService;
 import me.nguba.gambrinus.equipment.VesselRepository;
 import me.nguba.gambrinus.event.EventPublisher;
 
@@ -75,8 +75,8 @@ public class GambrinusApplication
   }
 
   @Bean
-  public AdminService adminService(final Administrator admin)
+  public AdminResourceService adminService(final Administrator admin)
   {
-    return new AdminService(admin);
+    return new AdminResourceService(admin);
   }
 }

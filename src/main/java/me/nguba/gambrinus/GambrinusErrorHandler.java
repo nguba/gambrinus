@@ -1,5 +1,7 @@
 package me.nguba.gambrinus;
 
+import java.util.NoSuchElementException;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,4 +29,16 @@ public class GambrinusErrorHandler extends ResponseEntityExceptionHandler
                                    HttpStatus.CONFLICT,
                                    request);
   }
+
+  @ExceptionHandler({ NoSuchElementException.class })
+  public ResponseEntity<Object> handleNotFound(final NoSuchElementException ex,
+                                               final WebRequest request)
+  {
+    return handleExceptionInternal(ex,
+                                   ex.getMessage(),
+                                   new HttpHeaders(),
+                                   HttpStatus.NOT_FOUND,
+                                   request);
+  }
+
 }

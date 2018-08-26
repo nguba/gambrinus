@@ -1,33 +1,34 @@
 package me.nguba.gambrinus.admin;
 
-import org.springframework.hateoas.ResourceSupport;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.hateoas.mvc.ResourceAssemblerSupport;
 
 import me.nguba.gambrinus.equipment.Vessel;
 
 /**
- *
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
+ * 
  */
-public class VesselAdapter extends ResourceAssemblerSupport<Vessel, ResourceSupport>
+public class VesselAdapter extends ResourceAssemblerSupport<Vessel, VesselResource>
 {
   public VesselAdapter()
   {
-    super(AdminController.class, ResourceSupport.class);
+    super(AdminController.class, VesselResource.class);
   }
 
   @Override
-  public ResourceSupport toResource(final Vessel entity)
+  public VesselResource toResource(final Vessel entity)
   {
-    final ResourceSupport resource = new ResourceSupport();
+    final VesselResource resource = new VesselResource(entity);
+ 
     resource.add(ControllerLinkBuilder.linkTo(AdminController.class).slash("vessel")
-        .slash(entity.getId()).slash(entity.address()).withSelfRel()
+        .slash(entity.getId()).withSelfRel()
         .withTitle(entity.getId().toString()));
+   
     return resource;
   }
 
-  public static ResourceSupport adapt(final Vessel entity)
+  public static VesselResource adapt(final Vessel entity)
   {
     return new VesselAdapter().toResource(entity);
   }

@@ -19,18 +19,22 @@ import me.nguba.gambrinus.owfs.OwfsRoot;
  *
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-public final class AdminService implements Service
+public final class AdminResourceService implements Service
 {
   private final Administrator admin;
 
-  public AdminService(final Administrator admin)
+  public AdminResourceService(final Administrator admin)
   {
     this.admin = admin;
   }
 
-  public Set<Vessel> findVessels() throws ValidationFailed, IOException
+  public Set<ResourceSupport> findVessels() throws ValidationFailed, IOException
   {
-    return admin.findVessels();
+    Set<ResourceSupport> vessels = new HashSet<>();
+    for (Vessel vessel : admin.findVessels()) {
+      vessels.add(VesselAdapter.adapt(vessel));
+    }
+    return vessels;
   }
 
   public Set<ResourceSupport> findAddresses(final String mountpoint) throws ValidationFailed
@@ -43,13 +47,17 @@ public final class AdminService implements Service
     return resources;
   }
 
-  public ResourceSupport createVessel(final VesselId id,
-                                      final OneWireAddress address,
-                                      final String mountpoint)
+  public void createVessel(final VesselId id,
+                           final OneWireAddress address,
+                           final String mountpoint)
       throws ValidationFailed, IOException
   {
-    final Vessel vessel = admin.createVessel(id, OwfsRoot.of(mountpoint), address);
-    return VesselAdapter.adapt(vessel);
+    admin.createVessel(id, OwfsRoot.of(mountpoint), address);
+  }
+
+  public ResourceSupport findVessel(VesselId id) throws ValidationFailed
+  {
+    return VesselAdapter.adapt(admin.findVessel(id));
   }
 
 }

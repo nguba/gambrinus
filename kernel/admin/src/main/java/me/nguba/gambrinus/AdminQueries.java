@@ -12,6 +12,8 @@ import me.nguba.gambrinus.query.onewire.FindOneWireAddresses;
 import me.nguba.gambrinus.query.onewire.FindOneWireAddressesHandler;
 import me.nguba.gambrinus.query.vessel.FindVessels;
 import me.nguba.gambrinus.query.vessel.FindVesselsHandler;
+import me.nguba.gambrinus.query.vessel.find.FindVessel;
+import me.nguba.gambrinus.query.vessel.find.FindVesselHandler;
 
 public class AdminQueries
 {
@@ -31,5 +33,10 @@ public class AdminQueries
   public Set<OneWireAddress> run(final FindOneWireAddresses query) throws ValidationFailed
   {
     return QueryProcessor.query(query, FindOneWireAddressesHandler.on()).getResult().get();
+  }
+
+  public Vessel run(FindVessel query) throws ValidationFailed
+  {
+    return QueryProcessor.query(query, FindVesselHandler.on(vessels)).getResult().get();
   }
 }

@@ -11,6 +11,7 @@ import me.nguba.gambrinus.onewire.OneWireAddress;
 import me.nguba.gambrinus.owfs.OwfsRoot;
 import me.nguba.gambrinus.query.onewire.FindOneWireAddresses;
 import me.nguba.gambrinus.query.vessel.FindVessels;
+import me.nguba.gambrinus.query.vessel.find.FindVessel;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
@@ -47,5 +48,10 @@ public class Administrator
 
     final Set<Vessel> result = queries.run(FindVessels.create());
     return result.iterator().next();
+  }
+
+  public Vessel findVessel(VesselId id) throws ValidationFailed
+  {
+    return queries.run(FindVessel.of(id));
   }
 }

@@ -40,4 +40,9 @@ public final class OwfsRoot extends OwfsDirectory
   {
     return null;
   }
+
+  public static OwfsRoot test()
+  {
+    return OwfsRoot.of("src/test/resources/owfs");
+  }
 }
