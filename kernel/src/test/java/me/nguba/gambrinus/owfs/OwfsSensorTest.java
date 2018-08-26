@@ -1,9 +1,8 @@
 package me.nguba.gambrinus.owfs;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.io.IOException;
+import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,30 +19,19 @@ class OwfsSensorTest
   @BeforeEach
   void setUp() throws Exception
   {
-    sensor = OwfsSensor.mount(OwfsMother.root(), OwfsMother.address());
+    sensor = OwfsSensor.from(OwfsMother.root(), OwfsMother.address());
   }
 
   @Test
   void mountFailure() throws Exception
   {
-    final IOException exception = assertThrows(IOException.class,
-                                               () -> OwfsSensor.mount(OwfsRoot.of("foo"),
-                                                                      OwfsMother.address()));
-
-    assertThat(exception.getMessage()).startsWith("Mountpoint does not exist:");
-  }
-
-  @Test
-  void mount() throws Exception
-  {
-    assertThat(sensor.getMount())
-        .isEqualTo(OwfsMount.from(OwfsMother.root(), OwfsMother.address()));
+    assertThat(OwfsSensor.from(OwfsRoot.of("foo"),OwfsMother.address()).isValid()).isFalse();
   }
 
   @Test
   void read() throws Exception
   {
-    final Temperature t1 = sensor.read();
+    final Temperature t1 = sensor.read().get();
     final Temperature expected = Temperature.celsius(25.7);
 
     assertThat(t1).isEqualTo(expected);
@@ -52,8 +40,8 @@ class OwfsSensorTest
   @Test
   void readMultiple() throws Exception
   {
-    final Temperature t1 = sensor.read();
-    final Temperature t2 = sensor.read();
+    final Temperature t1 = sensor.read().get();
+    final Temperature t2 = sensor.read().get();
 
     assertThat(t1).isEqualTo(t2);
   }
@@ -61,11 +49,11 @@ class OwfsSensorTest
   @Test
   void readFromEmptyTemperatureFile() throws Exception
   {
-    final OwfsSensor empty = OwfsSensor.mount(OwfsRoot.of("src/test/resources/emptyfs"),
-                                              OwfsMother.address());
+    final OwfsSensor empty = OwfsSensor.from(OwfsRoot.of("src/test/resources/emptyfs"),
+                                             OwfsMother.address());
 
-    final Temperature temperature = empty.read();
+    final Optional<Temperature> temperature = empty.read();
 
-    assertThat(temperature).isNull();
+    assertThat(temperature.isPresent()).isFalse();
   }
 }

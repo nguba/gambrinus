@@ -15,14 +15,13 @@ import me.nguba.gambrinus.equipment.Vessel;
 import me.nguba.gambrinus.equipment.VesselId;
 import me.nguba.gambrinus.equipment.VesselRepository;
 import me.nguba.gambrinus.onewire.OneWireAddress;
-import me.nguba.gambrinus.owfs.OwfsMount;
 import me.nguba.gambrinus.owfs.OwfsRoot;
 
-class CreateVesselMutatorTest
+class CreateVesselHandlerTest
 {
   private final VesselRepository repo = new VesselRepository();
 
-  private CreateVesselMutator mutator;
+  private CreateVesselHandler mutator;
 
   private final Errors errors = Errors.empty();
 
@@ -33,7 +32,7 @@ class CreateVesselMutatorTest
   @BeforeEach
   void setUp()
   {
-    mutator = new CreateVesselMutator(repo);
+    mutator = new CreateVesselHandler(repo);
 
     command = CreateVessel.from(vesselId,
                                 OwfsRoot.of("src/test/resources/owfs"),
@@ -94,17 +93,16 @@ class CreateVesselMutatorTest
   }
 
   @Test
-  void cannotMount()
+  void cannotMountPath()
   {
     final OwfsRoot root = OwfsRoot.of("non/existing/path");
     final OneWireAddress address = OneWireAddress.of("28.273B5D070000");
 
-    mutator.validate(CreateVessel.from(null, root, address), errors);
+    mutator.validate(CreateVessel.from(VesselId.of("arse"), root, address), errors);
     final ValidationFailed failed = verify();
 
-    assertThat(failed.getErrors()
-        .has(Reason.from("Mountpoint does not exist: " + OwfsMount.from(root, address))))
-            .isTrue();
+    assertThat(failed.getErrors().toString())
+        .contains("Invalid sensor: non/existing/path/28.273B5D070000/latesttemp");
   }
 
   private ValidationFailed verify()

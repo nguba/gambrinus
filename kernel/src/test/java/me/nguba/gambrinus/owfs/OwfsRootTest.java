@@ -48,9 +48,9 @@ class OwfsRootTest extends SingleValueObjectFixture<File, OwfsRoot>
   @Test
   void listAllSensors() throws Exception
   {
-    final OwfsSensor one = OwfsSensor.mount(getValueObject(),
+    final OwfsSensor one = OwfsSensor.from(getValueObject(),
                                             OneWireAddress.of("28.273B5D070000"));
-    final OwfsSensor two = OwfsSensor.mount(getValueObject(),
+    final OwfsSensor two = OwfsSensor.from(getValueObject(),
                                             OneWireAddress.of("28.4BBB68080000"));
 
     final OwfsSensor[] expected = { one, two };

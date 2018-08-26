@@ -6,6 +6,7 @@ import java.nio.channels.FileChannel;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.Optional;
 
 import me.nguba.gambrinus.ddd.Aggregate;
 import me.nguba.gambrinus.onewire.OneWireAddress;
@@ -16,32 +17,26 @@ import me.nguba.gambrinus.process.Temperature;
  */
 public class OwfsSensor extends Aggregate<OneWireAddress>
 {
-  private final OwfsMount mount;
-  private final Path      latesttemp;
+  private final Path latesttemp;
+  private OwfsRoot   root;
+  private final Path path;
 
-  private OwfsSensor(final OwfsMount mount, final OneWireAddress address) throws IOException
+  private OwfsSensor(OwfsRoot root, OneWireAddress address)
   {
     super(address);
-    this.mount = mount;
+    this.root = root;
 
-    latesttemp = Paths.get(mount.getValue().getPath(), "latesttemp");
+    path = Paths.get(root.getValue().getPath(), address.toString());
+
+    latesttemp = Paths.get(path.toString(), "latesttemp");
   }
 
-  public static OwfsSensor mount(final OwfsRoot root, final OneWireAddress address)
-      throws IOException
+  public static final OwfsSensor from(final OwfsRoot root, final OneWireAddress address)
   {
-    final OwfsMount mount = OwfsMount.from(root, address);
-    if (!mount.isValid())
-      throw new IOException("Mountpoint does not exist: " + mount.getValue());
-    return new OwfsSensor(mount, address);
+    return new OwfsSensor(root, address);
   }
 
-  public OwfsMount getMount()
-  {
-    return mount;
-  }
-
-  public Temperature read() throws IOException
+  public Optional<Temperature> read() throws IOException
   {
     try (final FileChannel channel = FileChannel.open(latesttemp, StandardOpenOption.READ)) {
       final ByteBuffer buf = ByteBuffer.allocate(8);
@@ -51,18 +46,25 @@ public class OwfsSensor extends Aggregate<OneWireAddress>
         while (buf.hasRemaining())
           builder.append((char) buf.get());
         buf.clear();
-        return Temperature.celsius(Double.parseDouble(builder.toString()));
+        return Optional.of(Temperature.celsius(Double.parseDouble(builder.toString())));
       }
     }
-    return null;
+    return Optional.empty();
   }
 
   @Override
   public String toString()
   {
-    final StringBuilder builder = new StringBuilder();
-    builder.append("OwfsSensor [mount=").append(mount).append(", latesttemp=")
-        .append(latesttemp).append("]");
-    return builder.toString();
+    return root.toString();
+  }
+
+  public boolean isValid()
+  {
+    return latesttemp.toFile().exists();
+  }
+
+  public Path getPath()
+  {
+    return latesttemp;
   }
 }

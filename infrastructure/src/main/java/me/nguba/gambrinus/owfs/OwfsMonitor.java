@@ -2,6 +2,7 @@ package me.nguba.gambrinus.owfs;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 import me.nguba.gambrinus.command.temperature.process.SetProcessValue;
@@ -19,7 +20,6 @@ import me.nguba.gambrinus.process.Temperature;
  */
 public final class OwfsMonitor
 {
-
   private final Map<OneWireAddress, VesselId> assignments = new ConcurrentHashMap<>();
 
   private final VesselRepository repository;
@@ -27,7 +27,6 @@ public final class OwfsMonitor
   public OwfsMonitor(final VesselRepository repository)
   {
     this.repository = repository;
-
   }
 
   public void read(final OwfsRoot root)
@@ -35,11 +34,12 @@ public final class OwfsMonitor
     for (final OwfsSensor sensor : root.listSensors())
       if (isAssigned(sensor))
         try {
-          final Temperature read = sensor.read();
-          CommandProcessor
-              .from(SetProcessValue.on(getRegisteredVessel(sensor), read),
-                    SetProcessValueHandler.from(repository))
-              .mutate();
+          final Optional<Temperature> read = sensor.read();
+          if (read.isPresent())
+            CommandProcessor
+                .from(SetProcessValue.on(getRegisteredVessel(sensor), read.get()),
+                      SetProcessValueHandler.from(repository))
+                .mutate();
         } catch (final IOException e) {
           e.printStackTrace();
         } catch (final ValidationFailed e) {
