@@ -1,6 +1,7 @@
 package me.nguba.gambrinus.brew;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -51,7 +52,7 @@ class BrewControllerTest
   void changeSetpoint_Inactive() throws Exception
   {
     vessels.create(Vessel.inactive(VesselId.of("mash")));
-
+    
     mvc.perform(put("/api/brew/heat/{name}/{temperature}", "mash", 55.5))
         .andDo(print()).andExpect(status().isConflict());
   }
@@ -60,8 +61,7 @@ class BrewControllerTest
   @DisplayName("mutates the setpoint on the vessel")
   void changeSetpoint() throws Exception
   {
-    final Vessel mashTun = ApplicationMother.mashTun();
-    vessels.create(mashTun);
+    final Vessel mashTun = createVessel();
 
     assertThat(vessels.read(mashTun.getId()).get().setpoint()).isEqualTo(Temperature.celsius(0));
 
@@ -69,5 +69,23 @@ class BrewControllerTest
         .andDo(print()).andExpect(status().isOk());
 
     assertThat(vessels.read(mashTun.getId()).get().setpoint()).isEqualTo(Temperature.celsius(55.5));
+  }
+
+  private Vessel createVessel()
+  {
+    final Vessel mashTun = ApplicationMother.mashTun();
+    vessels.create(mashTun);
+    return mashTun;
+  }
+  
+  @Test
+  @DisplayName("reads process value from vessel")
+  void readTemperature() throws Exception
+  {
+    final Vessel mashTun = createVessel();
+    mashTun.processValue(Temperature.celsius(68.3));
+    
+    mvc.perform(get("/api/brew/temperature/{name}", mashTun.getId()))
+        .andDo(print()).andExpect(status().isOk());
   }
 }

@@ -140,4 +140,14 @@ public final class Temperature implements ValueObject
         return this;
     }
   }
+
+  public double getValue()
+  {
+    return value;
+  }
+
+  public Scale getScale()
+  {
+    return scale;
+  }
 }

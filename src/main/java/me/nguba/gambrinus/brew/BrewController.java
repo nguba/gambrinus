@@ -1,5 +1,6 @@
 package me.nguba.gambrinus.brew;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,5 +31,12 @@ public final class BrewController
       throws ValidationFailed
   {
     brewmaster.heat(VesselId.of(vesselId), Temperature.celsius(temperature));
+  }
+  
+  @GetMapping("/temperature/{vesselId}")
+  public Temperature readTemperature(@PathVariable("vesselId") final String vesselId)
+      throws ValidationFailed
+  {
+    return brewmaster.readTemperature(VesselId.of(vesselId));
   }
 }
