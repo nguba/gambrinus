@@ -59,6 +59,6 @@ public class AdminController
   {
     admin.createVessel(id, address, options.getMountpoint());
 
-    return WebMvcUtil.created(builder, "/vessel/{id}/{sensor}", id, address);
+    return WebMvcUtil.created(builder.path("/vessel/{id}/{sensor}"),id, address);
   }
 }
