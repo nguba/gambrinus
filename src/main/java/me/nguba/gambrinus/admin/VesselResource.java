@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package me.nguba.gambrinus.admin;
 
@@ -9,7 +9,7 @@ import me.nguba.gambrinus.equipment.Vessel;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
- * 
+ *
  */
 public final class VesselResource extends ResourceSupport
 {
@@ -17,7 +17,7 @@ public final class VesselResource extends ResourceSupport
   private final String processValue;
   private final String setpoint;
 
-  public VesselResource(Vessel entity)
+  public VesselResource(final Vessel entity)
   {
     sensor = entity.address().isValid() ? entity.address().toString() : null;
     processValue = entity.processValue().toString();
@@ -44,14 +44,14 @@ public final class VesselResource extends ResourceSupport
   {
     final int prime = 31;
     int result = super.hashCode();
-    result = prime * result + ((sensor == null) ? 0 : sensor.hashCode());
-    result = prime * result + ((processValue == null) ? 0 : processValue.hashCode());
-    result = prime * result + ((setpoint == null) ? 0 : setpoint.hashCode());
+    result = prime * result + (sensor == null ? 0 : sensor.hashCode());
+    result = prime * result + (processValue == null ? 0 : processValue.hashCode());
+    result = prime * result + (setpoint == null ? 0 : setpoint.hashCode());
     return result;
   }
 
   @Override
-  public boolean equals(Object obj)
+  public boolean equals(final Object obj)
   {
     if (this == obj)
       return true;
@@ -59,7 +59,7 @@ public final class VesselResource extends ResourceSupport
       return false;
     if (getClass() != obj.getClass())
       return false;
-    VesselResource other = (VesselResource) obj;
+    final VesselResource other = (VesselResource) obj;
     if (sensor == null) {
       if (other.sensor != null)
         return false;

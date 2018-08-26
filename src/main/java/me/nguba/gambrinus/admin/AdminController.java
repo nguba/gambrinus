@@ -17,7 +17,7 @@ import me.nguba.gambrinus.onewire.OneWireAddress;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
- * 
+ *
  */
 @RestController
 @RequestMapping(path = "/api/admin")
@@ -46,7 +46,7 @@ public class AdminController
   }
 
   @GetMapping(path = "vessel/{name}")
-  public Object getVessel(@PathVariable("name") String name) throws Exception
+  public Object getVessel(@PathVariable("name") final String name) throws Exception
   {
     return admin.findVessel(VesselId.of(name));
   }

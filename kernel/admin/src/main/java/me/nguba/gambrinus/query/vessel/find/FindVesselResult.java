@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package me.nguba.gambrinus.query.vessel.find;
 
@@ -14,9 +14,9 @@ import me.nguba.gambrinus.equipment.Vessel;
  */
 public final class FindVesselResult implements Result<Vessel>
 {
-  private Optional<Vessel> vessel;
+  private final Optional<Vessel> vessel;
 
-  public FindVesselResult(Optional<Vessel> vessel)
+  public FindVesselResult(final Optional<Vessel> vessel)
   {
     this.vessel = vessel;
   }
@@ -32,11 +32,12 @@ public final class FindVesselResult implements Result<Vessel>
     return new FindVesselResult(Optional.empty());
   }
 
-  public static FindVesselResult from(Vessel vessel) {
+  public static FindVesselResult from(final Vessel vessel)
+  {
     return new FindVesselResult(Optional.of(vessel));
   }
 
-  public static FindVesselResult of(Optional<Vessel> read)
+  public static FindVesselResult of(final Optional<Vessel> read)
   {
     return new FindVesselResult(read);
   }

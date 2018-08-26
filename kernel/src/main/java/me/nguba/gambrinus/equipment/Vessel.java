@@ -24,7 +24,7 @@ public final class Vessel extends Aggregate<VesselId>
 
   /**
    * Returns a vessel without assigned sensor.
-   * 
+   *
    * @param id
    * @return the inactive vessel
    */

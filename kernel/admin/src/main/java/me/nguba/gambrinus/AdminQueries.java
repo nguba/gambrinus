@@ -35,7 +35,7 @@ public class AdminQueries
     return QueryProcessor.query(query, FindOneWireAddressesHandler.on()).getResult().get();
   }
 
-  public Vessel run(FindVessel query) throws ValidationFailed
+  public Vessel run(final FindVessel query) throws ValidationFailed
   {
     return QueryProcessor.query(query, FindVesselHandler.on(vessels)).getResult().get();
   }

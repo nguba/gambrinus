@@ -30,10 +30,9 @@ public final class AdminResourceService implements Service
 
   public Set<ResourceSupport> findVessels() throws ValidationFailed, IOException
   {
-    Set<ResourceSupport> vessels = new HashSet<>();
-    for (Vessel vessel : admin.findVessels()) {
+    final Set<ResourceSupport> vessels = new HashSet<>();
+    for (final Vessel vessel : admin.findVessels())
       vessels.add(VesselAdapter.adapt(vessel));
-    }
     return vessels;
   }
 
@@ -55,7 +54,7 @@ public final class AdminResourceService implements Service
     admin.createVessel(id, OwfsRoot.of(mountpoint), address);
   }
 
-  public ResourceSupport findVessel(VesselId id) throws ValidationFailed
+  public ResourceSupport findVessel(final VesselId id) throws ValidationFailed
   {
     return VesselAdapter.adapt(admin.findVessel(id));
   }

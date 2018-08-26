@@ -25,18 +25,17 @@ public final class OwfsRoot extends OwfsDirectory
   {
     final Set<OwfsSensor> sensors = new HashSet<>();
 
-    if (isValid()) {
+    if (isValid())
       for (final File file : getValue().listFiles((file) -> {
         return file.isDirectory() && file.canRead()
             && file.getName().startsWith("28.");
       }))
         sensors.add(OwfsSensor.from(this, OneWireAddress.of(file.getName())));
-    }
 
     return sensors.toArray(new OwfsSensor[sensors.size()]);
   }
 
-  public OwfsSensor mount(OneWireAddress address)
+  public OwfsSensor mount(final OneWireAddress address)
   {
     return null;
   }

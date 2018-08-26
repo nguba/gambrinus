@@ -48,13 +48,13 @@ class FindVesselHandlerTest
     final FindVesselResult result = handler.query(FindVessel.of(VesselId.of("HLT")));
     assertThat(result.getResult().isPresent()).isFalse();
   }
-  
+
   @Test
   void result()
   {
-    Vessel expected = Vessel.inactive(VesselId.of("HLT"));
+    final Vessel expected = Vessel.inactive(VesselId.of("HLT"));
     vessels.create(expected);
-    
+
     final FindVesselResult result = handler.query(FindVessel.of(VesselId.of("HLT")));
     assertThat(result.getResult().get()).isEqualTo(expected);
   }

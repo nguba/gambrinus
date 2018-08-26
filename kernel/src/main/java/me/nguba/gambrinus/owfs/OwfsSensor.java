@@ -17,11 +17,11 @@ import me.nguba.gambrinus.process.Temperature;
  */
 public class OwfsSensor extends Aggregate<OneWireAddress>
 {
-  private final Path latesttemp;
-  private OwfsRoot   root;
-  private final Path path;
+  private final Path     latesttemp;
+  private final OwfsRoot root;
+  private final Path     path;
 
-  private OwfsSensor(OwfsRoot root, OneWireAddress address)
+  private OwfsSensor(final OwfsRoot root, final OneWireAddress address)
   {
     super(address);
     this.root = root;

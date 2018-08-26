@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package me.nguba.gambrinus.query.vessel.find;
 
@@ -13,33 +13,32 @@ import me.nguba.gambrinus.equipment.VesselRepository;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
- * 
+ *
  */
 public final class FindVesselHandler implements QueryHandler<FindVessel, FindVesselResult>
 {
-  private VesselRepository vessels;
+  private final VesselRepository vessels;
 
-  public FindVesselHandler(VesselRepository vessels)
+  public FindVesselHandler(final VesselRepository vessels)
   {
     this.vessels = vessels;
   }
 
   @Override
-  public void validate(FindVessel query, Errors errors)
+  public void validate(final FindVessel query, final Errors errors)
   {
-    if (query.getId() == null) {
+    if (query.getId() == null)
       errors.add(Reason.from("vesselId cannot be null"));
-    }
   }
 
   @Override
-  public FindVesselResult query(FindVessel query)
+  public FindVesselResult query(final FindVessel query)
   {
-    Optional<Vessel> read = vessels.read(query.getId());
+    final Optional<Vessel> read = vessels.read(query.getId());
     return FindVesselResult.of(read);
   }
 
-  public static final FindVesselHandler on(VesselRepository vessels)
+  public static FindVesselHandler on(final VesselRepository vessels)
   {
     return new FindVesselHandler(vessels);
   }

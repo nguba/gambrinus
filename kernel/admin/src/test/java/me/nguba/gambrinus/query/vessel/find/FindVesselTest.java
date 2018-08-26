@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package me.nguba.gambrinus.query.vessel.find;
 
@@ -12,7 +12,7 @@ import nl.jqno.equalsverifier.EqualsVerifier;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
- * 
+ *
  */
 class FindVesselTest
 {

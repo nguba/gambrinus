@@ -25,7 +25,7 @@ class OwfsSensorTest
   @Test
   void mountFailure() throws Exception
   {
-    assertThat(OwfsSensor.from(OwfsRoot.of("foo"),OwfsMother.address()).isValid()).isFalse();
+    assertThat(OwfsSensor.from(OwfsRoot.of("foo"), OwfsMother.address()).isValid()).isFalse();
   }
 
   @Test

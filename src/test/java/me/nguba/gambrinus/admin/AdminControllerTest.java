@@ -36,9 +36,8 @@ class AdminControllerTest
   @AfterEach
   void tearDown()
   {
-    for (Vessel v : vessels.findAll()) {
+    for (final Vessel v : vessels.findAll())
       vessels.delete(v.getId());
-    }
   }
 
   @Test
@@ -72,11 +71,11 @@ class AdminControllerTest
   @Test
   void getVessel() throws Exception
   {
-    Vessel vessel = Vessel.of(VesselId.of("mash"),
-                              OwfsSensor.from(OwfsRoot.test(),
-                                              OneWireAddress.of("28.273B5D070000")));
+    final Vessel vessel = Vessel.of(VesselId.of("mash"),
+                                    OwfsSensor.from(OwfsRoot.test(),
+                                                    OneWireAddress.of("28.273B5D070000")));
     vessels.create(vessel);
-    
+
     mvc.perform(get("/api/admin/vessel/{name}", "mash")).andDo(print())
         .andExpect(status().isOk()).andReturn();
   }

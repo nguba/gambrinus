@@ -50,7 +50,7 @@ public class Administrator
     return result.iterator().next();
   }
 
-  public Vessel findVessel(VesselId id) throws ValidationFailed
+  public Vessel findVessel(final VesselId id) throws ValidationFailed
   {
     return queries.run(FindVessel.of(id));
   }

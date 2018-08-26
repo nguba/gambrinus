@@ -40,9 +40,8 @@ public final class CreateVesselHandler implements CommandHandler<CreateVessel>
 
     if (command.getRoot() != null && command.getAddress() != null) {
       final OwfsSensor sensor = OwfsSensor.from(command.getRoot(), command.getAddress());
-      if(!sensor.isValid()) {
+      if (!sensor.isValid())
         errors.add(Reason.from("Invalid sensor: " + sensor.getPath()));
-      }
     }
 
     if (repo.read(command.getVesselId()).isPresent())
