@@ -29,9 +29,6 @@ public final class BrewController
                    @PathVariable("temperature") final double temperature)
       throws ValidationFailed
   {
-    System.out.println(vesselId);
-    System.out.println(temperature);
-
     brewmaster.heat(VesselId.of(vesselId), Temperature.celsius(temperature));
   }
 }

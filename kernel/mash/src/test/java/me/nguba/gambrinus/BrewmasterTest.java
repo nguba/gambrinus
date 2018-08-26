@@ -10,6 +10,9 @@ import me.nguba.gambrinus.equipment.VesselId;
 import me.nguba.gambrinus.equipment.VesselRepository;
 import me.nguba.gambrinus.event.EventPublisher;
 import me.nguba.gambrinus.event.MutatorEvent;
+import me.nguba.gambrinus.onewire.OneWireAddress;
+import me.nguba.gambrinus.owfs.OwfsRoot;
+import me.nguba.gambrinus.owfs.OwfsSensor;
 import me.nguba.gambrinus.process.Temperature;
 
 class BrewmasterTest implements EventPublisher
@@ -23,7 +26,7 @@ class BrewmasterTest implements EventPublisher
   @BeforeEach
   void setUp()
   {
-    vessels.create(Vessel.inactive(vesselId));
+    vessels.create(Vessel.of(vesselId, OwfsSensor.from(OwfsRoot.test(), OneWireAddress.empty())));
 
     final BrewCommands commandFactory = new BrewCommands(vessels, this);
     final BrewQueries queryFactory = new BrewQueries(vessels);
