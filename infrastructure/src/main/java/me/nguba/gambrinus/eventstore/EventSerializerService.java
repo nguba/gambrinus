@@ -5,6 +5,7 @@ package me.nguba.gambrinus.eventstore;
 
 import java.io.IOException;
 
+import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
@@ -17,7 +18,6 @@ import me.nguba.gambrinus.event.MutatorEvent;
  */
 public final class EventSerializerService
 {
-
   private final ObjectMapper mapper;
 
   private EventSerializerService(final ObjectMapper mapper)
@@ -29,6 +29,8 @@ public final class EventSerializerService
   {
     final ObjectMapper mapper = new ObjectMapper();
     mapper.configure(SerializationFeature.INDENT_OUTPUT, false);
+    mapper.configure(MapperFeature.AUTO_DETECT_IS_GETTERS, false);
+    mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, true);
     return new EventSerializerService(mapper);
   }
 

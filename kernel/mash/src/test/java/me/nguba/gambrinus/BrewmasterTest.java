@@ -2,9 +2,12 @@ package me.nguba.gambrinus;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.Optional;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import me.nguba.gambrinus.command.temperature.setpoint.SetpointChanged;
 import me.nguba.gambrinus.equipment.Vessel;
 import me.nguba.gambrinus.equipment.VesselId;
 import me.nguba.gambrinus.equipment.VesselRepository;
@@ -23,6 +26,8 @@ class BrewmasterTest implements EventPublisher
 
   private final VesselId vesselId = VesselId.of("mash");
 
+  private Optional<MutatorEvent> currentEvent;
+  
   @BeforeEach
   void setUp()
   {
@@ -42,15 +47,28 @@ class BrewmasterTest implements EventPublisher
   }
 
   @Test
-  void heat() throws Exception
+  void heatUpdatesSetpoint() throws Exception
   {
     brewmaster.heat(vesselId, Temperature.celsius(65.5));
+    assertThat(vessels.read(vesselId).get().setpoint()).isEqualTo(Temperature.celsius(65.5));
+  }
+  
+  @Test
+  void heatBroadcastsSetpoint() throws Exception
+  {
+    brewmaster.heat(vesselId, Temperature.celsius(65.5));
+    
+    SetpointChanged event = (SetpointChanged)currentEvent.get();
+    
+    assertThat(event.getSetpoint()).isEqualTo(Temperature.celsius(65.5));
+    assertThat(event.getVesselId()).isEqualTo(vesselId);
+    
   }
 
   @Override
   public <E extends MutatorEvent> void publish(final E event)
   {
-    System.out.println(event);
+    currentEvent = Optional.of(event);
   }
 
   @Override

@@ -1,5 +1,7 @@
 package me.nguba.gambrinus.eventstore;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.time.Instant;
 
 import org.junit.jupiter.api.Test;
@@ -19,10 +21,11 @@ public class EventSerializerServiceTest extends MutatorEvent
   public Integer two = Integer.valueOf(2);
 
   @Test
-  void test() throws Exception
+  void transforToUnindentedString() throws Exception
   {
     final String transform = EventSerializerService.flatFormat().transform(this);
-    System.out.println(transform);
+    assertThat(transform)
+        .isEqualTo(String.format("{\"EventSerializerServiceTest\":{\"timestamp\":%d,\"one\":\"One value\",\"two\":2}}", timestamp));
   }
 
 }
