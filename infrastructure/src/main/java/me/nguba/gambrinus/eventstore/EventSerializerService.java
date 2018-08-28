@@ -3,13 +3,13 @@
  */
 package me.nguba.gambrinus.eventstore;
 
-import java.io.IOException;
+import me.nguba.gambrinus.event.MutatorEvent;
 
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
-import me.nguba.gambrinus.event.MutatorEvent;
+import java.io.IOException;
 
 /**
  *

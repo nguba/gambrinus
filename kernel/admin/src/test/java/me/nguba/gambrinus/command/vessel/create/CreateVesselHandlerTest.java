@@ -102,7 +102,7 @@ class CreateVesselHandlerTest
     final ValidationFailed failed = verify();
 
     assertThat(failed.getErrors().toString())
-        .contains("Invalid sensor: non/existing/path/28.273B5D070000/latesttemp");
+        .startsWith("Invalid sensor: ");
   }
 
   private ValidationFailed verify()

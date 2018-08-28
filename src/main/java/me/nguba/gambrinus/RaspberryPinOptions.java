@@ -10,48 +10,48 @@ import me.nguba.gambrinus.raspberry.GPIO;
 @ConfigurationProperties(prefix = "gambrinus.raspberry.pin")
 public class RaspberryPinOptions
 {
-  private GPIO mt;
+    private GPIO mt;
 
-  private GPIO hlt;
+    private GPIO hlt;
 
-  private GPIO bk;
+    private GPIO bk;
 
-  public GPIO getMt()
-  {
-    return mt;
-  }
+    public GPIO getMt()
+    {
+        return mt;
+    }
 
-  public void setMt(final GPIO mt)
-  {
-    this.mt = mt;
-  }
+    public void setMt(final GPIO mt)
+    {
+        this.mt = mt;
+    }
 
-  public GPIO getHlt()
-  {
-    return hlt;
-  }
+    public GPIO getHlt()
+    {
+        return hlt;
+    }
 
-  public void setHlt(final GPIO hlt)
-  {
-    this.hlt = hlt;
-  }
+    public void setHlt(final GPIO hlt)
+    {
+        this.hlt = hlt;
+    }
 
-  public GPIO getBk()
-  {
-    return bk;
-  }
+    public GPIO getBk()
+    {
+        return bk;
+    }
 
-  public void setBk(final GPIO bk)
-  {
-    this.bk = bk;
-  }
+    public void setBk(final GPIO bk)
+    {
+        this.bk = bk;
+    }
 
-  @Override
-  public String toString()
-  {
-    final StringBuilder builder = new StringBuilder();
-    builder.append("RaspberryPinOptions [mt=").append(mt).append(", hlt=").append(hlt)
-        .append(", bk=").append(bk).append("]");
-    return builder.toString();
-  }
+    @Override
+    public String toString()
+    {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("RaspberryPinOptions [mt=").append(mt).append(", hlt=").append(hlt)
+                .append(", bk=").append(bk).append("]");
+        return builder.toString();
+    }
 }
