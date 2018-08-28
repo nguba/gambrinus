@@ -21,7 +21,7 @@ public class RaspberryPinOptions
         return mt;
     }
 
-    public void setMt(GPIO mt)
+    public void setMt(final GPIO mt)
     {
         this.mt = mt;
     }
@@ -31,7 +31,7 @@ public class RaspberryPinOptions
         return hlt;
     }
 
-    public void setHlt(GPIO hlt)
+    public void setHlt(final GPIO hlt)
     {
         this.hlt = hlt;
     }
@@ -41,7 +41,7 @@ public class RaspberryPinOptions
         return bk;
     }
 
-    public void setBk(GPIO bk)
+    public void setBk(final GPIO bk)
     {
         this.bk = bk;
     }
