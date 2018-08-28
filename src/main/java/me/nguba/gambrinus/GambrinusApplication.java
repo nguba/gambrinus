@@ -1,13 +1,13 @@
 package me.nguba.gambrinus;
 
-import me.nguba.gambrinus.admin.AdminService;
-import me.nguba.gambrinus.equipment.VesselRepository;
-import me.nguba.gambrinus.event.EventPublisher;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+
+import me.nguba.gambrinus.admin.AdminResourceService;
+import me.nguba.gambrinus.equipment.VesselRepository;
+import me.nguba.gambrinus.event.EventPublisher;
 
 @SpringBootApplication
 @EnableConfigurationProperties({ GambrinusOptions.class, RaspberryPinOptions.class })
@@ -37,20 +37,20 @@ public class GambrinusApplication
     }
 
     @Bean
-    public MashQueries mashQueries(final VesselRepository vessels)
+    public BrewQueries mashQueries(final VesselRepository vessels)
     {
-        return new MashQueries(vessels);
+        return new BrewQueries(vessels);
     }
 
     @Bean
-    public MashCommands mashCommands(final VesselRepository vessels, final EventPublisher events)
+    public BrewCommands mashCommands(final VesselRepository vessels, final EventPublisher events)
     {
-        return new MashCommands(vessels, events);
+        return new BrewCommands(vessels, events);
     }
 
     @Bean
-    public Brewmaster brewmaster(final MashCommands commands,
-                                 final MashQueries queries)
+    public Brewmaster brewmaster(final BrewCommands commands,
+                                 final BrewQueries queries)
     {
         return new Brewmaster(commands, queries);
     }
@@ -75,8 +75,8 @@ public class GambrinusApplication
     }
 
     @Bean
-    public AdminService adminService(final Administrator admin)
+    public AdminResourceService adminService(final Administrator admin)
     {
-        return new AdminService(admin);
+        return new AdminResourceService(admin);
     }
 }

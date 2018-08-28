@@ -7,13 +7,13 @@ import me.nguba.gambrinus.ddd.support.SingleValueObject;
  */
 public class VesselId extends SingleValueObject<String>
 {
-    private VesselId(final String value)
-    {
-        super(value);
-    }
+  private VesselId(final String value)
+  {
+    super(value);
+  }
 
-    public static VesselId of(final String name)
-    {
-        return new VesselId(name);
-    }
+  public static VesselId of(final String name)
+  {
+    return new VesselId(name);
+  }
 }

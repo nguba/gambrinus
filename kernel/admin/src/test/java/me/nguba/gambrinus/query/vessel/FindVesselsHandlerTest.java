@@ -1,56 +1,55 @@
 package me.nguba.gambrinus.query.vessel;
 
-import me.nguba.gambrinus.ddd.validation.Errors;
-import me.nguba.gambrinus.equipment.Vessel;
-import me.nguba.gambrinus.equipment.VesselId;
-import me.nguba.gambrinus.equipment.VesselRepository;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import me.nguba.gambrinus.ddd.validation.Errors;
+import me.nguba.gambrinus.equipment.Vessel;
+import me.nguba.gambrinus.equipment.VesselId;
+import me.nguba.gambrinus.equipment.VesselRepository;
+
 class FindVesselsHandlerTest
 {
-    private final VesselRepository repository = new VesselRepository();
+  private final VesselRepository repository = new VesselRepository();
 
-    private FindVesselsHandler handler;
+  private FindVesselsHandler handler;
 
-    @BeforeEach
-    void setup()
-    {
-        handler = FindVesselsHandler.on(repository);
-    }
+  @BeforeEach
+  void setup()
+  {
+    handler = FindVesselsHandler.on(repository);
+  }
 
-    @Test
-    void validation()
-    {
-        final Errors errors = Errors.empty();
-        handler.validate(FindVessels.create(), errors);
+  @Test
+  void validation()
+  {
+    final Errors errors = Errors.empty();
+    handler.validate(FindVessels.create(), errors);
 
-        assertThat(errors.hasErrors()).isFalse();
-    }
+    assertThat(errors.hasErrors()).isFalse();
+  }
 
-    @Test
-    void noVesselsFound()
-    {
-        final FindVesselsResult result = handler.query(FindVessels.create());
+  @Test
+  void noVesselsFound()
+  {
+    final FindVesselsResult result = handler.query(FindVessels.create());
 
-        assertThat(result.getResult().get()).isEmpty();
-    }
+    assertThat(result.getResult().get()).isEmpty();
+  }
 
-    @Test
-    void returnVessels()
-    {
-        final Vessel[] expected = { Vessel.inactive(VesselId.of("a")),
-                Vessel.inactive(VesselId.of("b")) };
-        for (final Vessel v : expected) {
-            repository.create(v);
-        }
+  @Test
+  void returnVessels()
+  {
+    final Vessel[] expected = { Vessel.inactive(VesselId.of("a")),
+        Vessel.inactive(VesselId.of("b")) };
+    for (final Vessel v : expected)
+      repository.create(v);
 
-        final FindVesselsResult result = handler.query(FindVessels.create());
+    final FindVesselsResult result = handler.query(FindVessels.create());
 
-        assertThat(result.getResult().get()).containsOnly(expected);
-    }
+    assertThat(result.getResult().get()).containsOnly(expected);
+  }
 
 }

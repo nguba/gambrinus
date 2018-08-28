@@ -1,22 +1,22 @@
 package me.nguba.gambrinus.admin;
 
-import me.nguba.gambrinus.GambrinusControllerTest;
-import me.nguba.gambrinus.equipment.Vessel;
-import me.nguba.gambrinus.equipment.VesselId;
-import me.nguba.gambrinus.equipment.VesselRepository;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import me.nguba.gambrinus.ApplicationMother;
+import me.nguba.gambrinus.GambrinusControllerTest;
+import me.nguba.gambrinus.equipment.Vessel;
+import me.nguba.gambrinus.equipment.VesselId;
+import me.nguba.gambrinus.equipment.VesselRepository;
 
 /**
  *
@@ -25,52 +25,71 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @GambrinusControllerTest
 class AdminControllerTest
 {
-    @Autowired
-    private MockMvc mvc;
+  @Autowired
+  private MockMvc mvc;
 
-    @Autowired
-    private VesselRepository vessels;
+  @Autowired
+  private VesselRepository vessels;
 
-    @Test
-    void emptyVessels() throws Exception
-    {
-        final MvcResult result = mvc.perform(get("/api/admin/vessel")).andDo(print())
-                .andExpect(status().isOk()).andReturn();
+  @AfterEach
+  void tearDown()
+  {
+    for (final Vessel v : vessels.findAll())
+      vessels.delete(v.getId());
+  }
 
-        assertEquals("[ ]", result.getResponse().getContentAsString());
-    }
+  @Test
+  void emptyVessels() throws Exception
+  {
+    final MvcResult result = mvc.perform(get("/api/admin/vessel")).andDo(print())
+        .andExpect(status().isOk()).andReturn();
 
-    @Test
-    void getVessels() throws Exception
-    {
-        final Vessel[] expected = { Vessel.inactive(VesselId.of("a")),
-                Vessel.inactive(VesselId.of("b")) };
-        for (final Vessel v : expected) {
-            vessels.create(v);
-        }
+    assertEquals("[ ]", result.getResponse().getContentAsString());
+  }
 
-        mvc.perform(get("/api/admin/vessel")).andDo(print())
-                .andExpect(status().isOk()).andReturn();
+  @Test
+  void getVessels() throws Exception
+  {
+    final Vessel[] expected = { Vessel.inactive(VesselId.of("a")),
+        Vessel.inactive(VesselId.of("b")) };
+    for (final Vessel v : expected)
+      vessels.create(v);
 
-        // assertEquals("[ ]", result.getResponse().getContentAsString());
-    }
+    mvc.perform(get("/api/admin/vessel")).andDo(print())
+        .andExpect(status().isOk()).andReturn();
+  }
 
-    @Test
-    void getSensors() throws Exception
-    {
-        mvc.perform(get("/api/admin/sensor")).andDo(print())
-                .andExpect(status().isOk()).andReturn();
+  @Test
+  void getVesselNotFound() throws Exception
+  {
+    mvc.perform(get("/api/admin/vessel/{name}", "mash")).andDo(print())
+        .andExpect(status().isNotFound());
+  }
 
-        // assertEquals("[ ]", result.getResponse().getContentAsString());
-    }
+  @Test
+  void getVessel() throws Exception
+  {
+    final Vessel vessel = ApplicationMother.mashTun();
 
-    @Test
-    void createVessel() throws Exception
-    {
-        mvc.perform(post("/api/admin/vessel/{name}/{address}", "mash", "28.273B5D070000"))
-                .andDo(print())
-                .andExpect(status().isCreated()).andReturn();
+    vessels.create(vessel);
 
-        // assertEquals("[ ]", result.getResponse().getContentAsString());
-    }
+    mvc.perform(get("/api/admin/vessel/{name}", "mash")).andDo(print())
+        .andExpect(status().isOk()).andReturn();
+  }
+
+  @Test
+  void getSensors() throws Exception
+  {
+    mvc.perform(get("/api/admin/sensor")).andDo(print())
+        .andExpect(status().isOk()).andReturn();
+
+  }
+
+  @Test
+  void createVessel() throws Exception
+  {
+    mvc.perform(post("/api/admin/vessel/{name}/{address}", "mash", "28.273B5D070000"))
+        .andDo(print())
+        .andExpect(status().isCreated()).andReturn();
+  }
 }

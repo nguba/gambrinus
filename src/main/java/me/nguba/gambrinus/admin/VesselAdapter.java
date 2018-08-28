@@ -1,35 +1,36 @@
 package me.nguba.gambrinus.admin;
 
-import me.nguba.gambrinus.equipment.Vessel;
-
-import org.springframework.hateoas.ResourceSupport;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.hateoas.mvc.ResourceAssemblerSupport;
 
+import me.nguba.gambrinus.equipment.Vessel;
+
 /**
- *
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
+ *
  */
-public class VesselAdapter extends ResourceAssemblerSupport<Vessel, ResourceSupport>
+public class VesselAdapter extends ResourceAssemblerSupport<Vessel, VesselResource>
 {
-    public VesselAdapter()
-    {
-        super(AdminController.class, ResourceSupport.class);
-    }
+  public VesselAdapter()
+  {
+    super(AdminController.class, VesselResource.class);
+  }
 
-    @Override
-    public ResourceSupport toResource(final Vessel entity)
-    {
-        final ResourceSupport resource = new ResourceSupport();
-        resource.add(ControllerLinkBuilder.linkTo(AdminController.class).slash("vessel")
-                .slash(entity.getId()).slash(entity.address()).withSelfRel()
-                .withTitle(entity.getId().toString()));
-        return resource;
-    }
+  @Override
+  public VesselResource toResource(final Vessel entity)
+  {
+    final VesselResource resource = new VesselResource(entity);
 
-    public static ResourceSupport adapt(final Vessel entity)
-    {
-        return new VesselAdapter().toResource(entity);
-    }
+    resource.add(ControllerLinkBuilder.linkTo(AdminController.class).slash("vessel")
+        .slash(entity.getId()).withSelfRel()
+        .withTitle(entity.getId().toString()));
+
+    return resource;
+  }
+
+  public static VesselResource adapt(final Vessel entity)
+  {
+    return new VesselAdapter().toResource(entity);
+  }
 
 }

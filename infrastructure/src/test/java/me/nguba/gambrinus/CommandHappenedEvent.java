@@ -1,17 +1,18 @@
 package me.nguba.gambrinus;
 
+import java.time.Instant;
+
 import me.nguba.gambrinus.event.MutatorEvent;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-public final class CommandHappenedEvent implements MutatorEvent
+public final class CommandHappenedEvent extends MutatorEvent
 {
 
-    @Override
-    public String toString()
-    {
-        return timestamp().toString();
-    }
+  public CommandHappenedEvent()
+  {
+    super(Instant.now());
+  }
 
 }
