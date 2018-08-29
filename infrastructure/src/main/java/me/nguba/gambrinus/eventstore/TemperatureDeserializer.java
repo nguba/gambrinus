@@ -14,30 +14,25 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-package me.nguba.gambrinus;
 
-import me.nguba.gambrinus.event.EventPublisher;
-import me.nguba.gambrinus.eventstore.EventStore;
+package me.nguba.gambrinus.eventstore;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.jdbc.core.JdbcTemplate;
+import me.nguba.gambrinus.process.Temperature;
+
+import com.fasterxml.jackson.databind.JsonNode;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-@Configuration
-public class InfrastructureContext
+public final class TemperatureDeserializer extends SingleValueObjectDeserializer<Temperature>
 {
-    @Bean
-    public EventPublisher eventPublisher()
+    private static final long serialVersionUID = 1999773131985154147L;
+
+    @Override
+    protected Temperature onValueNode(JsonNode valueNode)
     {
-        return new GuavaEventPublisher();
+        System.out.println(valueNode);
+        return Temperature.celsius(valueNode.asDouble());
     }
 
-    @Bean
-    public EventStore eventStore(final JdbcTemplate jdbc)
-    {
-        return EventStore.with(jdbc);
-    }
 }

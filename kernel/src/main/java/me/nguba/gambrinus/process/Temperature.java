@@ -72,32 +72,27 @@ public final class Temperature implements ValueObject
     {
         final int prime = 31;
         int result = 1;
-        result = prime * result + (scale == null ? 0 : scale.hashCode());
+        result = prime * result + ((scale == null) ? 0 : scale.hashCode());
         long temp;
         temp = Double.doubleToLongBits(value);
-        result = prime * result + (int) (temp ^ temp >>> 32);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
         return result;
     }
 
     @Override
-    public boolean equals(final Object obj)
+    public boolean equals(Object obj)
     {
-        if (this == obj) {
+        if (this == obj)
             return true;
-        }
-        if (obj == null) {
+        if (obj == null)
             return false;
-        }
-        if (getClass() != obj.getClass()) {
+        if (getClass() != obj.getClass())
             return false;
-        }
-        final Temperature other = (Temperature) obj;
-        if (scale != other.scale) {
+        Temperature other = (Temperature) obj;
+        if (scale != other.scale)
             return false;
-        }
-        if (Double.doubleToLongBits(value) != Double.doubleToLongBits(other.value)) {
+        if (Double.doubleToLongBits(value) != Double.doubleToLongBits(other.value))
             return false;
-        }
         return true;
     }
 

@@ -16,11 +16,15 @@
 */
 package me.nguba.gambrinus.eventstore;
 
+import me.nguba.gambrinus.equipment.VesselId;
 import me.nguba.gambrinus.event.MutatorEvent;
+import me.nguba.gambrinus.process.Temperature;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 
 import java.io.IOException;
 
@@ -43,12 +47,24 @@ public final class EventSerializerService
         final ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.INDENT_OUTPUT, false);
         mapper.configure(MapperFeature.AUTO_DETECT_IS_GETTERS, false);
-        mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, true);
+        mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        
+        SimpleModule module = new SimpleModule();
+        module.addDeserializer(VesselId.class, new VesselIdDeserailizer());
+        module.addDeserializer(Temperature.class, new TemperatureDeserializer());
+        mapper.registerModule(module);
+        
         return new EventSerializerService(mapper);
     }
 
     public <E extends MutatorEvent> String transform(final E event) throws IOException
     {
         return mapper.writeValueAsString(event);
+    }
+
+    public <E extends MutatorEvent> E restore(String string, Class<E> type) throws IOException
+    {
+        return mapper.readValue(string, type);
     }
 }

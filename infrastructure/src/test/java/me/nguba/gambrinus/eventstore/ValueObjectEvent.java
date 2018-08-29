@@ -14,48 +14,49 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-package me.nguba.gambrinus.event;
+
+package me.nguba.gambrinus.eventstore;
+
+import me.nguba.gambrinus.event.MutatorEvent;
 
 import java.time.Instant;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-public abstract class MutatorEvent
+public final class ValueObjectEvent extends MutatorEvent
 {
-    protected final long timestamp;
+    private Object valueObject;
 
-    protected MutatorEvent(long timestamp)
+    protected ValueObjectEvent()
     {
-        this.timestamp = timestamp;
     }
 
-    protected MutatorEvent(String timestamp)
-    {
-        this.timestamp = Long.parseLong(timestamp);
-    }
-
-    protected MutatorEvent()
-    {
-        this(Instant.now());
+    private ValueObjectEvent(Object valueObject) {
+        super(Instant.now());
+        this.valueObject = valueObject;     
     }
     
-    protected MutatorEvent(Instant now)
+    public static final ValueObjectEvent from(Object valueObject) {
+        return new ValueObjectEvent(valueObject);
+    }
+    
+    public Object getValueObject()
     {
-        this(now.toEpochMilli());
+        return valueObject;
     }
 
-    public long getTimestamp()
+    public void setValueObject(Object valueObject)
     {
-        return timestamp;
+        this.valueObject = valueObject;
     }
 
     @Override
     public int hashCode()
     {
         final int prime = 31;
-        int result = 1;
-        result = prime * result + (int) (timestamp ^ (timestamp >>> 32));
+        int result = super.hashCode();
+        result = prime * result + ((valueObject == null) ? 0 : valueObject.hashCode());
         return result;
     }
 
@@ -64,21 +65,16 @@ public abstract class MutatorEvent
     {
         if (this == obj)
             return true;
-        if (obj == null)
+        if (!super.equals(obj))
             return false;
         if (getClass() != obj.getClass())
             return false;
-        MutatorEvent other = (MutatorEvent) obj;
-        if (timestamp != other.timestamp)
+        ValueObjectEvent other = (ValueObjectEvent) obj;
+        if (valueObject == null) {
+            if (other.valueObject != null)
+                return false;
+        } else if (!valueObject.equals(other.valueObject))
             return false;
         return true;
-    }
-
-    @Override
-    public String toString()
-    {
-        StringBuilder builder = new StringBuilder();
-        builder.append("MutatorEvent [timestamp=").append(timestamp).append("]");
-        return builder.toString();
     }
 }

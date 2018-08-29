@@ -27,13 +27,17 @@ import java.time.Instant;
  */
 public final class SetpointChanged extends MutatorEvent
 {
-    private final VesselId vesselId;
+    VesselId vesselId;
 
-    private final Temperature setpoint;
+    Temperature setpoint;
 
+    protected SetpointChanged() {
+        super();
+    }
+    
     private SetpointChanged(final VesselId vesselId, final Temperature setpoint)
     {
-        super(Instant.now());
+        super(Instant.now().toEpochMilli());
         this.vesselId = vesselId;
         this.setpoint = setpoint;
     }
@@ -96,9 +100,9 @@ public final class SetpointChanged extends MutatorEvent
     @Override
     public String toString()
     {
-        final StringBuilder builder = new StringBuilder();
+        StringBuilder builder = new StringBuilder();
         builder.append("SetpointChanged [vesselId=").append(vesselId).append(", setpoint=")
-                .append(setpoint).append("]");
+                .append(setpoint).append(", timestamp=").append(timestamp).append("]");
         return builder.toString();
     }
 }

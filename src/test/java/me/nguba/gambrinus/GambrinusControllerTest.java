@@ -16,7 +16,9 @@
 */
 package me.nguba.gambrinus;
 
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrint;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -37,7 +39,8 @@ import java.lang.annotation.Target;
 @Documented
 @Inherited
 @ExtendWith(SpringExtension.class)
-@WebMvcTest
+@AutoConfigureMockMvc(print = MockMvcPrint.LOG_DEBUG)
+@SpringBootTest(classes = {GambrinusApplication.class})
 public @interface GambrinusControllerTest
 {
 

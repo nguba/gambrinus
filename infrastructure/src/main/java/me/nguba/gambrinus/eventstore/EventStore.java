@@ -11,9 +11,14 @@ package me.nguba.gambrinus.eventstore;
 
 import me.nguba.gambrinus.event.MutatorEvent;
 
-import java.io.IOException;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 
-import javax.sql.DataSource;
+import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.Instant;
+import java.util.List;
 
 /**
  *
@@ -21,21 +26,44 @@ import javax.sql.DataSource;
  */
 public final class EventStore
 {
-    private final DataSource             dataSource;
+    private final JdbcTemplate           jdbc;
     private final EventSerializerService serializer;
 
-    private EventStore(final DataSource dataSource, final EventSerializerService serializer)
+    private EventStore(final JdbcTemplate jdbc, final EventSerializerService serializer)
     {
-        this.dataSource = dataSource;
+        this.jdbc = jdbc;
         this.serializer = serializer;
     }
 
-    public static final EventStore with(final DataSource dataSource)
+    public static final EventStore with(final JdbcTemplate jdbc)
     {
-        return new EventStore(dataSource, EventSerializerService.flatFormat());
+        return new EventStore(jdbc, EventSerializerService.flatFormat());
     }
 
     public void record(final MutatorEvent event) throws IOException
     {
+        jdbc.update("INSERT INTO events (id, timestamp, message) VALUES (?, ?,?)",
+                    event.getClass().getName(),
+                    Instant.ofEpochMilli(event.getTimestamp()),
+                    serializer.transform(event));
+    }
+
+    public <T extends MutatorEvent> List<T> find(Class<T> id)
+    {
+
+        return jdbc.query("SELECT id, timestamp, message FROM events where id=?",
+                          new Object[] { id.getName() },
+                          new RowMapper<T>() {
+
+                              @Override
+                              public T mapRow(ResultSet rs, int rowNum) throws SQLException
+                              {
+                                  try {
+                                      return serializer.restore(rs.getString("message"), id);
+                                  } catch (IOException e) {
+                                      throw new SQLException(e);
+                                  }
+                              }
+                          });
     }
 }

@@ -35,7 +35,7 @@ public class EventSerializerServiceTest extends MutatorEvent
         final String transform = EventSerializerService.flatFormat().transform(this);
 
         assertEquals(String
-                .format("{\"EventSerializerServiceTest\":{\"timestamp\":%d,\"one\":\"One value\",\"two\":2}}",
+                .format("{\"timestamp\":%d,\"one\":\"One value\",\"two\":2}",
                         timestamp),
                      transform);
     }

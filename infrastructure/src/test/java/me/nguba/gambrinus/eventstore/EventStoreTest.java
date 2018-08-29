@@ -38,6 +38,10 @@ class EventStoreTest
         final MutatorEvent event = SetpointChanged.on(VesselId.of("mash"),
                                                       Temperature.celsius(72.0));
         eventStore.record(event);
+
+        for (SetpointChanged message : eventStore.find(SetpointChanged.class)) {
+            System.out.println(message);
+        }
     }
 
 }
