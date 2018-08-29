@@ -58,7 +58,6 @@ subprojects {
             name = rootProject.name + "-" + project.name
         }
     }
-   
 }
 
 apply plugin: 'org.springframework.boot' 
@@ -79,8 +78,7 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-hateoas')
     compile('org.springframework.boot:spring-boot-starter-undertow')
     compile('org.springframework.boot:spring-boot-starter-jdbc')
-    compile('io.micrometer:micrometer-registry-prometheus:latest.release')
-   
+  
     compileOnly('org.springframework.boot:spring-boot-configuration-processor')
     
     testImplementation('org.springframework.boot:spring-boot-starter-test')
