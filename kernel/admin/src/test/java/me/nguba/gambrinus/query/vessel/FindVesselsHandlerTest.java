@@ -1,55 +1,72 @@
+/*
+    Copyright (C) 2018  Nicolai P. Guba
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
 package me.nguba.gambrinus.query.vessel;
-
-import static org.assertj.core.api.Assertions.assertThat;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
 import me.nguba.gambrinus.ddd.validation.Errors;
 import me.nguba.gambrinus.equipment.Vessel;
 import me.nguba.gambrinus.equipment.VesselId;
 import me.nguba.gambrinus.equipment.VesselRepository;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 class FindVesselsHandlerTest
 {
-  private final VesselRepository repository = new VesselRepository();
+    private final VesselRepository repository = new VesselRepository();
 
-  private FindVesselsHandler handler;
+    private FindVesselsHandler handler;
 
-  @BeforeEach
-  void setup()
-  {
-    handler = FindVesselsHandler.on(repository);
-  }
+    @BeforeEach
+    void setup()
+    {
+        handler = FindVesselsHandler.on(repository);
+    }
 
-  @Test
-  void validation()
-  {
-    final Errors errors = Errors.empty();
-    handler.validate(FindVessels.create(), errors);
+    @Test
+    void validation()
+    {
+        final Errors errors = Errors.empty();
+        handler.validate(FindVessels.create(), errors);
 
-    assertThat(errors.hasErrors()).isFalse();
-  }
+        assertThat(errors.hasErrors()).isFalse();
+    }
 
-  @Test
-  void noVesselsFound()
-  {
-    final FindVesselsResult result = handler.query(FindVessels.create());
+    @Test
+    void noVesselsFound()
+    {
+        final FindVesselsResult result = handler.query(FindVessels.create());
 
-    assertThat(result.getResult().get()).isEmpty();
-  }
+        assertThat(result.getResult().get()).isEmpty();
+    }
 
-  @Test
-  void returnVessels()
-  {
-    final Vessel[] expected = { Vessel.inactive(VesselId.of("a")),
-        Vessel.inactive(VesselId.of("b")) };
-    for (final Vessel v : expected)
-      repository.create(v);
+    @Test
+    void returnVessels()
+    {
+        final Vessel[] expected = { Vessel.inactive(VesselId.of("a")),
+                Vessel.inactive(VesselId.of("b")) };
+        for (final Vessel v : expected) {
+            repository.create(v);
+        }
 
-    final FindVesselsResult result = handler.query(FindVessels.create());
+        final FindVesselsResult result = handler.query(FindVessels.create());
 
-    assertThat(result.getResult().get()).containsOnly(expected);
-  }
+        assertThat(result.getResult().get()).containsOnly(expected);
+    }
 
 }

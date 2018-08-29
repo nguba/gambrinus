@@ -1,12 +1,25 @@
-/**
- *
- */
-package me.nguba.gambrinus.query.vessel.find;
+/*
+    Copyright (C) 2018  Nicolai P. Guba
 
-import java.util.Optional;
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+package me.nguba.gambrinus.query.vessel.find;
 
 import me.nguba.gambrinus.cqrs.query.Result;
 import me.nguba.gambrinus.equipment.Vessel;
+
+import java.util.Optional;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
@@ -14,31 +27,31 @@ import me.nguba.gambrinus.equipment.Vessel;
  */
 public final class FindVesselResult implements Result<Vessel>
 {
-  private final Optional<Vessel> vessel;
+    private final Optional<Vessel> vessel;
 
-  public FindVesselResult(final Optional<Vessel> vessel)
-  {
-    this.vessel = vessel;
-  }
+    public FindVesselResult(final Optional<Vessel> vessel)
+    {
+        this.vessel = vessel;
+    }
 
-  @Override
-  public Optional<Vessel> getResult()
-  {
-    return vessel;
-  }
+    @Override
+    public Optional<Vessel> getResult()
+    {
+        return vessel;
+    }
 
-  public static FindVesselResult empty()
-  {
-    return new FindVesselResult(Optional.empty());
-  }
+    public static FindVesselResult empty()
+    {
+        return new FindVesselResult(Optional.empty());
+    }
 
-  public static FindVesselResult from(final Vessel vessel)
-  {
-    return new FindVesselResult(Optional.of(vessel));
-  }
+    public static FindVesselResult from(final Vessel vessel)
+    {
+        return new FindVesselResult(Optional.of(vessel));
+    }
 
-  public static FindVesselResult of(final Optional<Vessel> read)
-  {
-    return new FindVesselResult(read);
-  }
+    public static FindVesselResult of(final Optional<Vessel> read)
+    {
+        return new FindVesselResult(read);
+    }
 }

@@ -1,6 +1,19 @@
-/**
- *
- */
+/*
+    Copyright (C) 2018  Nicolai P. Guba
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
 package me.nguba.gambrinus.eventstore;
 
 import me.nguba.gambrinus.event.MutatorEvent;
@@ -18,24 +31,24 @@ import java.io.IOException;
  */
 public final class EventSerializerService
 {
-  private final ObjectMapper mapper;
+    private final ObjectMapper mapper;
 
-  private EventSerializerService(final ObjectMapper mapper)
-  {
-    this.mapper = mapper;
-  }
+    private EventSerializerService(final ObjectMapper mapper)
+    {
+        this.mapper = mapper;
+    }
 
-  public static EventSerializerService flatFormat()
-  {
-    final ObjectMapper mapper = new ObjectMapper();
-    mapper.configure(SerializationFeature.INDENT_OUTPUT, false);
-    mapper.configure(MapperFeature.AUTO_DETECT_IS_GETTERS, false);
-    mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, true);
-    return new EventSerializerService(mapper);
-  }
+    public static EventSerializerService flatFormat()
+    {
+        final ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.INDENT_OUTPUT, false);
+        mapper.configure(MapperFeature.AUTO_DETECT_IS_GETTERS, false);
+        mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, true);
+        return new EventSerializerService(mapper);
+    }
 
-  public <E extends MutatorEvent> String transform(final E event) throws IOException
-  {
-    return mapper.writeValueAsString(event);
-  }
+    public <E extends MutatorEvent> String transform(final E event) throws IOException
+    {
+        return mapper.writeValueAsString(event);
+    }
 }

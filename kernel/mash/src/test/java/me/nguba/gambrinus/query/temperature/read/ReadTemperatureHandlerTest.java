@@ -1,10 +1,20 @@
+/*
+    Copyright (C) 2018  Nicolai P. Guba
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
 package me.nguba.gambrinus.query.temperature.read;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
 import me.nguba.gambrinus.ddd.validation.Errors;
 import me.nguba.gambrinus.ddd.validation.Reason;
@@ -14,40 +24,51 @@ import me.nguba.gambrinus.equipment.VesselId;
 import me.nguba.gambrinus.equipment.VesselRepository;
 import me.nguba.gambrinus.process.Temperature;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+/**
+ *
+ * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
+ */
 class ReadTemperatureHandlerTest
 {
-  private ReadTemperatureHandler handler;
+    private ReadTemperatureHandler handler;
 
-  private final VesselRepository vessels = new VesselRepository();
+    private final VesselRepository vessels = new VesselRepository();
 
-  @BeforeEach
-  void setUp()
-  {
-    handler = ReadTemperatureHandler.on(vessels);
-  }
+    @BeforeEach
+    void setUp()
+    {
+        handler = ReadTemperatureHandler.on(vessels);
+    }
 
-  @Test
-  void validation()
-  {
-    final Errors results = Errors.empty();
+    @Test
+    void validation()
+    {
+        final Errors results = Errors.empty();
 
-    handler.validate(ReadTemperature.from(null), results);
+        handler.validate(ReadTemperature.from(null), results);
 
-    final ValidationFailed failed = assertThrows(ValidationFailed.class,
-                                                 () -> results.verify());
+        final ValidationFailed failed = assertThrows(ValidationFailed.class,
+                                                     () -> results.verify());
 
-    assertThat(failed.getErrors().has(Reason.from("No vesselId")));
-  }
+        assertThat(failed.getErrors().has(Reason.from("No vesselId")));
+    }
 
-  @Test
-  void temperatureResult()
-  {
-    final VesselId vesselId = VesselId.of("boil");
-    vessels.create(Vessel.inactive(vesselId));
+    @Test
+    void temperatureResult()
+    {
+        final VesselId vesselId = VesselId.of("boil");
+        vessels.create(Vessel.inactive(vesselId));
 
-    final ReadTemperatureResult result = handler.query(ReadTemperature.from(vesselId));
+        final ReadTemperatureResult result = handler.query(ReadTemperature.from(vesselId));
 
-    assertThat(result.getResult().get()).isEqualTo(Temperature.celsius(0));
-  }
+        assertThat(result.getResult().get()).isEqualTo(Temperature.celsius(0));
+    }
 
 }

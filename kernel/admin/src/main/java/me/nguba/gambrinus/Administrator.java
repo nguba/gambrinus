@@ -1,7 +1,20 @@
-package me.nguba.gambrinus;
+/*
+    Copyright (C) 2018  Nicolai P. Guba
 
-import java.io.IOException;
-import java.util.Set;
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+package me.nguba.gambrinus;
 
 import me.nguba.gambrinus.command.vessel.create.CreateVessel;
 import me.nguba.gambrinus.ddd.validation.ValidationFailed;
@@ -13,45 +26,48 @@ import me.nguba.gambrinus.query.onewire.FindOneWireAddresses;
 import me.nguba.gambrinus.query.vessel.FindVessels;
 import me.nguba.gambrinus.query.vessel.find.FindVessel;
 
+import java.io.IOException;
+import java.util.Set;
+
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
 public class Administrator
 {
-  private final AdminCommands commands;
+    private final AdminCommands commands;
 
-  private final AdminQueries queries;
+    private final AdminQueries queries;
 
-  public Administrator(final AdminCommands commands,
-                       final AdminQueries queries)
-  {
-    this.commands = commands;
-    this.queries = queries;
-  }
+    public Administrator(final AdminCommands commands,
+                         final AdminQueries queries)
+    {
+        this.commands = commands;
+        this.queries = queries;
+    }
 
-  public Set<Vessel> findVessels() throws ValidationFailed, IOException
-  {
-    return queries.run(FindVessels.create());
-  }
+    public Set<Vessel> findVessels() throws ValidationFailed, IOException
+    {
+        return queries.run(FindVessels.create());
+    }
 
-  public Set<OneWireAddress> findAddresses(final String mountpoint) throws ValidationFailed
-  {
-    return queries.run(FindOneWireAddresses.on(mountpoint));
-  }
+    public Set<OneWireAddress> findAddresses(final String mountpoint) throws ValidationFailed
+    {
+        return queries.run(FindOneWireAddresses.on(mountpoint));
+    }
 
-  public Vessel createVessel(final VesselId vesselId,
-                             final OwfsRoot root,
-                             final OneWireAddress address)
-      throws ValidationFailed
-  {
-    commands.execute(CreateVessel.from(vesselId, root, address));
+    public Vessel createVessel(final VesselId vesselId,
+                               final OwfsRoot root,
+                               final OneWireAddress address)
+            throws ValidationFailed
+    {
+        commands.execute(CreateVessel.from(vesselId, root, address));
 
-    final Set<Vessel> result = queries.run(FindVessels.create());
-    return result.iterator().next();
-  }
+        final Set<Vessel> result = queries.run(FindVessels.create());
+        return result.iterator().next();
+    }
 
-  public Vessel findVessel(final VesselId id) throws ValidationFailed
-  {
-    return queries.run(FindVessel.of(id));
-  }
+    public Vessel findVessel(final VesselId id) throws ValidationFailed
+    {
+        return queries.run(FindVessel.of(id));
+    }
 }

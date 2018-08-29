@@ -29,6 +29,7 @@ allprojects {
     	springCloudServicesVersion = '2.0.0.RC1'
     	springCloudVersion = 'Finchley.RC2'
     }
+    ext['assertj.version'] = '3.11.0'
     
     test {
         useJUnitPlatform {
@@ -43,7 +44,7 @@ allprojects {
     }
     
     dependencies {     
-        testImplementation("org.assertj:assertj-core:3.+")
+        testImplementation("org.assertj:assertj-core:3.11.0")
         testImplementation('nl.jqno.equalsverifier:equalsverifier:2.+')
         testImplementation('org.junit.jupiter:junit-jupiter-api:5.1.0')
         testRuntimeOnly('org.junit.jupiter:junit-jupiter-engine:5.1.0')
@@ -62,7 +63,7 @@ subprojects {
 
 apply plugin: 'org.springframework.boot' 
 apply plugin: 'io.spring.dependency-management'
-
+ 
 configurations {
     compile.exclude module: 'spring-boot-starter-tomcat'
 }
@@ -78,7 +79,7 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-hateoas')
     compile('org.springframework.boot:spring-boot-starter-undertow')
     compile('io.micrometer:micrometer-registry-prometheus:latest.release')
-    
+   
     compileOnly('org.springframework.boot:spring-boot-configuration-processor')
     
     testImplementation('org.springframework.boot:spring-boot-starter-test')

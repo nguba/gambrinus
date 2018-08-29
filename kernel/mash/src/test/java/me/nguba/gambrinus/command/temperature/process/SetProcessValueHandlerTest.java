@@ -1,13 +1,20 @@
-/**
- *
- */
+/*
+    Copyright (C) 2018  Nicolai P. Guba
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
 package me.nguba.gambrinus.command.temperature.process;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
 import me.nguba.gambrinus.ddd.validation.Errors;
 import me.nguba.gambrinus.ddd.validation.Reason;
@@ -17,6 +24,13 @@ import me.nguba.gambrinus.equipment.VesselId;
 import me.nguba.gambrinus.equipment.VesselRepository;
 import me.nguba.gambrinus.process.Temperature;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  *
@@ -24,65 +38,67 @@ import me.nguba.gambrinus.process.Temperature;
 class SetProcessValueHandlerTest
 {
 
-  private SetProcessValueHandler handler;
+    private SetProcessValueHandler handler;
 
-  private final VesselRepository repo = new VesselRepository();
+    private final VesselRepository repo = new VesselRepository();
 
-  private final VesselId id = VesselId.of("bk");
+    private final VesselId id = VesselId.of("bk");
 
-  private final Temperature processValue = Temperature.celsius(68.0);
+    private final Temperature processValue = Temperature.celsius(68.0);
 
-  @BeforeEach
-  void setUp()
-  {
-    handler = SetProcessValueHandler.from(repo);
-  }
+    @BeforeEach
+    void setUp()
+    {
+        handler = SetProcessValueHandler.from(repo);
+    }
 
-  @Test
-  void mutateNonExistingVessel()
-  {
-    assertThrows(IllegalArgumentException.class,
-                 () -> handler.changeStateFor(SetProcessValue.on(id, processValue)));
-  }
+    @Test
+    void mutateNonExistingVessel()
+    {
+        assertThrows(IllegalArgumentException.class,
+                     () -> handler.changeStateFor(SetProcessValue.on(id, processValue)));
+    }
 
-  @Test
-  void mutateNullCommand()
-  {
-    assertThrows(IllegalArgumentException.class, () -> handler.changeStateFor(null));
-  }
+    @Test
+    void mutateNullCommand()
+    {
+        assertThrows(IllegalArgumentException.class, () -> handler.changeStateFor(null));
+    }
 
-  @Test
-  void mutateMofifiesAggregate()
-  {
-    repo.create(Vessel.inactive(id));
+    @Test
+    void mutateMofifiesAggregate()
+    {
+        repo.create(Vessel.inactive(id));
 
-    handler.changeStateFor(SetProcessValue.on(id, processValue));
+        handler.changeStateFor(SetProcessValue.on(id, processValue));
 
-    assertThat(repo.read(id).get().processValue()).isEqualTo(processValue);
-  }
+        assertThat(repo.read(id).get().processValue()).isEqualTo(processValue);
+    }
 
-  @Test
-  void validation() throws Exception
-  {
-    final Errors results = Errors.empty();
+    @Test
+    void validation() throws Exception
+    {
+        final Errors results = Errors.empty();
 
-    handler.validate(SetProcessValue.on(null, null), results);
+        handler.validate(SetProcessValue.on(null, null), results);
 
-    final ValidationFailed exception = assertThrows(ValidationFailed.class, () -> results.verify());
+        final ValidationFailed exception = assertThrows(ValidationFailed.class,
+                                                        () -> results.verify());
 
-    assertThat(exception.getErrors().has(Reason.from("No vesselId"))).isTrue();
-    assertThat(exception.getErrors().has(Reason.from("No processValue"))).isTrue();
-  }
+        assertThat(exception.getErrors().has(Reason.from("No vesselId"))).isTrue();
+        assertThat(exception.getErrors().has(Reason.from("No processValue"))).isTrue();
+    }
 
-  @Test
-  void validateVesselExists() throws Exception
-  {
-    final Errors results = Errors.empty();
+    @Test
+    void validateVesselExists() throws Exception
+    {
+        final Errors results = Errors.empty();
 
-    handler.validate(SetProcessValue.on(id, processValue), results);
+        handler.validate(SetProcessValue.on(id, processValue), results);
 
-    final ValidationFailed exception = assertThrows(ValidationFailed.class, () -> results.verify());
+        final ValidationFailed exception = assertThrows(ValidationFailed.class,
+                                                        () -> results.verify());
 
-    assertThat(exception.getErrors().has(Reason.from("Vessel not found: bk"))).isTrue();
-  }
+        assertThat(exception.getErrors().has(Reason.from("Vessel not found: bk"))).isTrue();
+    }
 }

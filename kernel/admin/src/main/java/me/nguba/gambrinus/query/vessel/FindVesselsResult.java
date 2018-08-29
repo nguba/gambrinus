@@ -1,34 +1,51 @@
+/*
+    Copyright (C) 2018  Nicolai P. Guba
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
 package me.nguba.gambrinus.query.vessel;
+
+import me.nguba.gambrinus.cqrs.query.Result;
+import me.nguba.gambrinus.equipment.Vessel;
 
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
-
-import me.nguba.gambrinus.cqrs.query.Result;
-import me.nguba.gambrinus.equipment.Vessel;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
 public final class FindVesselsResult implements Result<Set<Vessel>>
 {
-  private final Set<Vessel> vessels = new HashSet<>();
+    private final Set<Vessel> vessels = new HashSet<>();
 
-  @Override
-  public Optional<Set<Vessel>> getResult()
-  {
-    return Optional.of(vessels);
-  }
+    @Override
+    public Optional<Set<Vessel>> getResult()
+    {
+        return Optional.of(vessels);
+    }
 
-  private FindVesselsResult(final Vessel[] vessels)
-  {
-    for (final Vessel v : vessels)
-      this.vessels.add(v);
-  }
+    private FindVesselsResult(final Vessel[] vessels)
+    {
+        for (final Vessel v : vessels) {
+            this.vessels.add(v);
+        }
+    }
 
-  public static FindVesselsResult from(final Vessel[] vessels)
-  {
-    return new FindVesselsResult(vessels);
-  }
+    public static FindVesselsResult from(final Vessel[] vessels)
+    {
+        return new FindVesselsResult(vessels);
+    }
 
 }
