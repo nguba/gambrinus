@@ -16,7 +16,7 @@
 */
 package me.nguba.gambrinus;
 
-import me.nguba.gambrinus.onewire.OneWireAddress;
+import me.nguba.gambrinus.equipment.VesselId;
 import me.nguba.gambrinus.owfs.ProcessValueChanged;
 import me.nguba.gambrinus.process.Temperature;
 import nl.jqno.equalsverifier.EqualsVerifier;
@@ -34,7 +34,7 @@ class ProcessValueChangedTest
 {
     private final Temperature expected = Temperature.celsius(29);
 
-    private final OneWireAddress address = OneWireAddress.of("28.273B5D070000");
+    private final VesselId vesselId = VesselId.of("Mash Tun");
 
     @Test
     void failsWhenNoVesselGiven()
@@ -46,21 +46,27 @@ class ProcessValueChangedTest
     @Test
     void processValue()
     {
-        assertThat(ProcessValueChanged.on(address, expected).getProcessValue())
+        assertThat(ProcessValueChanged.on(vesselId, expected).getProcessValue())
                 .isEqualTo(expected);
     }
 
     @Test
     void processValueNull()
     {
-        assertThat(ProcessValueChanged.on(address, null).getProcessValue())
+        assertThat(ProcessValueChanged.on(vesselId, null).getProcessValue())
                 .isEqualTo(Temperature.celsius(0));
     }
 
     @Test
     void vesselId()
     {
-        assertThat(ProcessValueChanged.on(address, expected).getAddress()).isEqualTo(address);
+        assertThat(ProcessValueChanged.on(vesselId, expected).getVesselId()).isEqualTo(vesselId);
+    }
+
+    @Test
+    void toStringWorks()
+    {
+        assertThat(ProcessValueChanged.on(vesselId, expected).toString()).isNotBlank();
     }
 
     @Test

@@ -9,13 +9,10 @@
  */
 package me.nguba.gambrinus.eventstore;
 
-import me.nguba.gambrinus.event.MutatorEvent;
-
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.io.IOException;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.Instant;
 import java.util.List;
@@ -40,29 +37,24 @@ public final class EventStore
         return new EventStore(jdbc, EventSerializerService.flatFormat());
     }
 
-    public void record(final MutatorEvent event) throws IOException
+    public void record(final EventSource source) throws IOException
     {
-        jdbc.update("INSERT INTO events (id, timestamp, message) VALUES (?, ?,?)",
-                    event.getClass().getName(),
-                    Instant.ofEpochMilli(event.getTimestamp()),
-                    serializer.transform(event));
+        jdbc.update("INSERT INTO events (id, timestamp, source) VALUES (?, ?,?)",
+                    source.getClass().getName(),
+                    Instant.ofEpochMilli(source.getTimestamp()),
+                    serializer.transform(source));
     }
 
-    public <T extends MutatorEvent> List<T> find(Class<T> id)
+    public <T extends EventSource> List<T> find(final Class<T> id)
     {
 
-        return jdbc.query("SELECT id, timestamp, message FROM events where id=?",
+        return jdbc.query("SELECT id, timestamp, source FROM events where id=?",
                           new Object[] { id.getName() },
-                          new RowMapper<T>() {
-
-                              @Override
-                              public T mapRow(ResultSet rs, int rowNum) throws SQLException
-                              {
-                                  try {
-                                      return serializer.restore(rs.getString("message"), id);
-                                  } catch (IOException e) {
-                                      throw new SQLException(e);
-                                  }
+                          (RowMapper<T>) (rs, rowNum) -> {
+                              try {
+                                  return serializer.restore(rs.getString("source"), id);
+                              } catch (final IOException e) {
+                                  throw new SQLException(e);
                               }
                           });
     }

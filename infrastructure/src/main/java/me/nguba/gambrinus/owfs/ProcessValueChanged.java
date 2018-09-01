@@ -16,8 +16,8 @@
 */
 package me.nguba.gambrinus.owfs;
 
+import me.nguba.gambrinus.equipment.VesselId;
 import me.nguba.gambrinus.event.MutatorEvent;
-import me.nguba.gambrinus.onewire.OneWireAddress;
 import me.nguba.gambrinus.process.Temperature;
 
 import java.time.Instant;
@@ -27,34 +27,34 @@ import java.time.Instant;
  */
 public final class ProcessValueChanged extends MutatorEvent
 {
-    public static ProcessValueChanged on(final OneWireAddress address, final Temperature expected)
+    public static ProcessValueChanged on(final VesselId address, final Temperature expected)
     {
         return ProcessValueChanged.from(Instant.now(), address, expected);
     }
 
     public static ProcessValueChanged from(final Instant instant,
-                                           final OneWireAddress address,
+                                           final VesselId vesselId,
                                            final Temperature expected)
     {
-        if (address == null) {
+        if (vesselId == null) {
             throw new IllegalArgumentException("OneWireAddres cannot be null.");
         }
 
         return new ProcessValueChanged(instant,
-                                       address,
+                                       vesselId,
                                        expected == null ? Temperature.celsius(0) : expected);
     }
 
-    private final Temperature processValue;
+    protected final Temperature processValue;
 
-    private final OneWireAddress address;
+    protected final VesselId vesselId;
 
     private ProcessValueChanged(final Instant instant,
-                                final OneWireAddress adddress,
+                                final VesselId vesselId,
                                 final Temperature processValue)
     {
         super(instant);
-        address = adddress;
+        this.vesselId = vesselId;
         this.processValue = processValue;
     }
 
@@ -63,17 +63,19 @@ public final class ProcessValueChanged extends MutatorEvent
         return processValue;
     }
 
-    public OneWireAddress getAddress()
+    public VesselId getVesselId()
     {
-        return address;
+        return vesselId;
     }
 
     @Override
     public String toString()
     {
-        return "ProcessValueChanged [processValue=" + processValue + ", address=" + address
-                + ", timestamp=" + timestamp
-                + "]";
+        final StringBuilder builder = new StringBuilder();
+        builder.append("ProcessValueChanged [processValue=").append(processValue)
+                .append(", vesselId=").append(vesselId).append(", timestamp=").append(timestamp)
+                .append("]");
+        return builder.toString();
     }
 
     @Override
@@ -81,8 +83,8 @@ public final class ProcessValueChanged extends MutatorEvent
     {
         final int prime = 31;
         int result = super.hashCode();
-        result = prime * result + (address == null ? 0 : address.hashCode());
-        result = prime * result + (processValue == null ? 0 : processValue.hashCode());
+        result = prime * result + ((processValue == null) ? 0 : processValue.hashCode());
+        result = prime * result + ((vesselId == null) ? 0 : vesselId.hashCode());
         return result;
     }
 
@@ -99,18 +101,18 @@ public final class ProcessValueChanged extends MutatorEvent
             return false;
         }
         final ProcessValueChanged other = (ProcessValueChanged) obj;
-        if (address == null) {
-            if (other.address != null) {
-                return false;
-            }
-        } else if (!address.equals(other.address)) {
-            return false;
-        }
         if (processValue == null) {
             if (other.processValue != null) {
                 return false;
             }
         } else if (!processValue.equals(other.processValue)) {
+            return false;
+        }
+        if (vesselId == null) {
+            if (other.vesselId != null) {
+                return false;
+            }
+        } else if (!vesselId.equals(other.vesselId)) {
             return false;
         }
         return true;

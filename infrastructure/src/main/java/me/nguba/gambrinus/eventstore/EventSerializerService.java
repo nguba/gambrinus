@@ -16,15 +16,13 @@
 */
 package me.nguba.gambrinus.eventstore;
 
-import me.nguba.gambrinus.equipment.VesselId;
-import me.nguba.gambrinus.event.MutatorEvent;
-import me.nguba.gambrinus.process.Temperature;
-
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.module.SimpleModule;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
@@ -36,6 +34,8 @@ import java.io.IOException;
 public final class EventSerializerService
 {
     private final ObjectMapper mapper;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(EventSerializerService.class);
 
     private EventSerializerService(final ObjectMapper mapper)
     {
@@ -49,21 +49,18 @@ public final class EventSerializerService
         mapper.configure(MapperFeature.AUTO_DETECT_IS_GETTERS, false);
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        
-        SimpleModule module = new SimpleModule();
-        module.addDeserializer(VesselId.class, new VesselIdDeserailizer());
-        module.addDeserializer(Temperature.class, new TemperatureDeserializer());
-        mapper.registerModule(module);
-        
+
         return new EventSerializerService(mapper);
     }
 
-    public <E extends MutatorEvent> String transform(final E event) throws IOException
+    public String transform(final Object event) throws IOException
     {
-        return mapper.writeValueAsString(event);
+        final String value = mapper.writeValueAsString(event);
+        LOGGER.trace("{}", value);
+        return value;
     }
 
-    public <E extends MutatorEvent> E restore(String string, Class<E> type) throws IOException
+    public <E> E restore(final String string, final Class<E> type) throws IOException
     {
         return mapper.readValue(string, type);
     }

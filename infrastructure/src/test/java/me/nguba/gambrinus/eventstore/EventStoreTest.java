@@ -19,7 +19,6 @@ package me.nguba.gambrinus.eventstore;
 import me.nguba.gambrinus.InfrastructureTest;
 import me.nguba.gambrinus.command.temperature.setpoint.SetpointChanged;
 import me.nguba.gambrinus.equipment.VesselId;
-import me.nguba.gambrinus.event.MutatorEvent;
 import me.nguba.gambrinus.process.Temperature;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,11 +34,11 @@ class EventStoreTest
     @Test
     void sourceVesselSetpoint() throws Exception
     {
-        final MutatorEvent event = SetpointChanged.on(VesselId.of("mash"),
-                                                      Temperature.celsius(72.0));
-        eventStore.record(event);
+        final SetpointChanged event = SetpointChanged.on(VesselId.of("mash"),
+                                                         Temperature.celsius(72.0));
+        eventStore.record(SetpointChangedSource.from(event));
 
-        for (SetpointChanged message : eventStore.find(SetpointChanged.class)) {
+        for (final SetpointChangedSource message : eventStore.find(SetpointChangedSource.class)) {
             System.out.println(message);
         }
     }

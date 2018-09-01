@@ -36,8 +36,6 @@ class OwfsSensorTest
     void setUp() throws Exception
     {
         sensor = OwfsSensor.from(OwfsMother.root(), OwfsMother.address());
-
-        System.out.println(sensor);
     }
 
     @Test
@@ -50,7 +48,7 @@ class OwfsSensorTest
     void read() throws Exception
     {
         final Temperature t1 = sensor.read().get();
-        final Temperature expected = Temperature.celsius(72.1);
+        final Temperature expected = Temperature.celsius(25.7);
 
         assertThat(t1).isEqualTo(expected);
     }

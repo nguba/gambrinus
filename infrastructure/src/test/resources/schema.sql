@@ -3,5 +3,5 @@
 CREATE TABLE IF NOT EXISTS events (
     id VARCHAR(2048),
     timestamp TIMESTAMP(9),
-    message VARCHAR(12040)
+    source VARCHAR(12040)
 );

@@ -17,20 +17,45 @@
 
 package me.nguba.gambrinus.eventstore;
 
-import me.nguba.gambrinus.equipment.VesselId;
-
-import com.fasterxml.jackson.databind.JsonNode;
-
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-public class VesselIdDeserailizer extends SingleValueObjectDeserializer<VesselId>
+public abstract class EventSource
 {
-    private static final long serialVersionUID = -6996334848426708968L;
+    protected long timestamp;
+
+    public long getTimestamp()
+    {
+        return timestamp;
+    }
+
+    public void setTimestamp(final long timestamp)
+    {
+        this.timestamp = timestamp;
+    }
 
     @Override
-    protected VesselId onValueNode(JsonNode valueNode)
+    public int hashCode()
     {
-        return VesselId.of(valueNode.asText());
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + (int) (timestamp ^ (timestamp >>> 32));
+        return result;
     }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        EventSource other = (EventSource) obj;
+        if (timestamp != other.timestamp)
+            return false;
+        return true;
+    }
+
 }
