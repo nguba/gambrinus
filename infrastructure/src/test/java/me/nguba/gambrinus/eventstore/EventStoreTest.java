@@ -19,6 +19,7 @@ package me.nguba.gambrinus.eventstore;
 import me.nguba.gambrinus.InfrastructureTest;
 import me.nguba.gambrinus.command.temperature.setpoint.SetpointChanged;
 import me.nguba.gambrinus.equipment.VesselId;
+import me.nguba.gambrinus.owfs.ProcessValueChanged;
 import me.nguba.gambrinus.process.Temperature;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,7 @@ class EventStoreTest
     private EventStore eventStore;
 
     @Test
-    void sourceVesselSetpoint() throws Exception
+    void canStoreSetpointChanged() throws Exception
     {
         final SetpointChanged event = SetpointChanged.on(VesselId.of("mash"),
                                                          Temperature.celsius(72.0));
@@ -40,6 +41,17 @@ class EventStoreTest
 
         for (final SetpointChangedSource message : eventStore.find(SetpointChangedSource.class)) {
             System.out.println(message);
+        }
+    }
+
+    @Test
+    void canStoreProcessValueChanged() throws Exception
+    {
+        eventStore.record(ProcessValueChangedSource
+                .from(ProcessValueChanged.on(VesselId.of("HLT"), Temperature.celsius(98.3))));
+        
+        for (final ProcessValueChangedSource source : eventStore.find(ProcessValueChangedSource.class)) {
+            System.out.println(source);
         }
     }
 

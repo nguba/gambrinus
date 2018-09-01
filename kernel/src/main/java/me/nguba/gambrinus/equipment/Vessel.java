@@ -21,6 +21,8 @@ import me.nguba.gambrinus.onewire.OneWireAddress;
 import me.nguba.gambrinus.owfs.OwfsSensor;
 import me.nguba.gambrinus.process.Temperature;
 
+import java.io.IOException;
+
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
@@ -77,6 +79,14 @@ public final class Vessel extends Aggregate<VesselId>
     public void assign(final OwfsSensor sensor)
     {
         this.sensor = sensor;
+    }
+
+    public Temperature readTemperature() throws IOException
+    {
+        if (!isActive()) {
+            throw new IllegalStateException("Cannot read from inactive sensor");
+        }
+        return sensor.read().get();
     }
 
     public OneWireAddress address()

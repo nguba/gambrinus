@@ -14,41 +14,37 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-package me.nguba.gambrinus.onewire;
 
-import me.nguba.gambrinus.ddd.support.SingleValueObject;
+package me.nguba.gambrinus.command.temperature.process;
+
+import me.nguba.gambrinus.command.temperature.setpoint.VesselMutatorEvent;
+import me.nguba.gambrinus.equipment.VesselId;
+import me.nguba.gambrinus.event.MutatorEvent;
+import me.nguba.gambrinus.process.Temperature;
+
+import java.time.Instant;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-public final class OneWireAddress extends SingleValueObject<String>
+public final class ProcessValueChanged extends VesselMutatorEvent
 {
-    private OneWireAddress(final String value)
+    private final Temperature processValue;
+
+    private ProcessValueChanged(Instant now, VesselId vesselId, Temperature processValue)
     {
-        super(value);
+        super(now, vesselId);
+        this.processValue = processValue;
     }
 
-    public static OneWireAddress of(final String address)
+    public static MutatorEvent on(VesselId id, Temperature processValue)
     {
-        return new OneWireAddress(address);
+        return new ProcessValueChanged(Instant.now(), id, processValue);
     }
 
-    @Override
-    public boolean isValid()
+    public Temperature getProcessValue()
     {
-        if (super.isValid() && !getValue().isEmpty() && getValue().length() == 15) {
-            return getValue().startsWith("28.");
-        }
-        return false;
+        return processValue;
     }
 
-    public static OneWireAddress empty()
-    {
-        return of("");
-    }
-
-    public static OneWireAddress defaultMash()
-    {
-        return OneWireAddress.of("28.273B5D070000");
-    }
 }

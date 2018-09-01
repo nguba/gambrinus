@@ -20,6 +20,7 @@ import me.nguba.gambrinus.ddd.Aggregate;
 import me.nguba.gambrinus.onewire.OneWireAddress;
 import me.nguba.gambrinus.process.Temperature;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
@@ -54,6 +55,9 @@ public class OwfsSensor extends Aggregate<OneWireAddress>
 
     public Optional<Temperature> read() throws IOException
     {
+        if (!isValid()) {
+            throw new FileNotFoundException("sensor is not mapped to an address");
+        }
         try (final FileChannel channel = FileChannel.open(latesttemp, StandardOpenOption.READ)) {
             final ByteBuffer buf = ByteBuffer.allocate(8);
             final StringBuilder builder = new StringBuilder();

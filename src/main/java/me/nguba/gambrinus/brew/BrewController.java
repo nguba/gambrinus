@@ -17,6 +17,7 @@
 package me.nguba.gambrinus.brew;
 
 import me.nguba.gambrinus.Brewmaster;
+import me.nguba.gambrinus.Period;
 import me.nguba.gambrinus.ddd.validation.ValidationFailed;
 import me.nguba.gambrinus.equipment.VesselId;
 import me.nguba.gambrinus.process.Temperature;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -53,6 +55,15 @@ public final class BrewController
     public Temperature readTemperature(@PathVariable("vesselId") final String vesselId)
             throws ValidationFailed
     {
-        return brewmaster.readTemperature(VesselId.of(vesselId));
+        return brewmaster.processValue(VesselId.of(vesselId));
+    }
+
+    @PutMapping("/monitor/{vesselId}")
+    public void start(@PathVariable("vesselId") String vesselId,
+                      @RequestParam(defaultValue = "10", name = "period",
+                              required = false) String period)
+            throws ValidationFailed
+    {
+        brewmaster.monitor(VesselId.of(vesselId), Period.from(period));
     }
 }

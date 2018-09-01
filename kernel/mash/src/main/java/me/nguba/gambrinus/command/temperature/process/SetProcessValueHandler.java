@@ -22,6 +22,8 @@ import me.nguba.gambrinus.ddd.validation.Reason;
 import me.nguba.gambrinus.equipment.Vessel;
 import me.nguba.gambrinus.equipment.VesselRepository;
 
+import java.util.Optional;
+
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  *
@@ -44,6 +46,18 @@ public class SetProcessValueHandler extends VesselHandler<SetProcessValue>
     {
         if (command.getProcessValue() == null) {
             errors.add(Reason.from("No processValue"));
+        }
+
+        if (command.getId() == null) {
+            errors.add(Reason.from("No vesselId"));
+        }
+
+        Optional<Vessel> read = repo.read(command.getId());
+        if (!read.isPresent()) {
+            errors.add(Reason.from(String.format("Vessel not found: %s", command.getId())));
+        } else if (!read.get().isActive()) {
+            errors.add(Reason
+                    .from(String.format("No sensor configured for: %s", command.getId())));
         }
     }
 

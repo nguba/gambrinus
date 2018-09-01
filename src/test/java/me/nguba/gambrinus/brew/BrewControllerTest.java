@@ -21,6 +21,9 @@ import me.nguba.gambrinus.GambrinusControllerTest;
 import me.nguba.gambrinus.equipment.Vessel;
 import me.nguba.gambrinus.equipment.VesselId;
 import me.nguba.gambrinus.equipment.VesselRepository;
+import me.nguba.gambrinus.onewire.OneWireAddress;
+import me.nguba.gambrinus.owfs.OwfsRoot;
+import me.nguba.gambrinus.owfs.OwfsSensor;
 import me.nguba.gambrinus.process.Temperature;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +46,8 @@ import org.junit.jupiter.api.Test;
 @GambrinusControllerTest
 class BrewControllerTest
 {
+    private static final VesselId MASH = VesselId.of("mash");
+
     @Autowired
     private MockMvc mvc;
 
@@ -69,7 +74,7 @@ class BrewControllerTest
     @DisplayName("throws error when no sensor assigned to vessel")
     void changeSetpoint_Inactive() throws Exception
     {
-        vessels.create(Vessel.inactive(VesselId.of("mash")));
+        vessels.create(Vessel.inactive(MASH));
 
         mvc.perform(put("/api/brew/heat/{name}/{temperature}", "mash", 55.5))
                 .andDo(print()).andExpect(status().isConflict());
@@ -89,6 +94,31 @@ class BrewControllerTest
 
         assertThat(vessels.read(mashTun.getId()).get().setpoint())
                 .isEqualTo(Temperature.celsius(55.5));
+    }
+
+    @Test
+    @DisplayName("throws error when attempting to read from inactive vessel")
+    void monitorTemperatureInactive() throws Exception
+    {
+        vessels.create(Vessel.inactive(MASH));
+
+        mvc.perform(put("/api/brew/monitor/{name}", "mash"))
+                .andDo(print()).andExpect(status().isConflict());
+    }
+
+    @Test
+    @DisplayName("starting monitor updates process value")
+    void monitorTemperature() throws Exception
+    {
+        vessels.create(Vessel.of(MASH,
+                                 OwfsSensor.from(OwfsRoot.test(), OneWireAddress.defaultMash())));
+
+        assertThat(vessels.read(MASH).get().processValue()).isEqualTo(Temperature.celsius(0));
+
+        mvc.perform(put("/api/brew/monitor/{name}", "mash"))
+                .andDo(print()).andExpect(status().isOk());
+
+        assertThat(vessels.read(MASH).get().processValue()).isEqualTo(Temperature.celsius(25.7));
     }
 
     private Vessel createVessel()

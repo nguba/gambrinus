@@ -21,7 +21,9 @@ import me.nguba.gambrinus.ddd.validation.Errors;
 import me.nguba.gambrinus.ddd.validation.Reason;
 import me.nguba.gambrinus.equipment.Vessel;
 import me.nguba.gambrinus.equipment.VesselRepository;
+import me.nguba.gambrinus.process.Temperature;
 
+import java.io.IOException;
 import java.util.Optional;
 
 /**
@@ -48,13 +50,27 @@ public final class ReadTemperatureHandler
         if (query.getVesselId() == null) {
             errors.add(Reason.from("No vesselId"));
         }
+
+        Optional<Vessel> read = vessels.read(query.getVesselId());
+        if (!read.isPresent()) {
+            errors.add(Reason.from(String.format("Vessel not found: %s", query.getVesselId())));
+        } else if (!read.get().isActive()) {
+            errors.add(Reason
+                    .from(String.format("No sensor configured for: %s", query.getVesselId())));
+        }
     }
 
     @Override
     public ReadTemperatureResult query(final ReadTemperature query)
     {
-        final Optional<Vessel> vessel = vessels.read(query.getVesselId());
-        return ReadTemperatureResult.of(vessel.get().processValue());
+        final Vessel vessel = vessels.read(query.getVesselId()).get();
+        try {
+            Temperature pv = vessel.readTemperature();
+            return ReadTemperatureResult.of(pv);
+        } catch (IOException e) {
+            throw new IllegalStateException("Unable to query temperature: " + e.getMessage(), e);
+        }
+        
     }
 
 }

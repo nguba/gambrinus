@@ -26,7 +26,6 @@ import me.nguba.gambrinus.process.Temperature;
  */
 public final class SetProcessValue implements VesselCommand
 {
-
     private final VesselId vesselId;
 
     private final Temperature processValue;
@@ -37,7 +36,7 @@ public final class SetProcessValue implements VesselCommand
         this.processValue = processValue;
     }
 
-    public static SetProcessValue on(final VesselId vesselId, final Temperature processValue)
+    public static SetProcessValue with(final VesselId vesselId, final Temperature processValue)
     {
         return new SetProcessValue(vesselId, processValue);
     }

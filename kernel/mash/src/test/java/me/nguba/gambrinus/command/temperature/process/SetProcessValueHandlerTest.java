@@ -22,6 +22,9 @@ import me.nguba.gambrinus.ddd.validation.ValidationFailed;
 import me.nguba.gambrinus.equipment.Vessel;
 import me.nguba.gambrinus.equipment.VesselId;
 import me.nguba.gambrinus.equipment.VesselRepository;
+import me.nguba.gambrinus.onewire.OneWireAddress;
+import me.nguba.gambrinus.owfs.OwfsRoot;
+import me.nguba.gambrinus.owfs.OwfsSensor;
 import me.nguba.gambrinus.process.Temperature;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -56,7 +59,7 @@ class SetProcessValueHandlerTest
     void mutateNonExistingVessel()
     {
         assertThrows(IllegalArgumentException.class,
-                     () -> handler.changeStateFor(SetProcessValue.on(id, processValue)));
+                     () -> handler.changeStateFor(SetProcessValue.with(id, processValue)));
     }
 
     @Test
@@ -66,11 +69,11 @@ class SetProcessValueHandlerTest
     }
 
     @Test
-    void mutateMofifiesAggregate()
+    void mutateReadsFromFilesystem()
     {
-        repo.create(Vessel.inactive(id));
+        repo.create(Vessel.of(id, OwfsSensor.from(OwfsRoot.test(), OneWireAddress.defaultMash())));
 
-        handler.changeStateFor(SetProcessValue.on(id, processValue));
+        handler.changeStateFor(SetProcessValue.with(id, processValue));
 
         assertThat(repo.read(id).get().processValue()).isEqualTo(processValue);
     }
@@ -80,7 +83,7 @@ class SetProcessValueHandlerTest
     {
         final Errors results = Errors.empty();
 
-        handler.validate(SetProcessValue.on(null, null), results);
+        handler.validate(SetProcessValue.with(null, null), results);
 
         final ValidationFailed exception = assertThrows(ValidationFailed.class,
                                                         () -> results.verify());
@@ -94,7 +97,7 @@ class SetProcessValueHandlerTest
     {
         final Errors results = Errors.empty();
 
-        handler.validate(SetProcessValue.on(id, processValue), results);
+        handler.validate(SetProcessValue.with(id, processValue), results);
 
         final ValidationFailed exception = assertThrows(ValidationFailed.class,
                                                         () -> results.verify());

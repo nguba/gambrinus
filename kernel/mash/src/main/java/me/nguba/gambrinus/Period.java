@@ -14,41 +14,32 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-package me.nguba.gambrinus.onewire;
+
+package me.nguba.gambrinus;
 
 import me.nguba.gambrinus.ddd.support.SingleValueObject;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-public final class OneWireAddress extends SingleValueObject<String>
+public final class Period extends SingleValueObject<Long>
 {
-    private OneWireAddress(final String value)
+    private Period(Long value)
     {
         super(value);
     }
 
-    public static OneWireAddress of(final String address)
-    {
-        return new OneWireAddress(address);
+    public static Period of(long value) {
+        return new Period(value);
     }
 
-    @Override
-    public boolean isValid()
+    public static Period oneSecond()
     {
-        if (super.isValid() && !getValue().isEmpty() && getValue().length() == 15) {
-            return getValue().startsWith("28.");
-        }
-        return false;
+        return Period.of(1);
     }
 
-    public static OneWireAddress empty()
+    public static Period from(String period)
     {
-        return of("");
-    }
-
-    public static OneWireAddress defaultMash()
-    {
-        return OneWireAddress.of("28.273B5D070000");
+        return Period.of(Long.parseLong(period));
     }
 }

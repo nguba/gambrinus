@@ -17,6 +17,7 @@
 package me.nguba.gambrinus;
 
 import me.nguba.gambrinus.command.temperature.setpoint.SetpointChanged;
+import me.nguba.gambrinus.ddd.validation.ValidationFailed;
 import me.nguba.gambrinus.equipment.Vessel;
 import me.nguba.gambrinus.equipment.VesselId;
 import me.nguba.gambrinus.equipment.VesselRepository;
@@ -31,6 +32,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Optional;
 
@@ -52,7 +55,7 @@ class BrewmasterTest implements EventPublisher
     void setUp()
     {
         vessels.create(Vessel.of(vesselId,
-                                 OwfsSensor.from(OwfsRoot.test(), OneWireAddress.empty())));
+                                 OwfsSensor.from(OwfsRoot.test(), OneWireAddress.defaultMash())));
 
         final BrewCommands commandFactory = new BrewCommands(vessels, this);
         final BrewQueries queryFactory = new BrewQueries(vessels);
@@ -61,10 +64,29 @@ class BrewmasterTest implements EventPublisher
     }
 
     @Test
+    void readTemperartureNotMonitored() throws Exception
+    {
+        vessels.create(Vessel.of(vesselId,
+                                 OwfsSensor.from(OwfsRoot.test(), OneWireAddress.empty())));
+        
+        assertThrows(IllegalStateException.class, () -> brewmaster.processValue(vesselId));
+    }
+    
+    @Test
     void readTemperarture() throws Exception
     {
-        final Temperature temperature = brewmaster.readTemperature(vesselId);
-        assertThat(temperature).isEqualTo(Temperature.celsius(0));
+        brewmaster.monitor(vesselId, Period.oneSecond());
+        final Temperature temperature = brewmaster.processValue(vesselId);
+        assertThat(temperature).isEqualTo(Temperature.celsius(25.7));
+    }
+
+    @Test
+    void readTemperartureFromInactiveVessel() throws Exception
+    {
+        vessels.create(Vessel.of(vesselId,
+                                 OwfsSensor.from(OwfsRoot.test(), OneWireAddress.empty())));
+
+        assertThrows(IllegalStateException.class, () -> brewmaster.processValue(vesselId));
     }
 
     @Test
@@ -97,4 +119,13 @@ class BrewmasterTest implements EventPublisher
     {
     }
 
+    @Test
+    void monitorVessel() throws ValidationFailed
+    {
+        vessels.create(Vessel.of(vesselId,
+                                 OwfsSensor.from(OwfsRoot.test(),
+                                                 OneWireAddress.of("28.4BBB68080000"))));
+
+        brewmaster.monitor(vesselId, Period.oneSecond());
+    }
 }

@@ -17,7 +17,6 @@
 package me.nguba.gambrinus.command.temperature.setpoint;
 
 import me.nguba.gambrinus.equipment.VesselId;
-import me.nguba.gambrinus.event.MutatorEvent;
 import me.nguba.gambrinus.process.Temperature;
 
 import java.time.Instant;
@@ -25,31 +24,19 @@ import java.time.Instant;
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-public final class SetpointChanged extends MutatorEvent
+public final class SetpointChanged extends VesselMutatorEvent
 {
-    VesselId vesselId;
-
-    Temperature setpoint;
-
-    protected SetpointChanged() {
-        super();
-    }
+    private final Temperature setpoint;
     
     private SetpointChanged(final VesselId vesselId, final Temperature setpoint)
     {
-        super(Instant.now().toEpochMilli());
-        this.vesselId = vesselId;
+        super(Instant.now().toEpochMilli(), vesselId);
         this.setpoint = setpoint;
     }
 
     public static SetpointChanged on(final VesselId vesselId, final Temperature setpoint)
     {
         return new SetpointChanged(vesselId, setpoint);
-    }
-
-    public VesselId getVesselId()
-    {
-        return vesselId;
     }
 
     public Temperature getSetpoint()
@@ -61,39 +48,26 @@ public final class SetpointChanged extends MutatorEvent
     public int hashCode()
     {
         final int prime = 31;
-        int result = 1;
-        result = prime * result + (setpoint == null ? 0 : setpoint.hashCode());
-        result = prime * result + (vesselId == null ? 0 : vesselId.hashCode());
+        int result = super.hashCode();
+        result = prime * result + ((setpoint == null) ? 0 : setpoint.hashCode());
         return result;
     }
 
     @Override
-    public boolean equals(final Object obj)
+    public boolean equals(Object obj)
     {
-        if (this == obj) {
+        if (this == obj)
             return true;
-        }
-        if (obj == null) {
+        if (!super.equals(obj))
             return false;
-        }
-        if (getClass() != obj.getClass()) {
+        if (getClass() != obj.getClass())
             return false;
-        }
-        final SetpointChanged other = (SetpointChanged) obj;
+        SetpointChanged other = (SetpointChanged) obj;
         if (setpoint == null) {
-            if (other.setpoint != null) {
+            if (other.setpoint != null)
                 return false;
-            }
-        } else if (!setpoint.equals(other.setpoint)) {
+        } else if (!setpoint.equals(other.setpoint))
             return false;
-        }
-        if (vesselId == null) {
-            if (other.vesselId != null) {
-                return false;
-            }
-        } else if (!vesselId.equals(other.vesselId)) {
-            return false;
-        }
         return true;
     }
 
@@ -101,8 +75,8 @@ public final class SetpointChanged extends MutatorEvent
     public String toString()
     {
         StringBuilder builder = new StringBuilder();
-        builder.append("SetpointChanged [vesselId=").append(vesselId).append(", setpoint=")
-                .append(setpoint).append(", timestamp=").append(timestamp).append("]");
+        builder.append("SetpointChanged [setpoint=").append(setpoint).append(", vesselId=")
+                .append(vesselId).append(", timestamp=").append(timestamp).append("]");
         return builder.toString();
     }
 }

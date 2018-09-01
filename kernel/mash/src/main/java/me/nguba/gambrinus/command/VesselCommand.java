@@ -25,6 +25,5 @@ import me.nguba.gambrinus.equipment.VesselId;
  */
 public interface VesselCommand extends Command
 {
-
     VesselId getId();
 }

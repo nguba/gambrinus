@@ -31,7 +31,7 @@ import org.junit.jupiter.api.Test;
 class SetProcessValueTest
 {
 
-    private final SetProcessValue command = SetProcessValue.on(VesselId.of("mash"),
+    private final SetProcessValue command = SetProcessValue.with(VesselId.of("mash"),
                                                                Temperature.celsius(66.6));
 
     @Test

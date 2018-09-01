@@ -16,11 +16,16 @@
 */
 package me.nguba.gambrinus;
 
+import me.nguba.gambrinus.command.temperature.process.SetProcessValue;
 import me.nguba.gambrinus.command.temperature.setpoint.ChangeSetpoint;
 import me.nguba.gambrinus.ddd.validation.ValidationFailed;
 import me.nguba.gambrinus.equipment.VesselId;
 import me.nguba.gambrinus.process.Temperature;
 import me.nguba.gambrinus.query.temperature.read.ReadTemperature;
+
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
@@ -30,6 +35,8 @@ public final class Brewmaster
     private final BrewCommands commands;
 
     private final BrewQueries queries;
+
+    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(3);
 
     public Brewmaster(final BrewCommands commands,
                       final BrewQueries queries)
@@ -43,9 +50,28 @@ public final class Brewmaster
         commands.execute(ChangeSetpoint.on(vessel, target));
     }
 
-    public Temperature readTemperature(final VesselId vessel) throws ValidationFailed
+    public Temperature processValue(final VesselId vessel) throws ValidationFailed
     {
         return queries.run(ReadTemperature.from(vessel));
+    }
+
+    public void monitor(VesselId vessel, Period period) throws ValidationFailed
+    {
+        updateProcessValue(vessel);
+
+        scheduler.scheduleAtFixedRate(() -> {
+            try {
+                updateProcessValue(vessel);
+            } catch (ValidationFailed e) {
+                throw new IllegalStateException("Reading temperature failed", e);
+            }
+        }, period.getValue(), period.getValue(), TimeUnit.SECONDS);
+    }
+
+    private void updateProcessValue(VesselId vessel) throws ValidationFailed
+    {
+        Temperature currentTemp = queries.run(ReadTemperature.from(vessel));
+        commands.execute(SetProcessValue.with(vessel, currentTemp));
     }
 
 }

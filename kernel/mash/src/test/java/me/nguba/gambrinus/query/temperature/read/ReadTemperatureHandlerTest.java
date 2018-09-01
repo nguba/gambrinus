@@ -22,6 +22,9 @@ import me.nguba.gambrinus.ddd.validation.ValidationFailed;
 import me.nguba.gambrinus.equipment.Vessel;
 import me.nguba.gambrinus.equipment.VesselId;
 import me.nguba.gambrinus.equipment.VesselRepository;
+import me.nguba.gambrinus.onewire.OneWireAddress;
+import me.nguba.gambrinus.owfs.OwfsRoot;
+import me.nguba.gambrinus.owfs.OwfsSensor;
 import me.nguba.gambrinus.process.Temperature;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -41,6 +44,10 @@ class ReadTemperatureHandlerTest
 
     private final VesselRepository vessels = new VesselRepository();
 
+    private final VesselId vesselId = VesselId.of("boil");
+
+    private final Errors results = Errors.empty();
+
     @BeforeEach
     void setUp()
     {
@@ -48,10 +55,8 @@ class ReadTemperatureHandlerTest
     }
 
     @Test
-    void validation()
+    void failOnNoVesselId()
     {
-        final Errors results = Errors.empty();
-
         handler.validate(ReadTemperature.from(null), results);
 
         final ValidationFailed failed = assertThrows(ValidationFailed.class,
@@ -61,14 +66,37 @@ class ReadTemperatureHandlerTest
     }
 
     @Test
+    void failOnVesselNotFound()
+    {
+        handler.validate(ReadTemperature.from(vesselId), results);
+
+        final ValidationFailed failed = assertThrows(ValidationFailed.class,
+                                                     () -> results.verify());
+
+        assertThat(failed.getErrors().has(Reason.from("Vessel not found: boil")));
+    }
+
+    @Test
+    void failOnVesselInactive()
+    {
+        handler.validate(ReadTemperature.from(vesselId), results);
+
+        final ValidationFailed failed = assertThrows(ValidationFailed.class,
+                                                     () -> results.verify());
+
+        assertThat(failed.getErrors().has(Reason.from("No sensor configured for: boil")));
+    }
+
+    @Test
     void temperatureResult()
     {
-        final VesselId vesselId = VesselId.of("boil");
-        vessels.create(Vessel.inactive(vesselId));
+        vessels.create(Vessel
+                .of(vesselId,
+                    OwfsSensor.from(OwfsRoot.test(), OneWireAddress.of("28.273B5D070000"))));
 
         final ReadTemperatureResult result = handler.query(ReadTemperature.from(vesselId));
 
-        assertThat(result.getResult().get()).isEqualTo(Temperature.celsius(0));
+        assertThat(result.getResult().get()).isEqualTo(Temperature.celsius(25.7));
     }
 
 }

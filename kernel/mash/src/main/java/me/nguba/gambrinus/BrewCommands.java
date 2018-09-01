@@ -16,6 +16,9 @@
 */
 package me.nguba.gambrinus;
 
+import me.nguba.gambrinus.command.temperature.process.ProcessValueChanged;
+import me.nguba.gambrinus.command.temperature.process.SetProcessValue;
+import me.nguba.gambrinus.command.temperature.process.SetProcessValueHandler;
 import me.nguba.gambrinus.command.temperature.setpoint.ChangeSetpoint;
 import me.nguba.gambrinus.command.temperature.setpoint.ChangeSetpointHandler;
 import me.nguba.gambrinus.command.temperature.setpoint.SetpointChanged;
@@ -43,5 +46,11 @@ public final class BrewCommands
     {
         CommandProcessor.from(command, ChangeSetpointHandler.from(vessels)).mutate();
         events.publish(SetpointChanged.on(command.getId(), command.getSetpoint()));
+    }
+
+    public void execute(SetProcessValue command) throws ValidationFailed
+    {
+        CommandProcessor.from(command, SetProcessValueHandler.from(vessels)).mutate();
+        events.publish(ProcessValueChanged.on(command.getId(), command.getProcessValue()));
     }
 }
