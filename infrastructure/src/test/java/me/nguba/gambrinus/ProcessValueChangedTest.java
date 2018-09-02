@@ -16,8 +16,8 @@
 */
 package me.nguba.gambrinus;
 
+import me.nguba.gambrinus.command.temperature.process.ProcessValueChanged;
 import me.nguba.gambrinus.equipment.VesselId;
-import me.nguba.gambrinus.owfs.ProcessValueChanged;
 import me.nguba.gambrinus.process.Temperature;
 import nl.jqno.equalsverifier.EqualsVerifier;
 

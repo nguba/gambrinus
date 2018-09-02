@@ -19,7 +19,6 @@ package me.nguba.gambrinus.command.temperature.process;
 
 import me.nguba.gambrinus.command.temperature.setpoint.VesselMutatorEvent;
 import me.nguba.gambrinus.equipment.VesselId;
-import me.nguba.gambrinus.event.MutatorEvent;
 import me.nguba.gambrinus.process.Temperature;
 
 import java.time.Instant;
@@ -39,7 +38,7 @@ public final class ProcessValueChanged extends VesselMutatorEvent
         this.processValue = processValue;
     }
 
-    public static MutatorEvent on(final VesselId id, final Temperature processValue)
+    public static ProcessValueChanged on(final VesselId id, final Temperature processValue)
     {
         return new ProcessValueChanged(Instant.now(), id, processValue);
     }

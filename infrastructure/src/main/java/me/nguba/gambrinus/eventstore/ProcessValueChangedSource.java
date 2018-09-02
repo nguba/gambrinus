@@ -17,7 +17,7 @@
 
 package me.nguba.gambrinus.eventstore;
 
-import me.nguba.gambrinus.owfs.ProcessValueChanged;
+import me.nguba.gambrinus.command.temperature.process.ProcessValueChanged;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
