@@ -26,7 +26,14 @@ import me.nguba.gambrinus.ddd.validation.ValidationFailed;
  */
 public final class CommandProcessor<C extends Command>
 {
-    private final C                 command;
+    public static <C extends Command> CommandProcessor<C> from(final C command,
+                                                               final CommandHandler<C> handler)
+    {
+        return new CommandProcessor<>(command, handler);
+    }
+
+    private final C command;
+
     private final CommandHandler<C> handler;
 
     public CommandProcessor(final C command, final CommandHandler<C> handler)
@@ -36,12 +43,6 @@ public final class CommandProcessor<C extends Command>
 
         this.command = command;
         this.handler = handler;
-    }
-
-    public static <C extends Command> CommandProcessor<C> from(final C command,
-                                                               final CommandHandler<C> handler)
-    {
-        return new CommandProcessor<>(command, handler);
     }
 
     public void mutate() throws ValidationFailed

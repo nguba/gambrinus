@@ -28,8 +28,8 @@ import org.junit.jupiter.api.Test;
  */
 class ReadTemperatureTest
 {
-    private final VesselId  vesselId = VesselId.of("read temperature");
     private ReadTemperature query;
+    private final VesselId  vesselId = VesselId.of("read temperature");
 
     @BeforeEach
     void setUp() throws Exception

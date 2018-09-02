@@ -30,6 +30,24 @@ public abstract class SingleValueObject<T>
         this.value = value;
     }
 
+    @Override
+    public boolean equals(final Object obj)
+    {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final SingleValueObject<?> other = (SingleValueObject<?>) obj;
+        if (value == null) {
+            if (other.value != null)
+                return false;
+        } else if (!value.equals(other.value))
+            return false;
+        return true;
+    }
+
     public T getValue()
     {
         return value;
@@ -42,29 +60,6 @@ public abstract class SingleValueObject<T>
         int result = 1;
         result = prime * result + (value == null ? 0 : value.hashCode());
         return result;
-    }
-
-    @Override
-    public boolean equals(final Object obj)
-    {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final SingleValueObject<?> other = (SingleValueObject<?>) obj;
-        if (value == null) {
-            if (other.value != null) {
-                return false;
-            }
-        } else if (!value.equals(other.value)) {
-            return false;
-        }
-        return true;
     }
 
     public boolean isValid()

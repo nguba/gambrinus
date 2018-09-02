@@ -35,6 +35,12 @@ class CommandProcessorTest
 
     private final AtomicBoolean validated = new AtomicBoolean();
 
+    @Override
+    public void changeStateFor(final CommandProcessorTest command)
+    {
+        executed.getAndSet(true);
+    }
+
     @Test
     @DisplayName("Executes registered mutator")
     void execute() throws Exception
@@ -46,14 +52,12 @@ class CommandProcessorTest
         assertTrue(executed.get());
     }
 
-    @Test
-    @DisplayName("Error on null mutator")
-    void processNullMutator() throws Exception
+    /**
+     * @throws ValidationFailed
+     */
+    private void process() throws ValidationFailed
     {
-        assertFalse(executed.get());
-
-        assertThrows(UnsupportedOperationException.class,
-                     () -> CommandProcessor.from(this, null).mutate());
+        CommandProcessor.from(this, this).mutate();
     }
 
     @Test
@@ -66,18 +70,20 @@ class CommandProcessorTest
                      () -> CommandProcessor.from(null, this).mutate());
     }
 
-    /**
-     * @throws ValidationFailed
-     */
-    private void process() throws ValidationFailed
+    @Test
+    @DisplayName("Error on null mutator")
+    void processNullMutator() throws Exception
     {
-        CommandProcessor.from(this, this).mutate();
+        assertFalse(executed.get());
+
+        assertThrows(UnsupportedOperationException.class,
+                     () -> CommandProcessor.from(this, null).mutate());
     }
 
     @Override
-    public void changeStateFor(final CommandProcessorTest command)
+    public void validate(final CommandProcessorTest command, final Errors errors)
     {
-        executed.getAndSet(true);
+        validated.getAndSet(true);
     }
 
     @Test
@@ -89,11 +95,5 @@ class CommandProcessorTest
         process();
 
         assertTrue(validated.get());
-    }
-
-    @Override
-    public void validate(final CommandProcessorTest command, final Errors errors)
-    {
-        validated.getAndSet(true);
     }
 }

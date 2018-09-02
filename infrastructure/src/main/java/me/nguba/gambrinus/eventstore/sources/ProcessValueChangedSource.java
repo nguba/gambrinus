@@ -25,6 +25,76 @@ import me.nguba.gambrinus.eventstore.EventSource;
  */
 public final class ProcessValueChangedSource extends EventSource
 {
+    public static EventSource from(final ProcessValueChanged event)
+    {
+        final ProcessValueChangedSource source = new ProcessValueChangedSource();
+        source.vesselId = event.getVesselId().getValue();
+        source.processValue = TemperatureField.from(event.getProcessValue());
+        source.timestamp = event.getTimestamp();
+        return source;
+    }
+
+    private TemperatureField processValue;
+
+    private String vesselId;
+
+    ProcessValueChangedSource()
+    {
+    }
+
+    @Override
+    public boolean equals(final Object obj)
+    {
+        if (this == obj)
+            return true;
+        if (!super.equals(obj))
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final ProcessValueChangedSource other = (ProcessValueChangedSource) obj;
+        if (processValue == null) {
+            if (other.processValue != null)
+                return false;
+        } else if (!processValue.equals(other.processValue))
+            return false;
+        if (vesselId == null) {
+            if (other.vesselId != null)
+                return false;
+        } else if (!vesselId.equals(other.vesselId))
+            return false;
+        return true;
+    }
+
+    public TemperatureField getProcessValue()
+    {
+        return processValue;
+    }
+
+    public String getVesselId()
+    {
+        return vesselId;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        final int prime = 31;
+        int result = super.hashCode();
+        result = prime * result + (processValue == null ? 0 : processValue.hashCode());
+        result = prime * result + (vesselId == null ? 0 : vesselId.hashCode());
+        return result;
+    }
+
+    public void setProcessValue(final TemperatureField processValue)
+    {
+        this.processValue = processValue;
+    }
+
+    public void setVesselId(final String vesselId)
+    {
+        this.vesselId = vesselId;
+    }
+
     @Override
     public String toString()
     {
@@ -33,81 +103,5 @@ public final class ProcessValueChangedSource extends EventSource
                 .append(", processValue=").append(processValue).append(", timestamp=")
                 .append(timestamp).append("]");
         return builder.toString();
-    }
-
-    @Override
-    public int hashCode()
-    {
-        final int prime = 31;
-        int result = super.hashCode();
-        result = prime * result + ((processValue == null) ? 0 : processValue.hashCode());
-        result = prime * result + ((vesselId == null) ? 0 : vesselId.hashCode());
-        return result;
-    }
-
-    @Override
-    public boolean equals(final Object obj)
-    {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final ProcessValueChangedSource other = (ProcessValueChangedSource) obj;
-        if (processValue == null) {
-            if (other.processValue != null) {
-                return false;
-            }
-        } else if (!processValue.equals(other.processValue)) {
-            return false;
-        }
-        if (vesselId == null) {
-            if (other.vesselId != null) {
-                return false;
-            }
-        } else if (!vesselId.equals(other.vesselId)) {
-            return false;
-        }
-        return true;
-    }
-
-    private String           vesselId;
-    private TemperatureField processValue;
-
-    ProcessValueChangedSource()
-    {
-    }
-
-    public String getVesselId()
-    {
-        return vesselId;
-    }
-
-    public TemperatureField getProcessValue()
-    {
-        return processValue;
-    }
-
-    public void setVesselId(final String vesselId)
-    {
-        this.vesselId = vesselId;
-    }
-
-    public void setProcessValue(final TemperatureField processValue)
-    {
-        this.processValue = processValue;
-    }
-
-    public static EventSource from(final ProcessValueChanged event)
-    {
-        final ProcessValueChangedSource source = new ProcessValueChangedSource();
-        source.vesselId = event.getVesselId().getValue();
-        source.processValue = TemperatureField.from(event.getProcessValue());
-        source.timestamp = event.getTimestamp();
-        return source;
     }
 }

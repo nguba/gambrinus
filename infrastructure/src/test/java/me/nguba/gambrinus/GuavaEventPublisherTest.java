@@ -29,18 +29,14 @@ import org.junit.jupiter.api.Test;
  */
 class GuavaEventPublisherTest
 {
-    private final GuavaEventPublisher publisher = GuavaEventPublisher.create();
-
     private MutatorEvent event;
 
-    @Test
-    void publishSubscribed()
+    private final GuavaEventPublisher publisher = GuavaEventPublisher.create();
+
+    @Subscribe
+    public void callback(final CommandHappenedEvent event)
     {
-        publisher.subscribe(this);
-
-        publisher.publish(new CommandHappenedEvent());
-
-        assertThat(event).isInstanceOf(CommandHappenedEvent.class);
+        this.event = event;
     }
 
     @Test
@@ -52,9 +48,13 @@ class GuavaEventPublisherTest
         assertThat(event).isNull();
     }
 
-    @Subscribe
-    public void callback(final CommandHappenedEvent event)
+    @Test
+    void publishSubscribed()
     {
-        this.event = event;
+        publisher.subscribe(this);
+
+        publisher.publish(new CommandHappenedEvent());
+
+        assertThat(event).isInstanceOf(CommandHappenedEvent.class);
     }
 }

@@ -28,28 +28,9 @@ import org.junit.jupiter.api.Test;
 
 class AdministratorTest
 {
-    private final VesselRepository vessels = new VesselRepository();
-
     private Administrator admin;
 
-    @BeforeEach
-    void setUp()
-    {
-        admin = new Administrator(new AdminCommands(vessels),
-                                  new AdminQueries(vessels));
-    }
-
-    @Test
-    void findVessels() throws Exception
-    {
-        final Vessel[] expected = { Vessel.inactive(VesselId.of("a")),
-                Vessel.inactive(VesselId.of("b")) };
-        for (final Vessel v : expected) {
-            vessels.create(v);
-        }
-
-        assertThat(admin.findVessels()).containsOnly(expected);
-    }
+    private final VesselRepository vessels = new VesselRepository();
 
     @Test
     void findAddresses() throws Exception
@@ -58,5 +39,23 @@ class AdministratorTest
         final OneWireAddress b = OneWireAddress.of("28.4BBB68080000");
 
         assertThat(admin.findAddresses("src/test/resources/owfs")).containsOnly(a, b);
+    }
+
+    @Test
+    void findVessels() throws Exception
+    {
+        final Vessel[] expected = { Vessel.inactive(VesselId.of("a")),
+                Vessel.inactive(VesselId.of("b")) };
+        for (final Vessel v : expected)
+            vessels.create(v);
+
+        assertThat(admin.findVessels()).containsOnly(expected);
+    }
+
+    @BeforeEach
+    void setUp()
+    {
+        admin = new Administrator(new AdminCommands(vessels),
+                                  new AdminQueries(vessels));
     }
 }

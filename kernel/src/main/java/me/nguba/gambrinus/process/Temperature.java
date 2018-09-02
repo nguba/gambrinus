@@ -26,7 +26,7 @@ public final class Temperature implements ValueObject
 {
     public enum Scale implements ValueObject
     {
-        CELSIUS("C"), KELVIN("K"), FARENHEIT("F");
+        CELSIUS("C"), FARENHEIT("F"), KELVIN("K");
 
         private final String symbol;
 
@@ -40,16 +40,6 @@ public final class Temperature implements ValueObject
         {
             return symbol;
         }
-    }
-
-    private final double value;
-
-    private final Scale scale;
-
-    private Temperature(final double value, final Scale scale)
-    {
-        this.value = value;
-        this.scale = scale;
     }
 
     public static Temperature celsius(final double value)
@@ -67,67 +57,58 @@ public final class Temperature implements ValueObject
         return new Temperature(value, Scale.KELVIN);
     }
 
-    @Override
-    public int hashCode()
+    private static double truncate(final double c)
     {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((scale == null) ? 0 : scale.hashCode());
-        long temp;
-        temp = Double.doubleToLongBits(value);
-        result = prime * result + (int) (temp ^ (temp >>> 32));
-        return result;
+        return Math.floor(c * 100) / 100;
+    }
+
+    private final Scale scale;
+
+    private final double value;
+
+    private Temperature(final double value, final Scale scale)
+    {
+        this.value = value;
+        this.scale = scale;
     }
 
     @Override
     public boolean equals(final Object obj)
     {
-        if (this == obj) {
+        if (this == obj)
             return true;
-        }
-        if (obj == null) {
+        if (obj == null)
             return false;
-        }
-        if (getClass() != obj.getClass()) {
+        if (getClass() != obj.getClass())
             return false;
-        }
         final Temperature other = (Temperature) obj;
-        if (scale != other.scale) {
+        if (scale != other.scale)
             return false;
-        }
-        if (Double.doubleToLongBits(value) != Double.doubleToLongBits(other.value)) {
+        if (Double.doubleToLongBits(value) != Double.doubleToLongBits(other.value))
             return false;
-        }
         return true;
     }
 
+    public Scale getScale()
+    {
+        return scale;
+    }
+
+    public double getValue()
+    {
+        return value;
+    }
+
     @Override
-    public String toString()
+    public int hashCode()
     {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(value).append(" (").append(scale).append(")");
-        return builder.toString();
-    }
-
-    public Temperature toKelvin()
-    {
-        switch (scale) {
-            case CELSIUS: {
-                final double c = value + 273.15;
-                return Temperature.kelvin(truncate(c));
-            }
-            case FARENHEIT: {
-                final double k = (value + 459.67) * (5.0 / 9.0);
-                return Temperature.kelvin(truncate(k));
-            }
-            default:
-                return this;
-        }
-    }
-
-    private static double truncate(final double c)
-    {
-        return Math.floor(c * 100) / 100;
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + (scale == null ? 0 : scale.hashCode());
+        long temp;
+        temp = Double.doubleToLongBits(value);
+        result = prime * result + (int) (temp ^ temp >>> 32);
+        return result;
     }
 
     public Temperature toCelsius()
@@ -162,13 +143,27 @@ public final class Temperature implements ValueObject
         }
     }
 
-    public double getValue()
+    public Temperature toKelvin()
     {
-        return value;
+        switch (scale) {
+            case CELSIUS: {
+                final double c = value + 273.15;
+                return Temperature.kelvin(truncate(c));
+            }
+            case FARENHEIT: {
+                final double k = (value + 459.67) * (5.0 / 9.0);
+                return Temperature.kelvin(truncate(k));
+            }
+            default:
+                return this;
+        }
     }
 
-    public Scale getScale()
+    @Override
+    public String toString()
     {
-        return scale;
+        final StringBuilder builder = new StringBuilder();
+        builder.append(value).append(" (").append(scale).append(")");
+        return builder.toString();
     }
 }

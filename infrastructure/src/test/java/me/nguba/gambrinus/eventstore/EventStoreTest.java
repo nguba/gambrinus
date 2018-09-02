@@ -35,27 +35,25 @@ class EventStoreTest
     private EventStore eventStore;
 
     @Test
-    void canStoreSetpointChanged() throws Exception
-    {
-        final SetpointChanged event = SetpointChanged.on(VesselId.of("mash"),
-                                                         Temperature.celsius(72.0));
-        eventStore.record(SetpointChangedSource.from(event));
-
-        for (final SetpointChangedSource message : eventStore.find(SetpointChangedSource.class)) {
-            System.out.println(message);
-        }
-    }
-
-    @Test
     void canStoreProcessValueChanged() throws Exception
     {
         eventStore.record(ProcessValueChangedSource
                 .from(ProcessValueChanged.on(VesselId.of("HLT"), Temperature.celsius(98.3))));
 
         for (final ProcessValueChangedSource source : eventStore
-                .find(ProcessValueChangedSource.class)) {
+                .find(ProcessValueChangedSource.class))
             System.out.println(source);
-        }
+    }
+
+    @Test
+    void canStoreSetpointChanged() throws Exception
+    {
+        final SetpointChanged event = SetpointChanged.on(VesselId.of("mash"),
+                                                         Temperature.celsius(72.0));
+        eventStore.record(SetpointChangedSource.from(event));
+
+        for (final SetpointChangedSource message : eventStore.find(SetpointChangedSource.class))
+            System.out.println(message);
     }
 
 }

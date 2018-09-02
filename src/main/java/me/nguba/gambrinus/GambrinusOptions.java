@@ -26,14 +26,27 @@ public class GambrinusOptions
 {
     private String mountpoint;
 
+    @Override
+    public boolean equals(final Object obj)
+    {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final GambrinusOptions other = (GambrinusOptions) obj;
+        if (mountpoint == null) {
+            if (other.mountpoint != null)
+                return false;
+        } else if (!mountpoint.equals(other.mountpoint))
+            return false;
+        return true;
+    }
+
     public String getMountpoint()
     {
         return mountpoint;
-    }
-
-    public void setMountpoint(final String mountpoint)
-    {
-        this.mountpoint = mountpoint;
     }
 
     @Override
@@ -45,27 +58,9 @@ public class GambrinusOptions
         return result;
     }
 
-    @Override
-    public boolean equals(final Object obj)
+    public void setMountpoint(final String mountpoint)
     {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final GambrinusOptions other = (GambrinusOptions) obj;
-        if (mountpoint == null) {
-            if (other.mountpoint != null) {
-                return false;
-            }
-        } else if (!mountpoint.equals(other.mountpoint)) {
-            return false;
-        }
-        return true;
+        this.mountpoint = mountpoint;
     }
 
     @Override

@@ -40,12 +40,6 @@ public class AdminQueries
         this.vessels = vessels;
     }
 
-    public Set<Vessel> run(final FindVessels query) throws ValidationFailed
-    {
-        return QueryProcessor.query(query, FindVesselsHandler.on(vessels)).getResult()
-                .orElse(new HashSet<Vessel>());
-    }
-
     public Set<OneWireAddress> run(final FindOneWireAddresses query) throws ValidationFailed
     {
         return QueryProcessor.query(query, FindOneWireAddressesHandler.on()).getResult().get();
@@ -54,5 +48,11 @@ public class AdminQueries
     public Vessel run(final FindVessel query) throws ValidationFailed
     {
         return QueryProcessor.query(query, FindVesselHandler.on(vessels)).getResult().get();
+    }
+
+    public Set<Vessel> run(final FindVessels query) throws ValidationFailed
+    {
+        return QueryProcessor.query(query, FindVesselsHandler.on(vessels)).getResult()
+                .orElse(new HashSet<Vessel>());
     }
 }

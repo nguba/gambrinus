@@ -28,6 +28,17 @@ import java.util.Set;
  */
 public final class FindOneWireAddressResult implements Result<Set<OneWireAddress>>
 {
+    public static FindOneWireAddressResult from(final OneWireAddress[] addresses)
+    {
+        if (addresses == null)
+            return new FindOneWireAddressResult(new HashSet<>());
+
+        final Set<OneWireAddress> result = new HashSet<>();
+        for (final OneWireAddress address : addresses)
+            result.add(address);
+        return new FindOneWireAddressResult(result);
+    }
+
     private final Set<OneWireAddress> result;
 
     private FindOneWireAddressResult(final Set<OneWireAddress> result)
@@ -39,18 +50,5 @@ public final class FindOneWireAddressResult implements Result<Set<OneWireAddress
     public Optional<Set<OneWireAddress>> getResult()
     {
         return Optional.of(result);
-    }
-
-    public static FindOneWireAddressResult from(final OneWireAddress[] addresses)
-    {
-        if (addresses == null) {
-            return new FindOneWireAddressResult(new HashSet<>());
-        }
-
-        final Set<OneWireAddress> result = new HashSet<>();
-        for (final OneWireAddress address : addresses) {
-            result.add(address);
-        }
-        return new FindOneWireAddressResult(result);
     }
 }

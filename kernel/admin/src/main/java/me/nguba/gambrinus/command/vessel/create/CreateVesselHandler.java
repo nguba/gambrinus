@@ -45,28 +45,23 @@ public final class CreateVesselHandler implements CommandHandler<CreateVessel>
     @Override
     public void validate(final CreateVessel command, final Errors errors)
     {
-        if (command.getVesselId() == null) {
+        if (command.getVesselId() == null)
             errors.add(Reason.from("VesselId cannot be null"));
-        }
 
-        if (command.getAddress() == null) {
+        if (command.getAddress() == null)
             errors.add(Reason.from("OneWireAddress cannot be null"));
-        }
 
-        if (command.getAddress() == null) {
+        if (command.getAddress() == null)
             errors.add(Reason.from("OwfsRoot cannot be null"));
-        }
 
         if (command.getRoot() != null && command.getAddress() != null) {
             final OwfsSensor sensor = OwfsSensor.from(command.getRoot(), command.getAddress());
-            if (!sensor.isValid()) {
+            if (!sensor.isValid())
                 errors.add(Reason.from("Invalid sensor: " + sensor));
-            }
         }
 
-        if (repo.read(command.getVesselId()).isPresent()) {
+        if (repo.read(command.getVesselId()).isPresent())
             errors.add(Reason.from("Vessel already configured"));
-        }
     }
 
 }

@@ -32,20 +32,31 @@ public class VesselRepository implements Repository<VesselId, Vessel>
     @Override
     public Optional<VesselId> create(final Vessel vessel)
     {
-        if (vessel == null) {
+        if (vessel == null)
             return Optional.empty();
-        }
 
         store.put(vessel.getId(), vessel);
         return Optional.of(vessel.getId());
     }
 
     @Override
+    public void delete(final VesselId identifier)
+    {
+        if (identifier == null)
+            return;
+        store.remove(identifier);
+    }
+
+    public Vessel[] findAll()
+    {
+        return store.values().toArray(new Vessel[store.size()]);
+    }
+
+    @Override
     public Optional<Vessel> read(final VesselId identifier)
     {
-        if (identifier == null) {
+        if (identifier == null)
             return Optional.empty();
-        }
 
         return Optional.ofNullable(store.get(identifier));
     }
@@ -54,19 +65,5 @@ public class VesselRepository implements Repository<VesselId, Vessel>
     public void update(final Vessel aggregate)
     {
         throw new UnsupportedOperationException("Vessels cannot be updated");
-    }
-
-    @Override
-    public void delete(final VesselId identifier)
-    {
-        if (identifier == null) {
-            return;
-        }
-        store.remove(identifier);
-    }
-
-    public Vessel[] findAll()
-    {
-        return store.values().toArray(new Vessel[store.size()]);
     }
 }

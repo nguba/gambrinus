@@ -35,9 +35,9 @@ class SetProcessValueTest
                                                                  Temperature.celsius(66.6));
 
     @Test
-    void vesselId()
+    void equalityContract()
     {
-        assertThat(command.getId()).isEqualTo(VesselId.of("mash"));
+        EqualsVerifier.forClass(SetProcessValue.class).usingGetClass().verify();
     }
 
     @Test
@@ -47,8 +47,8 @@ class SetProcessValueTest
     }
 
     @Test
-    void equalityContract()
+    void vesselId()
     {
-        EqualsVerifier.forClass(SetProcessValue.class).usingGetClass().verify();
+        assertThat(command.getId()).isEqualTo(VesselId.of("mash"));
     }
 }

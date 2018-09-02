@@ -23,23 +23,9 @@ import me.nguba.gambrinus.ddd.support.SingleValueObject;
  */
 public final class OneWireAddress extends SingleValueObject<String>
 {
-    private OneWireAddress(final String value)
+    public static OneWireAddress defaultMash()
     {
-        super(value);
-    }
-
-    public static OneWireAddress of(final String address)
-    {
-        return new OneWireAddress(address);
-    }
-
-    @Override
-    public boolean isValid()
-    {
-        if (super.isValid() && !getValue().isEmpty() && getValue().length() == 15) {
-            return getValue().startsWith("28.");
-        }
-        return false;
+        return OneWireAddress.of("28.273B5D070000");
     }
 
     public static OneWireAddress empty()
@@ -47,8 +33,21 @@ public final class OneWireAddress extends SingleValueObject<String>
         return of("");
     }
 
-    public static OneWireAddress defaultMash()
+    public static OneWireAddress of(final String address)
     {
-        return OneWireAddress.of("28.273B5D070000");
+        return new OneWireAddress(address);
+    }
+
+    private OneWireAddress(final String value)
+    {
+        super(value);
+    }
+
+    @Override
+    public boolean isValid()
+    {
+        if (super.isValid() && !getValue().isEmpty() && getValue().length() == 15)
+            return getValue().startsWith("28.");
+        return false;
     }
 }

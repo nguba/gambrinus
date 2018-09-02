@@ -25,14 +25,6 @@ import org.junit.jupiter.api.Test;
 class FindOneWireAddressResultTest
 {
     @Test
-    void returnsEmptySetByDefault()
-    {
-        final FindOneWireAddressResult sensorsResult = FindOneWireAddressResult
-                .from(new OneWireAddress[0]);
-        assertThat(sensorsResult.getResult().get()).isEmpty();
-    }
-
-    @Test
     void noDuplicates()
     {
         final OneWireAddress a = OneWireAddress.of("28.273B5D070000");
@@ -47,5 +39,13 @@ class FindOneWireAddressResultTest
     void nullAddresses()
     {
         assertThat(FindOneWireAddressResult.from(null).getResult().get()).isEmpty();
+    }
+
+    @Test
+    void returnsEmptySetByDefault()
+    {
+        final FindOneWireAddressResult sensorsResult = FindOneWireAddressResult
+                .from(new OneWireAddress[0]);
+        assertThat(sensorsResult.getResult().get()).isEmpty();
     }
 }

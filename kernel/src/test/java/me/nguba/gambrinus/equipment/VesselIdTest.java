@@ -25,14 +25,14 @@ import org.junit.jupiter.api.Test;
 class VesselIdTest
 {
     @Test
-    void identifiersAreEqual()
-    {
-        assertThat(VesselId.of("Mash")).isEqualTo(VesselId.of("Mash"));
-    }
-
-    @Test
     void equalityContract()
     {
         EqualsVerifier.forClass(VesselId.class).usingGetClass().verify();
+    }
+
+    @Test
+    void identifiersAreEqual()
+    {
+        assertThat(VesselId.of("Mash")).isEqualTo(VesselId.of("Mash"));
     }
 }

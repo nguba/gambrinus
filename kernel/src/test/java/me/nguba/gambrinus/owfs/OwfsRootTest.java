@@ -28,26 +28,6 @@ import java.io.File;
 
 class OwfsRootTest extends SingleValueObjectFixture<File, OwfsRoot>
 {
-    @Test
-    @DisplayName("is invalid if path doesn't exist")
-    void pathNotExists()
-    {
-        assertThat(OwfsRoot.of("non-existent-path").isValid()).isFalse();
-    }
-
-    @Test
-    @DisplayName("is invalid if path is empty")
-    void pathNull()
-    {
-        assertThat(OwfsRoot.of("").isValid()).isFalse();
-    }
-
-    @Override
-    protected OwfsRoot makeValueObject()
-    {
-        return OwfsRoot.of("src/test/resources/owfs");
-    }
-
     @Override
     protected void isValidWhenNotNull()
     {
@@ -78,5 +58,25 @@ class OwfsRootTest extends SingleValueObjectFixture<File, OwfsRoot>
     void listAllSensorsOnInvalidDirectory() throws Exception
     {
         assertThat(OwfsRoot.of("invalid").listSensors()).isEmpty();
+    }
+
+    @Override
+    protected OwfsRoot makeValueObject()
+    {
+        return OwfsRoot.of("src/test/resources/owfs");
+    }
+
+    @Test
+    @DisplayName("is invalid if path doesn't exist")
+    void pathNotExists()
+    {
+        assertThat(OwfsRoot.of("non-existent-path").isValid()).isFalse();
+    }
+
+    @Test
+    @DisplayName("is invalid if path is empty")
+    void pathNull()
+    {
+        assertThat(OwfsRoot.of("").isValid()).isFalse();
     }
 }

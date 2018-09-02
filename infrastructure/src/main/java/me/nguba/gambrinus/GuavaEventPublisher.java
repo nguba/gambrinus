@@ -34,16 +34,16 @@ public final class GuavaEventPublisher implements EventPublisher
 {
     private static final Logger LOGGER = LoggerFactory.getLogger(EventPublisher.class);
 
+    public static GuavaEventPublisher create()
+    {
+        return new GuavaEventPublisher();
+    }
+
     private final EventBus bus = new EventBus();
 
     private GuavaEventPublisher()
     {
         super();
-    }
-
-    public static GuavaEventPublisher create()
-    {
-        return new GuavaEventPublisher();
     }
 
     @Override

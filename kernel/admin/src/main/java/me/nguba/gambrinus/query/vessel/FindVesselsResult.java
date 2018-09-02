@@ -28,24 +28,23 @@ import java.util.Set;
  */
 public final class FindVesselsResult implements Result<Set<Vessel>>
 {
+    public static FindVesselsResult from(final Vessel[] vessels)
+    {
+        return new FindVesselsResult(vessels);
+    }
+
     private final Set<Vessel> vessels = new HashSet<>();
+
+    private FindVesselsResult(final Vessel[] vessels)
+    {
+        for (final Vessel v : vessels)
+            this.vessels.add(v);
+    }
 
     @Override
     public Optional<Set<Vessel>> getResult()
     {
         return Optional.of(vessels);
-    }
-
-    private FindVesselsResult(final Vessel[] vessels)
-    {
-        for (final Vessel v : vessels) {
-            this.vessels.add(v);
-        }
-    }
-
-    public static FindVesselsResult from(final Vessel[] vessels)
-    {
-        return new FindVesselsResult(vessels);
     }
 
 }

@@ -48,6 +48,24 @@ public abstract class Entity<I>
         this.id = id;
     }
 
+    @Override
+    public boolean equals(final Object obj)
+    {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final Entity<?> other = (Entity<?>) obj;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        } else if (!id.equals(other.id))
+            return false;
+        return true;
+    }
+
     /**
      * Unique identifier to distinguish objects even though they may have the same attributes.
      *
@@ -65,28 +83,5 @@ public abstract class Entity<I>
         int result = 1;
         result = prime * result + (id == null ? 0 : id.hashCode());
         return result;
-    }
-
-    @Override
-    public boolean equals(final Object obj)
-    {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Entity<?> other = (Entity<?>) obj;
-        if (id == null) {
-            if (other.id != null) {
-                return false;
-            }
-        } else if (!id.equals(other.id)) {
-            return false;
-        }
-        return true;
     }
 }

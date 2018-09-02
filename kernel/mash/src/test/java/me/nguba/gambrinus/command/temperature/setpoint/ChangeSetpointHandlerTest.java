@@ -37,23 +37,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 class ChangeSetpointHandlerTest
 {
-    private final VesselRepository repo     = new VesselRepository();
-    private ChangeSetpointHandler  mutator;
     private final VesselId         id       = VesselId.of("mash");
+    private ChangeSetpointHandler  mutator;
+    private final VesselRepository repo     = new VesselRepository();
     private final Temperature      setpoint = Temperature.celsius(68);
-
-    @BeforeEach
-    void setUp()
-    {
-        mutator = ChangeSetpointHandler.from(repo);
-    }
-
-    @Test
-    void mutateNonExistingVessel()
-    {
-        assertThrows(IllegalArgumentException.class,
-                     () -> mutator.changeStateFor(ChangeSetpoint.on(id, setpoint)));
-    }
 
     @Test
     void mutateMofifiesSetpoint()
@@ -66,9 +53,22 @@ class ChangeSetpointHandlerTest
     }
 
     @Test
+    void mutateNonExistingVessel()
+    {
+        assertThrows(IllegalArgumentException.class,
+                     () -> mutator.changeStateFor(ChangeSetpoint.on(id, setpoint)));
+    }
+
+    @Test
     void mutateNullCommand()
     {
         assertThrows(IllegalArgumentException.class, () -> mutator.changeStateFor(null));
+    }
+
+    @BeforeEach
+    void setUp()
+    {
+        mutator = ChangeSetpointHandler.from(repo);
     }
 
     @Test

@@ -26,9 +26,14 @@ import me.nguba.gambrinus.process.Temperature;
  */
 public final class SetProcessValue implements VesselCommand
 {
-    private final VesselId vesselId;
+    public static SetProcessValue with(final VesselId vesselId, final Temperature processValue)
+    {
+        return new SetProcessValue(vesselId, processValue);
+    }
 
     private final Temperature processValue;
+
+    private final VesselId vesselId;
 
     private SetProcessValue(final VesselId vesselId, final Temperature processValue)
     {
@@ -36,9 +41,27 @@ public final class SetProcessValue implements VesselCommand
         this.processValue = processValue;
     }
 
-    public static SetProcessValue with(final VesselId vesselId, final Temperature processValue)
+    @Override
+    public boolean equals(final Object obj)
     {
-        return new SetProcessValue(vesselId, processValue);
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final SetProcessValue other = (SetProcessValue) obj;
+        if (processValue == null) {
+            if (other.processValue != null)
+                return false;
+        } else if (!processValue.equals(other.processValue))
+            return false;
+        if (vesselId == null) {
+            if (other.vesselId != null)
+                return false;
+        } else if (!vesselId.equals(other.vesselId))
+            return false;
+        return true;
     }
 
     @Override
@@ -60,35 +83,5 @@ public final class SetProcessValue implements VesselCommand
         result = prime * result + (processValue == null ? 0 : processValue.hashCode());
         result = prime * result + (vesselId == null ? 0 : vesselId.hashCode());
         return result;
-    }
-
-    @Override
-    public boolean equals(final Object obj)
-    {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final SetProcessValue other = (SetProcessValue) obj;
-        if (processValue == null) {
-            if (other.processValue != null) {
-                return false;
-            }
-        } else if (!processValue.equals(other.processValue)) {
-            return false;
-        }
-        if (vesselId == null) {
-            if (other.vesselId != null) {
-                return false;
-            }
-        } else if (!vesselId.equals(other.vesselId)) {
-            return false;
-        }
-        return true;
     }
 }

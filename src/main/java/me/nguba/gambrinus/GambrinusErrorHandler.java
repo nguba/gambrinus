@@ -35,17 +35,6 @@ import java.util.NoSuchElementException;
 @ControllerAdvice
 public class GambrinusErrorHandler extends ResponseEntityExceptionHandler
 {
-    @ExceptionHandler({ ValidationFailed.class })
-    public ResponseEntity<Object> validationError(final ValidationFailed ex,
-                                                  final WebRequest request)
-    {
-        return handleExceptionInternal(ex,
-                                       ex.getErrors().toString(),
-                                       new HttpHeaders(),
-                                       HttpStatus.CONFLICT,
-                                       request);
-    }
-
     @ExceptionHandler({ NoSuchElementException.class })
     public ResponseEntity<Object> handleNotFound(final NoSuchElementException ex,
                                                  final WebRequest request)
@@ -54,6 +43,17 @@ public class GambrinusErrorHandler extends ResponseEntityExceptionHandler
                                        ex.getMessage(),
                                        new HttpHeaders(),
                                        HttpStatus.NOT_FOUND,
+                                       request);
+    }
+
+    @ExceptionHandler({ ValidationFailed.class })
+    public ResponseEntity<Object> validationError(final ValidationFailed ex,
+                                                  final WebRequest request)
+    {
+        return handleExceptionInternal(ex,
+                                       ex.getErrors().toString(),
+                                       new HttpHeaders(),
+                                       HttpStatus.CONFLICT,
                                        request);
     }
 

@@ -28,6 +28,11 @@ import org.springframework.hateoas.mvc.ResourceAssemblerSupport;
 public final class SensorAddressAdapter
         extends ResourceAssemblerSupport<OneWireAddress, ResourceSupport>
 {
+    public static ResourceSupport adapt(final OneWireAddress entity)
+    {
+        return new SensorAddressAdapter().toResource(entity);
+    }
+
     private SensorAddressAdapter()
     {
         super(AdminController.class, ResourceSupport.class);
@@ -40,11 +45,6 @@ public final class SensorAddressAdapter
         resource.add(ControllerLinkBuilder.linkTo(AdminController.class).slash("sensor")
                 .slash(entity.getValue()).withSelfRel().withTitle("Maxim DS18B20"));
         return resource;
-    }
-
-    public static ResourceSupport adapt(final OneWireAddress entity)
-    {
-        return new SensorAddressAdapter().toResource(entity);
     }
 
 }

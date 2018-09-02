@@ -26,6 +26,11 @@ import java.time.Instant;
  */
 public final class SetpointChanged extends VesselMutatorEvent
 {
+    public static SetpointChanged on(final VesselId vesselId, final Temperature setpoint)
+    {
+        return new SetpointChanged(vesselId, setpoint);
+    }
+
     private final Temperature setpoint;
 
     private SetpointChanged(final VesselId vesselId, final Temperature setpoint)
@@ -34,9 +39,22 @@ public final class SetpointChanged extends VesselMutatorEvent
         this.setpoint = setpoint;
     }
 
-    public static SetpointChanged on(final VesselId vesselId, final Temperature setpoint)
+    @Override
+    public boolean equals(final Object obj)
     {
-        return new SetpointChanged(vesselId, setpoint);
+        if (this == obj)
+            return true;
+        if (!super.equals(obj))
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final SetpointChanged other = (SetpointChanged) obj;
+        if (setpoint == null) {
+            if (other.setpoint != null)
+                return false;
+        } else if (!setpoint.equals(other.setpoint))
+            return false;
+        return true;
     }
 
     public Temperature getSetpoint()
@@ -49,31 +67,8 @@ public final class SetpointChanged extends VesselMutatorEvent
     {
         final int prime = 31;
         int result = super.hashCode();
-        result = prime * result + ((setpoint == null) ? 0 : setpoint.hashCode());
+        result = prime * result + (setpoint == null ? 0 : setpoint.hashCode());
         return result;
-    }
-
-    @Override
-    public boolean equals(final Object obj)
-    {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final SetpointChanged other = (SetpointChanged) obj;
-        if (setpoint == null) {
-            if (other.setpoint != null) {
-                return false;
-            }
-        } else if (!setpoint.equals(other.setpoint)) {
-            return false;
-        }
-        return true;
     }
 
     @Override

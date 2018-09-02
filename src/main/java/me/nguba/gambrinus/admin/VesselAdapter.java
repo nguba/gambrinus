@@ -27,6 +27,11 @@ import org.springframework.hateoas.mvc.ResourceAssemblerSupport;
  */
 public class VesselAdapter extends ResourceAssemblerSupport<Vessel, VesselResource>
 {
+    public static VesselResource adapt(final Vessel entity)
+    {
+        return new VesselAdapter().toResource(entity);
+    }
+
     public VesselAdapter()
     {
         super(AdminController.class, VesselResource.class);
@@ -42,11 +47,6 @@ public class VesselAdapter extends ResourceAssemblerSupport<Vessel, VesselResour
                 .withTitle(entity.getId().toString()));
 
         return resource;
-    }
-
-    public static VesselResource adapt(final Vessel entity)
-    {
-        return new VesselAdapter().toResource(entity);
     }
 
 }

@@ -34,9 +34,15 @@ import java.util.Optional;
  */
 public class OwfsSensor extends Aggregate<OneWireAddress>
 {
-    private final Path     latesttemp;
+    public static final OwfsSensor from(final OwfsRoot root, final OneWireAddress address)
+    {
+        return new OwfsSensor(root, address);
+    }
+
+    private final Path latesttemp;
+    private final Path path;
+
     private final OwfsRoot root;
-    private final Path     path;
 
     private OwfsSensor(final OwfsRoot root, final OneWireAddress address)
     {
@@ -48,24 +54,22 @@ public class OwfsSensor extends Aggregate<OneWireAddress>
         latesttemp = Paths.get(path.toString(), "latesttemp");
     }
 
-    public static final OwfsSensor from(final OwfsRoot root, final OneWireAddress address)
+    public boolean isValid()
     {
-        return new OwfsSensor(root, address);
+        return latesttemp.toFile().exists();
     }
 
     public Optional<Temperature> read() throws IOException
     {
-        if (!isValid()) {
+        if (!isValid())
             throw new FileNotFoundException("sensor is not mapped to an address");
-        }
         try (final FileChannel channel = FileChannel.open(latesttemp, StandardOpenOption.READ)) {
             final ByteBuffer buf = ByteBuffer.allocate(8);
             final StringBuilder builder = new StringBuilder();
             while (channel.read(buf) != -1) {
                 buf.flip();
-                while (buf.hasRemaining()) {
+                while (buf.hasRemaining())
                     builder.append((char) buf.get());
-                }
                 buf.clear();
                 return Optional.of(Temperature.celsius(Double.parseDouble(builder.toString())));
             }
@@ -77,10 +81,5 @@ public class OwfsSensor extends Aggregate<OneWireAddress>
     public String toString()
     {
         return root.getValue().getAbsolutePath();
-    }
-
-    public boolean isValid()
-    {
-        return latesttemp.toFile().exists();
     }
 }

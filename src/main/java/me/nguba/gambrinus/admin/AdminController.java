@@ -55,24 +55,6 @@ public class AdminController
         LOGGER.info("{}", pins);
     }
 
-    @GetMapping(path = "vessel")
-    public Object getVessels() throws Exception
-    {
-        return admin.findVessels();
-    }
-
-    @GetMapping(path = "vessel/{name}")
-    public Object getVessel(@PathVariable("name") final String name) throws Exception
-    {
-        return admin.findVessel(VesselId.of(name));
-    }
-
-    @GetMapping(path = "sensor")
-    public Object getSensors() throws Exception
-    {
-        return admin.findAddresses(options.getMountpoint());
-    }
-
     @PostMapping(path = "vessel/{id}/{sensor}")
     public Object createVessel(@PathVariable("id") final VesselId id,
                                @PathVariable("sensor") final OneWireAddress address,
@@ -82,5 +64,23 @@ public class AdminController
         admin.createVessel(id, address, options.getMountpoint());
 
         return WebMvcUtil.created(builder.path("/vessel/{id}/{sensor}"), id, address);
+    }
+
+    @GetMapping(path = "sensor")
+    public Object getSensors() throws Exception
+    {
+        return admin.findAddresses(options.getMountpoint());
+    }
+
+    @GetMapping(path = "vessel/{name}")
+    public Object getVessel(@PathVariable("name") final String name) throws Exception
+    {
+        return admin.findVessel(VesselId.of(name));
+    }
+
+    @GetMapping(path = "vessel")
+    public Object getVessels() throws Exception
+    {
+        return admin.findVessels();
     }
 }

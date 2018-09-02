@@ -45,16 +45,6 @@ public class Administrator
         this.queries = queries;
     }
 
-    public Set<Vessel> findVessels() throws ValidationFailed, IOException
-    {
-        return queries.run(FindVessels.create());
-    }
-
-    public Set<OneWireAddress> findAddresses(final String mountpoint) throws ValidationFailed
-    {
-        return queries.run(FindOneWireAddresses.on(mountpoint));
-    }
-
     public Vessel createVessel(final VesselId vesselId,
                                final OwfsRoot root,
                                final OneWireAddress address)
@@ -66,8 +56,18 @@ public class Administrator
         return result.iterator().next();
     }
 
+    public Set<OneWireAddress> findAddresses(final String mountpoint) throws ValidationFailed
+    {
+        return queries.run(FindOneWireAddresses.on(mountpoint));
+    }
+
     public Vessel findVessel(final VesselId id) throws ValidationFailed
     {
         return queries.run(FindVessel.of(id));
+    }
+
+    public Set<Vessel> findVessels() throws ValidationFailed, IOException
+    {
+        return queries.run(FindVessels.create());
     }
 }

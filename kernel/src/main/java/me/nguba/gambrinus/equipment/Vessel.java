@@ -28,18 +28,6 @@ import java.io.IOException;
  */
 public final class Vessel extends Aggregate<VesselId>
 {
-    private Temperature setpoint = Temperature.celsius(0);
-
-    private Temperature processValue = Temperature.celsius(0);
-
-    private OwfsSensor sensor;
-
-    private Vessel(final VesselId id, final OwfsSensor sensor)
-    {
-        super(id);
-        this.sensor = sensor;
-    }
-
     /**
      * Returns a vessel without assigned sensor.
      *
@@ -56,14 +44,34 @@ public final class Vessel extends Aggregate<VesselId>
         return new Vessel(id, sensor);
     }
 
-    public Temperature setpoint()
+    private Temperature processValue = Temperature.celsius(0);
+
+    private OwfsSensor sensor;
+
+    private Temperature setpoint = Temperature.celsius(0);
+
+    private Vessel(final VesselId id, final OwfsSensor sensor)
     {
-        return setpoint;
+        super(id);
+        this.sensor = sensor;
     }
 
-    public void setpoint(final Temperature setpoint)
+    public OneWireAddress address()
     {
-        this.setpoint = setpoint;
+        if (sensor == null)
+            return OneWireAddress.empty();
+
+        return sensor.getId();
+    }
+
+    public void assign(final OwfsSensor sensor)
+    {
+        this.sensor = sensor;
+    }
+
+    public boolean isActive()
+    {
+        return sensor != null;
     }
 
     public Temperature processValue()
@@ -76,30 +84,20 @@ public final class Vessel extends Aggregate<VesselId>
         this.processValue = processValue;
     }
 
-    public void assign(final OwfsSensor sensor)
-    {
-        this.sensor = sensor;
-    }
-
     public Temperature readTemperature() throws IOException
     {
-        if (!isActive()) {
+        if (!isActive())
             throw new IllegalStateException("Cannot read from inactive sensor");
-        }
         return sensor.read().get();
     }
 
-    public OneWireAddress address()
+    public Temperature setpoint()
     {
-        if (sensor == null) {
-            return OneWireAddress.empty();
-        }
-
-        return sensor.getId();
+        return setpoint;
     }
 
-    public boolean isActive()
+    public void setpoint(final Temperature setpoint)
     {
-        return sensor != null;
+        this.setpoint = setpoint;
     }
 }

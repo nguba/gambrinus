@@ -25,6 +25,16 @@ public abstract class MutatorEvent
 {
     protected final long timestamp;
 
+    protected MutatorEvent()
+    {
+        this(Instant.now());
+    }
+
+    protected MutatorEvent(final Instant now)
+    {
+        this(now.toEpochMilli());
+    }
+
     protected MutatorEvent(final long timestamp)
     {
         this.timestamp = timestamp;
@@ -35,14 +45,19 @@ public abstract class MutatorEvent
         this.timestamp = Long.parseLong(timestamp);
     }
 
-    protected MutatorEvent()
+    @Override
+    public boolean equals(final Object obj)
     {
-        this(Instant.now());
-    }
-
-    protected MutatorEvent(final Instant now)
-    {
-        this(now.toEpochMilli());
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final MutatorEvent other = (MutatorEvent) obj;
+        if (timestamp != other.timestamp)
+            return false;
+        return true;
     }
 
     public long getTimestamp()
@@ -55,27 +70,8 @@ public abstract class MutatorEvent
     {
         final int prime = 31;
         int result = 1;
-        result = prime * result + (int) (timestamp ^ (timestamp >>> 32));
+        result = prime * result + (int) (timestamp ^ timestamp >>> 32);
         return result;
-    }
-
-    @Override
-    public boolean equals(final Object obj)
-    {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final MutatorEvent other = (MutatorEvent) obj;
-        if (timestamp != other.timestamp) {
-            return false;
-        }
-        return true;
     }
 
     @Override

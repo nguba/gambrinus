@@ -49,12 +49,12 @@ class AdminControllerTest
     @Autowired
     private VesselRepository vessels;
 
-    @AfterEach
-    void tearDown()
+    @Test
+    void createVessel() throws Exception
     {
-        for (final Vessel v : vessels.findAll()) {
-            vessels.delete(v.getId());
-        }
+        mvc.perform(post("/api/admin/vessel/{name}/{address}", "mash", "28.273B5D070000"))
+                .andDo(print())
+                .andExpect(status().isCreated()).andReturn();
     }
 
     @Test
@@ -67,23 +67,11 @@ class AdminControllerTest
     }
 
     @Test
-    void getVessels() throws Exception
+    void getSensors() throws Exception
     {
-        final Vessel[] expected = { Vessel.inactive(VesselId.of("a")),
-                Vessel.inactive(VesselId.of("b")) };
-        for (final Vessel v : expected) {
-            vessels.create(v);
-        }
-
-        mvc.perform(get("/api/admin/vessel")).andDo(print())
+        mvc.perform(get("/api/admin/sensor")).andDo(print())
                 .andExpect(status().isOk()).andReturn();
-    }
 
-    @Test
-    void getVesselNotFound() throws Exception
-    {
-        mvc.perform(get("/api/admin/vessel/{name}", "mash")).andDo(print())
-                .andExpect(status().isNotFound());
     }
 
     @Test
@@ -98,18 +86,28 @@ class AdminControllerTest
     }
 
     @Test
-    void getSensors() throws Exception
+    void getVesselNotFound() throws Exception
     {
-        mvc.perform(get("/api/admin/sensor")).andDo(print())
-                .andExpect(status().isOk()).andReturn();
-
+        mvc.perform(get("/api/admin/vessel/{name}", "mash")).andDo(print())
+                .andExpect(status().isNotFound());
     }
 
     @Test
-    void createVessel() throws Exception
+    void getVessels() throws Exception
     {
-        mvc.perform(post("/api/admin/vessel/{name}/{address}", "mash", "28.273B5D070000"))
-                .andDo(print())
-                .andExpect(status().isCreated()).andReturn();
+        final Vessel[] expected = { Vessel.inactive(VesselId.of("a")),
+                Vessel.inactive(VesselId.of("b")) };
+        for (final Vessel v : expected)
+            vessels.create(v);
+
+        mvc.perform(get("/api/admin/vessel")).andDo(print())
+                .andExpect(status().isOk()).andReturn();
+    }
+
+    @AfterEach
+    void tearDown()
+    {
+        for (final Vessel v : vessels.findAll())
+            vessels.delete(v.getId());
     }
 }

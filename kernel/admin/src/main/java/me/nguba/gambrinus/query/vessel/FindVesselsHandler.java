@@ -25,6 +25,11 @@ import me.nguba.gambrinus.equipment.VesselRepository;
  */
 public final class FindVesselsHandler implements QueryHandler<FindVessels, FindVesselsResult>
 {
+    public static FindVesselsHandler on(final VesselRepository repository)
+    {
+        return new FindVesselsHandler(repository);
+    }
+
     private final VesselRepository repository;
 
     private FindVesselsHandler(final VesselRepository repository)
@@ -32,19 +37,14 @@ public final class FindVesselsHandler implements QueryHandler<FindVessels, FindV
         this.repository = repository;
     }
 
-    public static FindVesselsHandler on(final VesselRepository repository)
+    @Override
+    public FindVesselsResult query(final FindVessels query)
     {
-        return new FindVesselsHandler(repository);
+        return FindVesselsResult.from(repository.findAll());
     }
 
     @Override
     public void validate(final FindVessels query, final Errors errors)
     {
-    }
-
-    @Override
-    public FindVesselsResult query(final FindVessels query)
-    {
-        return FindVesselsResult.from(repository.findAll());
     }
 }

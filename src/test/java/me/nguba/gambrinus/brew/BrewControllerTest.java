@@ -54,32 +54,6 @@ class BrewControllerTest
     @Autowired
     private VesselRepository vessels;
 
-    @AfterEach
-    void tearDown()
-    {
-        for (final Vessel v : vessels.findAll()) {
-            vessels.delete(v.getId());
-        }
-    }
-
-    @Test
-    @DisplayName("throws error when vessel not found")
-    void changeSetpoint_NoVesselFound() throws Exception
-    {
-        mvc.perform(put("/api/brew/heat/{name}/{temperature}", "mash", 55.5))
-                .andDo(print()).andExpect(status().isConflict());
-    }
-
-    @Test
-    @DisplayName("throws error when no sensor assigned to vessel")
-    void changeSetpoint_Inactive() throws Exception
-    {
-        vessels.create(Vessel.inactive(MASH));
-
-        mvc.perform(put("/api/brew/heat/{name}/{temperature}", "mash", 55.5))
-                .andDo(print()).andExpect(status().isConflict());
-    }
-
     @Test
     @DisplayName("mutates the setpoint on the vessel")
     void changeSetpoint() throws Exception
@@ -97,13 +71,28 @@ class BrewControllerTest
     }
 
     @Test
-    @DisplayName("throws error when attempting to read from inactive vessel")
-    void monitorTemperatureInactive() throws Exception
+    @DisplayName("throws error when no sensor assigned to vessel")
+    void changeSetpoint_Inactive() throws Exception
     {
         vessels.create(Vessel.inactive(MASH));
 
-        mvc.perform(put("/api/brew/monitor/{name}", "mash"))
+        mvc.perform(put("/api/brew/heat/{name}/{temperature}", "mash", 55.5))
                 .andDo(print()).andExpect(status().isConflict());
+    }
+
+    @Test
+    @DisplayName("throws error when vessel not found")
+    void changeSetpoint_NoVesselFound() throws Exception
+    {
+        mvc.perform(put("/api/brew/heat/{name}/{temperature}", "mash", 55.5))
+                .andDo(print()).andExpect(status().isConflict());
+    }
+
+    private Vessel createVessel()
+    {
+        final Vessel mashTun = ApplicationMother.mashTun();
+        vessels.create(mashTun);
+        return mashTun;
     }
 
     @Test
@@ -121,11 +110,14 @@ class BrewControllerTest
         assertThat(vessels.read(MASH).get().processValue()).isEqualTo(Temperature.celsius(25.7));
     }
 
-    private Vessel createVessel()
+    @Test
+    @DisplayName("throws error when attempting to read from inactive vessel")
+    void monitorTemperatureInactive() throws Exception
     {
-        final Vessel mashTun = ApplicationMother.mashTun();
-        vessels.create(mashTun);
-        return mashTun;
+        vessels.create(Vessel.inactive(MASH));
+
+        mvc.perform(put("/api/brew/monitor/{name}", "mash"))
+                .andDo(print()).andExpect(status().isConflict());
     }
 
     @Test
@@ -137,5 +129,12 @@ class BrewControllerTest
 
         mvc.perform(get("/api/brew/temperature/{name}", mashTun.getId()))
                 .andDo(print()).andExpect(status().isOk());
+    }
+
+    @AfterEach
+    void tearDown()
+    {
+        for (final Vessel v : vessels.findAll())
+            vessels.delete(v.getId());
     }
 }

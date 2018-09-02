@@ -25,14 +25,14 @@ import org.junit.jupiter.api.Test;
 class FindVesselsTest
 {
     @Test
-    void equalityContract()
-    {
-        EqualsVerifier.forClass(FindVessels.class).verify();
-    }
-
-    @Test
     void createsValidObject()
     {
         assertThat(FindVessels.create()).isEqualTo(FindVessels.INSTANCE);
+    }
+
+    @Test
+    void equalityContract()
+    {
+        EqualsVerifier.forClass(FindVessels.class).verify();
     }
 }

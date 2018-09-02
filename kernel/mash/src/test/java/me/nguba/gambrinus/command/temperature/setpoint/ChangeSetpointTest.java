@@ -33,14 +33,14 @@ class ChangeSetpointTest
                                                              Temperature.celsius(58.0));
 
     @Test
-    void hasVesselId()
-    {
-        assertEquals(command.getId(), VesselId.of("setpoint test"));
-    }
-
-    @Test
     void hasSetpoint()
     {
         assertEquals(command.getSetpoint(), Temperature.celsius(58.0));
+    }
+
+    @Test
+    void hasVesselId()
+    {
+        assertEquals(command.getId(), VesselId.of("setpoint test"));
     }
 }

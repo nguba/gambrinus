@@ -65,12 +65,10 @@ public class PIDController
      */
     private static double constrain(final double value, final double min, final double max)
     {
-        if (value > max) {
+        if (value > max)
             return max;
-        }
-        if (value < min) {
+        if (value < min)
             return min;
-        }
         return value;
     }
 
@@ -156,31 +154,23 @@ public class PIDController
     private void checkSigns()
     {
         if (reversed) { // all values should be below zero
-            if (P > 0) {
+            if (P > 0)
                 P *= -1;
-            }
-            if (I > 0) {
+            if (I > 0)
                 I *= -1;
-            }
-            if (D > 0) {
+            if (D > 0)
                 D *= -1;
-            }
-            if (F > 0) {
+            if (F > 0)
                 F *= -1;
-            }
         } else { // all values should be above zero
-            if (P < 0) {
+            if (P < 0)
                 P *= -1;
-            }
-            if (I < 0) {
+            if (I < 0)
                 I *= -1;
-            }
-            if (D < 0) {
+            if (D < 0)
                 D *= -1;
-            }
-            if (F < 0) {
+            if (F < 0)
                 F *= -1;
-            }
         }
     }
 
@@ -232,9 +222,8 @@ public class PIDController
         this.setpoint = setpoint;
 
         // Ramp the setpoint used for calculations if user has opted to do so
-        if (setpointRange != 0) {
+        if (setpointRange != 0)
             this.setpoint = constrain(setpoint, actual - setpointRange, actual + setpointRange);
-        }
 
         // Do the simple parts of the calculations
         final double error = setpoint - actual;
@@ -274,35 +263,29 @@ public class PIDController
         // 3. prevent windup by not increasing errorSum if output is
         // output=maxOutput
         Ioutput = I * errorSum;
-        if (maxIOutput != 0) {
+        if (maxIOutput != 0)
             Ioutput = constrain(Ioutput, -maxIOutput, maxIOutput);
-        }
 
         // And, finally, we can just add the terms up
         output = Foutput + Poutput + Ioutput + Doutput;
 
         // Figure out what we're doing with the error.
-        if (minOutput != maxOutput && !bounded(output, minOutput, maxOutput)) {
+        if (minOutput != maxOutput && !bounded(output, minOutput, maxOutput))
             errorSum = error;
-        } else if (outputRampRate != 0
-                && !bounded(output, lastOutput - outputRampRate, lastOutput + outputRampRate)) {
+        else if (outputRampRate != 0
+                && !bounded(output, lastOutput - outputRampRate, lastOutput + outputRampRate))
             errorSum = error;
-        } else if (maxIOutput != 0) {
+        else if (maxIOutput != 0)
             errorSum = constrain(errorSum + error, -maxError, maxError);
-        } else {
-            errorSum += error;
-        }
+        else errorSum += error;
 
         // Restrict output to our specified output and ramp limits
-        if (outputRampRate != 0) {
+        if (outputRampRate != 0)
             output = constrain(output, lastOutput - outputRampRate, lastOutput + outputRampRate);
-        }
-        if (minOutput != maxOutput) {
+        if (minOutput != maxOutput)
             output = constrain(output, minOutput, maxOutput);
-        }
-        if (outputFilter != 0) {
+        if (outputFilter != 0)
             output = lastOutput * outputFilter + output * (1 - outputFilter);
-        }
 
         // Get a test printline with lots of details about the internal
         // calculations. This can be useful for debugging.
@@ -391,12 +374,10 @@ public class PIDController
      */
     public void setI(final double i)
     {
-        if (I != 0) {
+        if (I != 0)
             errorSum = errorSum * I / i;
-        }
-        if (maxIOutput != 0) {
+        if (maxIOutput != 0)
             maxError = maxIOutput / i;
-        }
         I = i;
         checkSigns();
         // Implementation note:
@@ -421,9 +402,8 @@ public class PIDController
         // against
         // the max error are far more common than changing the I term or Izone.
         maxIOutput = maximum;
-        if (I != 0) {
+        if (I != 0)
             maxError = maxIOutput / I;
-        }
     }
 
     /**
@@ -445,9 +425,8 @@ public class PIDController
      */
     public void setOutputFilter(final double strength)
     {
-        if (strength == 0 || bounded(strength, 0, 1)) {
+        if (strength == 0 || bounded(strength, 0, 1))
             outputFilter = strength;
-        }
     }
 
     /**
@@ -472,17 +451,15 @@ public class PIDController
      */
     public void setOutputLimits(final double minimum, final double maximum)
     {
-        if (maximum < minimum) {
+        if (maximum < minimum)
             return;
-        }
         maxOutput = maximum;
         minOutput = minimum;
 
         // Ensure the bounds of the I term are within the bounds of the
         // allowable output swing
-        if (maxIOutput == 0 || maxIOutput > maximum - minimum) {
+        if (maxIOutput == 0 || maxIOutput > maximum - minimum)
             setMaxIOutput(maximum - minimum);
-        }
     }
 
     /**

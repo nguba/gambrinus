@@ -32,32 +32,16 @@ import java.util.Optional;
 public final class ReadTemperatureHandler
         implements QueryHandler<ReadTemperature, ReadTemperatureResult>
 {
-    private final VesselRepository vessels;
-
-    private ReadTemperatureHandler(final VesselRepository vessels)
-    {
-        this.vessels = vessels;
-    }
-
     public static ReadTemperatureHandler on(final VesselRepository vessels)
     {
         return new ReadTemperatureHandler(vessels);
     }
 
-    @Override
-    public void validate(final ReadTemperature query, final Errors errors)
-    {
-        if (query.getVesselId() == null) {
-            errors.add(Reason.from("No vesselId"));
-        }
+    private final VesselRepository vessels;
 
-        final Optional<Vessel> read = vessels.read(query.getVesselId());
-        if (!read.isPresent()) {
-            errors.add(Reason.from(String.format("Vessel not found: %s", query.getVesselId())));
-        } else if (!read.get().isActive()) {
-            errors.add(Reason
-                    .from(String.format("No sensor configured for: %s", query.getVesselId())));
-        }
+    private ReadTemperatureHandler(final VesselRepository vessels)
+    {
+        this.vessels = vessels;
     }
 
     @Override
@@ -71,6 +55,20 @@ public final class ReadTemperatureHandler
             throw new IllegalStateException("Unable to query temperature: " + e.getMessage(), e);
         }
 
+    }
+
+    @Override
+    public void validate(final ReadTemperature query, final Errors errors)
+    {
+        if (query.getVesselId() == null)
+            errors.add(Reason.from("No vesselId"));
+
+        final Optional<Vessel> read = vessels.read(query.getVesselId());
+        if (!read.isPresent())
+            errors.add(Reason.from(String.format("Vessel not found: %s", query.getVesselId())));
+        else if (!read.get().isActive())
+            errors.add(Reason
+                    .from(String.format("No sensor configured for: %s", query.getVesselId())));
     }
 
 }

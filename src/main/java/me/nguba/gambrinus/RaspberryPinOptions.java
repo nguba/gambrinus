@@ -26,20 +26,15 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "gambrinus.raspberry.pin")
 public class RaspberryPinOptions
 {
-    private GPIO mt;
+    private GPIO bk;
 
     private GPIO hlt;
 
-    private GPIO bk;
+    private GPIO mt;
 
-    public GPIO getMt()
+    public GPIO getBk()
     {
-        return mt;
-    }
-
-    public void setMt(final GPIO mt)
-    {
-        this.mt = mt;
+        return bk;
     }
 
     public GPIO getHlt()
@@ -47,19 +42,24 @@ public class RaspberryPinOptions
         return hlt;
     }
 
-    public void setHlt(final GPIO hlt)
+    public GPIO getMt()
     {
-        this.hlt = hlt;
-    }
-
-    public GPIO getBk()
-    {
-        return bk;
+        return mt;
     }
 
     public void setBk(final GPIO bk)
     {
         this.bk = bk;
+    }
+
+    public void setHlt(final GPIO hlt)
+    {
+        this.hlt = hlt;
+    }
+
+    public void setMt(final GPIO mt)
+    {
+        this.mt = mt;
     }
 
     @Override

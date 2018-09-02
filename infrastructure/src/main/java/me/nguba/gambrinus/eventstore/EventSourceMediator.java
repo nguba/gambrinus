@@ -32,19 +32,19 @@ import java.io.IOException;
  */
 public final class EventSourceMediator
 {
+    public static EventSourceMediator connect(final EventPublisher publisher,
+                                              final EventStore store)
+    {
+        final EventSourceMediator eventSourceListener = new EventSourceMediator(store);
+        publisher.subscribe(eventSourceListener);
+        return eventSourceListener;
+    }
+
     private final EventStore store;
 
     private EventSourceMediator(final EventStore store)
     {
         this.store = store;
-    }
-
-    public static final EventSourceMediator connect(final EventPublisher publisher,
-                                                    final EventStore store)
-    {
-        final EventSourceMediator eventSourceListener = new EventSourceMediator(store);
-        publisher.subscribe(eventSourceListener);
-        return eventSourceListener;
     }
 
     @Subscribe

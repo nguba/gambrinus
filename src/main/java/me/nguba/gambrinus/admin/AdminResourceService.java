@@ -44,13 +44,12 @@ public final class AdminResourceService implements Service
         this.admin = admin;
     }
 
-    public Set<ResourceSupport> findVessels() throws ValidationFailed, IOException
+    public void createVessel(final VesselId id,
+                             final OneWireAddress address,
+                             final String mountpoint)
+            throws ValidationFailed, IOException
     {
-        final Set<ResourceSupport> vessels = new HashSet<>();
-        for (final Vessel vessel : admin.findVessels()) {
-            vessels.add(VesselAdapter.adapt(vessel));
-        }
-        return vessels;
+        admin.createVessel(id, OwfsRoot.of(mountpoint), address);
     }
 
     public Set<ResourceSupport> findAddresses(final String mountpoint) throws ValidationFailed
@@ -63,17 +62,17 @@ public final class AdminResourceService implements Service
         return resources;
     }
 
-    public void createVessel(final VesselId id,
-                             final OneWireAddress address,
-                             final String mountpoint)
-            throws ValidationFailed, IOException
-    {
-        admin.createVessel(id, OwfsRoot.of(mountpoint), address);
-    }
-
     public ResourceSupport findVessel(final VesselId id) throws ValidationFailed
     {
         return VesselAdapter.adapt(admin.findVessel(id));
+    }
+
+    public Set<ResourceSupport> findVessels() throws ValidationFailed, IOException
+    {
+        final Set<ResourceSupport> vessels = new HashSet<>();
+        for (final Vessel vessel : admin.findVessels())
+            vessels.add(VesselAdapter.adapt(vessel));
+        return vessels;
     }
 
 }

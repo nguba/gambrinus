@@ -31,34 +31,31 @@ import java.util.Optional;
 public class SetProcessValueHandler extends VesselHandler<SetProcessValue>
 {
 
-    private SetProcessValueHandler(final VesselRepository repo)
-    {
-        super(repo);
-    }
-
     public static SetProcessValueHandler from(final VesselRepository repo)
     {
         return new SetProcessValueHandler(repo);
     }
 
+    private SetProcessValueHandler(final VesselRepository repo)
+    {
+        super(repo);
+    }
+
     @Override
     protected void onValidate(final SetProcessValue command, final Errors errors)
     {
-        if (command.getProcessValue() == null) {
+        if (command.getProcessValue() == null)
             errors.add(Reason.from("No processValue"));
-        }
 
-        if (command.getId() == null) {
+        if (command.getId() == null)
             errors.add(Reason.from("No vesselId"));
-        }
 
         final Optional<Vessel> read = repo.read(command.getId());
-        if (!read.isPresent()) {
+        if (!read.isPresent())
             errors.add(Reason.from(String.format("Vessel not found: %s", command.getId())));
-        } else if (!read.get().isActive()) {
+        else if (!read.get().isActive())
             errors.add(Reason
                     .from(String.format("No sensor configured for: %s", command.getId())));
-        }
     }
 
     @Override

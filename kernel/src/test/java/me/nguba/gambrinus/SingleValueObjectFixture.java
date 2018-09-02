@@ -26,12 +26,19 @@ import org.junit.jupiter.api.Test;
 
 public abstract class SingleValueObjectFixture<I, V extends SingleValueObject<I>>
 {
+    private final V valueObject = makeValueObject();
+
+    @Test
+    @DisplayName("equality contract is upheld")
+    void equalityContract()
+    {
+        EqualsVerifier.forClass(valueObject.getClass()).usingGetClass().verify();
+    }
+
     protected V getValueObject()
     {
         return valueObject;
     }
-
-    private final V valueObject = makeValueObject();
 
     @Test
     @DisplayName("Is valid when not null")
@@ -47,13 +54,6 @@ public abstract class SingleValueObjectFixture<I, V extends SingleValueObject<I>
     void toStringReturnsValueAsString()
     {
         assertThat(valueObject.toString()).isEqualTo(valueObject.getValue().toString());
-    }
-
-    @Test
-    @DisplayName("equality contract is upheld")
-    void equalityContract()
-    {
-        EqualsVerifier.forClass(valueObject.getClass()).usingGetClass().verify();
     }
 
 }

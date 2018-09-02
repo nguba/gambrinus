@@ -56,18 +56,18 @@ class TemperatureTest
     }
 
     @Test
-    @DisplayName("Farenheit to Kelvin")
-    void convertFarenheitToKelvin()
-    {
-        assertThat(Temperature.farenheit(103.23).toKelvin()).isEqualTo(Temperature.kelvin(312.72));
-    }
-
-    @Test
     @DisplayName("Farenheit to Farenheit")
     void convertFarenheitToFarenheit()
     {
         assertThat(Temperature.farenheit(103.23).toFarenheit())
                 .isEqualTo(Temperature.farenheit(103.23));
+    }
+
+    @Test
+    @DisplayName("Farenheit to Kelvin")
+    void convertFarenheitToKelvin()
+    {
+        assertThat(Temperature.farenheit(103.23).toKelvin()).isEqualTo(Temperature.kelvin(312.72));
     }
 
     @Test

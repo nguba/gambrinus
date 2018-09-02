@@ -23,36 +23,9 @@ import me.nguba.gambrinus.cqrs.query.Query;
  */
 public class FindOneWireAddresses implements Query
 {
-    @Override
-    public int hashCode()
+    public static FindOneWireAddresses on(final String mountpoint)
     {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + (mountpoint == null ? 0 : mountpoint.hashCode());
-        return result;
-    }
-
-    @Override
-    public boolean equals(final Object obj)
-    {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final FindOneWireAddresses other = (FindOneWireAddresses) obj;
-        if (mountpoint == null) {
-            if (other.mountpoint != null) {
-                return false;
-            }
-        } else if (!mountpoint.equals(other.mountpoint)) {
-            return false;
-        }
-        return true;
+        return new FindOneWireAddresses(mountpoint);
     }
 
     private final String mountpoint;
@@ -62,13 +35,35 @@ public class FindOneWireAddresses implements Query
         this.mountpoint = mountpoint;
     }
 
+    @Override
+    public boolean equals(final Object obj)
+    {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final FindOneWireAddresses other = (FindOneWireAddresses) obj;
+        if (mountpoint == null) {
+            if (other.mountpoint != null)
+                return false;
+        } else if (!mountpoint.equals(other.mountpoint))
+            return false;
+        return true;
+    }
+
     public String getMountpoint()
     {
         return mountpoint;
     }
 
-    public static FindOneWireAddresses on(final String mountpoint)
+    @Override
+    public int hashCode()
     {
-        return new FindOneWireAddresses(mountpoint);
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + (mountpoint == null ? 0 : mountpoint.hashCode());
+        return result;
     }
 }

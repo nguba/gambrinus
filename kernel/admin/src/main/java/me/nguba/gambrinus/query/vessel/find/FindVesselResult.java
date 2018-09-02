@@ -27,19 +27,6 @@ import java.util.Optional;
  */
 public final class FindVesselResult implements Result<Vessel>
 {
-    private final Optional<Vessel> vessel;
-
-    public FindVesselResult(final Optional<Vessel> vessel)
-    {
-        this.vessel = vessel;
-    }
-
-    @Override
-    public Optional<Vessel> getResult()
-    {
-        return vessel;
-    }
-
     public static FindVesselResult empty()
     {
         return new FindVesselResult(Optional.empty());
@@ -53,5 +40,18 @@ public final class FindVesselResult implements Result<Vessel>
     public static FindVesselResult of(final Optional<Vessel> read)
     {
         return new FindVesselResult(read);
+    }
+
+    private final Optional<Vessel> vessel;
+
+    public FindVesselResult(final Optional<Vessel> vessel)
+    {
+        this.vessel = vessel;
+    }
+
+    @Override
+    public Optional<Vessel> getResult()
+    {
+        return vessel;
     }
 }

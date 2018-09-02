@@ -24,14 +24,24 @@ public abstract class EventSource
 {
     protected long timestamp;
 
+    @Override
+    public boolean equals(final Object obj)
+    {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final EventSource other = (EventSource) obj;
+        if (timestamp != other.timestamp)
+            return false;
+        return true;
+    }
+
     public long getTimestamp()
     {
         return timestamp;
-    }
-
-    public void setTimestamp(final long timestamp)
-    {
-        this.timestamp = timestamp;
     }
 
     @Override
@@ -39,27 +49,13 @@ public abstract class EventSource
     {
         final int prime = 31;
         int result = 1;
-        result = prime * result + (int) (timestamp ^ (timestamp >>> 32));
+        result = prime * result + (int) (timestamp ^ timestamp >>> 32);
         return result;
     }
 
-    @Override
-    public boolean equals(final Object obj)
+    public void setTimestamp(final long timestamp)
     {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final EventSource other = (EventSource) obj;
-        if (timestamp != other.timestamp) {
-            return false;
-        }
-        return true;
+        this.timestamp = timestamp;
     }
 
 }

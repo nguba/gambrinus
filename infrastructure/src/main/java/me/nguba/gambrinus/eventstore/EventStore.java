@@ -34,6 +34,11 @@ public final class EventStore
 {
     private static final Logger LOGGER = LoggerFactory.getLogger(EventStore.class);
 
+    public static EventStore with(final JdbcTemplate jdbc)
+    {
+        return new EventStore(jdbc, EventSerializerService.flatFormat());
+    }
+
     private final JdbcTemplate jdbc;
 
     private final EventSerializerService serializer;
@@ -42,20 +47,6 @@ public final class EventStore
     {
         this.jdbc = jdbc;
         this.serializer = serializer;
-    }
-
-    public static final EventStore with(final JdbcTemplate jdbc)
-    {
-        return new EventStore(jdbc, EventSerializerService.flatFormat());
-    }
-
-    public void record(final EventSource source) throws IOException
-    {
-        LOGGER.info("Storing: {}", source);
-        jdbc.update("INSERT INTO events (id, timestamp, source) VALUES (?, ?,?)",
-                    source.getClass().getName(),
-                    Instant.ofEpochMilli(source.getTimestamp()),
-                    serializer.transform(source));
     }
 
     public <T extends EventSource> List<T> find(final Class<T> id)
@@ -69,5 +60,14 @@ public final class EventStore
                                   throw new SQLException(e);
                               }
                           });
+    }
+
+    public void record(final EventSource source) throws IOException
+    {
+        LOGGER.info("Storing: {}", source);
+        jdbc.update("INSERT INTO events (id, timestamp, source) VALUES (?, ?,?)",
+                    source.getClass().getName(),
+                    Instant.ofEpochMilli(source.getTimestamp()),
+                    serializer.transform(source));
     }
 }

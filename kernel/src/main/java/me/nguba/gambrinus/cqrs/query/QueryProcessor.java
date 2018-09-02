@@ -26,11 +26,6 @@ import me.nguba.gambrinus.ddd.validation.ValidationFailed;
  */
 public final class QueryProcessor
 {
-    private QueryProcessor()
-    {
-        super();
-    }
-
     public static <Q extends Query, R extends Result<?>> R query(final Q query,
                                                                  final QueryHandler<Q, R> handler)
             throws ValidationFailed
@@ -53,6 +48,11 @@ public final class QueryProcessor
         handler.validate(query, errors);
 
         errors.verify();
+    }
+
+    private QueryProcessor()
+    {
+        super();
     }
 
 }

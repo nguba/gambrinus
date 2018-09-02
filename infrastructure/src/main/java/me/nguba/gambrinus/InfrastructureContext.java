@@ -37,15 +37,15 @@ public class InfrastructureContext
     }
 
     @Bean
-    public EventStore eventStore(final JdbcTemplate jdbc)
-    {
-        return EventStore.with(jdbc);
-    }
-
-    @Bean
     public EventSourceMediator eventSourceListener(final EventPublisher publisher,
                                                    final EventStore store)
     {
         return EventSourceMediator.connect(publisher, store);
+    }
+
+    @Bean
+    public EventStore eventStore(final JdbcTemplate jdbc)
+    {
+        return EventStore.with(jdbc);
     }
 }

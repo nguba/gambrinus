@@ -32,23 +32,14 @@ import java.util.Set;
 public final class FindOneWireAddressesHandler
         implements QueryHandler<FindOneWireAddresses, FindOneWireAddressResult>
 {
-    private FindOneWireAddressesHandler()
-    {
-        super();
-    }
-
     public static FindOneWireAddressesHandler on()
     {
         return new FindOneWireAddressesHandler();
     }
 
-    @Override
-    public void validate(final FindOneWireAddresses query, final Errors errors)
+    private FindOneWireAddressesHandler()
     {
-        final OwfsRoot root = OwfsRoot.of(query.getMountpoint());
-        if (!root.isValid()) {
-            errors.add(Reason.from(String.format("Invalid mountpoint: %s", root)));
-        }
+        super();
     }
 
     @Override
@@ -57,11 +48,18 @@ public final class FindOneWireAddressesHandler
         final OwfsRoot root = OwfsRoot.of(query.getMountpoint());
         final Set<OneWireAddress> addresses = new HashSet<>();
 
-        for (final OwfsSensor sensor : root.listSensors()) {
+        for (final OwfsSensor sensor : root.listSensors())
             addresses.add(sensor.getId());
-        }
         return FindOneWireAddressResult
                 .from(addresses.toArray(new OneWireAddress[addresses.size()]));
+    }
+
+    @Override
+    public void validate(final FindOneWireAddresses query, final Errors errors)
+    {
+        final OwfsRoot root = OwfsRoot.of(query.getMountpoint());
+        if (!root.isValid())
+            errors.add(Reason.from(String.format("Invalid mountpoint: %s", root)));
     }
 
 }

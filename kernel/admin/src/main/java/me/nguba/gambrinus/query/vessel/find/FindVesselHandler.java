@@ -30,19 +30,16 @@ import java.util.Optional;
  */
 public final class FindVesselHandler implements QueryHandler<FindVessel, FindVesselResult>
 {
+    public static FindVesselHandler on(final VesselRepository vessels)
+    {
+        return new FindVesselHandler(vessels);
+    }
+
     private final VesselRepository vessels;
 
     public FindVesselHandler(final VesselRepository vessels)
     {
         this.vessels = vessels;
-    }
-
-    @Override
-    public void validate(final FindVessel query, final Errors errors)
-    {
-        if (query.getId() == null) {
-            errors.add(Reason.from("vesselId cannot be null"));
-        }
     }
 
     @Override
@@ -52,8 +49,10 @@ public final class FindVesselHandler implements QueryHandler<FindVessel, FindVes
         return FindVesselResult.of(read);
     }
 
-    public static FindVesselHandler on(final VesselRepository vessels)
+    @Override
+    public void validate(final FindVessel query, final Errors errors)
     {
-        return new FindVesselHandler(vessels);
+        if (query.getId() == null)
+            errors.add(Reason.from("vesselId cannot be null"));
     }
 }

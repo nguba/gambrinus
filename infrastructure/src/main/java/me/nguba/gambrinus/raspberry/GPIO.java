@@ -25,13 +25,13 @@ import com.pi4j.io.gpio.Pin;
  */
 public final class GPIO extends SingleValueObject<Pin>
 {
-    private GPIO(final Pin value)
-    {
-        super(value);
-    }
-
     public static GPIO from(final Pin pin)
     {
         return new GPIO(pin);
+    }
+
+    private GPIO(final Pin value)
+    {
+        super(value);
     }
 }

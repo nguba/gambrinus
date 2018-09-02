@@ -32,9 +32,9 @@ import me.nguba.gambrinus.event.EventPublisher;
  */
 public final class BrewCommands
 {
-    private final VesselRepository vessels;
-
     private final EventPublisher events;
+
+    private final VesselRepository vessels;
 
     public BrewCommands(final VesselRepository vessels, final EventPublisher events)
     {

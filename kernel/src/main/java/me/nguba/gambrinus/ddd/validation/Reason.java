@@ -23,13 +23,13 @@ import me.nguba.gambrinus.ddd.support.SingleValueObject;
  */
 public final class Reason extends SingleValueObject<String>
 {
-    private Reason(final String value)
-    {
-        super(value);
-    }
-
     public static Reason from(final String reason)
     {
         return new Reason(reason);
+    }
+
+    private Reason(final String value)
+    {
+        super(value);
     }
 }

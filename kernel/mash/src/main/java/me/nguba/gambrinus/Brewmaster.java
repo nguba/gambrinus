@@ -50,11 +50,6 @@ public final class Brewmaster
         commands.execute(ChangeSetpoint.on(vessel, target));
     }
 
-    public Temperature processValue(final VesselId vessel) throws ValidationFailed
-    {
-        return queries.run(ReadTemperature.from(vessel));
-    }
-
     public void monitor(final VesselId vessel, final Period period) throws ValidationFailed
     {
         updateProcessValue(vessel);
@@ -66,6 +61,11 @@ public final class Brewmaster
                 throw new IllegalStateException("Reading temperature failed", e);
             }
         }, period.getValue(), period.getValue(), TimeUnit.SECONDS);
+    }
+
+    public Temperature processValue(final VesselId vessel) throws ValidationFailed
+    {
+        return queries.run(ReadTemperature.from(vessel));
     }
 
     private void updateProcessValue(final VesselId vessel) throws ValidationFailed

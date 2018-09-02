@@ -25,15 +25,15 @@ import org.junit.jupiter.api.Test;
 class OneWireAddressTest extends SingleValueObjectFixture<String, OneWireAddress>
 {
     @Test
-    void isNull()
-    {
-        assertThat(OneWireAddress.of(null).isValid()).isFalse();
-    }
-
-    @Test
     void isEmpty()
     {
         assertThat(OneWireAddress.of("").isValid()).isFalse();
+    }
+
+    @Test
+    void isNull()
+    {
+        assertThat(OneWireAddress.of(null).isValid()).isFalse();
     }
 
     @Test

@@ -20,14 +20,14 @@ import java.time.Instant;
 public class EventSerializerServiceTest extends MutatorEvent
 {
 
+    public String one = "One value";
+
+    public Integer two = Integer.valueOf(2);
+
     public EventSerializerServiceTest()
     {
         super(Instant.now());
     }
-
-    public String one = "One value";
-
-    public Integer two = Integer.valueOf(2);
 
     @Test
     void transforToUnindentedString() throws Exception

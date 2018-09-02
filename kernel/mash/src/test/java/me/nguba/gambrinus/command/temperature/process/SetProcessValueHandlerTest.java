@@ -43,17 +43,11 @@ class SetProcessValueHandlerTest
 
     private SetProcessValueHandler handler;
 
-    private final VesselRepository repo = new VesselRepository();
-
     private final VesselId id = VesselId.of("bk");
 
     private final Temperature processValue = Temperature.celsius(68.0);
 
-    @BeforeEach
-    void setUp()
-    {
-        handler = SetProcessValueHandler.from(repo);
-    }
+    private final VesselRepository repo = new VesselRepository();
 
     @Test
     void mutateNonExistingVessel()
@@ -78,18 +72,10 @@ class SetProcessValueHandlerTest
         assertThat(repo.read(id).get().processValue()).isEqualTo(processValue);
     }
 
-    @Test
-    void validation() throws Exception
+    @BeforeEach
+    void setUp()
     {
-        final Errors results = Errors.empty();
-
-        handler.validate(SetProcessValue.with(null, null), results);
-
-        final ValidationFailed exception = assertThrows(ValidationFailed.class,
-                                                        () -> results.verify());
-
-        assertThat(exception.getErrors().has(Reason.from("No vesselId"))).isTrue();
-        assertThat(exception.getErrors().has(Reason.from("No processValue"))).isTrue();
+        handler = SetProcessValueHandler.from(repo);
     }
 
     @Test
@@ -103,5 +89,19 @@ class SetProcessValueHandlerTest
                                                         () -> results.verify());
 
         assertThat(exception.getErrors().has(Reason.from("Vessel not found: bk"))).isTrue();
+    }
+
+    @Test
+    void validation() throws Exception
+    {
+        final Errors results = Errors.empty();
+
+        handler.validate(SetProcessValue.with(null, null), results);
+
+        final ValidationFailed exception = assertThrows(ValidationFailed.class,
+                                                        () -> results.verify());
+
+        assertThat(exception.getErrors().has(Reason.from("No vesselId"))).isTrue();
+        assertThat(exception.getErrors().has(Reason.from("No processValue"))).isTrue();
     }
 }

@@ -33,14 +33,7 @@ import java.io.IOException;
  */
 public final class EventSerializerService
 {
-    private final ObjectMapper mapper;
-
     private static final Logger LOGGER = LoggerFactory.getLogger(EventSerializerService.class);
-
-    private EventSerializerService(final ObjectMapper mapper)
-    {
-        this.mapper = mapper;
-    }
 
     public static EventSerializerService flatFormat()
     {
@@ -53,15 +46,22 @@ public final class EventSerializerService
         return new EventSerializerService(mapper);
     }
 
-    public String transform(final Object event) throws IOException
+    private final ObjectMapper mapper;
+
+    private EventSerializerService(final ObjectMapper mapper)
     {
-        final String value = mapper.writeValueAsString(event);
-        LOGGER.trace("{}", value);
-        return value;
+        this.mapper = mapper;
     }
 
     public <E> E restore(final String string, final Class<E> type) throws IOException
     {
         return mapper.readValue(string, type);
+    }
+
+    public String transform(final Object event) throws IOException
+    {
+        final String value = mapper.writeValueAsString(event);
+        LOGGER.trace("{}", value);
+        return value;
     }
 }

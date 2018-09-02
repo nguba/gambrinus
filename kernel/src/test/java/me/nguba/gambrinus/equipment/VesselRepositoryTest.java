@@ -30,30 +30,8 @@ import java.util.Optional;
  */
 class VesselRepositoryTest
 {
-    private final VesselRepository repository = new VesselRepository();
     private final Vessel           mashTun    = Vessel.inactive(VesselId.of("mash"));
-
-    @Test
-    void createReturnsId()
-    {
-        final Optional<VesselId> id = create(mashTun);
-
-        assertThat(id.get()).isEqualTo(VesselId.of("mash"));
-    }
-
-    private Optional<VesselId> create(final Vessel vessel)
-    {
-        final Optional<VesselId> id = repository.create(vessel);
-        return id;
-    }
-
-    @Test
-    void canReadStoredObject()
-    {
-        final Optional<VesselId> id = create(mashTun);
-
-        assertThat(repository.read(id.get()).get()).isEqualTo(mashTun);
-    }
+    private final VesselRepository repository = new VesselRepository();
 
     @Test
     void canReadDifferentStoredObject()
@@ -65,15 +43,37 @@ class VesselRepositoryTest
     }
 
     @Test
-    void readNonExistentObject()
+    void canReadStoredObject()
     {
-        assertThat(repository.read(VesselId.of("none")).isPresent()).isFalse();
+        final Optional<VesselId> id = create(mashTun);
+
+        assertThat(repository.read(id.get()).get()).isEqualTo(mashTun);
+    }
+
+    private Optional<VesselId> create(final Vessel vessel)
+    {
+        final Optional<VesselId> id = repository.create(vessel);
+        return id;
     }
 
     @Test
-    void updateNotSupported()
+    void createNull()
     {
-        assertThrows(UnsupportedOperationException.class, () -> repository.update(mashTun));
+        assertThat(repository.create(null).isPresent()).isFalse();
+    }
+
+    @Test
+    void createReturnsId()
+    {
+        final Optional<VesselId> id = create(mashTun);
+
+        assertThat(id.get()).isEqualTo(VesselId.of("mash"));
+    }
+
+    @Test
+    void deleteNull()
+    {
+        repository.delete(null);
     }
 
     @Test
@@ -87,9 +87,22 @@ class VesselRepositoryTest
     }
 
     @Test
-    void deleteNull()
+    void readAll()
     {
-        repository.delete(null);
+        final Vessel[] expected = { Vessel.inactive(VesselId.of("1")),
+                Vessel.inactive(VesselId.of("2")) };
+        for (final Vessel v : expected)
+            repository.create(v);
+
+        final Vessel[] actual = repository.findAll();
+
+        assertThat(actual).isEqualTo(expected);
+    }
+
+    @Test
+    void readNonExistentObject()
+    {
+        assertThat(repository.read(VesselId.of("none")).isPresent()).isFalse();
     }
 
     @Test
@@ -99,22 +112,8 @@ class VesselRepositoryTest
     }
 
     @Test
-    void createNull()
+    void updateNotSupported()
     {
-        assertThat(repository.create(null).isPresent()).isFalse();
-    }
-
-    @Test
-    void readAll()
-    {
-        final Vessel[] expected = { Vessel.inactive(VesselId.of("1")),
-                Vessel.inactive(VesselId.of("2")) };
-        for (final Vessel v : expected) {
-            repository.create(v);
-        }
-
-        final Vessel[] actual = repository.findAll();
-
-        assertThat(actual).isEqualTo(expected);
+        assertThrows(UnsupportedOperationException.class, () -> repository.update(mashTun));
     }
 }

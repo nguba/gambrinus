@@ -37,6 +37,12 @@ class ProcessValueChangedTest
     private final VesselId vesselId = VesselId.of("Mash Tun");
 
     @Test
+    void equalityContract()
+    {
+        EqualsVerifier.forClass(ProcessValueChanged.class).usingGetClass().verify();
+    }
+
+    @Test
     void failsWhenNoVesselGiven()
     {
         assertThrows(IllegalArgumentException.class,
@@ -58,20 +64,14 @@ class ProcessValueChangedTest
     }
 
     @Test
-    void vesselId()
-    {
-        assertThat(ProcessValueChanged.on(vesselId, expected).getVesselId()).isEqualTo(vesselId);
-    }
-
-    @Test
     void toStringWorks()
     {
         assertThat(ProcessValueChanged.on(vesselId, expected).toString()).isNotBlank();
     }
 
     @Test
-    void equalityContract()
+    void vesselId()
     {
-        EqualsVerifier.forClass(ProcessValueChanged.class).usingGetClass().verify();
+        assertThat(ProcessValueChanged.on(vesselId, expected).getVesselId()).isEqualTo(vesselId);
     }
 }

@@ -19,7 +19,6 @@ package me.nguba.gambrinus.eventstore.sources;
 import me.nguba.gambrinus.command.temperature.process.ProcessValueChanged;
 import me.nguba.gambrinus.equipment.VesselId;
 import me.nguba.gambrinus.eventstore.EventSerializerService;
-import me.nguba.gambrinus.eventstore.sources.ProcessValueChangedSource;
 import me.nguba.gambrinus.process.Temperature;
 
 import org.slf4j.Logger;
@@ -36,19 +35,12 @@ class ProcessValueChangedSourceTest
     private static final Logger LOGGER = LoggerFactory
             .getLogger(ProcessValueChangedSourceTest.class);
 
-    private final EventSerializerService serializer = EventSerializerService.flatFormat();
-
-    private final Temperature temperature = Temperature.celsius(10);
-
     private final ProcessValueChanged event = ProcessValueChanged.on(VesselId.of("Boil Kettle"),
                                                                      temperature.toCelsius());
 
-    @Test
-    void canSerialize() throws Exception
-    {
-        final String json = serialize(ProcessValueChangedSource.from(event));
-        assertThat(json).contains("timestamp", ":10.0", "C");
-    }
+    private final EventSerializerService serializer = EventSerializerService.flatFormat();
+
+    private final Temperature temperature = Temperature.celsius(10);
 
     @Test
     void canDeserialize() throws Exception
@@ -60,6 +52,13 @@ class ProcessValueChangedSourceTest
 
         LOGGER.info("{}", restore);
         assertThat(restore).isEqualToComparingFieldByField(ProcessValueChangedSource.from(event));
+    }
+
+    @Test
+    void canSerialize() throws Exception
+    {
+        final String json = serialize(ProcessValueChangedSource.from(event));
+        assertThat(json).contains("timestamp", ":10.0", "C");
     }
 
     private String serialize(final Object event) throws IOException

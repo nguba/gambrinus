@@ -25,9 +25,9 @@ public interface Repository<I, A extends Aggregate<I>>
 {
     Optional<I> create(A aggregate);
 
+    void delete(I identifier);
+
     Optional<A> read(I identifier);
 
     void update(A aggregate);
-
-    void delete(I identifier);
 }

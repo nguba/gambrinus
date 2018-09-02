@@ -32,12 +32,6 @@ class OwfsSensorTest
 {
     private OwfsSensor sensor;
 
-    @BeforeEach
-    void setUp() throws Exception
-    {
-        sensor = OwfsSensor.from(OwfsMother.root(), OwfsMother.address());
-    }
-
     @Test
     void mountFailure() throws Exception
     {
@@ -54,15 +48,6 @@ class OwfsSensorTest
     }
 
     @Test
-    void readMultiple() throws Exception
-    {
-        final Temperature t1 = sensor.read().get();
-        final Temperature t2 = sensor.read().get();
-
-        assertThat(t1).isEqualTo(t2);
-    }
-
-    @Test
     void readFromEmptyTemperatureFile() throws Exception
     {
         final OwfsSensor empty = OwfsSensor.from(OwfsRoot.of("src/test/resources/emptyfs"),
@@ -71,5 +56,20 @@ class OwfsSensorTest
         final Optional<Temperature> temperature = empty.read();
 
         assertThat(temperature.isPresent()).isFalse();
+    }
+
+    @Test
+    void readMultiple() throws Exception
+    {
+        final Temperature t1 = sensor.read().get();
+        final Temperature t2 = sensor.read().get();
+
+        assertThat(t1).isEqualTo(t2);
+    }
+
+    @BeforeEach
+    void setUp() throws Exception
+    {
+        sensor = OwfsSensor.from(OwfsMother.root(), OwfsMother.address());
     }
 }

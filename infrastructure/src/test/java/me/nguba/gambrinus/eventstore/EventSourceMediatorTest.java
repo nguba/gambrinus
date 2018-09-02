@@ -22,6 +22,11 @@ class EventSourceMediatorTest
     @Autowired
     private EventPublisher publisher;
 
+    private <E extends EventSource> int countEvents(final Class<E> target)
+    {
+        return eventStore.find(target).size();
+    }
+
     @Test
     void monitorsProcessValueChanged()
     {
@@ -32,10 +37,5 @@ class EventSourceMediatorTest
         final int after = countEvents(ProcessValueChangedSource.class);
 
         assertThat(after).isGreaterThan(before);
-    }
-
-    private <E extends EventSource> int countEvents(final Class<E> target)
-    {
-        return eventStore.find(target).size();
     }
 }

@@ -25,10 +25,6 @@ import me.nguba.gambrinus.eventstore.EventSource;
  */
 public final class SetpointChangedSource extends EventSource
 {
-    private TemperatureField setpoint;
-
-    private String vesselName;
-
     public static EventSource from(final SetpointChanged event)
     {
         final SetpointChangedSource source = new SetpointChangedSource();
@@ -38,14 +34,36 @@ public final class SetpointChangedSource extends EventSource
         return source;
     }
 
+    private TemperatureField setpoint;
+
+    private String vesselName;
+
+    @Override
+    public boolean equals(final Object obj)
+    {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final SetpointChangedSource other = (SetpointChangedSource) obj;
+        if (setpoint == null) {
+            if (other.setpoint != null)
+                return false;
+        } else if (!setpoint.equals(other.setpoint))
+            return false;
+        if (vesselName == null) {
+            if (other.vesselName != null)
+                return false;
+        } else if (!vesselName.equals(other.vesselName))
+            return false;
+        return true;
+    }
+
     public TemperatureField getSetpoint()
     {
         return setpoint;
-    }
-
-    public void setSetpoint(final TemperatureField setpoint)
-    {
-        this.setpoint = setpoint;
     }
 
     public String getVesselName()
@@ -53,49 +71,24 @@ public final class SetpointChangedSource extends EventSource
         return vesselName;
     }
 
-    public void setVesselName(final String vesselName)
-    {
-        this.vesselName = vesselName;
-    }
-
     @Override
     public int hashCode()
     {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((setpoint == null) ? 0 : setpoint.hashCode());
-        result = prime * result + ((vesselName == null) ? 0 : vesselName.hashCode());
+        result = prime * result + (setpoint == null ? 0 : setpoint.hashCode());
+        result = prime * result + (vesselName == null ? 0 : vesselName.hashCode());
         return result;
     }
 
-    @Override
-    public boolean equals(final Object obj)
+    public void setSetpoint(final TemperatureField setpoint)
     {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final SetpointChangedSource other = (SetpointChangedSource) obj;
-        if (setpoint == null) {
-            if (other.setpoint != null) {
-                return false;
-            }
-        } else if (!setpoint.equals(other.setpoint)) {
-            return false;
-        }
-        if (vesselName == null) {
-            if (other.vesselName != null) {
-                return false;
-            }
-        } else if (!vesselName.equals(other.vesselName)) {
-            return false;
-        }
-        return true;
+        this.setpoint = setpoint;
+    }
+
+    public void setVesselName(final String vesselName)
+    {
+        this.vesselName = vesselName;
     }
 
     @Override

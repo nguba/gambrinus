@@ -26,8 +26,8 @@ import org.springframework.hateoas.ResourceSupport;
  */
 public final class VesselResource extends ResourceSupport
 {
-    private final String sensor;
     private final String processValue;
+    private final String sensor;
     private final String setpoint;
 
     public VesselResource(final Vessel entity)
@@ -37,14 +37,42 @@ public final class VesselResource extends ResourceSupport
         setpoint = entity.setpoint().toString();
     }
 
-    public String getSensor()
+    @Override
+    public boolean equals(final Object obj)
     {
-        return sensor;
+        if (this == obj)
+            return true;
+        if (!super.equals(obj))
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final VesselResource other = (VesselResource) obj;
+        if (sensor == null) {
+            if (other.sensor != null)
+                return false;
+        } else if (!sensor.equals(other.sensor))
+            return false;
+        if (processValue == null) {
+            if (other.processValue != null)
+                return false;
+        } else if (!processValue.equals(other.processValue))
+            return false;
+        if (setpoint == null) {
+            if (other.setpoint != null)
+                return false;
+        } else if (!setpoint.equals(other.setpoint))
+            return false;
+        return true;
     }
 
     public String getProcessValue()
     {
         return processValue;
+    }
+
+    public String getSensor()
+    {
+        return sensor;
     }
 
     public String getSetpoint()
@@ -61,43 +89,6 @@ public final class VesselResource extends ResourceSupport
         result = prime * result + (processValue == null ? 0 : processValue.hashCode());
         result = prime * result + (setpoint == null ? 0 : setpoint.hashCode());
         return result;
-    }
-
-    @Override
-    public boolean equals(final Object obj)
-    {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final VesselResource other = (VesselResource) obj;
-        if (sensor == null) {
-            if (other.sensor != null) {
-                return false;
-            }
-        } else if (!sensor.equals(other.sensor)) {
-            return false;
-        }
-        if (processValue == null) {
-            if (other.processValue != null) {
-                return false;
-            }
-        } else if (!processValue.equals(other.processValue)) {
-            return false;
-        }
-        if (setpoint == null) {
-            if (other.setpoint != null) {
-                return false;
-            }
-        } else if (!setpoint.equals(other.setpoint)) {
-            return false;
-        }
-        return true;
     }
 
 }

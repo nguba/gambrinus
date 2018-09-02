@@ -43,33 +43,47 @@ import java.util.Optional;
  */
 class BrewmasterTest implements EventPublisher
 {
-    private final VesselRepository vessels = new VesselRepository();
-
     private Brewmaster brewmaster;
-
-    private final VesselId vesselId = VesselId.of("mash");
 
     private Optional<MutatorEvent> currentEvent;
 
-    @BeforeEach
-    void setUp()
+    private final VesselId vesselId = VesselId.of("mash");
+
+    private final VesselRepository vessels = new VesselRepository();
+
+    @Test
+    void heatBroadcastsSetpoint() throws Exception
     {
-        vessels.create(Vessel.of(vesselId,
-                                 OwfsSensor.from(OwfsRoot.test(), OneWireAddress.defaultMash())));
+        brewmaster.heat(vesselId, Temperature.celsius(65.5));
 
-        final BrewCommands commandFactory = new BrewCommands(vessels, this);
-        final BrewQueries queryFactory = new BrewQueries(vessels);
+        final SetpointChanged event = (SetpointChanged) currentEvent.get();
 
-        brewmaster = new Brewmaster(commandFactory, queryFactory);
+        assertThat(event.getSetpoint()).isEqualTo(Temperature.celsius(65.5));
+        assertThat(event.getVesselId()).isEqualTo(vesselId);
+
     }
 
     @Test
-    void readTemperartureNotMonitored() throws Exception
+    void heatUpdatesSetpoint() throws Exception
+    {
+        brewmaster.heat(vesselId, Temperature.celsius(65.5));
+        assertThat(vessels.read(vesselId).get().setpoint()).isEqualTo(Temperature.celsius(65.5));
+    }
+
+    @Test
+    void monitorVessel() throws ValidationFailed
     {
         vessels.create(Vessel.of(vesselId,
-                                 OwfsSensor.from(OwfsRoot.test(), OneWireAddress.empty())));
+                                 OwfsSensor.from(OwfsRoot.test(),
+                                                 OneWireAddress.of("28.4BBB68080000"))));
 
-        assertThrows(IllegalStateException.class, () -> brewmaster.processValue(vesselId));
+        brewmaster.monitor(vesselId, Period.oneSecond());
+    }
+
+    @Override
+    public <E extends MutatorEvent> void publish(final E event)
+    {
+        currentEvent = Optional.of(event);
     }
 
     @Test
@@ -90,42 +104,28 @@ class BrewmasterTest implements EventPublisher
     }
 
     @Test
-    void heatUpdatesSetpoint() throws Exception
+    void readTemperartureNotMonitored() throws Exception
     {
-        brewmaster.heat(vesselId, Temperature.celsius(65.5));
-        assertThat(vessels.read(vesselId).get().setpoint()).isEqualTo(Temperature.celsius(65.5));
+        vessels.create(Vessel.of(vesselId,
+                                 OwfsSensor.from(OwfsRoot.test(), OneWireAddress.empty())));
+
+        assertThrows(IllegalStateException.class, () -> brewmaster.processValue(vesselId));
     }
 
-    @Test
-    void heatBroadcastsSetpoint() throws Exception
+    @BeforeEach
+    void setUp()
     {
-        brewmaster.heat(vesselId, Temperature.celsius(65.5));
+        vessels.create(Vessel.of(vesselId,
+                                 OwfsSensor.from(OwfsRoot.test(), OneWireAddress.defaultMash())));
 
-        final SetpointChanged event = (SetpointChanged) currentEvent.get();
+        final BrewCommands commandFactory = new BrewCommands(vessels, this);
+        final BrewQueries queryFactory = new BrewQueries(vessels);
 
-        assertThat(event.getSetpoint()).isEqualTo(Temperature.celsius(65.5));
-        assertThat(event.getVesselId()).isEqualTo(vesselId);
-
-    }
-
-    @Override
-    public <E extends MutatorEvent> void publish(final E event)
-    {
-        currentEvent = Optional.of(event);
+        brewmaster = new Brewmaster(commandFactory, queryFactory);
     }
 
     @Override
     public void subscribe(final Object recipient)
     {
-    }
-
-    @Test
-    void monitorVessel() throws ValidationFailed
-    {
-        vessels.create(Vessel.of(vesselId,
-                                 OwfsSensor.from(OwfsRoot.test(),
-                                                 OneWireAddress.of("28.4BBB68080000"))));
-
-        brewmaster.monitor(vesselId, Period.oneSecond());
     }
 }

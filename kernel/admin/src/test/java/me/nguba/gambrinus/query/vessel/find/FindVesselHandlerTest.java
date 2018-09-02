@@ -35,9 +35,26 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 class FindVesselHandlerTest
 {
+    private FindVesselHandler handler;
+
     private final VesselRepository vessels = new VesselRepository();
 
-    private FindVesselHandler handler;
+    @Test
+    void result()
+    {
+        final Vessel expected = Vessel.inactive(VesselId.of("HLT"));
+        vessels.create(expected);
+
+        final FindVesselResult result = handler.query(FindVessel.of(VesselId.of("HLT")));
+        assertThat(result.getResult().get()).isEqualTo(expected);
+    }
+
+    @Test
+    void resultNotFound()
+    {
+        final FindVesselResult result = handler.query(FindVessel.of(VesselId.of("HLT")));
+        assertThat(result.getResult().isPresent()).isFalse();
+    }
 
     @BeforeEach
     void setUp()
@@ -54,23 +71,6 @@ class FindVesselHandlerTest
 
         final ValidationFailed failed = assertThrows(ValidationFailed.class, () -> errors.verify());
         assertThat(failed.getErrors().toString()).contains("vesselId cannot be null");
-    }
-
-    @Test
-    void resultNotFound()
-    {
-        final FindVesselResult result = handler.query(FindVessel.of(VesselId.of("HLT")));
-        assertThat(result.getResult().isPresent()).isFalse();
-    }
-
-    @Test
-    void result()
-    {
-        final Vessel expected = Vessel.inactive(VesselId.of("HLT"));
-        vessels.create(expected);
-
-        final FindVesselResult result = handler.query(FindVessel.of(VesselId.of("HLT")));
-        assertThat(result.getResult().get()).isEqualTo(expected);
     }
 
 }

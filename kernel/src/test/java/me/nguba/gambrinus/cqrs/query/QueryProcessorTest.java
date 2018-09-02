@@ -56,17 +56,21 @@ class QueryProcessorTest
         assertThat(exception).hasMessage("Query cannot be null");
     }
 
-    @Test
-    void runsValidation() throws Exception
+    @Override
+    public Optional<String> getResult()
     {
-        query();
-
-        assertThat(hasValidated.get()).isTrue();
+        return Optional.of("result");
     }
 
     private QueryProcessorTest query() throws ValidationFailed
     {
         return QueryProcessor.query(this, this);
+    }
+
+    @Override
+    public QueryProcessorTest query(final QueryProcessorTest query)
+    {
+        return this;
     }
 
     @Test
@@ -76,21 +80,17 @@ class QueryProcessorTest
         assertThat(execute).isInstanceOf(getClass());
     }
 
+    @Test
+    void runsValidation() throws Exception
+    {
+        query();
+
+        assertThat(hasValidated.get()).isTrue();
+    }
+
     @Override
     public void validate(final QueryProcessorTest query, final Errors errors)
     {
         hasValidated.getAndSet(true);
-    }
-
-    @Override
-    public QueryProcessorTest query(final QueryProcessorTest query)
-    {
-        return this;
-    }
-
-    @Override
-    public Optional<String> getResult()
-    {
-        return Optional.of("result");
     }
 }

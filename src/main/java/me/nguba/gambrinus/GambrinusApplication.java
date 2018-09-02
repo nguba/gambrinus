@@ -37,43 +37,6 @@ public class GambrinusApplication
     }
 
     @Bean
-    public PinConverter pinConverter()
-    {
-        return new PinConverter();
-    }
-
-    @Bean
-    public VesselRepository vesselRepository()
-    {
-        return new VesselRepository();
-    }
-
-    @Bean
-    public BrewQueries mashQueries(final VesselRepository vessels)
-    {
-        return new BrewQueries(vessels);
-    }
-
-    @Bean
-    public BrewCommands mashCommands(final VesselRepository vessels, final EventPublisher events)
-    {
-        return new BrewCommands(vessels, events);
-    }
-
-    @Bean
-    public Brewmaster brewmaster(final BrewCommands commands,
-                                 final BrewQueries queries)
-    {
-        return new Brewmaster(commands, queries);
-    }
-
-    @Bean
-    public AdminQueries adminQueries(final VesselRepository vessels)
-    {
-        return new AdminQueries(vessels);
-    }
-
-    @Bean
     public AdminCommands adminCommands(final VesselRepository vessels)
     {
         return new AdminCommands(vessels);
@@ -87,8 +50,45 @@ public class GambrinusApplication
     }
 
     @Bean
+    public AdminQueries adminQueries(final VesselRepository vessels)
+    {
+        return new AdminQueries(vessels);
+    }
+
+    @Bean
     public AdminResourceService adminService(final Administrator admin)
     {
         return new AdminResourceService(admin);
+    }
+
+    @Bean
+    public Brewmaster brewmaster(final BrewCommands commands,
+                                 final BrewQueries queries)
+    {
+        return new Brewmaster(commands, queries);
+    }
+
+    @Bean
+    public BrewCommands mashCommands(final VesselRepository vessels, final EventPublisher events)
+    {
+        return new BrewCommands(vessels, events);
+    }
+
+    @Bean
+    public BrewQueries mashQueries(final VesselRepository vessels)
+    {
+        return new BrewQueries(vessels);
+    }
+
+    @Bean
+    public PinConverter pinConverter()
+    {
+        return new PinConverter();
+    }
+
+    @Bean
+    public VesselRepository vesselRepository()
+    {
+        return new VesselRepository();
     }
 }

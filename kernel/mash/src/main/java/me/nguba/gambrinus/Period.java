@@ -24,9 +24,9 @@ import me.nguba.gambrinus.ddd.support.SingleValueObject;
  */
 public final class Period extends SingleValueObject<Long>
 {
-    private Period(final Long value)
+    public static Period from(final String period)
     {
-        super(value);
+        return Period.of(Long.parseLong(period));
     }
 
     public static Period of(final long value)
@@ -39,8 +39,8 @@ public final class Period extends SingleValueObject<Long>
         return Period.of(1);
     }
 
-    public static Period from(final String period)
+    private Period(final Long value)
     {
-        return Period.of(Long.parseLong(period));
+        super(value);
     }
 }

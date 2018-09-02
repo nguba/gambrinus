@@ -36,44 +36,15 @@ import java.util.Optional;
 
 class CreateVesselHandlerTest
 {
-    private final VesselRepository repo = new VesselRepository();
-
-    private CreateVesselHandler mutator;
+    private CreateVessel command;
 
     private final Errors errors = Errors.empty();
 
+    private CreateVesselHandler mutator;
+
+    private final VesselRepository repo = new VesselRepository();
+
     private final VesselId vesselId = VesselId.of("a");
-
-    private CreateVessel command;
-
-    @BeforeEach
-    void setUp()
-    {
-        mutator = new CreateVesselHandler(repo);
-
-        command = CreateVessel.from(vesselId,
-                                    OwfsRoot.of("src/test/resources/owfs"),
-                                    OneWireAddress.of("28.273B5D070000"));
-    }
-
-    @Test
-    void createsEntryInRepository()
-    {
-        mutator.changeStateFor(command);
-
-        final Optional<Vessel> actual = repo.read(vesselId);
-        assertThat(actual.isPresent()).isTrue();
-    }
-
-    @Test
-    void noVesselId()
-    {
-        mutator.validate(CreateVessel.from(null, null, null), errors);
-
-        final ValidationFailed failed = verify();
-
-        assertThat(failed.getErrors().has(Reason.from("VesselId cannot be null"))).isTrue();
-    }
 
     @Test
     void alreadyExists()
@@ -87,6 +58,28 @@ class CreateVesselHandlerTest
         assertThat(failed.getErrors().has(Reason
                 .from(String.format("Vessel already configured", command.getVesselId()))))
                         .isTrue();
+    }
+
+    @Test
+    void cannotMountPath()
+    {
+        final OwfsRoot root = OwfsRoot.of("non/existing/path");
+        final OneWireAddress address = OneWireAddress.of("28.273B5D070000");
+
+        mutator.validate(CreateVessel.from(VesselId.of("arse"), root, address), errors);
+        final ValidationFailed failed = verify();
+
+        assertThat(failed.getErrors().toString())
+                .startsWith("Invalid sensor: ");
+    }
+
+    @Test
+    void createsEntryInRepository()
+    {
+        mutator.changeStateFor(command);
+
+        final Optional<Vessel> actual = repo.read(vesselId);
+        assertThat(actual.isPresent()).isTrue();
     }
 
     @Test
@@ -110,16 +103,23 @@ class CreateVesselHandlerTest
     }
 
     @Test
-    void cannotMountPath()
+    void noVesselId()
     {
-        final OwfsRoot root = OwfsRoot.of("non/existing/path");
-        final OneWireAddress address = OneWireAddress.of("28.273B5D070000");
+        mutator.validate(CreateVessel.from(null, null, null), errors);
 
-        mutator.validate(CreateVessel.from(VesselId.of("arse"), root, address), errors);
         final ValidationFailed failed = verify();
 
-        assertThat(failed.getErrors().toString())
-                .startsWith("Invalid sensor: ");
+        assertThat(failed.getErrors().has(Reason.from("VesselId cannot be null"))).isTrue();
+    }
+
+    @BeforeEach
+    void setUp()
+    {
+        mutator = new CreateVesselHandler(repo);
+
+        command = CreateVessel.from(vesselId,
+                                    OwfsRoot.of("src/test/resources/owfs"),
+                                    OneWireAddress.of("28.273B5D070000"));
     }
 
     private ValidationFailed verify()

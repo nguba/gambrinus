@@ -24,29 +24,6 @@ import me.nguba.gambrinus.process.Temperature;
  */
 public class TemperatureField
 {
-    protected double value;
-    protected String scale;
-
-    public double getValue()
-    {
-        return value;
-    }
-
-    public void setValue(final double value)
-    {
-        this.value = value;
-    }
-
-    public String getScale()
-    {
-        return scale;
-    }
-
-    public void setScale(final String scale)
-    {
-        this.scale = scale;
-    }
-
     public static TemperatureField from(final Temperature temp)
     {
         final TemperatureField source = new TemperatureField();
@@ -55,16 +32,60 @@ public class TemperatureField
         return source;
     }
 
+    protected String scale;
+
+    protected double value;
+
+    @Override
+    public boolean equals(final Object obj)
+    {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final TemperatureField other = (TemperatureField) obj;
+        if (scale == null) {
+            if (other.scale != null)
+                return false;
+        } else if (!scale.equals(other.scale))
+            return false;
+        if (Double.doubleToLongBits(value) != Double.doubleToLongBits(other.value))
+            return false;
+        return true;
+    }
+
+    public String getScale()
+    {
+        return scale;
+    }
+
+    public double getValue()
+    {
+        return value;
+    }
+
     @Override
     public int hashCode()
     {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((scale == null) ? 0 : scale.hashCode());
+        result = prime * result + (scale == null ? 0 : scale.hashCode());
         long temp;
         temp = Double.doubleToLongBits(value);
-        result = prime * result + (int) (temp ^ (temp >>> 32));
+        result = prime * result + (int) (temp ^ temp >>> 32);
         return result;
+    }
+
+    public void setScale(final String scale)
+    {
+        this.scale = scale;
+    }
+
+    public void setValue(final double value)
+    {
+        this.value = value;
     }
 
     @Override
@@ -74,31 +95,5 @@ public class TemperatureField
         builder.append("TemperatureField [value=").append(value).append(", scale=").append(scale)
                 .append("]");
         return builder.toString();
-    }
-
-    @Override
-    public boolean equals(final Object obj)
-    {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final TemperatureField other = (TemperatureField) obj;
-        if (scale == null) {
-            if (other.scale != null) {
-                return false;
-            }
-        } else if (!scale.equals(other.scale)) {
-            return false;
-        }
-        if (Double.doubleToLongBits(value) != Double.doubleToLongBits(other.value)) {
-            return false;
-        }
-        return true;
     }
 }

@@ -23,9 +23,9 @@ import me.nguba.gambrinus.onewire.OneWireAddress;
  */
 public final class OwfsMother
 {
-    private OwfsMother()
+    public static OneWireAddress address()
     {
-        super();
+        return OneWireAddress.of("28.4BBB68080000");
     }
 
     public static OwfsRoot root()
@@ -33,8 +33,8 @@ public final class OwfsMother
         return OwfsRoot.of("src/test/resources/owfs");
     }
 
-    public static OneWireAddress address()
+    private OwfsMother()
     {
-        return OneWireAddress.of("28.4BBB68080000");
+        super();
     }
 }

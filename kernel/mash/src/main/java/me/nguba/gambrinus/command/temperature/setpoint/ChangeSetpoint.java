@@ -25,9 +25,14 @@ import me.nguba.gambrinus.process.Temperature;
  */
 public final class ChangeSetpoint implements VesselCommand
 {
-    private final VesselId vesselId;
+    public static ChangeSetpoint on(final VesselId vesselId, final Temperature setpoint)
+    {
+        return new ChangeSetpoint(vesselId, setpoint);
+    }
 
     private final Temperature setpoint;
+
+    private final VesselId vesselId;
 
     private ChangeSetpoint(final VesselId vesselId, final Temperature setpoint)
     {
@@ -35,9 +40,27 @@ public final class ChangeSetpoint implements VesselCommand
         this.setpoint = setpoint;
     }
 
-    public static ChangeSetpoint on(final VesselId vesselId, final Temperature setpoint)
+    @Override
+    public boolean equals(final Object obj)
     {
-        return new ChangeSetpoint(vesselId, setpoint);
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final ChangeSetpoint other = (ChangeSetpoint) obj;
+        if (setpoint == null) {
+            if (other.setpoint != null)
+                return false;
+        } else if (!setpoint.equals(other.setpoint))
+            return false;
+        if (vesselId == null) {
+            if (other.vesselId != null)
+                return false;
+        } else if (!vesselId.equals(other.vesselId))
+            return false;
+        return true;
     }
 
     @Override
@@ -59,35 +82,5 @@ public final class ChangeSetpoint implements VesselCommand
         result = prime * result + (setpoint == null ? 0 : setpoint.hashCode());
         result = prime * result + (vesselId == null ? 0 : vesselId.hashCode());
         return result;
-    }
-
-    @Override
-    public boolean equals(final Object obj)
-    {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final ChangeSetpoint other = (ChangeSetpoint) obj;
-        if (setpoint == null) {
-            if (other.setpoint != null) {
-                return false;
-            }
-        } else if (!setpoint.equals(other.setpoint)) {
-            return false;
-        }
-        if (vesselId == null) {
-            if (other.vesselId != null) {
-                return false;
-            }
-        } else if (!vesselId.equals(other.vesselId)) {
-            return false;
-        }
-        return true;
     }
 }

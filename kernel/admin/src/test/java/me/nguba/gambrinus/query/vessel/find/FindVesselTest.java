@@ -30,15 +30,15 @@ import org.junit.jupiter.api.Test;
 class FindVesselTest
 {
     @Test
-    void hasVesselId()
-    {
-        assertThat(FindVessel.of(VesselId.of("HLT")).getId()).isEqualTo(VesselId.of("HLT"));
-    }
-
-    @Test
     void equalityContract()
     {
         EqualsVerifier.forClass(FindVessel.class).usingGetClass().verify();
+    }
+
+    @Test
+    void hasVesselId()
+    {
+        assertThat(FindVessel.of(VesselId.of("HLT")).getId()).isEqualTo(VesselId.of("HLT"));
     }
 
 }

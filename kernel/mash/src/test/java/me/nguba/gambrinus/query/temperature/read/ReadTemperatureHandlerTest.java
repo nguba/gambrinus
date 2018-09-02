@@ -42,17 +42,11 @@ class ReadTemperatureHandlerTest
 {
     private ReadTemperatureHandler handler;
 
-    private final VesselRepository vessels = new VesselRepository();
+    private final Errors results = Errors.empty();
 
     private final VesselId vesselId = VesselId.of("boil");
 
-    private final Errors results = Errors.empty();
-
-    @BeforeEach
-    void setUp()
-    {
-        handler = ReadTemperatureHandler.on(vessels);
-    }
+    private final VesselRepository vessels = new VesselRepository();
 
     @Test
     void failOnNoVesselId()
@@ -66,6 +60,17 @@ class ReadTemperatureHandlerTest
     }
 
     @Test
+    void failOnVesselInactive()
+    {
+        handler.validate(ReadTemperature.from(vesselId), results);
+
+        final ValidationFailed failed = assertThrows(ValidationFailed.class,
+                                                     () -> results.verify());
+
+        assertThat(failed.getErrors().has(Reason.from("No sensor configured for: boil")));
+    }
+
+    @Test
     void failOnVesselNotFound()
     {
         handler.validate(ReadTemperature.from(vesselId), results);
@@ -76,15 +81,10 @@ class ReadTemperatureHandlerTest
         assertThat(failed.getErrors().has(Reason.from("Vessel not found: boil")));
     }
 
-    @Test
-    void failOnVesselInactive()
+    @BeforeEach
+    void setUp()
     {
-        handler.validate(ReadTemperature.from(vesselId), results);
-
-        final ValidationFailed failed = assertThrows(ValidationFailed.class,
-                                                     () -> results.verify());
-
-        assertThat(failed.getErrors().has(Reason.from("No sensor configured for: boil")));
+        handler = ReadTemperatureHandler.on(vessels);
     }
 
     @Test

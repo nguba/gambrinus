@@ -28,24 +28,9 @@ import org.junit.jupiter.api.Test;
 
 class FindVesselsHandlerTest
 {
-    private final VesselRepository repository = new VesselRepository();
-
     private FindVesselsHandler handler;
 
-    @BeforeEach
-    void setup()
-    {
-        handler = FindVesselsHandler.on(repository);
-    }
-
-    @Test
-    void validation()
-    {
-        final Errors errors = Errors.empty();
-        handler.validate(FindVessels.create(), errors);
-
-        assertThat(errors.hasErrors()).isFalse();
-    }
+    private final VesselRepository repository = new VesselRepository();
 
     @Test
     void noVesselsFound()
@@ -60,13 +45,27 @@ class FindVesselsHandlerTest
     {
         final Vessel[] expected = { Vessel.inactive(VesselId.of("a")),
                 Vessel.inactive(VesselId.of("b")) };
-        for (final Vessel v : expected) {
+        for (final Vessel v : expected)
             repository.create(v);
-        }
 
         final FindVesselsResult result = handler.query(FindVessels.create());
 
         assertThat(result.getResult().get()).containsOnly(expected);
+    }
+
+    @BeforeEach
+    void setup()
+    {
+        handler = FindVesselsHandler.on(repository);
+    }
+
+    @Test
+    void validation()
+    {
+        final Errors errors = Errors.empty();
+        handler.validate(FindVessels.create(), errors);
+
+        assertThat(errors.hasErrors()).isFalse();
     }
 
 }

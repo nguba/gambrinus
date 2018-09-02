@@ -26,25 +26,40 @@ import java.util.Optional;
  */
 public final class ReadTemperatureResult implements Result<Temperature>
 {
-    @Override
-    public Optional<Temperature> getResult()
+    public static ReadTemperatureResult of(final Temperature temperature)
     {
-        return temperature;
+        return new ReadTemperatureResult(temperature);
     }
+
+    private final Optional<Temperature> temperature;
 
     private ReadTemperatureResult(final Temperature temperature)
     {
         this.temperature = Optional.of(temperature);
     }
 
-    private final Optional<Temperature> temperature;
+    @Override
+    public boolean equals(final Object obj)
+    {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final ReadTemperatureResult other = (ReadTemperatureResult) obj;
+        if (temperature == null) {
+            if (other.temperature != null)
+                return false;
+        } else if (!temperature.equals(other.temperature))
+            return false;
+        return true;
+    }
 
     @Override
-    public String toString()
+    public Optional<Temperature> getResult()
     {
-        final StringBuilder builder = new StringBuilder();
-        builder.append("TemperatureResult [temperature=").append(temperature).append("]");
-        return builder.toString();
+        return temperature;
     }
 
     @Override
@@ -57,31 +72,11 @@ public final class ReadTemperatureResult implements Result<Temperature>
     }
 
     @Override
-    public boolean equals(final Object obj)
+    public String toString()
     {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final ReadTemperatureResult other = (ReadTemperatureResult) obj;
-        if (temperature == null) {
-            if (other.temperature != null) {
-                return false;
-            }
-        } else if (!temperature.equals(other.temperature)) {
-            return false;
-        }
-        return true;
-    }
-
-    public static ReadTemperatureResult of(final Temperature temperature)
-    {
-        return new ReadTemperatureResult(temperature);
+        final StringBuilder builder = new StringBuilder();
+        builder.append("TemperatureResult [temperature=").append(temperature).append("]");
+        return builder.toString();
     }
 
 }
