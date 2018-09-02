@@ -25,7 +25,7 @@ import me.nguba.gambrinus.eventstore.EventSource;
  */
 public final class ProcessValueChangedSource extends EventSource
 {
-    public static EventSource from(final ProcessValueChanged event)
+    public static ProcessValueChangedSource from(final ProcessValueChanged event)
     {
         final ProcessValueChangedSource source = new ProcessValueChangedSource();
         source.vesselId = event.getVesselId().getValue();

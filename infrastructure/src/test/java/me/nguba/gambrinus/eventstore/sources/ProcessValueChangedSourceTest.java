@@ -26,6 +26,7 @@ import org.slf4j.LoggerFactory;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -35,12 +36,17 @@ class ProcessValueChangedSourceTest
     private static final Logger LOGGER = LoggerFactory
             .getLogger(ProcessValueChangedSourceTest.class);
 
-    private final ProcessValueChanged event = ProcessValueChanged.on(VesselId.of("Boil Kettle"),
-                                                                     temperature.toCelsius());
+    private ProcessValueChanged event;
 
     private final EventSerializerService serializer = EventSerializerService.flatFormat();
 
     private final Temperature temperature = Temperature.celsius(10);
+
+    @BeforeEach
+    void setUp() {
+        event = ProcessValueChanged.on(VesselId.of("Boil Kettle"),
+                                       temperature.toCelsius());
+    }
 
     @Test
     void canDeserialize() throws Exception
