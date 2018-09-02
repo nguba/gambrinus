@@ -17,6 +17,7 @@
 package me.nguba.gambrinus;
 
 import me.nguba.gambrinus.event.EventPublisher;
+import me.nguba.gambrinus.eventstore.EventSourceListener;
 import me.nguba.gambrinus.eventstore.EventStore;
 
 import org.springframework.context.annotation.Bean;
@@ -32,12 +33,18 @@ public class InfrastructureContext
     @Bean
     public EventPublisher eventPublisher()
     {
-        return new GuavaEventPublisher();
+        return GuavaEventPublisher.create();
     }
 
     @Bean
     public EventStore eventStore(final JdbcTemplate jdbc)
     {
         return EventStore.with(jdbc);
+    }
+
+    @Bean
+    public EventSourceListener eventSourceListener(EventPublisher publisher, EventStore store)
+    {
+        return EventSourceListener.connect(publisher, store);
     }
 }

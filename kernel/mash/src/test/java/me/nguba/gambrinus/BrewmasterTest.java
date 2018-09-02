@@ -77,7 +77,7 @@ class BrewmasterTest implements EventPublisher
     {
         brewmaster.monitor(vesselId, Period.oneSecond());
         final Temperature temperature = brewmaster.processValue(vesselId);
-        assertThat(temperature).isEqualTo(Temperature.celsius(25.7));
+        assertThat(temperature).isEqualTo(Temperature.celsius(33.5));
     }
 
     @Test

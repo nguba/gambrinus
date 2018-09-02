@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
  */
 class GuavaEventPublisherTest
 {
-    private final GuavaEventPublisher publisher = new GuavaEventPublisher();
+    private final GuavaEventPublisher publisher = GuavaEventPublisher.create();
 
     private MutatorEvent event;
 

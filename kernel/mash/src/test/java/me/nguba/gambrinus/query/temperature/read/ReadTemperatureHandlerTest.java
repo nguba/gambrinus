@@ -96,7 +96,7 @@ class ReadTemperatureHandlerTest
 
         final ReadTemperatureResult result = handler.query(ReadTemperature.from(vesselId));
 
-        assertThat(result.getResult().get()).isEqualTo(Temperature.celsius(25.7));
+        assertThat(result.getResult().get()).isEqualTo(Temperature.celsius(33.5));
     }
 
 }

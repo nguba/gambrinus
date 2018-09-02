@@ -36,6 +36,16 @@ public final class GuavaEventPublisher implements EventPublisher
 
     private final EventBus bus = new EventBus();
 
+    private GuavaEventPublisher()
+    {
+        super();
+    }
+
+    public static GuavaEventPublisher create()
+    {
+        return new GuavaEventPublisher();
+    }
+
     @Override
     public <E extends MutatorEvent> void publish(final E event)
     {

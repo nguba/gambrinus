@@ -14,11 +14,10 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 package me.nguba.gambrinus.command.temperature.process;
 
-import me.nguba.gambrinus.command.temperature.setpoint.VesselMutatorEvent;
 import me.nguba.gambrinus.equipment.VesselId;
+import me.nguba.gambrinus.event.MutatorEvent;
 import me.nguba.gambrinus.process.Temperature;
 
 import java.time.Instant;
@@ -26,21 +25,37 @@ import java.time.Instant;
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-public final class ProcessValueChanged extends VesselMutatorEvent
+public final class ProcessValueChanged extends MutatorEvent
 {
-    private final Temperature processValue;
+    public static ProcessValueChanged on(final VesselId address, final Temperature expected)
+    {
+        return ProcessValueChanged.from(Instant.now(), address, expected);
+    }
 
-    private ProcessValueChanged(final Instant now,
+    public static ProcessValueChanged from(final Instant instant,
+                                           final VesselId vesselId,
+                                           final Temperature expected)
+    {
+        if (vesselId == null) {
+            throw new IllegalArgumentException("OneWireAddres cannot be null.");
+        }
+
+        return new ProcessValueChanged(instant,
+                                       vesselId,
+                                       expected == null ? Temperature.celsius(0) : expected);
+    }
+
+    protected final Temperature processValue;
+
+    protected final VesselId vesselId;
+
+    private ProcessValueChanged(final Instant instant,
                                 final VesselId vesselId,
                                 final Temperature processValue)
     {
-        super(now, vesselId);
+        super(instant);
+        this.vesselId = vesselId;
         this.processValue = processValue;
-    }
-
-    public static ProcessValueChanged on(final VesselId id, final Temperature processValue)
-    {
-        return new ProcessValueChanged(Instant.now(), id, processValue);
     }
 
     public Temperature getProcessValue()
@@ -48,4 +63,58 @@ public final class ProcessValueChanged extends VesselMutatorEvent
         return processValue;
     }
 
+    public VesselId getVesselId()
+    {
+        return vesselId;
+    }
+
+    @Override
+    public String toString()
+    {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("ProcessValueChanged [processValue=").append(processValue)
+                .append(", vesselId=").append(vesselId).append(", timestamp=").append(timestamp)
+                .append("]");
+        return builder.toString();
+    }
+
+    @Override
+    public int hashCode()
+    {
+        final int prime = 31;
+        int result = super.hashCode();
+        result = prime * result + ((processValue == null) ? 0 : processValue.hashCode());
+        result = prime * result + ((vesselId == null) ? 0 : vesselId.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(final Object obj)
+    {
+        if (this == obj) {
+            return true;
+        }
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ProcessValueChanged other = (ProcessValueChanged) obj;
+        if (processValue == null) {
+            if (other.processValue != null) {
+                return false;
+            }
+        } else if (!processValue.equals(other.processValue)) {
+            return false;
+        }
+        if (vesselId == null) {
+            if (other.vesselId != null) {
+                return false;
+            }
+        } else if (!vesselId.equals(other.vesselId)) {
+            return false;
+        }
+        return true;
+    }
 }
