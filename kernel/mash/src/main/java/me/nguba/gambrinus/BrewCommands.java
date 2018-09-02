@@ -48,7 +48,7 @@ public final class BrewCommands
         events.publish(SetpointChanged.on(command.getId(), command.getSetpoint()));
     }
 
-    public void execute(SetProcessValue command) throws ValidationFailed
+    public void execute(final SetProcessValue command) throws ValidationFailed
     {
         CommandProcessor.from(command, SetProcessValueHandler.from(vessels)).mutate();
         events.publish(ProcessValueChanged.on(command.getId(), command.getProcessValue()));

@@ -40,7 +40,7 @@ import java.lang.annotation.Target;
 @Inherited
 @ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc(print = MockMvcPrint.LOG_DEBUG)
-@SpringBootTest(classes = {GambrinusApplication.class})
+@SpringBootTest(classes = { GambrinusApplication.class })
 public @interface GambrinusControllerTest
 {
 

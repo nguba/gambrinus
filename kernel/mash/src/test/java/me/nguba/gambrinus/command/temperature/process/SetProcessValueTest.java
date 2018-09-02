@@ -32,7 +32,7 @@ class SetProcessValueTest
 {
 
     private final SetProcessValue command = SetProcessValue.with(VesselId.of("mash"),
-                                                               Temperature.celsius(66.6));
+                                                                 Temperature.celsius(66.6));
 
     @Test
     void vesselId()

@@ -68,10 +68,10 @@ class BrewmasterTest implements EventPublisher
     {
         vessels.create(Vessel.of(vesselId,
                                  OwfsSensor.from(OwfsRoot.test(), OneWireAddress.empty())));
-        
+
         assertThrows(IllegalStateException.class, () -> brewmaster.processValue(vesselId));
     }
-    
+
     @Test
     void readTemperarture() throws Exception
     {

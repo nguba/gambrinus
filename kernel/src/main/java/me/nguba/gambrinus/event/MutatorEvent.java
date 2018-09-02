@@ -25,12 +25,12 @@ public abstract class MutatorEvent
 {
     protected final long timestamp;
 
-    protected MutatorEvent(long timestamp)
+    protected MutatorEvent(final long timestamp)
     {
         this.timestamp = timestamp;
     }
 
-    protected MutatorEvent(String timestamp)
+    protected MutatorEvent(final String timestamp)
     {
         this.timestamp = Long.parseLong(timestamp);
     }
@@ -39,8 +39,8 @@ public abstract class MutatorEvent
     {
         this(Instant.now());
     }
-    
-    protected MutatorEvent(Instant now)
+
+    protected MutatorEvent(final Instant now)
     {
         this(now.toEpochMilli());
     }
@@ -60,24 +60,28 @@ public abstract class MutatorEvent
     }
 
     @Override
-    public boolean equals(Object obj)
+    public boolean equals(final Object obj)
     {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
-        MutatorEvent other = (MutatorEvent) obj;
-        if (timestamp != other.timestamp)
+        }
+        final MutatorEvent other = (MutatorEvent) obj;
+        if (timestamp != other.timestamp) {
             return false;
+        }
         return true;
     }
 
     @Override
     public String toString()
     {
-        StringBuilder builder = new StringBuilder();
+        final StringBuilder builder = new StringBuilder();
         builder.append("MutatorEvent [timestamp=").append(timestamp).append("]");
         return builder.toString();
     }

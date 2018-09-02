@@ -9,19 +9,19 @@ public abstract class VesselMutatorEvent extends MutatorEvent
 {
     protected final VesselId vesselId;
 
-    public VesselMutatorEvent(long timestamp, VesselId vesselId)
+    public VesselMutatorEvent(final long timestamp, final VesselId vesselId)
     {
         super(timestamp);
         this.vesselId = vesselId;
     }
 
-    public VesselMutatorEvent(String timestamp, VesselId vesselId)
+    public VesselMutatorEvent(final String timestamp, final VesselId vesselId)
     {
         super(timestamp);
         this.vesselId = vesselId;
     }
 
-    public VesselMutatorEvent(Instant now, VesselId vesselId)
+    public VesselMutatorEvent(final Instant now, final VesselId vesselId)
     {
         super(now);
         this.vesselId = vesselId;
@@ -42,20 +42,25 @@ public abstract class VesselMutatorEvent extends MutatorEvent
     }
 
     @Override
-    public boolean equals(Object obj)
+    public boolean equals(final Object obj)
     {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (!super.equals(obj))
+        }
+        if (!super.equals(obj)) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
-        VesselMutatorEvent other = (VesselMutatorEvent) obj;
+        }
+        final VesselMutatorEvent other = (VesselMutatorEvent) obj;
         if (vesselId == null) {
-            if (other.vesselId != null)
+            if (other.vesselId != null) {
                 return false;
-        } else if (!vesselId.equals(other.vesselId))
+            }
+        } else if (!vesselId.equals(other.vesselId)) {
             return false;
+        }
         return true;
     }
 

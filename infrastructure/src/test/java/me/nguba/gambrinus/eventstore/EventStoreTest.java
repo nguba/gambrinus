@@ -49,8 +49,9 @@ class EventStoreTest
     {
         eventStore.record(ProcessValueChangedSource
                 .from(ProcessValueChanged.on(VesselId.of("HLT"), Temperature.celsius(98.3))));
-        
-        for (final ProcessValueChangedSource source : eventStore.find(ProcessValueChangedSource.class)) {
+
+        for (final ProcessValueChangedSource source : eventStore
+                .find(ProcessValueChangedSource.class)) {
             System.out.println(source);
         }
     }

@@ -44,17 +44,21 @@ public abstract class EventSource
     }
 
     @Override
-    public boolean equals(Object obj)
+    public boolean equals(final Object obj)
     {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
-        EventSource other = (EventSource) obj;
-        if (timestamp != other.timestamp)
+        }
+        final EventSource other = (EventSource) obj;
+        if (timestamp != other.timestamp) {
             return false;
+        }
         return true;
     }
 

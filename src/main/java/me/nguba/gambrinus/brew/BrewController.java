@@ -59,9 +59,9 @@ public final class BrewController
     }
 
     @PutMapping("/monitor/{vesselId}")
-    public void start(@PathVariable("vesselId") String vesselId,
+    public void start(@PathVariable("vesselId") final String vesselId,
                       @RequestParam(defaultValue = "10", name = "period",
-                              required = false) String period)
+                              required = false) final String period)
             throws ValidationFailed
     {
         brewmaster.monitor(VesselId.of(vesselId), Period.from(period));

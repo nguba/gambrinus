@@ -55,22 +55,22 @@ public final class Brewmaster
         return queries.run(ReadTemperature.from(vessel));
     }
 
-    public void monitor(VesselId vessel, Period period) throws ValidationFailed
+    public void monitor(final VesselId vessel, final Period period) throws ValidationFailed
     {
         updateProcessValue(vessel);
 
         scheduler.scheduleAtFixedRate(() -> {
             try {
                 updateProcessValue(vessel);
-            } catch (ValidationFailed e) {
+            } catch (final ValidationFailed e) {
                 throw new IllegalStateException("Reading temperature failed", e);
             }
         }, period.getValue(), period.getValue(), TimeUnit.SECONDS);
     }
 
-    private void updateProcessValue(VesselId vessel) throws ValidationFailed
+    private void updateProcessValue(final VesselId vessel) throws ValidationFailed
     {
-        Temperature currentTemp = queries.run(ReadTemperature.from(vessel));
+        final Temperature currentTemp = queries.run(ReadTemperature.from(vessel));
         commands.execute(SetProcessValue.with(vessel, currentTemp));
     }
 

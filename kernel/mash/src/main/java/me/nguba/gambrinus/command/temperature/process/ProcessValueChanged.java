@@ -31,13 +31,15 @@ public final class ProcessValueChanged extends VesselMutatorEvent
 {
     private final Temperature processValue;
 
-    private ProcessValueChanged(Instant now, VesselId vesselId, Temperature processValue)
+    private ProcessValueChanged(final Instant now,
+                                final VesselId vesselId,
+                                final Temperature processValue)
     {
         super(now, vesselId);
         this.processValue = processValue;
     }
 
-    public static MutatorEvent on(VesselId id, Temperature processValue)
+    public static MutatorEvent on(final VesselId id, final Temperature processValue)
     {
         return new ProcessValueChanged(Instant.now(), id, processValue);
     }

@@ -51,7 +51,7 @@ public final class ReadTemperatureHandler
             errors.add(Reason.from("No vesselId"));
         }
 
-        Optional<Vessel> read = vessels.read(query.getVesselId());
+        final Optional<Vessel> read = vessels.read(query.getVesselId());
         if (!read.isPresent()) {
             errors.add(Reason.from(String.format("Vessel not found: %s", query.getVesselId())));
         } else if (!read.get().isActive()) {
@@ -65,12 +65,12 @@ public final class ReadTemperatureHandler
     {
         final Vessel vessel = vessels.read(query.getVesselId()).get();
         try {
-            Temperature pv = vessel.readTemperature();
+            final Temperature pv = vessel.readTemperature();
             return ReadTemperatureResult.of(pv);
-        } catch (IOException e) {
+        } catch (final IOException e) {
             throw new IllegalStateException("Unable to query temperature: " + e.getMessage(), e);
         }
-        
+
     }
 
 }

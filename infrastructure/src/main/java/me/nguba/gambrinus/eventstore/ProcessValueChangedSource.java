@@ -27,7 +27,7 @@ public final class ProcessValueChangedSource extends EventSource
     @Override
     public String toString()
     {
-        StringBuilder builder = new StringBuilder();
+        final StringBuilder builder = new StringBuilder();
         builder.append("ProcessValueChangedSource [vesselId=").append(vesselId)
                 .append(", processValue=").append(processValue).append(", timestamp=")
                 .append(timestamp).append("]");
@@ -45,25 +45,32 @@ public final class ProcessValueChangedSource extends EventSource
     }
 
     @Override
-    public boolean equals(Object obj)
+    public boolean equals(final Object obj)
     {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (!super.equals(obj))
+        }
+        if (!super.equals(obj)) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
-        ProcessValueChangedSource other = (ProcessValueChangedSource) obj;
+        }
+        final ProcessValueChangedSource other = (ProcessValueChangedSource) obj;
         if (processValue == null) {
-            if (other.processValue != null)
+            if (other.processValue != null) {
                 return false;
-        } else if (!processValue.equals(other.processValue))
+            }
+        } else if (!processValue.equals(other.processValue)) {
             return false;
+        }
         if (vesselId == null) {
-            if (other.vesselId != null)
+            if (other.vesselId != null) {
                 return false;
-        } else if (!vesselId.equals(other.vesselId))
+            }
+        } else if (!vesselId.equals(other.vesselId)) {
             return false;
+        }
         return true;
     }
 

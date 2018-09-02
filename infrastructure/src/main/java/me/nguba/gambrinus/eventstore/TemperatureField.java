@@ -77,22 +77,28 @@ public class TemperatureField
     }
 
     @Override
-    public boolean equals(Object obj)
+    public boolean equals(final Object obj)
     {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
-        TemperatureField other = (TemperatureField) obj;
+        }
+        final TemperatureField other = (TemperatureField) obj;
         if (scale == null) {
-            if (other.scale != null)
+            if (other.scale != null) {
                 return false;
-        } else if (!scale.equals(other.scale))
+            }
+        } else if (!scale.equals(other.scale)) {
             return false;
-        if (Double.doubleToLongBits(value) != Double.doubleToLongBits(other.value))
+        }
+        if (Double.doubleToLongBits(value) != Double.doubleToLongBits(other.value)) {
             return false;
+        }
         return true;
     }
 }

@@ -52,7 +52,7 @@ public class SetProcessValueHandler extends VesselHandler<SetProcessValue>
             errors.add(Reason.from("No vesselId"));
         }
 
-        Optional<Vessel> read = repo.read(command.getId());
+        final Optional<Vessel> read = repo.read(command.getId());
         if (!read.isPresent()) {
             errors.add(Reason.from(String.format("Vessel not found: %s", command.getId())));
         } else if (!read.get().isActive()) {

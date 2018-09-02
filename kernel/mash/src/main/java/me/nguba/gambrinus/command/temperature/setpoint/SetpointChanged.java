@@ -27,7 +27,7 @@ import java.time.Instant;
 public final class SetpointChanged extends VesselMutatorEvent
 {
     private final Temperature setpoint;
-    
+
     private SetpointChanged(final VesselId vesselId, final Temperature setpoint)
     {
         super(Instant.now().toEpochMilli(), vesselId);
@@ -54,27 +54,32 @@ public final class SetpointChanged extends VesselMutatorEvent
     }
 
     @Override
-    public boolean equals(Object obj)
+    public boolean equals(final Object obj)
     {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (!super.equals(obj))
+        }
+        if (!super.equals(obj)) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
-        SetpointChanged other = (SetpointChanged) obj;
+        }
+        final SetpointChanged other = (SetpointChanged) obj;
         if (setpoint == null) {
-            if (other.setpoint != null)
+            if (other.setpoint != null) {
                 return false;
-        } else if (!setpoint.equals(other.setpoint))
+            }
+        } else if (!setpoint.equals(other.setpoint)) {
             return false;
+        }
         return true;
     }
 
     @Override
     public String toString()
     {
-        StringBuilder builder = new StringBuilder();
+        final StringBuilder builder = new StringBuilder();
         builder.append("SetpointChanged [setpoint=").append(setpoint).append(", vesselId=")
                 .append(vesselId).append(", timestamp=").append(timestamp).append("]");
         return builder.toString();
