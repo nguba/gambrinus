@@ -4,6 +4,7 @@ import me.nguba.gambrinus.InfrastructureTest;
 import me.nguba.gambrinus.command.temperature.process.ProcessValueChanged;
 import me.nguba.gambrinus.equipment.VesselId;
 import me.nguba.gambrinus.event.EventPublisher;
+import me.nguba.gambrinus.eventstore.sources.ProcessValueChangedSource;
 import me.nguba.gambrinus.process.Temperature;
 
 import org.springframework.beans.factory.annotation.Autowired;

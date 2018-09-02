@@ -19,6 +19,7 @@ package me.nguba.gambrinus.eventstore;
 
 import me.nguba.gambrinus.command.temperature.process.ProcessValueChanged;
 import me.nguba.gambrinus.event.EventPublisher;
+import me.nguba.gambrinus.eventstore.sources.ProcessValueChangedSource;
 
 import com.google.common.eventbus.Subscribe;
 

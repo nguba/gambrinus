@@ -20,6 +20,8 @@ import me.nguba.gambrinus.InfrastructureTest;
 import me.nguba.gambrinus.command.temperature.process.ProcessValueChanged;
 import me.nguba.gambrinus.command.temperature.setpoint.SetpointChanged;
 import me.nguba.gambrinus.equipment.VesselId;
+import me.nguba.gambrinus.eventstore.sources.ProcessValueChangedSource;
+import me.nguba.gambrinus.eventstore.sources.SetpointChangedSource;
 import me.nguba.gambrinus.process.Temperature;
 
 import org.springframework.beans.factory.annotation.Autowired;

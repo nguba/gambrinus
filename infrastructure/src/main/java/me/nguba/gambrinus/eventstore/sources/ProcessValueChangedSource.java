@@ -15,9 +15,10 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package me.nguba.gambrinus.eventstore;
+package me.nguba.gambrinus.eventstore.sources;
 
 import me.nguba.gambrinus.command.temperature.process.ProcessValueChanged;
+import me.nguba.gambrinus.eventstore.EventSource;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
