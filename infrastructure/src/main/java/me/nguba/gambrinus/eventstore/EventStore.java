@@ -9,6 +9,8 @@
  */
 package me.nguba.gambrinus.eventstore;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -23,7 +25,10 @@ import java.util.List;
  */
 public final class EventStore
 {
-    private final JdbcTemplate           jdbc;
+    private static final Logger LOGGER = LoggerFactory.getLogger(EventStore.class);
+
+    private final JdbcTemplate jdbc;
+
     private final EventSerializerService serializer;
 
     private EventStore(final JdbcTemplate jdbc, final EventSerializerService serializer)
@@ -39,6 +44,7 @@ public final class EventStore
 
     public void record(final EventSource source) throws IOException
     {
+        LOGGER.info("Storing: {}", source);
         jdbc.update("INSERT INTO events (id, timestamp, source) VALUES (?, ?,?)",
                     source.getClass().getName(),
                     Instant.ofEpochMilli(source.getTimestamp()),
@@ -47,7 +53,6 @@ public final class EventStore
 
     public <T extends EventSource> List<T> find(final Class<T> id)
     {
-
         return jdbc.query("SELECT id, timestamp, source FROM events where id=?",
                           new Object[] { id.getName() },
                           (RowMapper<T>) (rs, rowNum) -> {

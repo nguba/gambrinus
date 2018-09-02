@@ -17,40 +17,38 @@
 
 package me.nguba.gambrinus.eventstore;
 
+import me.nguba.gambrinus.command.temperature.process.ProcessValueChanged;
 import me.nguba.gambrinus.event.EventPublisher;
 
 import com.google.common.eventbus.Subscribe;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.io.IOException;
 
 /**
  * Listens to event sourced events and persists them in the event store.
  *
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-public final class EventSourceListener
+public final class EventSourceMediator
 {
-    private static final Logger LOGGER = LoggerFactory.getLogger(EventSourceListener.class);
-
     private final EventStore store;
 
-    private EventSourceListener(final EventStore store)
+    private EventSourceMediator(final EventStore store)
     {
         this.store = store;
     }
 
-    public static final EventSourceListener connect(final EventPublisher publisher,
-                                                 final EventStore store)
+    public static final EventSourceMediator connect(final EventPublisher publisher,
+                                                    final EventStore store)
     {
-        final EventSourceListener eventSourceListener = new EventSourceListener(store);
+        final EventSourceMediator eventSourceListener = new EventSourceMediator(store);
         publisher.subscribe(eventSourceListener);
         return eventSourceListener;
     }
 
     @Subscribe
-    public void callback(final EventSource source)
+    public void record(final ProcessValueChanged event) throws IOException
     {
-        LOGGER.info("<<< {}", source);
+        store.record(ProcessValueChangedSource.from(event));
     }
 }

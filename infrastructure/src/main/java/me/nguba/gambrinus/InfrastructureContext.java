@@ -17,7 +17,7 @@
 package me.nguba.gambrinus;
 
 import me.nguba.gambrinus.event.EventPublisher;
-import me.nguba.gambrinus.eventstore.EventSourceListener;
+import me.nguba.gambrinus.eventstore.EventSourceMediator;
 import me.nguba.gambrinus.eventstore.EventStore;
 
 import org.springframework.context.annotation.Bean;
@@ -43,8 +43,9 @@ public class InfrastructureContext
     }
 
     @Bean
-    public EventSourceListener eventSourceListener(EventPublisher publisher, EventStore store)
+    public EventSourceMediator eventSourceListener(final EventPublisher publisher,
+                                                   final EventStore store)
     {
-        return EventSourceListener.connect(publisher, store);
+        return EventSourceMediator.connect(publisher, store);
     }
 }
