@@ -14,14 +14,15 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-package me.nguba.gambrinus.eventstore;
+package me.nguba.gambrinus.event;
 
 import me.nguba.gambrinus.InfrastructureTest;
 import me.nguba.gambrinus.command.temperature.process.ProcessValueChanged;
 import me.nguba.gambrinus.command.temperature.setpoint.SetpointChanged;
 import me.nguba.gambrinus.equipment.VesselId;
-import me.nguba.gambrinus.eventstore.sources.ProcessValueChangedSource;
-import me.nguba.gambrinus.eventstore.sources.SetpointChangedSource;
+import me.nguba.gambrinus.event.EventStore;
+import me.nguba.gambrinus.event.sources.ProcessValueChangedSource;
+import me.nguba.gambrinus.event.sources.SetpointChangedSource;
 import me.nguba.gambrinus.process.Temperature;
 
 import org.springframework.beans.factory.annotation.Autowired;
