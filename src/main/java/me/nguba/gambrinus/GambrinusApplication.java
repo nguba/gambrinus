@@ -17,6 +17,8 @@
 package me.nguba.gambrinus;
 
 import me.nguba.gambrinus.admin.AdminResourceService;
+import me.nguba.gambrinus.brew.BrewQueries;
+import me.nguba.gambrinus.brew.Brewmaster;
 import me.nguba.gambrinus.equipment.VesselRepository;
 import me.nguba.gambrinus.event.EventPublisher;
 

@@ -16,7 +16,6 @@
 */
 package me.nguba.gambrinus.brew;
 
-import me.nguba.gambrinus.Brewmaster;
 import me.nguba.gambrinus.Period;
 import me.nguba.gambrinus.ddd.validation.ValidationFailed;
 import me.nguba.gambrinus.equipment.VesselId;
