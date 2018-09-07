@@ -63,7 +63,7 @@ public final class Brewmaster
         }, period.getValue(), period.getValue(), TimeUnit.SECONDS);
     }
 
-    public Temperature processValue(final VesselId vessel) throws ValidationFailed
+    public Temperature readProcessValue(final VesselId vessel) throws ValidationFailed
     {
         return queries.run(ReadTemperature.from(vessel));
     }

@@ -55,7 +55,7 @@ public final class BrewController
     public Temperature readTemperature(@PathVariable("vesselId") final String vesselId)
             throws ValidationFailed
     {
-        return brewmaster.processValue(VesselId.of(vesselId));
+        return brewmaster.readProcessValue(VesselId.of(vesselId));
     }
 
     @PutMapping("/monitor/{vesselId}")

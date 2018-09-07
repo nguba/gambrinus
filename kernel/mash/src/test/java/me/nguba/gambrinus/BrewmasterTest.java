@@ -90,7 +90,7 @@ class BrewmasterTest implements EventPublisher
     void readTemperarture() throws Exception
     {
         brewmaster.monitor(vesselId, Period.oneSecond());
-        final Temperature temperature = brewmaster.processValue(vesselId);
+        final Temperature temperature = brewmaster.readProcessValue(vesselId);
         assertThat(temperature).isEqualTo(Temperature.celsius(33.5));
     }
 
@@ -100,7 +100,7 @@ class BrewmasterTest implements EventPublisher
         vessels.create(Vessel.of(vesselId,
                                  OwfsSensor.from(OwfsRoot.test(), OneWireAddress.empty())));
 
-        assertThrows(IllegalStateException.class, () -> brewmaster.processValue(vesselId));
+        assertThrows(IllegalStateException.class, () -> brewmaster.readProcessValue(vesselId));
     }
 
     @Test
@@ -109,7 +109,7 @@ class BrewmasterTest implements EventPublisher
         vessels.create(Vessel.of(vesselId,
                                  OwfsSensor.from(OwfsRoot.test(), OneWireAddress.empty())));
 
-        assertThrows(IllegalStateException.class, () -> brewmaster.processValue(vesselId));
+        assertThrows(IllegalStateException.class, () -> brewmaster.readProcessValue(vesselId));
     }
 
     @BeforeEach
