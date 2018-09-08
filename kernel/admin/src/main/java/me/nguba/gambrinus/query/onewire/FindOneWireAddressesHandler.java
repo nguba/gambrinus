@@ -48,6 +48,7 @@ public final class FindOneWireAddressesHandler
         final OwfsRoot root = OwfsRoot.of(query.getMountpoint());
         final Set<OneWireAddress> addresses = new HashSet<>();
 
+        // TODO use a repository for this
         for (final OwfsSensor sensor : root.listSensors())
             addresses.add(sensor.getId());
         return FindOneWireAddressResult
