@@ -16,7 +16,7 @@
 */
 package me.nguba.gambrinus;
 
-import me.nguba.gambrinus.command.vessel.create.CreateVessel;
+import me.nguba.gambrinus.command.CreateVessel;
 import me.nguba.gambrinus.command.vessel.create.CreateVesselHandler;
 import me.nguba.gambrinus.cqrs.command.CommandProcessor;
 import me.nguba.gambrinus.ddd.validation.ValidationFailed;

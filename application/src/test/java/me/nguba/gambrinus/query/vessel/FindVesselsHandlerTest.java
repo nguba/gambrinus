@@ -16,6 +16,7 @@
 */
 package me.nguba.gambrinus.query.vessel;
 
+import me.nguba.gambrinus.command.FindVessels;
 import me.nguba.gambrinus.ddd.validation.Errors;
 import me.nguba.gambrinus.equipment.Vessel;
 import me.nguba.gambrinus.equipment.VesselId;

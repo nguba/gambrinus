@@ -14,25 +14,19 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-package me.nguba.gambrinus.query.vessel;
+package me.nguba.gambrinus.command;
 
-import nl.jqno.equalsverifier.EqualsVerifier;
+import me.nguba.gambrinus.cqrs.query.Query;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import org.junit.jupiter.api.Test;
-
-class FindVesselsTest
+/**
+ * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
+ */
+public enum FindVessels implements Query
 {
-    @Test
-    void createsValidObject()
-    {
-        assertThat(FindVessels.create()).isEqualTo(FindVessels.INSTANCE);
-    }
+    INSTANCE;
 
-    @Test
-    void equalityContract()
+    public static FindVessels create()
     {
-        EqualsVerifier.forClass(FindVessels.class).verify();
+        return INSTANCE;
     }
 }

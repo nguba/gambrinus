@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-package me.nguba.gambrinus.query.vessel.find;
+package me.nguba.gambrinus.command;
 
 import me.nguba.gambrinus.cqrs.query.Query;
 import me.nguba.gambrinus.equipment.VesselId;

@@ -16,6 +16,7 @@
 */
 package me.nguba.gambrinus.command.vessel.create;
 
+import me.nguba.gambrinus.command.CreateVessel;
 import me.nguba.gambrinus.ddd.validation.Errors;
 import me.nguba.gambrinus.ddd.validation.Reason;
 import me.nguba.gambrinus.ddd.validation.ValidationFailed;

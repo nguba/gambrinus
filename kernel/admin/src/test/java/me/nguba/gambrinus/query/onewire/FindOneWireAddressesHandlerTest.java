@@ -16,6 +16,7 @@
 */
 package me.nguba.gambrinus.query.onewire;
 
+import me.nguba.gambrinus.command.FindOneWireAddresses;
 import me.nguba.gambrinus.ddd.validation.Errors;
 import me.nguba.gambrinus.ddd.validation.ValidationFailed;
 import me.nguba.gambrinus.onewire.OneWireAddress;

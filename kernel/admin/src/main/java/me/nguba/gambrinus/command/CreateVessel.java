@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-package me.nguba.gambrinus.command.vessel.create;
+package me.nguba.gambrinus.command;
 
 import me.nguba.gambrinus.cqrs.command.Command;
 import me.nguba.gambrinus.equipment.VesselId;
@@ -46,17 +46,17 @@ public final class CreateVessel implements Command
         this.address = address;
     }
 
-    protected OneWireAddress getAddress()
+    public OneWireAddress getAddress()
     {
         return address;
     }
 
-    protected OwfsRoot getRoot()
+    public OwfsRoot getRoot()
     {
         return root;
     }
 
-    protected VesselId getVesselId()
+    public VesselId getVesselId()
     {
         return vesselId;
     }

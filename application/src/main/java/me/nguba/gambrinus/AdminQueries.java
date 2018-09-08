@@ -16,16 +16,16 @@
 */
 package me.nguba.gambrinus;
 
+import me.nguba.gambrinus.command.FindOneWireAddresses;
+import me.nguba.gambrinus.command.FindVessel;
+import me.nguba.gambrinus.command.FindVessels;
 import me.nguba.gambrinus.cqrs.query.QueryProcessor;
 import me.nguba.gambrinus.ddd.validation.ValidationFailed;
 import me.nguba.gambrinus.equipment.Vessel;
 import me.nguba.gambrinus.equipment.VesselRepository;
 import me.nguba.gambrinus.onewire.OneWireAddress;
-import me.nguba.gambrinus.query.onewire.FindOneWireAddresses;
 import me.nguba.gambrinus.query.onewire.FindOneWireAddressesHandler;
-import me.nguba.gambrinus.query.vessel.FindVessels;
 import me.nguba.gambrinus.query.vessel.FindVesselsHandler;
-import me.nguba.gambrinus.query.vessel.find.FindVessel;
 import me.nguba.gambrinus.query.vessel.find.FindVesselHandler;
 
 import java.util.HashSet;

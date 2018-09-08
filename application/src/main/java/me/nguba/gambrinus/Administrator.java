@@ -16,15 +16,15 @@
 */
 package me.nguba.gambrinus;
 
-import me.nguba.gambrinus.command.vessel.create.CreateVessel;
+import me.nguba.gambrinus.command.CreateVessel;
+import me.nguba.gambrinus.command.FindOneWireAddresses;
+import me.nguba.gambrinus.command.FindVessel;
+import me.nguba.gambrinus.command.FindVessels;
 import me.nguba.gambrinus.ddd.validation.ValidationFailed;
 import me.nguba.gambrinus.equipment.Vessel;
 import me.nguba.gambrinus.equipment.VesselId;
 import me.nguba.gambrinus.onewire.OneWireAddress;
 import me.nguba.gambrinus.owfs.OwfsRoot;
-import me.nguba.gambrinus.query.onewire.FindOneWireAddresses;
-import me.nguba.gambrinus.query.vessel.FindVessels;
-import me.nguba.gambrinus.query.vessel.find.FindVessel;
 
 import java.io.IOException;
 import java.util.Set;
