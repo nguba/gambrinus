@@ -68,10 +68,7 @@ configurations {
 }
 
 dependencies {
-
-    compile project (":kernel:admin")
-    compile project (":kernel:mash")
-    compile project (":infrastructure")
+   	compile project (":application")
      
     compile('org.springframework.boot:spring-boot-starter-actuator')
     compile('org.springframework.boot:spring-boot-starter-web')

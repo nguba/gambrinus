@@ -29,11 +29,11 @@ import org.springframework.context.annotation.Import;
 @SpringBootApplication
 @Import({ InfrastructureContext.class })
 @EnableConfigurationProperties({ GambrinusOptions.class, RaspberryPinOptions.class })
-public class GambrinusApplication
+public class Gambrinus
 {
     public static void main(final String... args)
     {
-        SpringApplication.run(GambrinusApplication.class, args);
+        SpringApplication.run(Gambrinus.class, args);
     }
 
     @Bean
