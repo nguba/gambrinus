@@ -16,7 +16,6 @@
 */
 package me.nguba.gambrinus.brew;
 
-import me.nguba.gambrinus.Brewmaster;
 import me.nguba.gambrinus.Period;
 import me.nguba.gambrinus.ddd.validation.ValidationFailed;
 import me.nguba.gambrinus.equipment.VesselId;
@@ -55,7 +54,7 @@ public final class BrewController
     public Temperature readTemperature(@PathVariable("vesselId") final String vesselId)
             throws ValidationFailed
     {
-        return brewmaster.processValue(VesselId.of(vesselId));
+        return brewmaster.readProcessValue(VesselId.of(vesselId));
     }
 
     @PutMapping("/monitor/{vesselId}")
