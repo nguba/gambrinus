@@ -18,12 +18,12 @@ package me.nguba.gambrinus.brew;
 
 import me.nguba.gambrinus.BrewCommands;
 import me.nguba.gambrinus.Period;
-import me.nguba.gambrinus.command.temperature.process.SetProcessValue;
-import me.nguba.gambrinus.command.temperature.setpoint.ChangeSetpoint;
+import me.nguba.gambrinus.command.ChangeSetpoint;
+import me.nguba.gambrinus.command.ReadTemperature;
+import me.nguba.gambrinus.command.SetProcessValue;
 import me.nguba.gambrinus.ddd.validation.ValidationFailed;
 import me.nguba.gambrinus.equipment.VesselId;
 import me.nguba.gambrinus.process.Temperature;
-import me.nguba.gambrinus.query.temperature.read.ReadTemperature;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;

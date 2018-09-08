@@ -16,6 +16,7 @@
 */
 package me.nguba.gambrinus.command.temperature.process;
 
+import me.nguba.gambrinus.command.SetProcessValue;
 import me.nguba.gambrinus.command.VesselHandler;
 import me.nguba.gambrinus.ddd.validation.Errors;
 import me.nguba.gambrinus.ddd.validation.Reason;

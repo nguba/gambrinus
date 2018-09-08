@@ -16,6 +16,7 @@
 */
 package me.nguba.gambrinus.command.temperature.setpoint;
 
+import me.nguba.gambrinus.command.ChangeSetpoint;
 import me.nguba.gambrinus.ddd.validation.Errors;
 import me.nguba.gambrinus.ddd.validation.Reason;
 import me.nguba.gambrinus.ddd.validation.ValidationFailed;

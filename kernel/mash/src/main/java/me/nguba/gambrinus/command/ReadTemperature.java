@@ -14,33 +14,31 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-package me.nguba.gambrinus.command.temperature.setpoint;
+package me.nguba.gambrinus.command;
 
+import me.nguba.gambrinus.cqrs.query.Query;
 import me.nguba.gambrinus.equipment.VesselId;
-import me.nguba.gambrinus.process.Temperature;
-
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- *
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-class ChangeSetpointTest
+public final class ReadTemperature implements Query
 {
-    private final ChangeSetpoint command = ChangeSetpoint.on(VesselId.of("setpoint test"),
-                                                             Temperature.celsius(58.0));
-
-    @Test
-    void hasSetpoint()
+    public static ReadTemperature from(final VesselId vesselId)
     {
-        assertEquals(command.getSetpoint(), Temperature.celsius(58.0));
+        return new ReadTemperature(vesselId);
     }
 
-    @Test
-    void hasVesselId()
+    private final VesselId vesselId;
+
+    private ReadTemperature(final VesselId vesselId)
     {
-        assertEquals(command.getId(), VesselId.of("setpoint test"));
+        this.vesselId = vesselId;
     }
+
+    public VesselId getVesselId()
+    {
+        return vesselId;
+    }
+
 }

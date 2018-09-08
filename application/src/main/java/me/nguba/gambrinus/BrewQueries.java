@@ -16,11 +16,11 @@
 */
 package me.nguba.gambrinus;
 
+import me.nguba.gambrinus.command.ReadTemperature;
 import me.nguba.gambrinus.cqrs.query.QueryProcessor;
 import me.nguba.gambrinus.ddd.validation.ValidationFailed;
 import me.nguba.gambrinus.equipment.VesselRepository;
 import me.nguba.gambrinus.process.Temperature;
-import me.nguba.gambrinus.query.temperature.read.ReadTemperature;
 import me.nguba.gambrinus.query.temperature.read.ReadTemperatureHandler;
 
 /**

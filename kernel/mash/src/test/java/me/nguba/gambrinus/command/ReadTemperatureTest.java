@@ -14,31 +14,34 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-package me.nguba.gambrinus.query.temperature.read;
+package me.nguba.gambrinus.command;
 
-import me.nguba.gambrinus.cqrs.query.Query;
+import me.nguba.gambrinus.command.ReadTemperature;
 import me.nguba.gambrinus.equipment.VesselId;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-public final class ReadTemperature implements Query
+class ReadTemperatureTest
 {
-    public static ReadTemperature from(final VesselId vesselId)
+    private ReadTemperature query;
+    private final VesselId  vesselId = VesselId.of("read temperature");
+
+    @BeforeEach
+    void setUp() throws Exception
     {
-        return new ReadTemperature(vesselId);
+        query = ReadTemperature.from(vesselId);
     }
 
-    private final VesselId vesselId;
-
-    private ReadTemperature(final VesselId vesselId)
+    @Test
+    void testGetVesselId()
     {
-        this.vesselId = vesselId;
-    }
-
-    public VesselId getVesselId()
-    {
-        return vesselId;
+        assertThat(query.getVesselId()).isEqualTo(vesselId);
     }
 
 }

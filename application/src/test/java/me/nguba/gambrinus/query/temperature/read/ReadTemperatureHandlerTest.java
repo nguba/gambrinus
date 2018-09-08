@@ -16,6 +16,7 @@
 */
 package me.nguba.gambrinus.query.temperature.read;
 
+import me.nguba.gambrinus.command.ReadTemperature;
 import me.nguba.gambrinus.ddd.validation.Errors;
 import me.nguba.gambrinus.ddd.validation.Reason;
 import me.nguba.gambrinus.ddd.validation.ValidationFailed;
