@@ -1,5 +1,7 @@
 Files in this project belong to the Presentation Layer
 
 They are responsible for showing information to the user and interpreting the 
-user's commands.  The external actor may sometimes be another computer system 
+user's commands.  
+
+The external actor may sometimes be another computer system 
 rather than a human user.
