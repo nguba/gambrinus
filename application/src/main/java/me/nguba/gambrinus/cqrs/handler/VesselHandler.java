@@ -14,8 +14,9 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-package me.nguba.gambrinus.command;
+package me.nguba.gambrinus.cqrs.handler;
 
+import me.nguba.gambrinus.command.VesselCommand;
 import me.nguba.gambrinus.cqrs.command.CommandHandler;
 import me.nguba.gambrinus.ddd.validation.Errors;
 import me.nguba.gambrinus.ddd.validation.Reason;

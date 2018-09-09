@@ -17,7 +17,6 @@
 package me.nguba.gambrinus.cqrs.handler;
 
 import me.nguba.gambrinus.command.ChangeSetpoint;
-import me.nguba.gambrinus.command.VesselHandler;
 import me.nguba.gambrinus.ddd.validation.Errors;
 import me.nguba.gambrinus.ddd.validation.Reason;
 import me.nguba.gambrinus.equipment.Vessel;
