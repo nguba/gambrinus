@@ -16,17 +16,15 @@
 */
 package me.nguba.gambrinus;
 
-import me.nguba.gambrinus.admin.AdminResourceService;
-import me.nguba.gambrinus.brew.BrewQueries;
-import me.nguba.gambrinus.brew.Brewmaster;
-import me.nguba.gambrinus.equipment.VesselRepository;
-import me.nguba.gambrinus.event.EventPublisher;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
+
+import me.nguba.gambrinus.admin.AdminResourceService;
+import me.nguba.gambrinus.equipment.VesselRepository;
+import me.nguba.gambrinus.event.EventPublisher;
 
 @SpringBootApplication
 @Import({ InfrastructureContext.class })
@@ -51,22 +49,9 @@ public class Gambrinus
     }
 
     @Bean
-    public Brewmaster brewmaster(final BrewCommands commands,
-                                 final BrewQueries queries)
+    public Brewmaster brewmaster(final VesselRepository vessels, final EventPublisher events)
     {
-        return new Brewmaster(commands, queries);
-    }
-
-    @Bean
-    public BrewCommands mashCommands(final VesselRepository vessels, final EventPublisher events)
-    {
-        return new BrewCommands(vessels, events);
-    }
-
-    @Bean
-    public BrewQueries mashQueries(final VesselRepository vessels)
-    {
-        return new BrewQueries(vessels);
+        return new Brewmaster(vessels, events);
     }
 
     @Bean

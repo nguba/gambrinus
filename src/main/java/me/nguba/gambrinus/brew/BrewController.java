@@ -16,17 +16,18 @@
 */
 package me.nguba.gambrinus.brew;
 
-import me.nguba.gambrinus.Period;
-import me.nguba.gambrinus.ddd.validation.ValidationFailed;
-import me.nguba.gambrinus.equipment.VesselId;
-import me.nguba.gambrinus.process.Temperature;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import me.nguba.gambrinus.Brewmaster;
+import me.nguba.gambrinus.Period;
+import me.nguba.gambrinus.ddd.validation.ValidationFailed;
+import me.nguba.gambrinus.equipment.VesselId;
+import me.nguba.gambrinus.process.Temperature;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
