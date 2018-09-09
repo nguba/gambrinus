@@ -17,7 +17,7 @@
 
 package me.nguba.gambrinus.raspberry;
 
-import me.nguba.gambrinus.PIDController;
+import me.nguba.gambrinus.Pid;
 import me.nguba.gambrinus.command.temperature.process.ProcessValueChanged;
 import me.nguba.gambrinus.command.temperature.setpoint.SetpointChanged;
 import me.nguba.gambrinus.event.EventPublisher;
@@ -29,7 +29,7 @@ import com.google.common.eventbus.Subscribe;
  */
 public final class Pi3
 {
-    PIDController controller = new PIDController(0, 0, 0);
+    Pid controller = new Pid(0, 0, 0);
     
     public static Pi3 with(final EventPublisher publisher)
     {

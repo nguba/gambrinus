@@ -17,16 +17,11 @@
 package me.nguba.gambrinus;
 
 /**
- * Small, easy to use PID implementation with advanced controller capability.<br>
- * Minimal usage:<br>
- * MiniPID pid = new MiniPID(p,i,d); <br>
- * ...looping code...{ <br>
- * output= pid.getOutput(sensorvalue,target); <br>
- * }
- *
+ * PID implementation
+ * 
  * @see http://brettbeauregard.com/blog/2011/04/improving-the-beginners-pid-direction/improving-the-beginners-pid-introduction
  */
-public class PIDController
+public class Pid
 {
     // **********************************
     // Class private variables
@@ -115,7 +110,7 @@ public class PIDController
      *            Derivative gain. Responds quickly to large changes in error. Small values prevents
      *            P and I terms from causing overshoot.
      */
-    public PIDController(final double p, final double i, final double d)
+    public Pid(final double p, final double i, final double d)
     {
         P = p;
         I = i;
@@ -138,7 +133,7 @@ public class PIDController
      *            Feed-forward gain. Open loop "best guess" for the output should be. Only useful if
      *            setpoint represents a rate.
      */
-    public PIDController(final double p, final double i, final double d, final double f)
+    public Pid(final double p, final double i, final double d, final double f)
     {
         P = p;
         I = i;
@@ -578,7 +573,7 @@ public class PIDController
     public String toString()
     {
         final StringBuilder builder = new StringBuilder();
-        builder.append("PIDStrategy [P=");
+        builder.append("PID [P=");
         builder.append(P);
         builder.append(", I=");
         builder.append(I);

@@ -18,14 +18,14 @@ package me.nguba.gambrinus;
 
 import org.junit.jupiter.api.Test;
 
-class PIDControllerTest
+class PidTest
 {
 
     @Test
     void test()
     {
 
-        PIDController pid = new PIDController(0.25, 0.01, 0.4);
+        Pid pid = new Pid(0.25, 0.01, 0.4);
         //pid.setOutputLimits(1);
         // miniPID.setMaxIOutput(2);
         // miniPID.setOutputRampRate(3);
