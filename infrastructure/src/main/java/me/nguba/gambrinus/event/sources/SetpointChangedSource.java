@@ -17,7 +17,7 @@
 
 package me.nguba.gambrinus.event.sources;
 
-import me.nguba.gambrinus.command.temperature.setpoint.SetpointChanged;
+import me.nguba.gambrinus.event.SetpointChanged;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>

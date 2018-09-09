@@ -21,7 +21,7 @@ import java.io.IOException;
 
 import com.google.common.eventbus.Subscribe;
 
-import me.nguba.gambrinus.command.temperature.process.ProcessValueChanged;
+import me.nguba.gambrinus.event.ProcessValueChanged;
 import me.nguba.gambrinus.event.sources.ProcessValueChangedSource;
 
 /**

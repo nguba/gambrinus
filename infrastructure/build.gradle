@@ -10,7 +10,7 @@ bootJar {
 }
 
 dependencies {
-    compile project(":kernel:mash")
+    compile project(":kernel:brew")
     compile project(":kernel:admin")
       
     compile('org.springframework.boot:spring-boot-starter')

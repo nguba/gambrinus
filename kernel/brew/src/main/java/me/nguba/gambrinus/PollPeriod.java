@@ -22,24 +22,24 @@ import me.nguba.gambrinus.ddd.support.SingleValueObject;
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-public final class Period extends SingleValueObject<Long>
+public final class PollPeriod extends SingleValueObject<Long>
 {
-    public static Period from(final String period)
+    public static PollPeriod from(final String period)
     {
-        return Period.of(Long.parseLong(period));
+        return PollPeriod.of(Long.parseLong(period));
     }
 
-    public static Period of(final long value)
+    public static PollPeriod of(final long value)
     {
-        return new Period(value);
+        return new PollPeriod(value);
     }
 
-    public static Period oneSecond()
+    public static PollPeriod oneSecond()
     {
-        return Period.of(1);
+        return PollPeriod.of(1);
     }
 
-    private Period(final Long value)
+    private PollPeriod(final Long value)
     {
         super(value);
     }

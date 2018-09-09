@@ -24,13 +24,13 @@ import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import me.nguba.gambrinus.command.temperature.setpoint.SetpointChanged;
 import me.nguba.gambrinus.ddd.validation.ValidationFailed;
 import me.nguba.gambrinus.equipment.Vessel;
 import me.nguba.gambrinus.equipment.VesselId;
 import me.nguba.gambrinus.equipment.VesselRepository;
 import me.nguba.gambrinus.event.EventPublisher;
 import me.nguba.gambrinus.event.MutatorEvent;
+import me.nguba.gambrinus.event.SetpointChanged;
 import me.nguba.gambrinus.onewire.OneWireAddress;
 import me.nguba.gambrinus.owfs.OwfsRoot;
 import me.nguba.gambrinus.owfs.OwfsSensor;
@@ -76,7 +76,7 @@ class BrewmasterTest implements EventPublisher
                                  OwfsSensor.from(OwfsRoot.test(),
                                                  OneWireAddress.of("28.4BBB68080000"))));
 
-        brewmaster.monitor(vesselId, Period.oneSecond());
+        brewmaster.monitor(vesselId, PollPeriod.oneSecond());
     }
 
     @Override
@@ -88,7 +88,7 @@ class BrewmasterTest implements EventPublisher
     @Test
     void readTemperarture() throws Exception
     {
-        brewmaster.monitor(vesselId, Period.oneSecond());
+        brewmaster.monitor(vesselId, PollPeriod.oneSecond());
         final Temperature temperature = brewmaster.readProcessValue(vesselId);
         assertThat(temperature).isEqualTo(Temperature.celsius(33.5));
     }

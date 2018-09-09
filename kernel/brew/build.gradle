@@ -1,6 +1,6 @@
 eclipse {
     project {
-        name = rootProject.name + "-kernel-mash"
+        name = rootProject.name + "-kernel-brew"
     }
 }
 

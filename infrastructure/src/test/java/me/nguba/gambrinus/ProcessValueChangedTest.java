@@ -21,8 +21,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-import me.nguba.gambrinus.command.temperature.process.ProcessValueChanged;
 import me.nguba.gambrinus.equipment.VesselId;
+import me.nguba.gambrinus.event.ProcessValueChanged;
 import me.nguba.gambrinus.process.Temperature;
 import nl.jqno.equalsverifier.EqualsVerifier;
 

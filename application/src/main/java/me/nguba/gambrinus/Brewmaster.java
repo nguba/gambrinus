@@ -23,8 +23,6 @@ import java.util.concurrent.TimeUnit;
 import me.nguba.gambrinus.command.ChangeSetpoint;
 import me.nguba.gambrinus.command.ReadTemperature;
 import me.nguba.gambrinus.command.SetProcessValue;
-import me.nguba.gambrinus.command.temperature.process.ProcessValueChanged;
-import me.nguba.gambrinus.command.temperature.setpoint.SetpointChanged;
 import me.nguba.gambrinus.cqrs.command.CommandProcessor;
 import me.nguba.gambrinus.cqrs.handler.ChangeSetpointHandler;
 import me.nguba.gambrinus.cqrs.handler.ReadTemperatureHandler;
@@ -34,6 +32,8 @@ import me.nguba.gambrinus.ddd.validation.ValidationFailed;
 import me.nguba.gambrinus.equipment.VesselId;
 import me.nguba.gambrinus.equipment.VesselRepository;
 import me.nguba.gambrinus.event.EventPublisher;
+import me.nguba.gambrinus.event.ProcessValueChanged;
+import me.nguba.gambrinus.event.SetpointChanged;
 import me.nguba.gambrinus.process.Temperature;
 
 /**
@@ -62,7 +62,7 @@ public final class Brewmaster
         events.publish(SetpointChanged.on(command.getId(), command.getSetpoint()));
     }
 
-    public void monitor(final VesselId vessel, final Period period) throws ValidationFailed
+    public void monitor(final VesselId vessel, final PollPeriod period) throws ValidationFailed
     {
         // TODO same vessel cannot be monitored multiple times
         updateProcessValue(vessel);

@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import me.nguba.gambrinus.Brewmaster;
-import me.nguba.gambrinus.Period;
+import me.nguba.gambrinus.PollPeriod;
 import me.nguba.gambrinus.ddd.validation.ValidationFailed;
 import me.nguba.gambrinus.equipment.VesselId;
 import me.nguba.gambrinus.process.Temperature;
@@ -64,6 +64,6 @@ public final class BrewController
                               required = false) final String period)
             throws ValidationFailed
     {
-        brewmaster.monitor(VesselId.of(vesselId), Period.from(period));
+        brewmaster.monitor(VesselId.of(vesselId), PollPeriod.from(period));
     }
 }

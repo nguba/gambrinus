@@ -20,9 +20,9 @@ package me.nguba.gambrinus.raspberry;
 import com.google.common.eventbus.Subscribe;
 
 import me.nguba.gambrinus.Pid;
-import me.nguba.gambrinus.command.temperature.process.ProcessValueChanged;
-import me.nguba.gambrinus.command.temperature.setpoint.SetpointChanged;
 import me.nguba.gambrinus.event.EventPublisher;
+import me.nguba.gambrinus.event.ProcessValueChanged;
+import me.nguba.gambrinus.event.SetpointChanged;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
