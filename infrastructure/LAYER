@@ -1,4 +1,4 @@
-Files in this project belong to the Infrastructure Layer
+Files in this folder belong to the Infrastructure Layer
 
 It provides generic technical capabilities that support the higher layers:
 message sending for the application, persistence for the domain, drawing

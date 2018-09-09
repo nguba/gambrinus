@@ -1,4 +1,4 @@
-Files in this project belong to the Domain Layer
+Files in this folder belong to the Domain Layer
 
 The Domain Layer is responsible for representing concepts of the business,
 information about the business situation, and business rules.

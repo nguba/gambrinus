@@ -1,4 +1,4 @@
-Files in this project belong to the Application Layer
+Files in this folder belong to the Application Layer
 
 This layer defines the jobs the software is supposed to do and directs the
 expressive domain objects to work out problems.  The tasks this layer is
@@ -11,4 +11,4 @@ It does not contain business rules or knowledge, but only coordinates tasks and
 delegates work to collaborations of domain objects in the next layers down.
 
 It does not have state reflecting the business situation, but it can have state
-that reflects the progress of a task for the suer or the program.
+that reflects the progress of a task for the user or the program.
