@@ -56,9 +56,9 @@ public final class CreateVesselHandler implements CommandHandler<CreateVessel>
 
         if (command.getAddress() == null)
             errors.add(Reason.from("OwfsRoot cannot be null"));
-   
+
         // TODO test for invalid owfsRoot
-        
+
         if (command.getRoot() != null && command.getAddress() != null) {
             final OwfsSensor sensor = OwfsSensor.from(OwfsRoot.of(command.getRoot()),
                                                       command.getAddress());

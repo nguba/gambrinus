@@ -16,12 +16,12 @@
 */
 package me.nguba.gambrinus.cqrs.handler;
 
-import me.nguba.gambrinus.cqrs.query.Result;
-import me.nguba.gambrinus.onewire.OneWireAddress;
-
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+
+import me.nguba.gambrinus.cqrs.query.Result;
+import me.nguba.gambrinus.onewire.OneWireAddress;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>

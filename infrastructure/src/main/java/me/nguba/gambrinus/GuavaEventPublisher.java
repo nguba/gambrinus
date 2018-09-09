@@ -16,13 +16,13 @@
 */
 package me.nguba.gambrinus;
 
-import me.nguba.gambrinus.event.EventPublisher;
-import me.nguba.gambrinus.event.MutatorEvent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.common.eventbus.EventBus;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import me.nguba.gambrinus.event.EventPublisher;
+import me.nguba.gambrinus.event.MutatorEvent;
 
 /**
  * Default event publisher that logs to the configured logging system but does not broadcast any

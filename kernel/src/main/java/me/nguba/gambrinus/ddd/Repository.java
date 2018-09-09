@@ -21,16 +21,16 @@ import java.util.Optional;
  * <p>
  * Repositories, also, support the purpose of separating, clearly and in one direction, the
  * dependency between the work domain and the data allocation or mapping.
- * 
+ *
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
 public interface Repository<I, A extends Aggregate<I>>
 {
-  Optional<I> create(A aggregate);
+    Optional<I> create(A aggregate);
 
-  void delete(I identifier);
+    void delete(I identifier);
 
-  Optional<A> read(I identifier);
+    Optional<A> read(I identifier);
 
-  void update(A aggregate);
+    void update(A aggregate);
 }

@@ -16,17 +16,16 @@
 */
 package me.nguba.gambrinus.cqrs.query;
 
-import me.nguba.gambrinus.ddd.validation.Errors;
-import me.nguba.gambrinus.ddd.validation.ValidationFailed;
-
 import static org.assertj.core.api.Assertions.assertThat;
-
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
+
+import org.junit.jupiter.api.Test;
+
+import me.nguba.gambrinus.ddd.validation.Errors;
+import me.nguba.gambrinus.ddd.validation.ValidationFailed;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>

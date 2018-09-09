@@ -16,12 +16,12 @@
 */
 package me.nguba.gambrinus.process;
 
-import nl.jqno.equalsverifier.EqualsVerifier;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import nl.jqno.equalsverifier.EqualsVerifier;
 
 class TemperatureTest
 {

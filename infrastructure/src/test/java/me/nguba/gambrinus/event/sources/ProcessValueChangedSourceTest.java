@@ -16,21 +16,19 @@
 */
 package me.nguba.gambrinus.event.sources;
 
-import me.nguba.gambrinus.command.temperature.process.ProcessValueChanged;
-import me.nguba.gambrinus.equipment.VesselId;
-import me.nguba.gambrinus.event.EventSerializerService;
-import me.nguba.gambrinus.event.sources.ProcessValueChangedSource;
-import me.nguba.gambrinus.process.Temperature;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import static org.assertj.core.api.Assertions.assertThat;
+
+import java.io.IOException;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
+import me.nguba.gambrinus.command.temperature.process.ProcessValueChanged;
+import me.nguba.gambrinus.equipment.VesselId;
+import me.nguba.gambrinus.event.EventSerializerService;
+import me.nguba.gambrinus.process.Temperature;
 
 class ProcessValueChangedSourceTest
 {
@@ -44,7 +42,8 @@ class ProcessValueChangedSourceTest
     private final Temperature temperature = Temperature.celsius(10);
 
     @BeforeEach
-    void setUp() {
+    void setUp()
+    {
         event = ProcessValueChanged.on(VesselId.of("Boil Kettle"),
                                        temperature.toCelsius());
     }

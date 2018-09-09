@@ -16,10 +16,10 @@
 */
 package me.nguba.gambrinus.admin;
 
-import me.nguba.gambrinus.equipment.Vessel;
-
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.hateoas.mvc.ResourceAssemblerSupport;
+
+import me.nguba.gambrinus.equipment.Vessel;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>

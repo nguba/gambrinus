@@ -40,7 +40,7 @@ public class OwfsSensor extends Entity<OneWireAddress>
     }
 
     private final Path latesttemp;
-    
+
     private OwfsSensor(final OwfsRoot root, final OneWireAddress address)
     {
         super(address);
@@ -57,11 +57,11 @@ public class OwfsSensor extends Entity<OneWireAddress>
     {
         if (!isValid())
             throw new FileNotFoundException("sensor is not mapped to an address");
-        
+
         try (final FileChannel channel = FileChannel.open(latesttemp, StandardOpenOption.READ)) {
             final ByteBuffer buf = ByteBuffer.allocate(8);
             final StringBuilder builder = new StringBuilder();
-            
+
             while (channel.read(buf) != -1) {
                 buf.flip();
                 while (buf.hasRemaining())

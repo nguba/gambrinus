@@ -17,12 +17,11 @@
 package me.nguba.gambrinus.equipment;
 
 import static org.assertj.core.api.Assertions.assertThat;
-
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Optional;
+
+import org.junit.jupiter.api.Test;
 
 /**
  *

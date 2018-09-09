@@ -17,12 +17,12 @@
 
 package me.nguba.gambrinus.raspberry;
 
+import com.google.common.eventbus.Subscribe;
+
 import me.nguba.gambrinus.Pid;
 import me.nguba.gambrinus.command.temperature.process.ProcessValueChanged;
 import me.nguba.gambrinus.command.temperature.setpoint.SetpointChanged;
 import me.nguba.gambrinus.event.EventPublisher;
-
-import com.google.common.eventbus.Subscribe;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
@@ -30,7 +30,7 @@ import com.google.common.eventbus.Subscribe;
 public final class Pi3
 {
     Pid controller = new Pid(0, 0, 0);
-    
+
     public static Pi3 with(final EventPublisher publisher)
     {
         final Pi3 pi3 = new Pi3();
@@ -44,18 +44,18 @@ public final class Pi3
     }
 
     @Subscribe
-    public void onEvent(ProcessValueChanged event)
+    public void onEvent(final ProcessValueChanged event)
     {
         // TODO fetch pin for vessel and calculate the output
         event.getVesselId();
-        
-        double output = controller.getOutput(event.getProcessValue().getValue());
-        if(output > 0) {   
+
+        final double output = controller.getOutput(event.getProcessValue().getValue());
+        if (output > 0) {
         }
     }
 
     @Subscribe
-    public void onEvent(SetpointChanged event)
+    public void onEvent(final SetpointChanged event)
     {
         controller.setSetpoint(event.getSetpoint().getValue());
     }

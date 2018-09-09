@@ -27,7 +27,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import me.nguba.gambrinus.command.CreateVessel;
-import me.nguba.gambrinus.cqrs.handler.CreateVesselHandler;
 import me.nguba.gambrinus.ddd.validation.Errors;
 import me.nguba.gambrinus.ddd.validation.Reason;
 import me.nguba.gambrinus.ddd.validation.ValidationFailed;

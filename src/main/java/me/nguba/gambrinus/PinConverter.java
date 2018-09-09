@@ -16,16 +16,16 @@
 */
 package me.nguba.gambrinus;
 
-import me.nguba.gambrinus.raspberry.GPIO;
-
-import com.pi4j.io.gpio.Pin;
-import com.pi4j.io.gpio.RaspiPin;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.ConfigurationPropertiesBinding;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.util.Assert;
+
+import com.pi4j.io.gpio.Pin;
+import com.pi4j.io.gpio.RaspiPin;
+
+import me.nguba.gambrinus.raspberry.GPIO;
 
 /**
  *

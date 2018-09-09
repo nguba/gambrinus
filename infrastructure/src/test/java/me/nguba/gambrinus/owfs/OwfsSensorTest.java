@@ -16,14 +16,14 @@
 */
 package me.nguba.gambrinus.owfs;
 
-import me.nguba.gambrinus.process.Temperature;
-
 import static org.assertj.core.api.Assertions.assertThat;
+
+import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Optional;
+import me.nguba.gambrinus.process.Temperature;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>

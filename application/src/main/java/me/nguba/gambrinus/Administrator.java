@@ -41,7 +41,7 @@ import me.nguba.gambrinus.onewire.OneWireAddress;
  */
 public class Administrator
 {
-    private VesselRepository repo;
+    private final VesselRepository repo;
 
     public Administrator(final VesselRepository repo)
     {
@@ -53,7 +53,7 @@ public class Administrator
                                final OneWireAddress address)
             throws ValidationFailed
     {
-        CreateVessel command = CreateVessel.from(vesselId, mountpoint, address);
+        final CreateVessel command = CreateVessel.from(vesselId, mountpoint, address);
         CommandProcessor.mutate(command, new CreateVesselHandler(repo));
 
         return findVessel(vesselId);
@@ -61,7 +61,7 @@ public class Administrator
 
     public Set<OneWireAddress> findAddresses(final String mountpoint) throws ValidationFailed
     {
-        FindOneWireAddresses query = FindOneWireAddresses.on(mountpoint);
+        final FindOneWireAddresses query = FindOneWireAddresses.on(mountpoint);
         return QueryProcessor
                 .query(query, FindOneWireAddressesHandler.create())
                 .getResult().get();
@@ -69,7 +69,7 @@ public class Administrator
 
     public Vessel findVessel(final VesselId id) throws ValidationFailed
     {
-        FindVessel query = FindVessel.of(id);
+        final FindVessel query = FindVessel.of(id);
         final Vessel result = QueryProcessor
                 .query(query, FindVesselHandler.on(repo)).getResult().get();
         return result;

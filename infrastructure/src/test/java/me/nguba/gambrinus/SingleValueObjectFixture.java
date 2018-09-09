@@ -16,13 +16,13 @@
 */
 package me.nguba.gambrinus;
 
-import me.nguba.gambrinus.ddd.support.SingleValueObject;
-import nl.jqno.equalsverifier.EqualsVerifier;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import me.nguba.gambrinus.ddd.support.SingleValueObject;
+import nl.jqno.equalsverifier.EqualsVerifier;
 
 public abstract class SingleValueObjectFixture<I, V extends SingleValueObject<I>>
 {

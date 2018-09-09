@@ -57,7 +57,7 @@ public final class OwfsRoot extends OwfsDirectory
         return sensors.toArray(new OwfsSensor[sensors.size()]);
     }
 
-    public static OwfsRoot of(Path root)
+    public static OwfsRoot of(final Path root)
     {
         return new OwfsRoot(root.toFile());
     }

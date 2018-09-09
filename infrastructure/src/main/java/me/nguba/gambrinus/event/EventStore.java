@@ -16,17 +16,17 @@
 */
 package me.nguba.gambrinus.event;
 
-import me.nguba.gambrinus.event.sources.EventSource;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.time.Instant;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
-import java.io.IOException;
-import java.sql.SQLException;
-import java.time.Instant;
-import java.util.List;
+import me.nguba.gambrinus.event.sources.EventSource;
 
 /**
  *

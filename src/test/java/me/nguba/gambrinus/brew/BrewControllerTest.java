@@ -16,19 +16,6 @@
 */
 package me.nguba.gambrinus.brew;
 
-import me.nguba.gambrinus.ApplicationMother;
-import me.nguba.gambrinus.GambrinusControllerTest;
-import me.nguba.gambrinus.equipment.Vessel;
-import me.nguba.gambrinus.equipment.VesselId;
-import me.nguba.gambrinus.equipment.VesselRepository;
-import me.nguba.gambrinus.onewire.OneWireAddress;
-import me.nguba.gambrinus.owfs.OwfsRoot;
-import me.nguba.gambrinus.owfs.OwfsSensor;
-import me.nguba.gambrinus.process.Temperature;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.web.servlet.MockMvc;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -38,6 +25,18 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.web.servlet.MockMvc;
+
+import me.nguba.gambrinus.ApplicationMother;
+import me.nguba.gambrinus.GambrinusControllerTest;
+import me.nguba.gambrinus.equipment.Vessel;
+import me.nguba.gambrinus.equipment.VesselId;
+import me.nguba.gambrinus.equipment.VesselRepository;
+import me.nguba.gambrinus.onewire.OneWireAddress;
+import me.nguba.gambrinus.owfs.OwfsRoot;
+import me.nguba.gambrinus.owfs.OwfsSensor;
+import me.nguba.gambrinus.process.Temperature;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>

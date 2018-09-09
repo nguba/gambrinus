@@ -16,13 +16,12 @@
 */
 package me.nguba.gambrinus.command;
 
-import me.nguba.gambrinus.command.FindVessel;
-import me.nguba.gambrinus.equipment.VesselId;
-import nl.jqno.equalsverifier.EqualsVerifier;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
+
+import me.nguba.gambrinus.equipment.VesselId;
+import nl.jqno.equalsverifier.EqualsVerifier;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>

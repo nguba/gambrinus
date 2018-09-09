@@ -16,13 +16,11 @@
 */
 package me.nguba.gambrinus.command;
 
-import nl.jqno.equalsverifier.EqualsVerifier;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
 
-import me.nguba.gambrinus.command.FindOneWireAddresses;
+import nl.jqno.equalsverifier.EqualsVerifier;
 
 class FindOneWireAddressesTest
 {

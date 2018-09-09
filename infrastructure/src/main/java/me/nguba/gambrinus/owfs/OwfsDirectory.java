@@ -16,9 +16,9 @@
 */
 package me.nguba.gambrinus.owfs;
 
-import me.nguba.gambrinus.ddd.support.SingleValueObject;
-
 import java.io.File;
+
+import me.nguba.gambrinus.ddd.support.SingleValueObject;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>

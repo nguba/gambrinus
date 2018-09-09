@@ -16,9 +16,9 @@
 */
 package me.nguba.gambrinus.raspberry;
 
-import me.nguba.gambrinus.ddd.support.SingleValueObject;
-
 import com.pi4j.io.gpio.Pin;
+
+import me.nguba.gambrinus.ddd.support.SingleValueObject;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>

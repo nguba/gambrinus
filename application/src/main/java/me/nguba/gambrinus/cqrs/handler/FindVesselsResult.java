@@ -16,12 +16,12 @@
 */
 package me.nguba.gambrinus.cqrs.handler;
 
-import me.nguba.gambrinus.cqrs.query.Result;
-import me.nguba.gambrinus.equipment.Vessel;
-
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+
+import me.nguba.gambrinus.cqrs.query.Result;
+import me.nguba.gambrinus.equipment.Vessel;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>

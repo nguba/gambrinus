@@ -16,14 +16,11 @@
 */
 package me.nguba.gambrinus.event;
 
-import me.nguba.gambrinus.event.EventSerializerService;
-import me.nguba.gambrinus.event.MutatorEvent;
-
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.Instant;
+
+import org.junit.jupiter.api.Test;
 
 public class EventSerializerServiceTest extends MutatorEvent
 {

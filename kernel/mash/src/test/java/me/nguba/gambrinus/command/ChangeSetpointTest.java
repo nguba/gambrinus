@@ -16,13 +16,12 @@
 */
 package me.nguba.gambrinus.command;
 
-import me.nguba.gambrinus.command.ChangeSetpoint;
-import me.nguba.gambrinus.equipment.VesselId;
-import me.nguba.gambrinus.process.Temperature;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import me.nguba.gambrinus.equipment.VesselId;
+import me.nguba.gambrinus.process.Temperature;
 
 /**
  *

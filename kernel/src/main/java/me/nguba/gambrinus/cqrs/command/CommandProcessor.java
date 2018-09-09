@@ -49,7 +49,7 @@ public final class CommandProcessor<C extends Command>
         handler.changeStateFor(command);
     }
 
-    public static <C extends Command> void mutate(final C command, CommandHandler<C> handler)
+    public static <C extends Command> void mutate(final C command, final CommandHandler<C> handler)
             throws ValidationFailed
     {
         CommandProcessor.from(command, handler).mutate();

@@ -16,13 +16,13 @@
 */
 package me.nguba.gambrinus;
 
-import me.nguba.gambrinus.event.EventPublisher;
-import me.nguba.gambrinus.event.EventSourceMediator;
-import me.nguba.gambrinus.event.EventStore;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
+
+import me.nguba.gambrinus.event.EventPublisher;
+import me.nguba.gambrinus.event.EventSourceMediator;
+import me.nguba.gambrinus.event.EventStore;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>

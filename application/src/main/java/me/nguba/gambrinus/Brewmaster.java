@@ -16,6 +16,10 @@
 */
 package me.nguba.gambrinus;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 import me.nguba.gambrinus.command.ChangeSetpoint;
 import me.nguba.gambrinus.command.ReadTemperature;
 import me.nguba.gambrinus.command.SetProcessValue;
@@ -32,10 +36,6 @@ import me.nguba.gambrinus.equipment.VesselRepository;
 import me.nguba.gambrinus.event.EventPublisher;
 import me.nguba.gambrinus.process.Temperature;
 
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
@@ -43,9 +43,9 @@ public final class Brewmaster
 {
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(3);
 
-    private VesselRepository vessels;
+    private final VesselRepository vessels;
 
-    private EventPublisher events;
+    private final EventPublisher events;
 
     public Brewmaster(final VesselRepository vessels, final EventPublisher events)
     {
@@ -82,7 +82,7 @@ public final class Brewmaster
                 .query(ReadTemperature.from(vessel), ReadTemperatureHandler.on(vessels)).getResult()
                 .orElse(Temperature.celsius(0));
     }
-    
+
     private void updateProcessValue(final VesselId vessel) throws ValidationFailed
     {
         final Temperature currentTemp = QueryProcessor

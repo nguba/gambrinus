@@ -16,10 +16,10 @@
 */
 package me.nguba.gambrinus.ddd.validation;
 
-import me.nguba.gambrinus.ddd.ValueObject;
-
 import java.util.HashSet;
 import java.util.Set;
+
+import me.nguba.gambrinus.ddd.ValueObject;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>

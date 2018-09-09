@@ -16,13 +16,12 @@
 */
 package me.nguba.gambrinus.command;
 
-import me.nguba.gambrinus.command.ReadTemperature;
-import me.nguba.gambrinus.equipment.VesselId;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import me.nguba.gambrinus.equipment.VesselId;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>

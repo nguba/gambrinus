@@ -25,11 +25,11 @@ class PidTest
     void test()
     {
 
-        Pid pid = new Pid(0.25, 0.01, 0.4);
-        //pid.setOutputLimits(1);
+        final Pid pid = new Pid(0.25, 0.01, 0.4);
+        // pid.setOutputLimits(1);
         // miniPID.setMaxIOutput(2);
         // miniPID.setOutputRampRate(3);
-        //miniPID.setOutputFilter(.3);
+        // miniPID.setOutputFilter(.3);
         pid.setSetpointRange(100);
 
         double target = 100;
@@ -64,7 +64,7 @@ class PidTest
                               target,
                               actual,
                               output,
-                              (target - actual));
+                              target - actual);
 
             // if(i>80 && i%5==0)actual+=(Math.random()-.5)*20;
         }

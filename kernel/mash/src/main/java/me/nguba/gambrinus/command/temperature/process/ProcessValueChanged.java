@@ -16,11 +16,11 @@
 */
 package me.nguba.gambrinus.command.temperature.process;
 
+import java.time.Instant;
+
 import me.nguba.gambrinus.equipment.VesselId;
 import me.nguba.gambrinus.event.MutatorEvent;
 import me.nguba.gambrinus.process.Temperature;
-
-import java.time.Instant;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>

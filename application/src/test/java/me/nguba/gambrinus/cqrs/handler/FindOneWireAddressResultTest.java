@@ -16,12 +16,11 @@
 */
 package me.nguba.gambrinus.cqrs.handler;
 
-import me.nguba.gambrinus.cqrs.handler.FindOneWireAddressResult;
-import me.nguba.gambrinus.onewire.OneWireAddress;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
+
+import me.nguba.gambrinus.onewire.OneWireAddress;
 
 class FindOneWireAddressResultTest
 {

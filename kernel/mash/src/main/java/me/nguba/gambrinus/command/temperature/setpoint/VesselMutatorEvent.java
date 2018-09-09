@@ -16,10 +16,10 @@
 */
 package me.nguba.gambrinus.command.temperature.setpoint;
 
+import java.time.Instant;
+
 import me.nguba.gambrinus.equipment.VesselId;
 import me.nguba.gambrinus.event.MutatorEvent;
-
-import java.time.Instant;
 
 public abstract class VesselMutatorEvent extends MutatorEvent
 {
