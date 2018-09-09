@@ -7,7 +7,7 @@
  * Public License for more details. You should have received a copy of the GNU General Public
  * License along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package me.nguba.gambrinus.command.vessel.create;
+package me.nguba.gambrinus.handler;
 
 import me.nguba.gambrinus.command.CreateVessel;
 import me.nguba.gambrinus.cqrs.command.CommandHandler;

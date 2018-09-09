@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-package me.nguba.gambrinus.command.temperature.process;
+package me.nguba.gambrinus.cqrs.handler;
 
 import me.nguba.gambrinus.command.SetProcessValue;
 import me.nguba.gambrinus.ddd.validation.Errors;
@@ -23,6 +23,7 @@ import me.nguba.gambrinus.ddd.validation.ValidationFailed;
 import me.nguba.gambrinus.equipment.Vessel;
 import me.nguba.gambrinus.equipment.VesselId;
 import me.nguba.gambrinus.equipment.VesselRepository;
+import me.nguba.gambrinus.handler.SetProcessValueHandler;
 import me.nguba.gambrinus.onewire.OneWireAddress;
 import me.nguba.gambrinus.owfs.OwfsRoot;
 import me.nguba.gambrinus.owfs.OwfsSensor;

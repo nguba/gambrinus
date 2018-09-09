@@ -14,11 +14,13 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-package me.nguba.gambrinus.query.onewire;
+package me.nguba.gambrinus.cqrs.handler;
 
 import me.nguba.gambrinus.command.FindOneWireAddresses;
 import me.nguba.gambrinus.ddd.validation.Errors;
 import me.nguba.gambrinus.ddd.validation.ValidationFailed;
+import me.nguba.gambrinus.handler.FindOneWireAddressResult;
+import me.nguba.gambrinus.handler.FindOneWireAddressesHandler;
 import me.nguba.gambrinus.onewire.OneWireAddress;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -31,7 +33,7 @@ class FindOneWireAddressesHandlerTest
 {
     private final Errors errors = Errors.empty();
 
-    private final FindOneWireAddressesHandler handler = FindOneWireAddressesHandler.on();
+    private final FindOneWireAddressesHandler handler = FindOneWireAddressesHandler.create();
 
     @Test
     void emptyResultOnIOFailure()

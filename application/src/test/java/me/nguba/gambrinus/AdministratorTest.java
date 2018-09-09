@@ -55,7 +55,6 @@ class AdministratorTest
     @BeforeEach
     void setUp()
     {
-        admin = new Administrator(new AdminCommands(vessels),
-                                  new AdminQueries(vessels));
+        admin = new Administrator(vessels);
     }
 }

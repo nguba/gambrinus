@@ -24,9 +24,16 @@ import me.nguba.gambrinus.command.CreateVessel;
 import me.nguba.gambrinus.command.FindOneWireAddresses;
 import me.nguba.gambrinus.command.FindVessel;
 import me.nguba.gambrinus.command.FindVessels;
+import me.nguba.gambrinus.cqrs.command.CommandProcessor;
+import me.nguba.gambrinus.cqrs.query.QueryProcessor;
 import me.nguba.gambrinus.ddd.validation.ValidationFailed;
 import me.nguba.gambrinus.equipment.Vessel;
 import me.nguba.gambrinus.equipment.VesselId;
+import me.nguba.gambrinus.equipment.VesselRepository;
+import me.nguba.gambrinus.handler.CreateVesselHandler;
+import me.nguba.gambrinus.handler.FindOneWireAddressesHandler;
+import me.nguba.gambrinus.handler.FindVesselHandler;
+import me.nguba.gambrinus.handler.FindVesselsHandler;
 import me.nguba.gambrinus.onewire.OneWireAddress;
 
 /**
@@ -34,15 +41,11 @@ import me.nguba.gambrinus.onewire.OneWireAddress;
  */
 public class Administrator
 {
-    private final AdminCommands commands;
+    private VesselRepository repo;
 
-    private final AdminQueries queries;
-
-    public Administrator(final AdminCommands commands,
-                         final AdminQueries queries)
+    public Administrator(final VesselRepository repo)
     {
-        this.commands = commands;
-        this.queries = queries;
+        this.repo = repo;
     }
 
     public Vessel createVessel(final VesselId vesselId,
@@ -50,24 +53,31 @@ public class Administrator
                                final OneWireAddress address)
             throws ValidationFailed
     {
-        commands.execute(CreateVessel.from(vesselId, mountpoint, address));
+        CreateVessel command = CreateVessel.from(vesselId, mountpoint, address);
+        CommandProcessor.mutate(command, new CreateVesselHandler(repo));
 
-        final Set<Vessel> result = queries.run(FindVessels.create());
-        return result.iterator().next();
+        return findVessel(vesselId);
     }
 
     public Set<OneWireAddress> findAddresses(final String mountpoint) throws ValidationFailed
     {
-        return queries.run(FindOneWireAddresses.on(mountpoint));
+        FindOneWireAddresses query = FindOneWireAddresses.on(mountpoint);
+        return QueryProcessor
+                .query(query, FindOneWireAddressesHandler.create())
+                .getResult().get();
     }
 
     public Vessel findVessel(final VesselId id) throws ValidationFailed
     {
-        return queries.run(FindVessel.of(id));
+        FindVessel query = FindVessel.of(id);
+        final Vessel result = QueryProcessor
+                .query(query, FindVesselHandler.on(repo)).getResult().get();
+        return result;
     }
 
     public Set<Vessel> findVessels() throws ValidationFailed, IOException
     {
-        return queries.run(FindVessels.create());
+        return QueryProcessor
+                .query(FindVessels.create(), FindVesselsHandler.on(repo)).getResult().get();
     }
 }

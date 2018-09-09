@@ -14,28 +14,37 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-package me.nguba.gambrinus;
+package me.nguba.gambrinus.handler;
 
-import me.nguba.gambrinus.command.CreateVessel;
-import me.nguba.gambrinus.command.vessel.create.CreateVesselHandler;
-import me.nguba.gambrinus.cqrs.command.CommandProcessor;
-import me.nguba.gambrinus.ddd.validation.ValidationFailed;
-import me.nguba.gambrinus.equipment.VesselRepository;
+import me.nguba.gambrinus.cqrs.query.Result;
+import me.nguba.gambrinus.equipment.Vessel;
+
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-public final class AdminCommands
+public final class FindVesselsResult implements Result<Set<Vessel>>
 {
-    private final VesselRepository repo;
-
-    public AdminCommands(final VesselRepository repo)
+    public static FindVesselsResult from(final Vessel[] vessels)
     {
-        this.repo = repo;
+        return new FindVesselsResult(vessels);
     }
 
-    public void execute(final CreateVessel command) throws ValidationFailed
+    private final Set<Vessel> vessels = new HashSet<>();
+
+    private FindVesselsResult(final Vessel[] vessels)
     {
-        CommandProcessor.from(command, new CreateVesselHandler(repo)).mutate();
+        for (final Vessel v : vessels)
+            this.vessels.add(v);
     }
+
+    @Override
+    public Optional<Set<Vessel>> getResult()
+    {
+        return Optional.of(vessels);
+    }
+
 }

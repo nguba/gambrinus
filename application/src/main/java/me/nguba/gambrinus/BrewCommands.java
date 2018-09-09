@@ -19,13 +19,13 @@ package me.nguba.gambrinus;
 import me.nguba.gambrinus.command.ChangeSetpoint;
 import me.nguba.gambrinus.command.SetProcessValue;
 import me.nguba.gambrinus.command.temperature.process.ProcessValueChanged;
-import me.nguba.gambrinus.command.temperature.process.SetProcessValueHandler;
-import me.nguba.gambrinus.command.temperature.setpoint.ChangeSetpointHandler;
 import me.nguba.gambrinus.command.temperature.setpoint.SetpointChanged;
 import me.nguba.gambrinus.cqrs.command.CommandProcessor;
 import me.nguba.gambrinus.ddd.validation.ValidationFailed;
 import me.nguba.gambrinus.equipment.VesselRepository;
 import me.nguba.gambrinus.event.EventPublisher;
+import me.nguba.gambrinus.handler.ChangeSetpointHandler;
+import me.nguba.gambrinus.handler.SetProcessValueHandler;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>

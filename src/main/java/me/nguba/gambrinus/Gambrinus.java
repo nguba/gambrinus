@@ -39,22 +39,9 @@ public class Gambrinus
     }
 
     @Bean
-    public AdminCommands adminCommands(final VesselRepository vessels)
+    public Administrator administrator(final VesselRepository repo)
     {
-        return new AdminCommands(vessels);
-    }
-
-    @Bean
-    public Administrator administrator(final AdminCommands commands,
-                                       final AdminQueries queries)
-    {
-        return new Administrator(commands, queries);
-    }
-
-    @Bean
-    public AdminQueries adminQueries(final VesselRepository vessels)
-    {
-        return new AdminQueries(vessels);
+        return new Administrator(repo);
     }
 
     @Bean

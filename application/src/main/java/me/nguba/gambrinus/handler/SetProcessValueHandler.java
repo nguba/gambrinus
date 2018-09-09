@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-package me.nguba.gambrinus.command.temperature.process;
+package me.nguba.gambrinus.handler;
 
 import me.nguba.gambrinus.command.SetProcessValue;
 import me.nguba.gambrinus.command.VesselHandler;

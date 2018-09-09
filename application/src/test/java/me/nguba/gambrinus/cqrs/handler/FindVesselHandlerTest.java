@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-package me.nguba.gambrinus.query.vessel.find;
+package me.nguba.gambrinus.cqrs.handler;
 
 import me.nguba.gambrinus.command.FindVessel;
 import me.nguba.gambrinus.ddd.validation.Errors;
@@ -22,6 +22,8 @@ import me.nguba.gambrinus.ddd.validation.ValidationFailed;
 import me.nguba.gambrinus.equipment.Vessel;
 import me.nguba.gambrinus.equipment.VesselId;
 import me.nguba.gambrinus.equipment.VesselRepository;
+import me.nguba.gambrinus.handler.FindVesselHandler;
+import me.nguba.gambrinus.handler.FindVesselResult;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
