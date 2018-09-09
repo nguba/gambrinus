@@ -17,13 +17,13 @@
 package me.nguba.gambrinus.cqrs.handler;
 
 import me.nguba.gambrinus.command.SetProcessValue;
+import me.nguba.gambrinus.cqrs.handler.SetProcessValueHandler;
 import me.nguba.gambrinus.ddd.validation.Errors;
 import me.nguba.gambrinus.ddd.validation.Reason;
 import me.nguba.gambrinus.ddd.validation.ValidationFailed;
 import me.nguba.gambrinus.equipment.Vessel;
 import me.nguba.gambrinus.equipment.VesselId;
 import me.nguba.gambrinus.equipment.VesselRepository;
-import me.nguba.gambrinus.handler.SetProcessValueHandler;
 import me.nguba.gambrinus.onewire.OneWireAddress;
 import me.nguba.gambrinus.owfs.OwfsRoot;
 import me.nguba.gambrinus.owfs.OwfsSensor;

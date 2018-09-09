@@ -16,7 +16,7 @@
 */
 package me.nguba.gambrinus.cqrs.handler;
 
-import me.nguba.gambrinus.handler.FindOneWireAddressResult;
+import me.nguba.gambrinus.cqrs.handler.FindOneWireAddressResult;
 import me.nguba.gambrinus.onewire.OneWireAddress;
 
 import static org.assertj.core.api.Assertions.assertThat;

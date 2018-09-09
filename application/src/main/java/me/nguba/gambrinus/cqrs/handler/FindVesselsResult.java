@@ -14,10 +14,10 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-package me.nguba.gambrinus.handler;
+package me.nguba.gambrinus.cqrs.handler;
 
 import me.nguba.gambrinus.cqrs.query.Result;
-import me.nguba.gambrinus.onewire.OneWireAddress;
+import me.nguba.gambrinus.equipment.Vessel;
 
 import java.util.HashSet;
 import java.util.Optional;
@@ -26,29 +26,25 @@ import java.util.Set;
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-public final class FindOneWireAddressResult implements Result<Set<OneWireAddress>>
+public final class FindVesselsResult implements Result<Set<Vessel>>
 {
-    public static FindOneWireAddressResult from(final OneWireAddress[] addresses)
+    public static FindVesselsResult from(final Vessel[] vessels)
     {
-        if (addresses == null)
-            return new FindOneWireAddressResult(new HashSet<>());
-
-        final Set<OneWireAddress> result = new HashSet<>();
-        for (final OneWireAddress address : addresses)
-            result.add(address);
-        return new FindOneWireAddressResult(result);
+        return new FindVesselsResult(vessels);
     }
 
-    private final Set<OneWireAddress> result;
+    private final Set<Vessel> vessels = new HashSet<>();
 
-    private FindOneWireAddressResult(final Set<OneWireAddress> result)
+    private FindVesselsResult(final Vessel[] vessels)
     {
-        this.result = result;
+        for (final Vessel v : vessels)
+            this.vessels.add(v);
     }
 
     @Override
-    public Optional<Set<OneWireAddress>> getResult()
+    public Optional<Set<Vessel>> getResult()
     {
-        return Optional.of(result);
+        return Optional.of(vessels);
     }
+
 }

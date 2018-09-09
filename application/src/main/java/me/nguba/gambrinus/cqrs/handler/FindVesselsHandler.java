@@ -14,37 +14,38 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-package me.nguba.gambrinus.handler;
+package me.nguba.gambrinus.cqrs.handler;
 
-import me.nguba.gambrinus.cqrs.query.Result;
-import me.nguba.gambrinus.equipment.Vessel;
-
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import me.nguba.gambrinus.command.FindVessels;
+import me.nguba.gambrinus.cqrs.query.QueryHandler;
+import me.nguba.gambrinus.ddd.validation.Errors;
+import me.nguba.gambrinus.equipment.VesselRepository;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-public final class FindVesselsResult implements Result<Set<Vessel>>
+public final class FindVesselsHandler implements QueryHandler<FindVessels, FindVesselsResult>
 {
-    public static FindVesselsResult from(final Vessel[] vessels)
+    public static FindVesselsHandler on(final VesselRepository repository)
     {
-        return new FindVesselsResult(vessels);
+        return new FindVesselsHandler(repository);
     }
 
-    private final Set<Vessel> vessels = new HashSet<>();
+    private final VesselRepository repository;
 
-    private FindVesselsResult(final Vessel[] vessels)
+    private FindVesselsHandler(final VesselRepository repository)
     {
-        for (final Vessel v : vessels)
-            this.vessels.add(v);
+        this.repository = repository;
     }
 
     @Override
-    public Optional<Set<Vessel>> getResult()
+    public FindVesselsResult query(final FindVessels query)
     {
-        return Optional.of(vessels);
+        return FindVesselsResult.from(repository.findAll());
     }
 
+    @Override
+    public void validate(final FindVessels query, final Errors errors)
+    {
+    }
 }

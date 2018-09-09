@@ -17,12 +17,12 @@
 package me.nguba.gambrinus.cqrs.handler;
 
 import me.nguba.gambrinus.command.FindVessels;
+import me.nguba.gambrinus.cqrs.handler.FindVesselsHandler;
+import me.nguba.gambrinus.cqrs.handler.FindVesselsResult;
 import me.nguba.gambrinus.ddd.validation.Errors;
 import me.nguba.gambrinus.equipment.Vessel;
 import me.nguba.gambrinus.equipment.VesselId;
 import me.nguba.gambrinus.equipment.VesselRepository;
-import me.nguba.gambrinus.handler.FindVesselsHandler;
-import me.nguba.gambrinus.handler.FindVesselsResult;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

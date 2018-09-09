@@ -17,10 +17,10 @@
 package me.nguba.gambrinus.cqrs.handler;
 
 import me.nguba.gambrinus.command.FindOneWireAddresses;
+import me.nguba.gambrinus.cqrs.handler.FindOneWireAddressResult;
+import me.nguba.gambrinus.cqrs.handler.FindOneWireAddressesHandler;
 import me.nguba.gambrinus.ddd.validation.Errors;
 import me.nguba.gambrinus.ddd.validation.ValidationFailed;
-import me.nguba.gambrinus.handler.FindOneWireAddressResult;
-import me.nguba.gambrinus.handler.FindOneWireAddressesHandler;
 import me.nguba.gambrinus.onewire.OneWireAddress;
 
 import static org.assertj.core.api.Assertions.assertThat;

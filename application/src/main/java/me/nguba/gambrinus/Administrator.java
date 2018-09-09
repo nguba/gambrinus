@@ -25,15 +25,15 @@ import me.nguba.gambrinus.command.FindOneWireAddresses;
 import me.nguba.gambrinus.command.FindVessel;
 import me.nguba.gambrinus.command.FindVessels;
 import me.nguba.gambrinus.cqrs.command.CommandProcessor;
+import me.nguba.gambrinus.cqrs.handler.CreateVesselHandler;
+import me.nguba.gambrinus.cqrs.handler.FindOneWireAddressesHandler;
+import me.nguba.gambrinus.cqrs.handler.FindVesselHandler;
+import me.nguba.gambrinus.cqrs.handler.FindVesselsHandler;
 import me.nguba.gambrinus.cqrs.query.QueryProcessor;
 import me.nguba.gambrinus.ddd.validation.ValidationFailed;
 import me.nguba.gambrinus.equipment.Vessel;
 import me.nguba.gambrinus.equipment.VesselId;
 import me.nguba.gambrinus.equipment.VesselRepository;
-import me.nguba.gambrinus.handler.CreateVesselHandler;
-import me.nguba.gambrinus.handler.FindOneWireAddressesHandler;
-import me.nguba.gambrinus.handler.FindVesselHandler;
-import me.nguba.gambrinus.handler.FindVesselsHandler;
 import me.nguba.gambrinus.onewire.OneWireAddress;
 
 /**

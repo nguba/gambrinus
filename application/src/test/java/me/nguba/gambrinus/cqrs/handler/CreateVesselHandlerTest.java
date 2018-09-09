@@ -27,13 +27,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import me.nguba.gambrinus.command.CreateVessel;
+import me.nguba.gambrinus.cqrs.handler.CreateVesselHandler;
 import me.nguba.gambrinus.ddd.validation.Errors;
 import me.nguba.gambrinus.ddd.validation.Reason;
 import me.nguba.gambrinus.ddd.validation.ValidationFailed;
 import me.nguba.gambrinus.equipment.Vessel;
 import me.nguba.gambrinus.equipment.VesselId;
 import me.nguba.gambrinus.equipment.VesselRepository;
-import me.nguba.gambrinus.handler.CreateVesselHandler;
 import me.nguba.gambrinus.onewire.OneWireAddress;
 
 class CreateVesselHandlerTest
