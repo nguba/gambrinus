@@ -16,6 +16,10 @@
 */
 package me.nguba.gambrinus;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.Set;
+
 import me.nguba.gambrinus.command.CreateVessel;
 import me.nguba.gambrinus.command.FindOneWireAddresses;
 import me.nguba.gambrinus.command.FindVessel;
@@ -24,10 +28,6 @@ import me.nguba.gambrinus.ddd.validation.ValidationFailed;
 import me.nguba.gambrinus.equipment.Vessel;
 import me.nguba.gambrinus.equipment.VesselId;
 import me.nguba.gambrinus.onewire.OneWireAddress;
-import me.nguba.gambrinus.owfs.OwfsRoot;
-
-import java.io.IOException;
-import java.util.Set;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
@@ -46,11 +46,11 @@ public class Administrator
     }
 
     public Vessel createVessel(final VesselId vesselId,
-                               final OwfsRoot root,
+                               final Path mountpoint,
                                final OneWireAddress address)
             throws ValidationFailed
     {
-        commands.execute(CreateVessel.from(vesselId, root, address));
+        commands.execute(CreateVessel.from(vesselId, mountpoint, address));
 
         final Set<Vessel> result = queries.run(FindVessels.create());
         return result.iterator().next();

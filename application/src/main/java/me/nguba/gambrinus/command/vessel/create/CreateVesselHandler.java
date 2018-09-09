@@ -1,19 +1,12 @@
 /*
-    Copyright (C) 2018  Nicolai P. Guba
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ * Copyright (C) 2018 Nicolai P. Guba This program is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later version. This program
+ * is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
+ * implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+ * Public License for more details. You should have received a copy of the GNU General Public
+ * License along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
 package me.nguba.gambrinus.command.vessel.create;
 
 import me.nguba.gambrinus.command.CreateVessel;
@@ -22,6 +15,7 @@ import me.nguba.gambrinus.ddd.validation.Errors;
 import me.nguba.gambrinus.ddd.validation.Reason;
 import me.nguba.gambrinus.equipment.Vessel;
 import me.nguba.gambrinus.equipment.VesselRepository;
+import me.nguba.gambrinus.owfs.OwfsRoot;
 import me.nguba.gambrinus.owfs.OwfsSensor;
 
 /**
@@ -40,7 +34,8 @@ public final class CreateVesselHandler implements CommandHandler<CreateVessel>
     public void changeStateFor(final CreateVessel command)
     {
         repo.create(Vessel.of(command.getVesselId(),
-                              OwfsSensor.from(command.getRoot(), command.getAddress())));
+                              OwfsSensor.from(OwfsRoot.of(command.getRoot()),
+                                              command.getAddress())));
     }
 
     @Override
@@ -54,9 +49,12 @@ public final class CreateVesselHandler implements CommandHandler<CreateVessel>
 
         if (command.getAddress() == null)
             errors.add(Reason.from("OwfsRoot cannot be null"));
-
+   
+        // TODO test for invalid owfsRoot
+        
         if (command.getRoot() != null && command.getAddress() != null) {
-            final OwfsSensor sensor = OwfsSensor.from(command.getRoot(), command.getAddress());
+            final OwfsSensor sensor = OwfsSensor.from(OwfsRoot.of(command.getRoot()),
+                                                      command.getAddress());
             if (!sensor.isValid())
                 errors.add(Reason.from("Invalid sensor: " + sensor));
         }

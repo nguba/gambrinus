@@ -42,7 +42,7 @@ class OwfsSensorTest
     void read() throws Exception
     {
         final Temperature t1 = sensor.read().get();
-        final Temperature expected = Temperature.celsius(68.5);
+        final Temperature expected = Temperature.celsius(72.1);
 
         assertThat(t1).isEqualTo(expected);
     }

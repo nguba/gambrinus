@@ -16,11 +16,7 @@
 */
 package me.nguba.gambrinus.admin;
 
-import me.nguba.gambrinus.GambrinusOptions;
-import me.nguba.gambrinus.RaspberryPinOptions;
-import me.nguba.gambrinus.WebMvcUtil;
-import me.nguba.gambrinus.equipment.VesselId;
-import me.nguba.gambrinus.onewire.OneWireAddress;
+import java.nio.file.Paths;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +26,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
+
+import me.nguba.gambrinus.GambrinusOptions;
+import me.nguba.gambrinus.RaspberryPinOptions;
+import me.nguba.gambrinus.WebMvcUtil;
+import me.nguba.gambrinus.equipment.VesselId;
+import me.nguba.gambrinus.onewire.OneWireAddress;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
@@ -61,7 +63,7 @@ public class AdminController
                                final UriComponentsBuilder builder)
             throws Exception
     {
-        admin.createVessel(id, address, options.getMountpoint());
+        admin.createVessel(id, address, Paths.get(options.getMountpoint()));
 
         return WebMvcUtil.created(builder.path("/vessel/{id}/{sensor}"), id, address);
     }

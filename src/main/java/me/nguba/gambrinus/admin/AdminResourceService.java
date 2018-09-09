@@ -16,19 +16,19 @@
 */
 package me.nguba.gambrinus.admin;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.HashSet;
+import java.util.Set;
+
+import org.springframework.hateoas.ResourceSupport;
+
 import me.nguba.gambrinus.Administrator;
 import me.nguba.gambrinus.ddd.Service;
 import me.nguba.gambrinus.ddd.validation.ValidationFailed;
 import me.nguba.gambrinus.equipment.Vessel;
 import me.nguba.gambrinus.equipment.VesselId;
 import me.nguba.gambrinus.onewire.OneWireAddress;
-import me.nguba.gambrinus.owfs.OwfsRoot;
-
-import org.springframework.hateoas.ResourceSupport;
-
-import java.io.IOException;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Acts as anti-corruption layer for the administrator bounded context.
@@ -46,10 +46,10 @@ public final class AdminResourceService implements Service
 
     public void createVessel(final VesselId id,
                              final OneWireAddress address,
-                             final String mountpoint)
+                             final Path mountpoint)
             throws ValidationFailed, IOException
     {
-        admin.createVessel(id, OwfsRoot.of(mountpoint), address);
+        admin.createVessel(id, mountpoint, address);
     }
 
     public Set<ResourceSupport> findAddresses(final String mountpoint) throws ValidationFailed

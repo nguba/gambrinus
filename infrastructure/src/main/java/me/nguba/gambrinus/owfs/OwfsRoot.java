@@ -16,11 +16,12 @@
 */
 package me.nguba.gambrinus.owfs;
 
-import me.nguba.gambrinus.onewire.OneWireAddress;
-
 import java.io.File;
+import java.nio.file.Path;
 import java.util.HashSet;
 import java.util.Set;
+
+import me.nguba.gambrinus.onewire.OneWireAddress;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
@@ -54,5 +55,10 @@ public final class OwfsRoot extends OwfsDirectory
                 sensors.add(OwfsSensor.from(this, OneWireAddress.of(file.getName())));
 
         return sensors.toArray(new OwfsSensor[sensors.size()]);
+    }
+
+    public static OwfsRoot of(Path root)
+    {
+        return new OwfsRoot(root.toFile());
     }
 }

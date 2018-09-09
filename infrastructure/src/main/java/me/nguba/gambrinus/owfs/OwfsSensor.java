@@ -16,10 +16,6 @@
 */
 package me.nguba.gambrinus.owfs;
 
-import me.nguba.gambrinus.ddd.Aggregate;
-import me.nguba.gambrinus.onewire.OneWireAddress;
-import me.nguba.gambrinus.process.Temperature;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -29,10 +25,14 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.Optional;
 
+import me.nguba.gambrinus.ddd.Entity;
+import me.nguba.gambrinus.onewire.OneWireAddress;
+import me.nguba.gambrinus.process.Temperature;
+
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-public class OwfsSensor extends Aggregate<OneWireAddress>
+public class OwfsSensor extends Entity<OneWireAddress>
 {
     public static final OwfsSensor from(final OwfsRoot root, final OneWireAddress address)
     {
@@ -40,18 +40,12 @@ public class OwfsSensor extends Aggregate<OneWireAddress>
     }
 
     private final Path latesttemp;
-    private final Path path;
-
-    private final OwfsRoot root;
-
+    
     private OwfsSensor(final OwfsRoot root, final OneWireAddress address)
     {
         super(address);
-        this.root = root;
 
-        path = Paths.get(root.getValue().getPath(), address.toString());
-
-        latesttemp = Paths.get(path.toString(), "latesttemp");
+        latesttemp = Paths.get(root.getValue().getAbsolutePath(), address.toString(), "latesttemp");
     }
 
     public boolean isValid()
@@ -63,9 +57,11 @@ public class OwfsSensor extends Aggregate<OneWireAddress>
     {
         if (!isValid())
             throw new FileNotFoundException("sensor is not mapped to an address");
+        
         try (final FileChannel channel = FileChannel.open(latesttemp, StandardOpenOption.READ)) {
             final ByteBuffer buf = ByteBuffer.allocate(8);
             final StringBuilder builder = new StringBuilder();
+            
             while (channel.read(buf) != -1) {
                 buf.flip();
                 while (buf.hasRemaining())
@@ -80,6 +76,6 @@ public class OwfsSensor extends Aggregate<OneWireAddress>
     @Override
     public String toString()
     {
-        return root.getValue().getAbsolutePath();
+        return latesttemp.getParent().toString();
     }
 }
