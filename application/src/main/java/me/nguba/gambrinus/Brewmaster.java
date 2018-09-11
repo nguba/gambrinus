@@ -16,6 +16,7 @@
 */
 package me.nguba.gambrinus;
 
+import java.time.Duration;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -62,7 +63,7 @@ public final class Brewmaster
         events.publish(SetpointChanged.on(command.getId(), command.getSetpoint()));
     }
 
-    public void monitor(final VesselId vessel, final PollPeriod period) throws ValidationFailed
+    public void monitor(final VesselId vessel, Duration duration) throws ValidationFailed
     {
         // TODO same vessel cannot be monitored multiple times
         updateProcessValue(vessel);
@@ -73,7 +74,7 @@ public final class Brewmaster
             } catch (final ValidationFailed e) {
                 throw new IllegalStateException("Reading temperature failed", e);
             }
-        }, period.getValue(), period.getValue(), TimeUnit.SECONDS);
+        }, duration.getSeconds(), duration.getSeconds(), TimeUnit.SECONDS);
     }
 
     public Temperature readProcessValue(final VesselId vessel) throws ValidationFailed

@@ -19,6 +19,7 @@ package me.nguba.gambrinus;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.time.Duration;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -76,7 +77,7 @@ class BrewmasterTest implements EventPublisher
                                  OwfsSensor.from(OwfsRoot.test(),
                                                  OneWireAddress.of("28.4BBB68080000"))));
 
-        brewmaster.monitor(vesselId, PollPeriod.oneSecond());
+        brewmaster.monitor(vesselId, Duration.ofSeconds(1));
     }
 
     @Override
@@ -88,7 +89,7 @@ class BrewmasterTest implements EventPublisher
     @Test
     void readTemperarture() throws Exception
     {
-        brewmaster.monitor(vesselId, PollPeriod.oneSecond());
+        brewmaster.monitor(vesselId, Duration.ofSeconds(1));
         final Temperature temperature = brewmaster.readProcessValue(vesselId);
         assertThat(temperature).isEqualTo(Temperature.celsius(33.5));
     }
