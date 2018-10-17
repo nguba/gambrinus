@@ -16,6 +16,10 @@
 */
 package me.nguba.gambrinus.owfs;
 
+import me.nguba.gambrinus.ddd.Entity;
+import me.nguba.gambrinus.onewire.OneWireAddress;
+import me.nguba.gambrinus.process.Temperature;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -24,10 +28,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.Optional;
-
-import me.nguba.gambrinus.ddd.Entity;
-import me.nguba.gambrinus.onewire.OneWireAddress;
-import me.nguba.gambrinus.process.Temperature;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
@@ -59,7 +59,7 @@ public class OwfsSensor extends Entity<OneWireAddress>
             throw new FileNotFoundException("sensor is not mapped to an address");
 
         try (final FileChannel channel = FileChannel.open(latesttemp, StandardOpenOption.READ)) {
-            final ByteBuffer buf = ByteBuffer.allocate(8);
+            final ByteBuffer    buf     = ByteBuffer.allocate(8);
             final StringBuilder builder = new StringBuilder();
 
             while (channel.read(buf) != -1) {

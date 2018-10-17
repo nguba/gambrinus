@@ -16,11 +16,10 @@
 */
 package me.nguba.gambrinus.event;
 
-import java.time.Instant;
-
 import me.nguba.gambrinus.equipment.VesselId;
-import me.nguba.gambrinus.event.MutatorEvent;
 import me.nguba.gambrinus.process.Temperature;
+
+import java.time.Instant;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
@@ -93,8 +92,8 @@ public final class ProcessValueChanged extends MutatorEvent
     @Override
     public int hashCode()
     {
-        final int prime = 31;
-        int result = super.hashCode();
+        final int prime  = 31;
+        int       result = super.hashCode();
         result = prime * result + (processValue == null ? 0 : processValue.hashCode());
         result = prime * result + (vesselId == null ? 0 : vesselId.hashCode());
         return result;

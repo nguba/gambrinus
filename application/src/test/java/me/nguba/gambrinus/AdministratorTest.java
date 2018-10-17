@@ -16,15 +16,15 @@
 */
 package me.nguba.gambrinus;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import me.nguba.gambrinus.equipment.Vessel;
 import me.nguba.gambrinus.equipment.VesselId;
 import me.nguba.gambrinus.equipment.VesselRepository;
 import me.nguba.gambrinus.onewire.OneWireAddress;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 class AdministratorTest
 {

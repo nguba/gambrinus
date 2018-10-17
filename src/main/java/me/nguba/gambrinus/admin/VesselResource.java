@@ -16,9 +16,9 @@
 */
 package me.nguba.gambrinus.admin;
 
-import org.springframework.hateoas.ResourceSupport;
-
 import me.nguba.gambrinus.equipment.Vessel;
+
+import org.springframework.hateoas.ResourceSupport;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
@@ -83,8 +83,8 @@ public final class VesselResource extends ResourceSupport
     @Override
     public int hashCode()
     {
-        final int prime = 31;
-        int result = super.hashCode();
+        final int prime  = 31;
+        int       result = super.hashCode();
         result = prime * result + (sensor == null ? 0 : sensor.hashCode());
         result = prime * result + (processValue == null ? 0 : processValue.hashCode());
         result = prime * result + (setpoint == null ? 0 : setpoint.hashCode());

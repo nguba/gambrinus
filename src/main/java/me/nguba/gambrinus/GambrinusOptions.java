@@ -52,8 +52,8 @@ public class GambrinusOptions
     @Override
     public int hashCode()
     {
-        final int prime = 31;
-        int result = 1;
+        final int prime  = 31;
+        int       result = 1;
         result = prime * result + (mountpoint == null ? 0 : mountpoint.hashCode());
         return result;
     }

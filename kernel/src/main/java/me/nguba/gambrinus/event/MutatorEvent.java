@@ -68,8 +68,8 @@ public abstract class MutatorEvent
     @Override
     public int hashCode()
     {
-        final int prime = 31;
-        int result = 1;
+        final int prime  = 31;
+        int       result = 1;
         result = prime * result + (int) (timestamp ^ timestamp >>> 32);
         return result;
     }

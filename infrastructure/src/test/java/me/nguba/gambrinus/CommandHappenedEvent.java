@@ -16,9 +16,9 @@
 */
 package me.nguba.gambrinus;
 
-import java.time.Instant;
-
 import me.nguba.gambrinus.event.MutatorEvent;
+
+import java.time.Instant;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>

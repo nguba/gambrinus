@@ -16,18 +16,23 @@
 */
 package me.nguba.gambrinus.owfs;
 
+import me.nguba.gambrinus.onewire.OneWireAddress;
+
 import java.io.File;
 import java.nio.file.Path;
 import java.util.HashSet;
 import java.util.Set;
-
-import me.nguba.gambrinus.onewire.OneWireAddress;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
 public final class OwfsRoot extends OwfsDirectory
 {
+    public static OwfsRoot of(final Path root)
+    {
+        return new OwfsRoot(root.toFile());
+    }
+
     public static OwfsRoot of(final String path)
     {
         return new OwfsRoot(new File(path));
@@ -49,16 +54,10 @@ public final class OwfsRoot extends OwfsDirectory
 
         if (isValid())
             for (final File file : getValue().listFiles((file) -> {
-                return file.isDirectory() && file.canRead()
-                        && file.getName().startsWith("28.");
+                return file.isDirectory() && file.canRead() && file.getName().startsWith("28.");
             }))
                 sensors.add(OwfsSensor.from(this, OneWireAddress.of(file.getName())));
 
         return sensors.toArray(new OwfsSensor[sensors.size()]);
-    }
-
-    public static OwfsRoot of(final Path root)
-    {
-        return new OwfsRoot(root.toFile());
     }
 }

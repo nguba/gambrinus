@@ -25,6 +25,12 @@ public final class CommandProcessor<C extends Command>
         return new CommandProcessor<>(command, handler);
     }
 
+    public static <C extends Command> void mutate(final C command, final CommandHandler<C> handler)
+            throws ValidationFailed
+    {
+        CommandProcessor.from(command, handler).mutate();
+    }
+
     private final C command;
 
     private final CommandHandler<C> handler;
@@ -47,11 +53,5 @@ public final class CommandProcessor<C extends Command>
         errors.verify();
 
         handler.changeStateFor(command);
-    }
-
-    public static <C extends Command> void mutate(final C command, final CommandHandler<C> handler)
-            throws ValidationFailed
-    {
-        CommandProcessor.from(command, handler).mutate();
     }
 }

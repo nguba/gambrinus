@@ -16,13 +16,13 @@
 */
 package me.nguba.gambrinus.command;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import org.junit.jupiter.api.Test;
-
 import me.nguba.gambrinus.equipment.VesselId;
 import me.nguba.gambrinus.process.Temperature;
 import nl.jqno.equalsverifier.EqualsVerifier;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+import org.junit.jupiter.api.Test;
 
 /**
  *

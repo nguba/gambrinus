@@ -16,10 +16,10 @@
 */
 package me.nguba.gambrinus.admin;
 
+import me.nguba.gambrinus.equipment.Vessel;
+
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.hateoas.mvc.ResourceAssemblerSupport;
-
-import me.nguba.gambrinus.equipment.Vessel;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
@@ -43,8 +43,7 @@ public class VesselAdapter extends ResourceAssemblerSupport<Vessel, VesselResour
         final VesselResource resource = new VesselResource(entity);
 
         resource.add(ControllerLinkBuilder.linkTo(AdminController.class).slash("vessel")
-                .slash(entity.getId()).withSelfRel()
-                .withTitle(entity.getId().toString()));
+                .slash(entity.getId()).withSelfRel().withTitle(entity.getId().toString()));
 
         return resource;
     }

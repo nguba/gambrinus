@@ -16,13 +16,13 @@
 */
 package me.nguba.gambrinus;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import org.junit.jupiter.api.Test;
+import me.nguba.gambrinus.event.MutatorEvent;
 
 import com.google.common.eventbus.Subscribe;
 
-import me.nguba.gambrinus.event.MutatorEvent;
+import static org.assertj.core.api.Assertions.assertThat;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>

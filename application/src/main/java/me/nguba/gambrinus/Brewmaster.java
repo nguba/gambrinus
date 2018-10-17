@@ -16,11 +16,6 @@
 */
 package me.nguba.gambrinus;
 
-import java.time.Duration;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-
 import me.nguba.gambrinus.command.ChangeSetpoint;
 import me.nguba.gambrinus.command.ReadTemperature;
 import me.nguba.gambrinus.command.SetProcessValue;
@@ -37,16 +32,21 @@ import me.nguba.gambrinus.event.ProcessValueChanged;
 import me.nguba.gambrinus.event.SetpointChanged;
 import me.nguba.gambrinus.process.Temperature;
 
+import java.time.Duration;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
 public final class Brewmaster
 {
+    private final EventPublisher events;
+
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(3);
 
     private final VesselRepository vessels;
-
-    private final EventPublisher events;
 
     public Brewmaster(final VesselRepository vessels, final EventPublisher events)
     {
@@ -63,7 +63,7 @@ public final class Brewmaster
         events.publish(SetpointChanged.on(command.getId(), command.getSetpoint()));
     }
 
-    public void monitor(final VesselId vessel, Duration duration) throws ValidationFailed
+    public void monitor(final VesselId vessel, final Duration duration) throws ValidationFailed
     {
         // TODO same vessel cannot be monitored multiple times
         updateProcessValue(vessel);

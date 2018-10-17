@@ -16,15 +16,6 @@
 */
 package me.nguba.gambrinus;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
-import java.time.Duration;
-import java.util.Optional;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import me.nguba.gambrinus.ddd.validation.ValidationFailed;
 import me.nguba.gambrinus.equipment.Vessel;
 import me.nguba.gambrinus.equipment.VesselId;
@@ -36,6 +27,16 @@ import me.nguba.gambrinus.onewire.OneWireAddress;
 import me.nguba.gambrinus.owfs.OwfsRoot;
 import me.nguba.gambrinus.owfs.OwfsSensor;
 import me.nguba.gambrinus.process.Temperature;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.time.Duration;
+import java.util.Optional;
 
 /**
  *
@@ -73,9 +74,9 @@ class BrewmasterTest implements EventPublisher
     @Test
     void monitorVessel() throws ValidationFailed
     {
-        vessels.create(Vessel.of(vesselId,
-                                 OwfsSensor.from(OwfsRoot.test(),
-                                                 OneWireAddress.of("28.4BBB68080000"))));
+        vessels.create(Vessel
+                .of(vesselId,
+                    OwfsSensor.from(OwfsRoot.test(), OneWireAddress.of("28.4BBB68080000"))));
 
         brewmaster.monitor(vesselId, Duration.ofSeconds(1));
     }

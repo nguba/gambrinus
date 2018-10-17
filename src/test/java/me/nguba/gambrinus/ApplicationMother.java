@@ -29,7 +29,6 @@ public enum ApplicationMother
     public static Vessel mashTun()
     {
         return Vessel.of(VesselId.of("mash"),
-                         OwfsSensor.from(OwfsRoot.test(),
-                                         OneWireAddress.of("28.273B5D070000")));
+                         OwfsSensor.from(OwfsRoot.test(), OneWireAddress.of("28.273B5D070000")));
     }
 }

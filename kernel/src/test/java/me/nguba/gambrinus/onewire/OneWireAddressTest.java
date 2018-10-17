@@ -16,11 +16,11 @@
 */
 package me.nguba.gambrinus.onewire;
 
+import me.nguba.gambrinus.SingleValueObjectFixture;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
-
-import me.nguba.gambrinus.SingleValueObjectFixture;
 
 class OneWireAddressTest extends SingleValueObjectFixture<String, OneWireAddress>
 {

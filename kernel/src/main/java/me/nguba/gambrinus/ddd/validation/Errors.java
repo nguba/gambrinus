@@ -16,10 +16,10 @@
 */
 package me.nguba.gambrinus.ddd.validation;
 
+import me.nguba.gambrinus.ddd.ValueObject;
+
 import java.util.HashSet;
 import java.util.Set;
-
-import me.nguba.gambrinus.ddd.ValueObject;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
@@ -69,8 +69,8 @@ public final class Errors implements ValueObject
     @Override
     public int hashCode()
     {
-        final int prime = 31;
-        int result = 1;
+        final int prime  = 31;
+        int       result = 1;
         result = prime * result + (errors == null ? 0 : errors.hashCode());
         return result;
     }

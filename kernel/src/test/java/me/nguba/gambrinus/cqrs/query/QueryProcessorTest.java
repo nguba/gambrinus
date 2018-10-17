@@ -30,8 +30,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-class QueryProcessorTest
-        implements Query, QueryHandler<QueryProcessorTest, QueryProcessorTest>
+class QueryProcessorTest implements Query, QueryHandler<QueryProcessorTest, QueryProcessorTest>
 {
     private final AtomicBoolean hasValidated = new AtomicBoolean(false);
 

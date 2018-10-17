@@ -16,15 +16,15 @@
 */
 package me.nguba.gambrinus;
 
+import me.nguba.gambrinus.admin.AdminResourceService;
+import me.nguba.gambrinus.equipment.VesselRepository;
+import me.nguba.gambrinus.event.EventPublisher;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
-
-import me.nguba.gambrinus.admin.AdminResourceService;
-import me.nguba.gambrinus.equipment.VesselRepository;
-import me.nguba.gambrinus.event.EventPublisher;
 
 @SpringBootApplication
 @Import({ InfrastructureContext.class })

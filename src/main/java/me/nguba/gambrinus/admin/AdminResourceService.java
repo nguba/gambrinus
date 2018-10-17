@@ -16,19 +16,19 @@
 */
 package me.nguba.gambrinus.admin;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.HashSet;
-import java.util.Set;
-
-import org.springframework.hateoas.ResourceSupport;
-
 import me.nguba.gambrinus.Administrator;
 import me.nguba.gambrinus.ddd.Service;
 import me.nguba.gambrinus.ddd.validation.ValidationFailed;
 import me.nguba.gambrinus.equipment.Vessel;
 import me.nguba.gambrinus.equipment.VesselId;
 import me.nguba.gambrinus.onewire.OneWireAddress;
+
+import org.springframework.hateoas.ResourceSupport;
+
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Acts as anti-corruption layer for the administrator bounded context.
@@ -44,9 +44,7 @@ public final class AdminResourceService implements Service
         this.admin = admin;
     }
 
-    public void createVessel(final VesselId id,
-                             final OneWireAddress address,
-                             final Path mountpoint)
+    public void createVessel(final VesselId id, final OneWireAddress address, final Path mountpoint)
             throws ValidationFailed, IOException
     {
         admin.createVessel(id, mountpoint, address);
@@ -54,8 +52,8 @@ public final class AdminResourceService implements Service
 
     public Set<ResourceSupport> findAddresses(final String mountpoint) throws ValidationFailed
     {
-        final Set<OneWireAddress> findAddresses = admin.findAddresses(mountpoint);
-        final Set<ResourceSupport> resources = new HashSet<>();
+        final Set<OneWireAddress>  findAddresses = admin.findAddresses(mountpoint);
+        final Set<ResourceSupport> resources     = new HashSet<>();
         findAddresses.forEach((address) -> {
             resources.add(SensorAddressAdapter.adapt(address));
         });

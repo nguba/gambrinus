@@ -16,18 +16,6 @@
 */
 package me.nguba.gambrinus.brew;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.web.servlet.MockMvc;
-
 import me.nguba.gambrinus.ApplicationMother;
 import me.nguba.gambrinus.GambrinusControllerTest;
 import me.nguba.gambrinus.equipment.Vessel;
@@ -37,6 +25,19 @@ import me.nguba.gambrinus.onewire.OneWireAddress;
 import me.nguba.gambrinus.owfs.OwfsRoot;
 import me.nguba.gambrinus.owfs.OwfsSensor;
 import me.nguba.gambrinus.process.Temperature;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.web.servlet.MockMvc;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
@@ -75,16 +76,16 @@ class BrewControllerTest
     {
         vessels.create(Vessel.inactive(MASH));
 
-        mvc.perform(put("/api/brew/heat/{name}/{temperature}", "mash", 55.5))
-                .andDo(print()).andExpect(status().isConflict());
+        mvc.perform(put("/api/brew/heat/{name}/{temperature}", "mash", 55.5)).andDo(print())
+                .andExpect(status().isConflict());
     }
 
     @Test
     @DisplayName("throws error when vessel not found")
     void changeSetpoint_NoVesselFound() throws Exception
     {
-        mvc.perform(put("/api/brew/heat/{name}/{temperature}", "mash", 55.5))
-                .andDo(print()).andExpect(status().isConflict());
+        mvc.perform(put("/api/brew/heat/{name}/{temperature}", "mash", 55.5)).andDo(print())
+                .andExpect(status().isConflict());
     }
 
     private Vessel createVessel()
@@ -103,8 +104,8 @@ class BrewControllerTest
 
         assertThat(vessels.read(MASH).get().processValue()).isEqualTo(Temperature.celsius(0));
 
-        mvc.perform(put("/api/brew/monitor/{name}", "mash"))
-                .andDo(print()).andExpect(status().isOk());
+        mvc.perform(put("/api/brew/monitor/{name}", "mash")).andDo(print())
+                .andExpect(status().isOk());
 
         assertThat(vessels.read(MASH).get().processValue()).isEqualTo(Temperature.celsius(25.7));
     }
@@ -115,8 +116,8 @@ class BrewControllerTest
     {
         vessels.create(Vessel.inactive(MASH));
 
-        mvc.perform(put("/api/brew/monitor/{name}", "mash"))
-                .andDo(print()).andExpect(status().isConflict());
+        mvc.perform(put("/api/brew/monitor/{name}", "mash")).andDo(print())
+                .andExpect(status().isConflict());
     }
 
     @Test
@@ -126,8 +127,8 @@ class BrewControllerTest
         final Vessel mashTun = createVessel();
         mashTun.processValue(Temperature.celsius(68.3));
 
-        mvc.perform(get("/api/brew/temperature/{name}", mashTun.getId()))
-                .andDo(print()).andExpect(status().isOk());
+        mvc.perform(get("/api/brew/temperature/{name}", mashTun.getId())).andDo(print())
+                .andExpect(status().isOk());
     }
 
     @AfterEach

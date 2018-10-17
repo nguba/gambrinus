@@ -16,15 +16,15 @@
 */
 package me.nguba.gambrinus.owfs;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import me.nguba.gambrinus.SingleValueObjectFixture;
+import me.nguba.gambrinus.onewire.OneWireAddress;
 
-import java.io.File;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import me.nguba.gambrinus.SingleValueObjectFixture;
-import me.nguba.gambrinus.onewire.OneWireAddress;
+import java.io.File;
 
 class OwfsRootTest extends SingleValueObjectFixture<File, OwfsRoot>
 {

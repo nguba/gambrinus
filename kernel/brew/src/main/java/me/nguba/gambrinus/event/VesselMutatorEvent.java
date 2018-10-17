@@ -16,10 +16,9 @@
 */
 package me.nguba.gambrinus.event;
 
-import java.time.Instant;
-
 import me.nguba.gambrinus.equipment.VesselId;
-import me.nguba.gambrinus.event.MutatorEvent;
+
+import java.time.Instant;
 
 public abstract class VesselMutatorEvent extends MutatorEvent
 {
@@ -69,8 +68,8 @@ public abstract class VesselMutatorEvent extends MutatorEvent
     @Override
     public int hashCode()
     {
-        final int prime = 31;
-        int result = super.hashCode();
+        final int prime  = 31;
+        int       result = super.hashCode();
         result = prime * result + (vesselId == null ? 0 : vesselId.hashCode());
         return result;
     }

@@ -16,9 +16,9 @@
 */
 package me.nguba.gambrinus;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
-
 import me.nguba.gambrinus.raspberry.GPIO;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>

@@ -16,9 +16,6 @@
 */
 package me.nguba.gambrinus.cqrs.handler;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import me.nguba.gambrinus.command.FindOneWireAddresses;
 import me.nguba.gambrinus.cqrs.query.QueryHandler;
 import me.nguba.gambrinus.ddd.validation.Errors;
@@ -26,6 +23,9 @@ import me.nguba.gambrinus.ddd.validation.Reason;
 import me.nguba.gambrinus.onewire.OneWireAddress;
 import me.nguba.gambrinus.owfs.OwfsRoot;
 import me.nguba.gambrinus.owfs.OwfsSensor;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
@@ -46,7 +46,7 @@ public final class FindOneWireAddressesHandler
     @Override
     public Set<OneWireAddress> query(final FindOneWireAddresses query)
     {
-        final OwfsRoot root = OwfsRoot.of(query.getMountpoint());
+        final OwfsRoot            root      = OwfsRoot.of(query.getMountpoint());
         final Set<OneWireAddress> addresses = new HashSet<>();
 
         // TODO use a repository for this

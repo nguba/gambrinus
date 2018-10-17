@@ -16,12 +16,12 @@
 */
 package me.nguba.gambrinus.equipment;
 
-import java.io.IOException;
-
 import me.nguba.gambrinus.ddd.Aggregate;
 import me.nguba.gambrinus.onewire.OneWireAddress;
 import me.nguba.gambrinus.owfs.OwfsSensor;
 import me.nguba.gambrinus.process.Temperature;
+
+import java.io.IOException;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>

@@ -77,8 +77,8 @@ public final class ProcessValueChangedSource extends EventSource
     @Override
     public int hashCode()
     {
-        final int prime = 31;
-        int result = super.hashCode();
+        final int prime  = 31;
+        int       result = super.hashCode();
         result = prime * result + (processValue == null ? 0 : processValue.hashCode());
         result = prime * result + (vesselId == null ? 0 : vesselId.hashCode());
         return result;

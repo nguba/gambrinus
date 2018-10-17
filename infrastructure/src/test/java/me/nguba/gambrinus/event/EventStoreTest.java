@@ -16,15 +16,15 @@
 */
 package me.nguba.gambrinus.event;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import me.nguba.gambrinus.InfrastructureTest;
 import me.nguba.gambrinus.equipment.VesselId;
-import me.nguba.gambrinus.event.ProcessValueChanged;
 import me.nguba.gambrinus.event.sources.ProcessValueChangedSource;
 import me.nguba.gambrinus.event.sources.SetpointChangedSource;
 import me.nguba.gambrinus.process.Temperature;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import org.junit.jupiter.api.Test;
 
 @InfrastructureTest
 class EventStoreTest

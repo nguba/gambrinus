@@ -16,10 +16,10 @@
 */
 package me.nguba.gambrinus.event;
 
-import java.time.Instant;
-
 import me.nguba.gambrinus.equipment.VesselId;
 import me.nguba.gambrinus.process.Temperature;
+
+import java.time.Instant;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
@@ -65,8 +65,8 @@ public final class SetpointChanged extends VesselMutatorEvent
     @Override
     public int hashCode()
     {
-        final int prime = 31;
-        int result = super.hashCode();
+        final int prime  = 31;
+        int       result = super.hashCode();
         result = prime * result + (setpoint == null ? 0 : setpoint.hashCode());
         return result;
     }

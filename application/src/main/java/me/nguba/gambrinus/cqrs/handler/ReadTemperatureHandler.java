@@ -16,9 +16,6 @@
 */
 package me.nguba.gambrinus.cqrs.handler;
 
-import java.io.IOException;
-import java.util.Optional;
-
 import me.nguba.gambrinus.command.ReadTemperature;
 import me.nguba.gambrinus.cqrs.query.QueryHandler;
 import me.nguba.gambrinus.ddd.validation.Errors;
@@ -26,6 +23,9 @@ import me.nguba.gambrinus.ddd.validation.Reason;
 import me.nguba.gambrinus.equipment.Vessel;
 import me.nguba.gambrinus.equipment.VesselRepository;
 import me.nguba.gambrinus.process.Temperature;
+
+import java.io.IOException;
+import java.util.Optional;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>

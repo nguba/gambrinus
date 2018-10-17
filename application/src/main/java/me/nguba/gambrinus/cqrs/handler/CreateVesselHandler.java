@@ -40,9 +40,9 @@ public final class CreateVesselHandler implements CommandHandler<CreateVessel>
     @Override
     public void changeStateFor(final CreateVessel command)
     {
-        repo.create(Vessel.of(command.getVesselId(),
-                              OwfsSensor.from(OwfsRoot.of(command.getRoot()),
-                                              command.getAddress())));
+        repo.create(Vessel
+                .of(command.getVesselId(),
+                    OwfsSensor.from(OwfsRoot.of(command.getRoot()), command.getAddress())));
     }
 
     @Override

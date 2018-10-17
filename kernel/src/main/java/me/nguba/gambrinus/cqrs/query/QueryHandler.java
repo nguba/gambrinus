@@ -24,4 +24,3 @@ public interface QueryHandler<Q extends Query, R>
 
     void validate(Q query, Errors errors);
 }
- 

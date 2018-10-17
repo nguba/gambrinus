@@ -16,11 +16,11 @@
 */
 package me.nguba.gambrinus.equipment;
 
+import me.nguba.gambrinus.ddd.Repository;
+
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
-
-import me.nguba.gambrinus.ddd.Repository;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>

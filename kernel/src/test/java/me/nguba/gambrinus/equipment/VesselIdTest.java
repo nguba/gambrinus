@@ -16,11 +16,11 @@
 */
 package me.nguba.gambrinus.equipment;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
-
-import nl.jqno.equalsverifier.EqualsVerifier;
 
 class VesselIdTest
 {

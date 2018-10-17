@@ -27,8 +27,7 @@ public enum CqrsUtil
 
     public static void notNull(final Object object, final String msg)
     {
-        Optional.ofNullable(object)
-                .orElseThrow(() -> new UnsupportedOperationException(msg));
+        Optional.ofNullable(object).orElseThrow(() -> new UnsupportedOperationException(msg));
     }
 
 }

@@ -16,7 +16,11 @@
 */
 package me.nguba.gambrinus.admin;
 
-import java.nio.file.Paths;
+import me.nguba.gambrinus.GambrinusOptions;
+import me.nguba.gambrinus.RaspberryPinOptions;
+import me.nguba.gambrinus.WebMvcUtil;
+import me.nguba.gambrinus.equipment.VesselId;
+import me.nguba.gambrinus.onewire.OneWireAddress;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,11 +31,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import me.nguba.gambrinus.GambrinusOptions;
-import me.nguba.gambrinus.RaspberryPinOptions;
-import me.nguba.gambrinus.WebMvcUtil;
-import me.nguba.gambrinus.equipment.VesselId;
-import me.nguba.gambrinus.onewire.OneWireAddress;
+import java.nio.file.Paths;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>

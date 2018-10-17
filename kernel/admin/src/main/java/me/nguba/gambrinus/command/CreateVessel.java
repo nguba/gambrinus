@@ -16,11 +16,11 @@
 */
 package me.nguba.gambrinus.command;
 
-import java.nio.file.Path;
-
 import me.nguba.gambrinus.cqrs.command.Command;
 import me.nguba.gambrinus.equipment.VesselId;
 import me.nguba.gambrinus.onewire.OneWireAddress;
+
+import java.nio.file.Path;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>

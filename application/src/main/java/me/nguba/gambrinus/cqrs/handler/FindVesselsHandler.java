@@ -45,10 +45,9 @@ public final class FindVesselsHandler implements QueryHandler<FindVessels, Set<V
     @Override
     public Set<Vessel> query(final FindVessels query)
     {
-        HashSet<Vessel> result = new HashSet<>();
-        for(Vessel vessel : repository.findAll()) {
+        final HashSet<Vessel> result = new HashSet<>();
+        for (final Vessel vessel : repository.findAll())
             result.add(vessel);
-        }
         return result;
     }
 

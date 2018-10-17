@@ -16,17 +16,18 @@
 */
 package me.nguba.gambrinus.cqrs.handler;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
-import java.util.Set;
-
-import org.junit.jupiter.api.Test;
-
 import me.nguba.gambrinus.command.FindOneWireAddresses;
 import me.nguba.gambrinus.ddd.validation.Errors;
 import me.nguba.gambrinus.ddd.validation.ValidationFailed;
 import me.nguba.gambrinus.onewire.OneWireAddress;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.util.Set;
 
 class FindOneWireAddressesHandlerTest
 {
@@ -37,8 +38,7 @@ class FindOneWireAddressesHandlerTest
     @Test
     void emptyResultOnIOFailure()
     {
-        final Set<OneWireAddress> result = handler
-                .query(FindOneWireAddresses.on("unavailable"));
+        final Set<OneWireAddress> result = handler.query(FindOneWireAddresses.on("unavailable"));
 
         assertThat(result).isEmpty();
     }

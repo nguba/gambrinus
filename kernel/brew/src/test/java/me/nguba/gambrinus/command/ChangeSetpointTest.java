@@ -16,12 +16,12 @@
 */
 package me.nguba.gambrinus.command;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import me.nguba.gambrinus.equipment.VesselId;
+import me.nguba.gambrinus.process.Temperature;
 
 import org.junit.jupiter.api.Test;
 
-import me.nguba.gambrinus.equipment.VesselId;
-import me.nguba.gambrinus.process.Temperature;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  *

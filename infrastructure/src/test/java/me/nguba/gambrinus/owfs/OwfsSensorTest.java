@@ -16,14 +16,14 @@
 */
 package me.nguba.gambrinus.owfs;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import me.nguba.gambrinus.process.Temperature;
 
-import java.util.Optional;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import me.nguba.gambrinus.process.Temperature;
+import java.util.Optional;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
@@ -41,7 +41,7 @@ class OwfsSensorTest
     @Test
     void read() throws Exception
     {
-        final Temperature t1 = sensor.read().get();
+        final Temperature t1       = sensor.read().get();
         final Temperature expected = Temperature.celsius(72.1);
 
         assertThat(t1).isEqualTo(expected);

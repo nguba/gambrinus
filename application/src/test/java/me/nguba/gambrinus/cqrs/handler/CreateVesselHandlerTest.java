@@ -16,16 +16,6 @@
 */
 package me.nguba.gambrinus.cqrs.handler;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Optional;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import me.nguba.gambrinus.command.CreateVessel;
 import me.nguba.gambrinus.ddd.validation.Errors;
 import me.nguba.gambrinus.ddd.validation.Reason;
@@ -34,6 +24,17 @@ import me.nguba.gambrinus.equipment.Vessel;
 import me.nguba.gambrinus.equipment.VesselId;
 import me.nguba.gambrinus.equipment.VesselRepository;
 import me.nguba.gambrinus.onewire.OneWireAddress;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Optional;
 
 class CreateVesselHandlerTest
 {
@@ -56,22 +57,22 @@ class CreateVesselHandlerTest
 
         final ValidationFailed failed = verify();
 
-        assertThat(failed.getErrors().has(Reason
-                .from(String.format("Vessel already configured", command.getVesselId()))))
-                        .isTrue();
+        assertThat(failed.getErrors()
+                .has(Reason
+                        .from(String.format("Vessel already configured", command.getVesselId()))))
+                                .isTrue();
     }
 
     @Test
     void cannotMountPath()
     {
-        final Path root = Paths.get("non/existing/path");
+        final Path           root    = Paths.get("non/existing/path");
         final OneWireAddress address = OneWireAddress.of("28.273B5D070000");
 
         mutator.validate(CreateVessel.from(VesselId.of("arse"), root, address), errors);
         final ValidationFailed failed = verify();
 
-        assertThat(failed.getErrors().toString())
-                .startsWith("Invalid sensor: ");
+        assertThat(failed.getErrors().toString()).startsWith("Invalid sensor: ");
     }
 
     @Test

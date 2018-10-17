@@ -16,20 +16,19 @@
 */
 package me.nguba.gambrinus.cqrs.command;
 
+import me.nguba.gambrinus.ddd.validation.Errors;
+import me.nguba.gambrinus.ddd.validation.ValidationFailed;
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
-import me.nguba.gambrinus.ddd.validation.Errors;
-import me.nguba.gambrinus.ddd.validation.ValidationFailed;
-
-class CommandProcessorTest
-        implements Command, CommandHandler<CommandProcessorTest>
+class CommandProcessorTest implements Command, CommandHandler<CommandProcessorTest>
 {
     private final AtomicBoolean executed = new AtomicBoolean();
 

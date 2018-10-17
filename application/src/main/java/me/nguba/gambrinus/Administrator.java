@@ -16,10 +16,6 @@
 */
 package me.nguba.gambrinus;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.Set;
-
 import me.nguba.gambrinus.command.CreateVessel;
 import me.nguba.gambrinus.command.FindOneWireAddresses;
 import me.nguba.gambrinus.command.FindVessel;
@@ -35,6 +31,10 @@ import me.nguba.gambrinus.equipment.Vessel;
 import me.nguba.gambrinus.equipment.VesselId;
 import me.nguba.gambrinus.equipment.VesselRepository;
 import me.nguba.gambrinus.onewire.OneWireAddress;
+
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.Set;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
@@ -62,14 +62,13 @@ public class Administrator
     public Set<OneWireAddress> findAddresses(final String mountpoint) throws ValidationFailed
     {
         final FindOneWireAddresses query = FindOneWireAddresses.on(mountpoint);
-        return QueryProcessor
-                .query(query, FindOneWireAddressesHandler.create());
+        return QueryProcessor.query(query, FindOneWireAddressesHandler.create());
     }
 
     public Vessel findVessel(final VesselId id) throws ValidationFailed
     {
-        final FindVessel query = FindVessel.of(id);
-        final Vessel result = QueryProcessor.query(query, FindVesselHandler.on(repo)).get();
+        final FindVessel query  = FindVessel.of(id);
+        final Vessel     result = QueryProcessor.query(query, FindVesselHandler.on(repo)).get();
         return result;
     }
 

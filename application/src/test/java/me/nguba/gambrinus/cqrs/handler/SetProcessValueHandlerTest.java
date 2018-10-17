@@ -16,12 +16,6 @@
 */
 package me.nguba.gambrinus.cqrs.handler;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import me.nguba.gambrinus.command.SetProcessValue;
 import me.nguba.gambrinus.ddd.validation.Errors;
 import me.nguba.gambrinus.ddd.validation.Reason;
@@ -33,6 +27,13 @@ import me.nguba.gambrinus.onewire.OneWireAddress;
 import me.nguba.gambrinus.owfs.OwfsRoot;
 import me.nguba.gambrinus.owfs.OwfsSensor;
 import me.nguba.gambrinus.process.Temperature;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>

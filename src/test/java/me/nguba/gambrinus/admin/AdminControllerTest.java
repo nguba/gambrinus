@@ -16,7 +16,16 @@
 */
 package me.nguba.gambrinus.admin;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import me.nguba.gambrinus.ApplicationMother;
+import me.nguba.gambrinus.GambrinusControllerTest;
+import me.nguba.gambrinus.equipment.Vessel;
+import me.nguba.gambrinus.equipment.VesselId;
+import me.nguba.gambrinus.equipment.VesselRepository;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -24,15 +33,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 
-import me.nguba.gambrinus.ApplicationMother;
-import me.nguba.gambrinus.GambrinusControllerTest;
-import me.nguba.gambrinus.equipment.Vessel;
-import me.nguba.gambrinus.equipment.VesselId;
-import me.nguba.gambrinus.equipment.VesselRepository;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  *
@@ -51,8 +53,7 @@ class AdminControllerTest
     void createVessel() throws Exception
     {
         mvc.perform(post("/api/admin/vessel/{name}/{address}", "mash", "28.273B5D070000"))
-                .andDo(print())
-                .andExpect(status().isCreated()).andReturn();
+                .andDo(print()).andExpect(status().isCreated()).andReturn();
     }
 
     @Test
@@ -67,8 +68,7 @@ class AdminControllerTest
     @Test
     void getSensors() throws Exception
     {
-        mvc.perform(get("/api/admin/sensor")).andDo(print())
-                .andExpect(status().isOk()).andReturn();
+        mvc.perform(get("/api/admin/sensor")).andDo(print()).andExpect(status().isOk()).andReturn();
 
     }
 
@@ -98,8 +98,7 @@ class AdminControllerTest
         for (final Vessel v : expected)
             vessels.create(v);
 
-        mvc.perform(get("/api/admin/vessel")).andDo(print())
-                .andExpect(status().isOk()).andReturn();
+        mvc.perform(get("/api/admin/vessel")).andDo(print()).andExpect(status().isOk()).andReturn();
     }
 
     @AfterEach

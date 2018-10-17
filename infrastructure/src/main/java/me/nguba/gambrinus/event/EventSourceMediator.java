@@ -17,12 +17,11 @@
 
 package me.nguba.gambrinus.event;
 
-import java.io.IOException;
+import me.nguba.gambrinus.event.sources.ProcessValueChangedSource;
 
 import com.google.common.eventbus.Subscribe;
 
-import me.nguba.gambrinus.event.ProcessValueChanged;
-import me.nguba.gambrinus.event.sources.ProcessValueChangedSource;
+import java.io.IOException;
 
 /**
  * Listens to event sourced events and persists them in the event store.

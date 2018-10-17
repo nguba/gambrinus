@@ -16,11 +16,11 @@
 */
 package me.nguba.gambrinus.event;
 
+import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.Instant;
-
-import org.junit.jupiter.api.Test;
 
 public class EventSerializerServiceTest extends MutatorEvent
 {
@@ -39,9 +39,7 @@ public class EventSerializerServiceTest extends MutatorEvent
     {
         final String transform = EventSerializerService.flatFormat().transform(this);
 
-        assertEquals(String
-                .format("{\"timestamp\":%d,\"one\":\"One value\",\"two\":2}",
-                        timestamp),
+        assertEquals(String.format("{\"timestamp\":%d,\"one\":\"One value\",\"two\":2}", timestamp),
                      transform);
     }
 

@@ -16,14 +16,14 @@
 */
 package me.nguba.gambrinus.cqrs.handler;
 
-import java.util.Optional;
-
 import me.nguba.gambrinus.command.FindVessel;
 import me.nguba.gambrinus.cqrs.query.QueryHandler;
 import me.nguba.gambrinus.ddd.validation.Errors;
 import me.nguba.gambrinus.ddd.validation.Reason;
 import me.nguba.gambrinus.equipment.Vessel;
 import me.nguba.gambrinus.equipment.VesselRepository;
+
+import java.util.Optional;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>

@@ -73,8 +73,8 @@ public final class SetpointChangedSource extends EventSource
     @Override
     public int hashCode()
     {
-        final int prime = 31;
-        int result = 1;
+        final int prime  = 31;
+        int       result = 1;
         result = prime * result + (setpoint == null ? 0 : setpoint.hashCode());
         result = prime * result + (vesselName == null ? 0 : vesselName.hashCode());
         return result;

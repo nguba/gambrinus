@@ -16,11 +16,11 @@
 */
 package me.nguba.gambrinus.admin;
 
+import me.nguba.gambrinus.onewire.OneWireAddress;
+
 import org.springframework.hateoas.ResourceSupport;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.hateoas.mvc.ResourceAssemblerSupport;
-
-import me.nguba.gambrinus.onewire.OneWireAddress;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>

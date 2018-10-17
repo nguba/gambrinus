@@ -55,7 +55,7 @@ class FindVesselHandlerTest
     @Test
     void resultNotFound()
     {
-        final Optional<Vessel>result = handler.query(FindVessel.of(VesselId.of("HLT")));
+        final Optional<Vessel> result = handler.query(FindVessel.of(VesselId.of("HLT")));
         assertThat(result.isPresent()).isFalse();
     }
 

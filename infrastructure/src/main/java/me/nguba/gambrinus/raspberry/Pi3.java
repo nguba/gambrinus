@@ -17,26 +17,26 @@
 
 package me.nguba.gambrinus.raspberry;
 
-import com.google.common.eventbus.Subscribe;
-
 import me.nguba.gambrinus.Pid;
 import me.nguba.gambrinus.event.EventPublisher;
 import me.nguba.gambrinus.event.ProcessValueChanged;
 import me.nguba.gambrinus.event.SetpointChanged;
+
+import com.google.common.eventbus.Subscribe;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
 public final class Pi3
 {
-    Pid controller = new Pid(0, 0, 0);
-
     public static Pi3 with(final EventPublisher publisher)
     {
         final Pi3 pi3 = new Pi3();
         publisher.subscribe(pi3);
         return pi3;
     }
+
+    Pid controller = new Pid(0, 0, 0);
 
     private Pi3()
     {
