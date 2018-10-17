@@ -18,9 +18,10 @@ package me.nguba.gambrinus.cqrs.query;
 
 import me.nguba.gambrinus.ddd.validation.Errors;
 
-public interface QueryHandler<Q extends Query, R extends Result<?>>
+public interface QueryHandler<Q extends Query, R>
 {
     R query(Q query);
 
     void validate(Q query, Errors errors);
 }
+ 

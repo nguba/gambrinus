@@ -16,22 +16,22 @@
 */
 package me.nguba.gambrinus.cqrs.query;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import me.nguba.gambrinus.ddd.validation.Errors;
+import me.nguba.gambrinus.ddd.validation.ValidationFailed;
 
-import java.util.Optional;
-import java.util.concurrent.atomic.AtomicBoolean;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
 
-import me.nguba.gambrinus.ddd.validation.Errors;
-import me.nguba.gambrinus.ddd.validation.ValidationFailed;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
 class QueryProcessorTest
-        implements Query, Result<String>, QueryHandler<QueryProcessorTest, QueryProcessorTest>
+        implements Query, QueryHandler<QueryProcessorTest, QueryProcessorTest>
 {
     private final AtomicBoolean hasValidated = new AtomicBoolean(false);
 
@@ -53,12 +53,6 @@ class QueryProcessorTest
                                                                              .query(null, this));
 
         assertThat(exception).hasMessage("Query cannot be null");
-    }
-
-    @Override
-    public Optional<String> getResult()
-    {
-        return Optional.of("result");
     }
 
     private QueryProcessorTest query() throws ValidationFailed

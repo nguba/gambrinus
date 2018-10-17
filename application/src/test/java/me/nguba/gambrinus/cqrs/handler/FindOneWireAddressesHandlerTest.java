@@ -19,6 +19,8 @@ package me.nguba.gambrinus.cqrs.handler;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.Set;
+
 import org.junit.jupiter.api.Test;
 
 import me.nguba.gambrinus.command.FindOneWireAddresses;
@@ -35,20 +37,20 @@ class FindOneWireAddressesHandlerTest
     @Test
     void emptyResultOnIOFailure()
     {
-        final FindOneWireAddressResult result = handler
+        final Set<OneWireAddress> result = handler
                 .query(FindOneWireAddresses.on("unavailable"));
 
-        assertThat(result.getResult().get()).isEmpty();
+        assertThat(result).isEmpty();
     }
 
     @Test
     void result()
     {
-        final FindOneWireAddressResult result = handler
+        final Set<OneWireAddress> result = handler
                 .query(FindOneWireAddresses.on("src/test/resources/owfs"));
 
-        assertThat(result.getResult().get()).containsOnly(OneWireAddress.of("28.273B5D070000"),
-                                                          OneWireAddress.of("28.4BBB68080000"));
+        assertThat(result).containsOnly(OneWireAddress.of("28.273B5D070000"),
+                                        OneWireAddress.of("28.4BBB68080000"));
     }
 
     @Test

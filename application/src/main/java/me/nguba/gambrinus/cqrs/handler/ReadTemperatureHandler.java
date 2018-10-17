@@ -31,7 +31,7 @@ import me.nguba.gambrinus.process.Temperature;
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
 public final class ReadTemperatureHandler
-        implements QueryHandler<ReadTemperature, ReadTemperatureResult>
+        implements QueryHandler<ReadTemperature, Optional<Temperature>>
 {
     public static ReadTemperatureHandler on(final VesselRepository vessels)
     {
@@ -46,12 +46,11 @@ public final class ReadTemperatureHandler
     }
 
     @Override
-    public ReadTemperatureResult query(final ReadTemperature query)
+    public Optional<Temperature> query(final ReadTemperature query)
     {
         final Vessel vessel = vessels.read(query.getVesselId()).get();
         try {
-            final Temperature pv = vessel.readTemperature();
-            return ReadTemperatureResult.of(pv);
+            return Optional.ofNullable(vessel.readTemperature());
         } catch (final IOException e) {
             throw new IllegalStateException("Unable to query temperature: " + e.getMessage(), e);
         }

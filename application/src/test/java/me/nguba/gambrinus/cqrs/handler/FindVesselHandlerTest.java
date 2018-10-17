@@ -16,18 +16,21 @@
 */
 package me.nguba.gambrinus.cqrs.handler;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import me.nguba.gambrinus.command.FindVessel;
 import me.nguba.gambrinus.ddd.validation.Errors;
 import me.nguba.gambrinus.ddd.validation.ValidationFailed;
 import me.nguba.gambrinus.equipment.Vessel;
 import me.nguba.gambrinus.equipment.VesselId;
 import me.nguba.gambrinus.equipment.VesselRepository;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.util.Optional;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
@@ -45,15 +48,15 @@ class FindVesselHandlerTest
         final Vessel expected = Vessel.inactive(VesselId.of("HLT"));
         vessels.create(expected);
 
-        final FindVesselResult result = handler.query(FindVessel.of(VesselId.of("HLT")));
-        assertThat(result.getResult().get()).isEqualTo(expected);
+        final Optional<Vessel> result = handler.query(FindVessel.of(VesselId.of("HLT")));
+        assertThat(result.get()).isEqualTo(expected);
     }
 
     @Test
     void resultNotFound()
     {
-        final FindVesselResult result = handler.query(FindVessel.of(VesselId.of("HLT")));
-        assertThat(result.getResult().isPresent()).isFalse();
+        final Optional<Vessel>result = handler.query(FindVessel.of(VesselId.of("HLT")));
+        assertThat(result.isPresent()).isFalse();
     }
 
     @BeforeEach

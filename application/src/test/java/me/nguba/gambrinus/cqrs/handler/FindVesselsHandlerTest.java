@@ -21,6 +21,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Set;
+
 import me.nguba.gambrinus.command.FindVessels;
 import me.nguba.gambrinus.ddd.validation.Errors;
 import me.nguba.gambrinus.equipment.Vessel;
@@ -36,9 +38,9 @@ class FindVesselsHandlerTest
     @Test
     void noVesselsFound()
     {
-        final FindVesselsResult result = handler.query(FindVessels.create());
+        final Set<Vessel> result = handler.query(FindVessels.create());
 
-        assertThat(result.getResult().get()).isEmpty();
+        assertThat(result).isEmpty();
     }
 
     @Test
@@ -49,9 +51,9 @@ class FindVesselsHandlerTest
         for (final Vessel v : expected)
             repository.create(v);
 
-        final FindVesselsResult result = handler.query(FindVessels.create());
+        final Set<Vessel> result = handler.query(FindVessels.create());
 
-        assertThat(result.getResult().get()).containsOnly(expected);
+        assertThat(result).containsOnly(expected);
     }
 
     @BeforeEach

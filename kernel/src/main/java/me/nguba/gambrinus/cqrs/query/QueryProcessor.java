@@ -26,8 +26,8 @@ import me.nguba.gambrinus.ddd.validation.ValidationFailed;
  */
 public final class QueryProcessor
 {
-    public static <Q extends Query, R extends Result<?>> R query(final Q query,
-                                                                 final QueryHandler<Q, R> handler)
+    public static <Q extends Query, R> R query(final Q query,
+                                               final QueryHandler<Q, R> handler)
             throws ValidationFailed
     {
         CqrsUtil.notNull(handler, "Handler cannot be null");
@@ -39,8 +39,8 @@ public final class QueryProcessor
         return handler.query(query);
     }
 
-    private static <Q extends Query, R extends Result<?>> void validate(final Q query,
-                                                                        final QueryHandler<Q, R> handler)
+    private static <Q extends Query, R> void validate(final Q query,
+                                                      final QueryHandler<Q, R> handler)
             throws ValidationFailed
     {
         final Errors errors = Errors.empty();

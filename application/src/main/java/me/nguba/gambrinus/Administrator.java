@@ -63,21 +63,18 @@ public class Administrator
     {
         final FindOneWireAddresses query = FindOneWireAddresses.on(mountpoint);
         return QueryProcessor
-                .query(query, FindOneWireAddressesHandler.create())
-                .getResult().get();
+                .query(query, FindOneWireAddressesHandler.create());
     }
 
     public Vessel findVessel(final VesselId id) throws ValidationFailed
     {
         final FindVessel query = FindVessel.of(id);
-        final Vessel result = QueryProcessor
-                .query(query, FindVesselHandler.on(repo)).getResult().get();
+        final Vessel result = QueryProcessor.query(query, FindVesselHandler.on(repo)).get();
         return result;
     }
 
     public Set<Vessel> findVessels() throws ValidationFailed, IOException
     {
-        return QueryProcessor
-                .query(FindVessels.create(), FindVesselsHandler.on(repo)).getResult().get();
+        return QueryProcessor.query(FindVessels.create(), FindVesselsHandler.on(repo));
     }
 }

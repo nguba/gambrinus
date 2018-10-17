@@ -31,7 +31,7 @@ import me.nguba.gambrinus.owfs.OwfsSensor;
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
 public final class FindOneWireAddressesHandler
-        implements QueryHandler<FindOneWireAddresses, FindOneWireAddressResult>
+        implements QueryHandler<FindOneWireAddresses, Set<OneWireAddress>>
 {
     public static FindOneWireAddressesHandler create()
     {
@@ -44,7 +44,7 @@ public final class FindOneWireAddressesHandler
     }
 
     @Override
-    public FindOneWireAddressResult query(final FindOneWireAddresses query)
+    public Set<OneWireAddress> query(final FindOneWireAddresses query)
     {
         final OwfsRoot root = OwfsRoot.of(query.getMountpoint());
         final Set<OneWireAddress> addresses = new HashSet<>();
@@ -52,8 +52,7 @@ public final class FindOneWireAddressesHandler
         // TODO use a repository for this
         for (final OwfsSensor sensor : root.listSensors())
             addresses.add(sensor.getId());
-        return FindOneWireAddressResult
-                .from(addresses.toArray(new OneWireAddress[addresses.size()]));
+        return addresses;
     }
 
     @Override

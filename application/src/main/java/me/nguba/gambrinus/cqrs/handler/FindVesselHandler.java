@@ -29,7 +29,7 @@ import me.nguba.gambrinus.equipment.VesselRepository;
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  *
  */
-public final class FindVesselHandler implements QueryHandler<FindVessel, FindVesselResult>
+public final class FindVesselHandler implements QueryHandler<FindVessel, Optional<Vessel>>
 {
     public static FindVesselHandler on(final VesselRepository vessels)
     {
@@ -44,10 +44,9 @@ public final class FindVesselHandler implements QueryHandler<FindVessel, FindVes
     }
 
     @Override
-    public FindVesselResult query(final FindVessel query)
+    public Optional<Vessel> query(final FindVessel query)
     {
-        final Optional<Vessel> read = vessels.read(query.getId());
-        return FindVesselResult.of(read);
+        return vessels.read(query.getId());
     }
 
     @Override

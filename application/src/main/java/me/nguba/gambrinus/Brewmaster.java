@@ -80,7 +80,7 @@ public final class Brewmaster
     public Temperature readProcessValue(final VesselId vessel) throws ValidationFailed
     {
         return QueryProcessor
-                .query(ReadTemperature.from(vessel), ReadTemperatureHandler.on(vessels)).getResult()
+                .query(ReadTemperature.from(vessel), ReadTemperatureHandler.on(vessels))
                 .orElse(Temperature.celsius(0));
     }
 
@@ -88,7 +88,6 @@ public final class Brewmaster
     {
         final Temperature currentTemp = QueryProcessor
                 .query(ReadTemperature.from(vessel), ReadTemperatureHandler.on(vessels))
-                .getResult()
                 .orElse(Temperature.celsius(0));
 
         final SetProcessValue command = SetProcessValue.with(vessel, currentTemp);

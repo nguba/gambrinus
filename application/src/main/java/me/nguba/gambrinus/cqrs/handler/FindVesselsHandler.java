@@ -19,12 +19,16 @@ package me.nguba.gambrinus.cqrs.handler;
 import me.nguba.gambrinus.command.FindVessels;
 import me.nguba.gambrinus.cqrs.query.QueryHandler;
 import me.nguba.gambrinus.ddd.validation.Errors;
+import me.nguba.gambrinus.equipment.Vessel;
 import me.nguba.gambrinus.equipment.VesselRepository;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-public final class FindVesselsHandler implements QueryHandler<FindVessels, FindVesselsResult>
+public final class FindVesselsHandler implements QueryHandler<FindVessels, Set<Vessel>>
 {
     public static FindVesselsHandler on(final VesselRepository repository)
     {
@@ -39,9 +43,13 @@ public final class FindVesselsHandler implements QueryHandler<FindVessels, FindV
     }
 
     @Override
-    public FindVesselsResult query(final FindVessels query)
+    public Set<Vessel> query(final FindVessels query)
     {
-        return FindVesselsResult.from(repository.findAll());
+        HashSet<Vessel> result = new HashSet<>();
+        for(Vessel vessel : repository.findAll()) {
+            result.add(vessel);
+        }
+        return result;
     }
 
     @Override

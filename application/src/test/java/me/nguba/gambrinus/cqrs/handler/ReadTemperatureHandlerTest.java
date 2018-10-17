@@ -19,6 +19,8 @@ package me.nguba.gambrinus.cqrs.handler;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.Optional;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -94,9 +96,9 @@ class ReadTemperatureHandlerTest
                 .of(vesselId,
                     OwfsSensor.from(OwfsRoot.test(), OneWireAddress.of("28.273B5D070000"))));
 
-        final ReadTemperatureResult result = handler.query(ReadTemperature.from(vesselId));
+        final Optional<Temperature> result = handler.query(ReadTemperature.from(vesselId));
 
-        assertThat(result.getResult().get()).isEqualTo(Temperature.celsius(33.5));
+        assertThat(result.get()).isEqualTo(Temperature.celsius(33.5));
     }
 
 }
