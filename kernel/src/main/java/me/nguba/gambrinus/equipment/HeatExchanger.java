@@ -14,13 +14,21 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 package me.nguba.gambrinus.equipment;
 
+import me.nguba.gambrinus.ddd.Entity;
+
 /**
+ * Equipment to increase or decrease heat in a container.
  *
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-public interface HeatingElement
+public abstract class HeatExchanger extends Entity<HeatExchangerId> implements Switched
 {
+    protected HeatExchanger(final HeatExchangerId id)
+    {
+        super(id);
+    }
 
 }

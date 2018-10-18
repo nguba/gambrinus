@@ -23,7 +23,7 @@ import me.nguba.gambrinus.ddd.support.SingleValueObject;
  */
 public class TankId extends SingleValueObject<String>
 {
-    public static TankId of(final String name)
+    public static TankId from(final String name)
     {
         return new TankId(name);
     }

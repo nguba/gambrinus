@@ -19,6 +19,8 @@ package me.nguba.gambrinus.equipment;
 import me.nguba.gambrinus.process.ProcessValue;
 import me.nguba.gambrinus.process.Temperature;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -30,9 +32,25 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 class TankTest
 {
-    private final ProbeId hotWaterInlet = ProbeId.of("Hot Water Inlet");
+    final ProbeId hotWaterInlet = ProbeId.from("Hot Water Inlet");
 
-    final Tank tank = Tank.with(TankId.of("Mash Tun"));
+    final Tank tank = Tank.with(TankId.from("Mash Tun"));
+
+    @Test
+    void addCooler()
+    {
+        withCooler();
+
+        assertThat(tank.cooler()).isPresent();
+    }
+
+    @Test
+    void addHeater()
+    {
+        withHeater();
+
+        assertThat(tank.heater()).isPresent();
+    }
 
     private void addProbe(final ProbeId probeId)
     {
@@ -40,10 +58,83 @@ class TankTest
     }
 
     @Test
+    void coolerOnOff() throws Exception
+    {
+        withCooler();
+
+        assertThat(getCooler().currentState()).isEqualTo(Switched.State.OFF);
+
+        tank.coolerOn();
+
+        assertThat(getCooler().currentState()).isEqualTo(Switched.State.ON);
+
+        tank.coolerOff();
+
+        assertThat(getCooler().currentState()).isEqualTo(Switched.State.OFF);
+    }
+
+    private HeatExchanger getCooler()
+    {
+        return tank.cooler().get();
+    }
+
+    private HeatExchanger getHeater()
+    {
+        return tank.heater().get();
+    }
+
+    @Test
+    void switchOffUnconfiguredHeater()
+    {
+        Exception exception = assertThrows(HeatExchangerNotAvailable.class, () -> tank.heaterOff());
+        
+        assertThat(exception).hasMessage("No heat exchanger available for: heating");
+    }
+    
+    @Test
+    void switchOffUnconfiguredCooler()
+    {
+        Exception exception = assertThrows(HeatExchangerNotAvailable.class, () -> tank.coolerOff());
+        
+        assertThat(exception).hasMessage("No heat exchanger available for: cooling");
+    }
+    
+    @Test
+    void switchOnUnconfiguredCooler()
+    {
+        Exception exception = assertThrows(HeatExchangerNotAvailable.class, () -> tank.coolerOn());
+        
+        assertThat(exception).hasMessage("No heat exchanger available for: cooling");
+    }
+    
+    @Test
+    void switchOnUnconfiguredHeater()
+    {
+        Exception exception = assertThrows(HeatExchangerNotAvailable.class, () -> tank.heaterOn());
+        
+        assertThat(exception).hasMessage("No heat exchanger available for: heating");
+    }
+
+    @Test
+    void heaterOnOff() throws Exception
+    {
+        withHeater();
+
+        assertThat(getHeater().currentState()).isEqualTo(Switched.State.OFF);
+
+        tank.heaterOn();
+
+        assertThat(getHeater().currentState()).isEqualTo(Switched.State.ON);
+
+        tank.heaterOff();
+
+        assertThat(getHeater().currentState()).isEqualTo(Switched.State.OFF);
+    }
+
+    @Test
     void readNonExistingProbe() throws Exception
     {
         assertThrows(ProbeNotConfigured.class, () -> tank.read(hotWaterInlet));
-
     }
 
     @Test
@@ -54,5 +145,15 @@ class TankTest
         final ProcessValue pv = tank.read(hotWaterInlet);
 
         assertEquals(pv, ProcessValue.with(Temperature.celsius(64.0)));
+    }
+
+    private void withCooler()
+    {
+        tank.addCooler(HeatExchangerMock.instance());
+    }
+
+    private void withHeater()
+    {
+        tank.addHeater(HeatExchangerMock.instance());
     }
 }

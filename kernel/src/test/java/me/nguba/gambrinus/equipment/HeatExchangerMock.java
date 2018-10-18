@@ -17,21 +17,38 @@
 
 package me.nguba.gambrinus.equipment;
 
-import me.nguba.gambrinus.ddd.support.SingleValueObject;
-
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-public final class ProbeId extends SingleValueObject<String>
+public class HeatExchangerMock extends HeatExchanger
 {
-    public static ProbeId from(final String name)
+    public static HeatExchanger instance()
     {
-        return new ProbeId(name);
+        return new HeatExchangerMock(HeatExchangerId.from("mock heater"));
     }
 
-    private ProbeId(final String value)
+    private State state = State.OFF;
+
+    protected HeatExchangerMock(final HeatExchangerId id)
     {
-        super(value);
+        super(id);
     }
 
+    @Override
+    public State currentState()
+    {
+        return state;
+    }
+
+    @Override
+    public void off()
+    {
+        state = State.OFF;
+    }
+
+    @Override
+    public void on()
+    {
+        state = State.ON;
+    }
 }

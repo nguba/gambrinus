@@ -17,21 +17,21 @@
 
 package me.nguba.gambrinus.equipment;
 
-import me.nguba.gambrinus.ddd.support.SingleValueObject;
-
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-public final class ProbeId extends SingleValueObject<String>
+public final class HeatExchangerNotAvailable extends Exception
 {
-    public static ProbeId from(final String name)
+    private static final long serialVersionUID = -1725295569433653086L;
+
+    private HeatExchangerNotAvailable(String heatExchangerLabel)
     {
-        return new ProbeId(name);
+        super(new StringBuilder("No heat exchanger available for: ").append(heatExchangerLabel)
+                .toString());
     }
 
-    private ProbeId(final String value)
+    public static HeatExchangerNotAvailable on(String label)
     {
-        super(value);
+        return new HeatExchangerNotAvailable(label);
     }
-
 }

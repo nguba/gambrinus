@@ -14,24 +14,23 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
 package me.nguba.gambrinus.equipment;
 
-import me.nguba.gambrinus.ddd.support.SingleValueObject;
-
 /**
+ * Switched equipment which is either on or off.
+ *
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-public final class ProbeId extends SingleValueObject<String>
+public interface Switched
 {
-    public static ProbeId from(final String name)
+    public static enum State
     {
-        return new ProbeId(name);
+        OFF, ON;
     }
 
-    private ProbeId(final String value)
-    {
-        super(value);
-    }
+    State currentState();
 
+    void off();
+
+    void on();
 }

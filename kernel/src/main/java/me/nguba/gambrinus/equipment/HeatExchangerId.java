@@ -22,16 +22,15 @@ import me.nguba.gambrinus.ddd.support.SingleValueObject;
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-public final class ProbeId extends SingleValueObject<String>
+public final class HeatExchangerId extends SingleValueObject<String>
 {
-    public static ProbeId from(final String name)
+    public static HeatExchangerId from(final String name)
     {
-        return new ProbeId(name);
+        return new HeatExchangerId(name);
     }
 
-    private ProbeId(final String value)
+    private HeatExchangerId(final String value)
     {
         super(value);
     }
-
 }
