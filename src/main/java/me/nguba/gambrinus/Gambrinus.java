@@ -16,10 +16,6 @@
 */
 package me.nguba.gambrinus;
 
-import me.nguba.gambrinus.admin.AdminResourceService;
-import me.nguba.gambrinus.equipment.VesselRepository;
-import me.nguba.gambrinus.event.EventPublisher;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -37,32 +33,8 @@ public class Gambrinus
     }
 
     @Bean
-    public Administrator administrator(final VesselRepository repo)
-    {
-        return new Administrator(repo);
-    }
-
-    @Bean
-    public AdminResourceService adminService(final Administrator admin)
-    {
-        return new AdminResourceService(admin);
-    }
-
-    @Bean
-    public Brewmaster brewmaster(final VesselRepository vessels, final EventPublisher events)
-    {
-        return new Brewmaster(vessels, events);
-    }
-
-    @Bean
     public PinConverter pinConverter()
     {
         return new PinConverter();
-    }
-
-    @Bean
-    public VesselRepository vesselRepository()
-    {
-        return new VesselRepository();
     }
 }

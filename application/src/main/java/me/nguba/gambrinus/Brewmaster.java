@@ -16,85 +16,10 @@
 */
 package me.nguba.gambrinus;
 
-import me.nguba.gambrinus.command.ChangeSetpoint;
-import me.nguba.gambrinus.command.ReadTemperature;
-import me.nguba.gambrinus.command.SetProcessValue;
-import me.nguba.gambrinus.cqrs.command.CommandProcessor;
-import me.nguba.gambrinus.cqrs.handler.ChangeSetpointHandler;
-import me.nguba.gambrinus.cqrs.handler.ReadTemperatureHandler;
-import me.nguba.gambrinus.cqrs.handler.SetProcessValueHandler;
-import me.nguba.gambrinus.cqrs.query.QueryProcessor;
-import me.nguba.gambrinus.ddd.validation.ValidationFailed;
-import me.nguba.gambrinus.equipment.VesselId;
-import me.nguba.gambrinus.equipment.VesselRepository;
-import me.nguba.gambrinus.event.EventPublisher;
-import me.nguba.gambrinus.event.ProcessValueChanged;
-import me.nguba.gambrinus.event.SetpointChanged;
-import me.nguba.gambrinus.process.Temperature;
-
-import java.time.Duration;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
 public final class Brewmaster
 {
-    private final EventPublisher events;
-
-    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(3);
-
-    private final VesselRepository vessels;
-
-    public Brewmaster(final VesselRepository vessels, final EventPublisher events)
-    {
-        this.vessels = vessels;
-        this.events = events;
-    }
-
-    public void heat(final VesselId vessel, final Temperature target) throws ValidationFailed
-    {
-        final ChangeSetpoint command = ChangeSetpoint.on(vessel, target);
-
-        CommandProcessor.from(command, ChangeSetpointHandler.from(vessels)).mutate();
-
-        events.publish(SetpointChanged.on(command.getId(), command.getSetpoint()));
-    }
-
-    public void monitor(final VesselId vessel, final Duration duration) throws ValidationFailed
-    {
-        // TODO same vessel cannot be monitored multiple times
-        updateProcessValue(vessel);
-
-        scheduler.scheduleAtFixedRate(() -> {
-            try {
-                updateProcessValue(vessel);
-            } catch (final ValidationFailed e) {
-                throw new IllegalStateException("Reading temperature failed", e);
-            }
-        }, duration.getSeconds(), duration.getSeconds(), TimeUnit.SECONDS);
-    }
-
-    public Temperature readProcessValue(final VesselId vessel) throws ValidationFailed
-    {
-        return QueryProcessor
-                .query(ReadTemperature.from(vessel), ReadTemperatureHandler.on(vessels))
-                .orElse(Temperature.celsius(0));
-    }
-
-    private void updateProcessValue(final VesselId vessel) throws ValidationFailed
-    {
-        final Temperature currentTemp = QueryProcessor
-                .query(ReadTemperature.from(vessel), ReadTemperatureHandler.on(vessels))
-                .orElse(Temperature.celsius(0));
-
-        final SetProcessValue command = SetProcessValue.with(vessel, currentTemp);
-
-        CommandProcessor.from(command, SetProcessValueHandler.from(vessels)).mutate();
-
-        events.publish(ProcessValueChanged.on(command.getId(), command.getProcessValue()));
-    }
 
 }
