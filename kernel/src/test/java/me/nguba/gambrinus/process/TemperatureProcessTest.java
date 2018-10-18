@@ -26,7 +26,6 @@ import java.util.List;
 
 // test how much time is remaining
 // ensure it can resume from where it left off
-// we need to know when all the items have been processed
 //
 /**
  *
@@ -37,7 +36,7 @@ class TemperatureProcessTest
     final TemperatureProcess process = TemperatureProcess.create();
 
     @Test
-    void scheduleMultipleUnitsDisplayedInOrder()
+    void iterateThroughUnits()
     {
         final List<TemperatureUnit> expected = new LinkedList<>();
         expected.add(ProcessMother.firstUnit());
@@ -48,8 +47,8 @@ class TemperatureProcessTest
             process.schedule(unit);
 
         final List<TemperatureUnit> actual = new LinkedList<>();
-        for (int i = 0; i < expected.size(); i++)
-            actual.add(process.nextUnit());
+        for (final TemperatureUnit unit : process)
+            actual.add(unit);
 
         assertThat(actual).isEqualTo(expected);
     }

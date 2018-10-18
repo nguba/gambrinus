@@ -19,6 +19,7 @@ package me.nguba.gambrinus.process;
 
 import me.nguba.gambrinus.equipment.Probe;
 
+import java.util.Iterator;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
@@ -30,7 +31,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  *
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-public class TemperatureProcess
+public class TemperatureProcess implements Iterable<TemperatureUnit>
 {
     public static TemperatureProcess create()
     {
@@ -49,9 +50,10 @@ public class TemperatureProcess
         return queue.peek();
     }
 
-    public TemperatureUnit nextUnit()
+    @Override
+    public Iterator<TemperatureUnit> iterator()
     {
-        return queue.poll();
+        return queue.iterator();
     }
 
     public void schedule(final TemperatureUnit temperatureUnit)
