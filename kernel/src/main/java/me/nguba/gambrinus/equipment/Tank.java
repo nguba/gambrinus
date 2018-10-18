@@ -37,6 +37,14 @@ import java.util.concurrent.ConcurrentMap;
  */
 public final class Tank extends Aggregate<TankId>
 {
+    private static boolean isSwitchedOn(final Switched switched)
+    {
+        if (Optional.ofNullable(switched).isPresent())
+            return switched.currentState() == Switched.State.ON;
+
+        return false;
+    }
+
     /**
      * Instantiates a new tank with that probeId
      *
@@ -122,6 +130,16 @@ public final class Tank extends Aggregate<TankId>
         Optional.ofNullable(cooler).orElseThrow(() -> HeatExchangerNotAvailable.on("cooling")).on();
     }
 
+    public boolean hasCooler()
+    {
+        return Optional.ofNullable(cooler).isPresent();
+    }
+
+    public boolean hasHeater()
+    {
+        return Optional.ofNullable(heater).isPresent();
+    }
+
     /**
      * obtains the configured heater
      *
@@ -152,6 +170,16 @@ public final class Tank extends Aggregate<TankId>
     public void heaterOn() throws HeatExchangerNotAvailable
     {
         Optional.ofNullable(heater).orElseThrow(() -> HeatExchangerNotAvailable.on("heating")).on();
+    }
+
+    public boolean isCooling()
+    {
+        return isSwitchedOn(cooler);
+    }
+
+    public boolean isHeating()
+    {
+        return isSwitchedOn(heater);
     }
 
     /**

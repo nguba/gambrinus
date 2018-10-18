@@ -39,17 +39,21 @@ class TankTest
     @Test
     void addCooler()
     {
+        assertThat(tank.hasCooler()).isFalse();
+
         withCooler();
 
-        assertThat(tank.cooler()).isPresent();
+        assertThat(tank.hasCooler()).isTrue();
     }
 
     @Test
     void addHeater()
     {
+        assertThat(tank.hasHeater()).isFalse();
+
         withHeater();
 
-        assertThat(tank.heater()).isPresent();
+        assertThat(tank.hasHeater()).isTrue();
     }
 
     private void addProbe(final ProbeId probeId)
@@ -62,25 +66,15 @@ class TankTest
     {
         withCooler();
 
-        assertThat(getCooler().currentState()).isEqualTo(Switched.State.OFF);
+        assertThat(tank.isCooling()).isFalse();
 
         tank.coolerOn();
 
-        assertThat(getCooler().currentState()).isEqualTo(Switched.State.ON);
+        assertThat(tank.isCooling()).isTrue();
 
         tank.coolerOff();
 
-        assertThat(getCooler().currentState()).isEqualTo(Switched.State.OFF);
-    }
-
-    private HeatExchanger getCooler()
-    {
-        return tank.cooler().get();
-    }
-
-    private HeatExchanger getHeater()
-    {
-        return tank.heater().get();
+        assertThat(tank.isCooling()).isFalse();
     }
 
     @Test
@@ -88,15 +82,15 @@ class TankTest
     {
         withHeater();
 
-        assertThat(getHeater().currentState()).isEqualTo(Switched.State.OFF);
+        assertThat(tank.isHeating()).isFalse();
 
         tank.heaterOn();
 
-        assertThat(getHeater().currentState()).isEqualTo(Switched.State.ON);
+        assertThat(tank.isHeating()).isTrue();
 
         tank.heaterOff();
 
-        assertThat(getHeater().currentState()).isEqualTo(Switched.State.OFF);
+        assertThat(tank.isHeating()).isFalse();
     }
 
     @Test
