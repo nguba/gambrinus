@@ -84,38 +84,6 @@ class TankTest
     }
 
     @Test
-    void switchOffUnconfiguredHeater()
-    {
-        Exception exception = assertThrows(HeatExchangerNotAvailable.class, () -> tank.heaterOff());
-        
-        assertThat(exception).hasMessage("No heat exchanger available for: heating");
-    }
-    
-    @Test
-    void switchOffUnconfiguredCooler()
-    {
-        Exception exception = assertThrows(HeatExchangerNotAvailable.class, () -> tank.coolerOff());
-        
-        assertThat(exception).hasMessage("No heat exchanger available for: cooling");
-    }
-    
-    @Test
-    void switchOnUnconfiguredCooler()
-    {
-        Exception exception = assertThrows(HeatExchangerNotAvailable.class, () -> tank.coolerOn());
-        
-        assertThat(exception).hasMessage("No heat exchanger available for: cooling");
-    }
-    
-    @Test
-    void switchOnUnconfiguredHeater()
-    {
-        Exception exception = assertThrows(HeatExchangerNotAvailable.class, () -> tank.heaterOn());
-        
-        assertThat(exception).hasMessage("No heat exchanger available for: heating");
-    }
-
-    @Test
     void heaterOnOff() throws Exception
     {
         withHeater();
@@ -145,6 +113,42 @@ class TankTest
         final ProcessValue pv = tank.read(hotWaterInlet);
 
         assertEquals(pv, ProcessValue.with(Temperature.celsius(64.0)));
+    }
+
+    @Test
+    void switchOffUnconfiguredCooler()
+    {
+        final Exception exception = assertThrows(HeatExchangerNotAvailable.class,
+                                                 () -> tank.coolerOff());
+
+        assertThat(exception).hasMessage("No heat exchanger available for: cooling");
+    }
+
+    @Test
+    void switchOffUnconfiguredHeater()
+    {
+        final Exception exception = assertThrows(HeatExchangerNotAvailable.class,
+                                                 () -> tank.heaterOff());
+
+        assertThat(exception).hasMessage("No heat exchanger available for: heating");
+    }
+
+    @Test
+    void switchOnUnconfiguredCooler()
+    {
+        final Exception exception = assertThrows(HeatExchangerNotAvailable.class,
+                                                 () -> tank.coolerOn());
+
+        assertThat(exception).hasMessage("No heat exchanger available for: cooling");
+    }
+
+    @Test
+    void switchOnUnconfiguredHeater()
+    {
+        final Exception exception = assertThrows(HeatExchangerNotAvailable.class,
+                                                 () -> tank.heaterOn());
+
+        assertThat(exception).hasMessage("No heat exchanger available for: heating");
     }
 
     private void withCooler()

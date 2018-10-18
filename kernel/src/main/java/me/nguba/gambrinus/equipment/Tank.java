@@ -31,7 +31,7 @@ import java.util.concurrent.ConcurrentMap;
  * </p>
  *
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
- * 
+ *
  * @see HeatExchanger
  * @see ProcessValue
  */
@@ -103,7 +103,7 @@ public final class Tank extends Aggregate<TankId>
 
     /**
      * Stop cooling the tank
-     * 
+     *
      * @throws HeatExchangerNotAvailable
      */
     public void coolerOff() throws HeatExchangerNotAvailable
@@ -114,7 +114,7 @@ public final class Tank extends Aggregate<TankId>
 
     /**
      * Start cooling the tank
-     * 
+     *
      * @throws HeatExchangerNotAvailable
      */
     public void coolerOn() throws HeatExchangerNotAvailable
@@ -134,7 +134,7 @@ public final class Tank extends Aggregate<TankId>
 
     /**
      * Stop heating the tank
-     * 
+     *
      * @throws HeatExchangerNotAvailable
      *
      */
@@ -146,7 +146,7 @@ public final class Tank extends Aggregate<TankId>
 
     /**
      * Start heating the tank
-     * 
+     *
      * @throws HeatExchangerNotAvailable
      */
     public void heaterOn() throws HeatExchangerNotAvailable

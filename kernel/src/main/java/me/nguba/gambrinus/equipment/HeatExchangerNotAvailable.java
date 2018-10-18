@@ -24,14 +24,14 @@ public final class HeatExchangerNotAvailable extends Exception
 {
     private static final long serialVersionUID = -1725295569433653086L;
 
-    private HeatExchangerNotAvailable(String heatExchangerLabel)
+    public static HeatExchangerNotAvailable on(final String label)
+    {
+        return new HeatExchangerNotAvailable(label);
+    }
+
+    private HeatExchangerNotAvailable(final String heatExchangerLabel)
     {
         super(new StringBuilder("No heat exchanger available for: ").append(heatExchangerLabel)
                 .toString());
-    }
-
-    public static HeatExchangerNotAvailable on(String label)
-    {
-        return new HeatExchangerNotAvailable(label);
     }
 }
