@@ -15,7 +15,12 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package me.nguba.gambrinus.process;
+package me.nguba.gambrinus.scheduler.state;
+
+import me.nguba.gambrinus.process.Setpoint;
+import me.nguba.gambrinus.process.Temperature;
+import me.nguba.gambrinus.process.TemperatureUnit;
+import me.nguba.gambrinus.process.TemperatureUnitId;
 
 import java.time.Duration;
 import java.util.LinkedList;
@@ -29,27 +34,15 @@ public enum ProcessMother
     ;
 
     /**
+     * setpoint is at 50.0 Celsius
+     *
      * @return
      */
-    static TemperatureUnit firstUnit()
+    public static TemperatureUnit firstUnit()
     {
         return TemperatureUnit.with(TemperatureUnitId.from("unit 1"),
                                     Duration.ofSeconds(2),
                                     Setpoint.from(Temperature.celsius(50.0)));
-    }
-
-    public static TemperatureUnit secondUnit()
-    {
-        return TemperatureUnit.with(TemperatureUnitId.from("unit 2"),
-                                    Duration.ofSeconds(2),
-                                    Setpoint.from(Temperature.celsius(60.0)));
-    }
-
-    public static TemperatureUnit thirdUnit()
-    {
-        return TemperatureUnit.with(TemperatureUnitId.from("unit 3"),
-                                    Duration.ofSeconds(2),
-                                    Setpoint.from(Temperature.celsius(70.0)));
     }
 
     static List<TemperatureUnit> scheduledUnits()
@@ -59,6 +52,30 @@ public enum ProcessMother
         expected.add(secondUnit());
         expected.add(thirdUnit());
         return expected;
+    }
+
+    /**
+     * setpoint is at 60.0 Celsius
+     *
+     * @return
+     */
+    public static TemperatureUnit secondUnit()
+    {
+        return TemperatureUnit.with(TemperatureUnitId.from("unit 2"),
+                                    Duration.ofSeconds(2),
+                                    Setpoint.from(Temperature.celsius(60.0)));
+    }
+
+    /**
+     * setpoint is at 70.0 Celsius
+     *
+     * @return
+     */
+    public static TemperatureUnit thirdUnit()
+    {
+        return TemperatureUnit.with(TemperatureUnitId.from("unit 3"),
+                                    Duration.ofSeconds(2),
+                                    Setpoint.from(Temperature.celsius(70.0)));
     }
 
 }

@@ -14,21 +14,25 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-package me.nguba.gambrinus;
 
-import me.nguba.gambrinus.event.DomainEvent;
+package me.nguba.gambrinus.scheduler.state;
 
-import java.time.Instant;
+import me.nguba.gambrinus.scheduler.SchedulerContext;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-public final class CommandHappenedEvent extends DomainEvent
+public enum Load implements State
 {
+    INSTANCE;
 
-    public CommandHappenedEvent()
+    @Override
+    public void handle(final SchedulerContext ctx)
     {
-        super(Instant.now());
+        if (ctx.getProcess().isEmpty())
+            ctx.setState(Exit.INSTANCE);
+        else if (ctx.currentUnit().hasSetpointReached(ctx.getProcessValue()))
+            ctx.setState(Soak.INSTANCE);
+        else ctx.setState(Ramp.INSTANCE);
     }
-
 }

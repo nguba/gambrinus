@@ -16,8 +16,8 @@
 */
 package me.nguba.gambrinus;
 
+import me.nguba.gambrinus.event.DomainEvent;
 import me.nguba.gambrinus.event.EventPublisher;
-import me.nguba.gambrinus.event.MutatorEvent;
 
 import com.google.common.eventbus.EventBus;
 
@@ -47,7 +47,7 @@ public final class GuavaEventPublisher implements EventPublisher
     }
 
     @Override
-    public <E extends MutatorEvent> void publish(final E event)
+    public <E extends DomainEvent> void publish(final E event)
     {
         LOGGER.trace("{}", event);
         bus.post(event);

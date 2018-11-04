@@ -19,11 +19,13 @@ dependencies {
     compile('com.google.guava:guava:26.0-jre')
     compile('com.pi4j:pi4j-core:1.2-SNAPSHOT')
   	compile('com.h2database:h2:1.4.197')
+    compile('org.springframework.statemachine:spring-statemachine-starter:2.0.2.RELEASE')
     
     runtime('org.springframework.boot:spring-boot-devtools')
    
     compileOnly('org.springframework.boot:spring-boot-configuration-processor')
     
     testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile("org.springframework.statemachine:spring-statemachine-test:2.0.2.RELEASE")
 }
 

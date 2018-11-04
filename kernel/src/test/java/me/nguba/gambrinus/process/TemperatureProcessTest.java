@@ -24,9 +24,7 @@ import org.junit.jupiter.api.Test;
 import java.util.LinkedList;
 import java.util.List;
 
-// test how much time is remaining
-// ensure it can resume from where it left off
-//
+
 /**
  *
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
@@ -38,13 +36,9 @@ class TemperatureProcessTest
     @Test
     void iterateThroughUnits()
     {
-        final List<TemperatureUnit> expected = new LinkedList<>();
-        expected.add(ProcessMother.firstUnit());
-        expected.add(ProcessMother.secondUnit());
-        expected.add(ProcessMother.thirdUnit());
+        final List<TemperatureUnit> expected = ProcessMother.scheduledUnits();
 
-        for (final TemperatureUnit unit : expected)
-            process.schedule(unit);
+        scheduleAll(expected);
 
         final List<TemperatureUnit> actual = new LinkedList<>();
         for (final TemperatureUnit unit : process)
@@ -53,6 +47,12 @@ class TemperatureProcessTest
         assertThat(actual).isEqualTo(expected);
     }
 
+    private void scheduleAll(final List<TemperatureUnit> expected)
+    {
+        for (final TemperatureUnit unit : expected)
+            process.schedule(unit);
+    }
+   
     @Test
     void scheduleSingleTemperatureUnit()
     {
@@ -62,5 +62,5 @@ class TemperatureProcessTest
 
         assertThat(unit).isEqualTo(ProcessMother.firstUnit());
     }
-
+   
 }

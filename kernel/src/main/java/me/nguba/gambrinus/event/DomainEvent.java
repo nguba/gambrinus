@@ -21,26 +21,26 @@ import java.time.Instant;
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-public abstract class MutatorEvent
+public abstract class DomainEvent
 {
     protected final long timestamp;
 
-    protected MutatorEvent()
+    protected DomainEvent()
     {
         this(Instant.now());
     }
 
-    protected MutatorEvent(final Instant now)
+    protected DomainEvent(final Instant now)
     {
         this(now.toEpochMilli());
     }
 
-    protected MutatorEvent(final long timestamp)
+    protected DomainEvent(final long timestamp)
     {
         this.timestamp = timestamp;
     }
 
-    protected MutatorEvent(final String timestamp)
+    protected DomainEvent(final String timestamp)
     {
         this.timestamp = Long.parseLong(timestamp);
     }
@@ -54,7 +54,7 @@ public abstract class MutatorEvent
             return false;
         if (getClass() != obj.getClass())
             return false;
-        final MutatorEvent other = (MutatorEvent) obj;
+        final DomainEvent other = (DomainEvent) obj;
         if (timestamp != other.timestamp)
             return false;
         return true;

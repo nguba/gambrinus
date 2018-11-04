@@ -20,6 +20,7 @@ package me.nguba.gambrinus.process;
 import me.nguba.gambrinus.ddd.Entity;
 
 import java.time.Duration;
+import java.time.Instant;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
@@ -33,30 +34,64 @@ public final class TemperatureUnit extends Entity<TemperatureUnitId>
         return new TemperatureUnit(id, duration, setpoint, Duration.ZERO);
     }
 
-    private final Duration consumed;
+    private Instant end;
+
+    private Duration remaining;
 
     private final Duration duration;
 
     private final Setpoint setpoint;
 
+    private Instant start;
+    
     private TemperatureUnit(final TemperatureUnitId id,
                             final Duration duration,
                             final Setpoint setpoint,
-                            final Duration consumed)
+                            final Duration remaining)
     {
         super(id);
         this.duration = duration;
         this.setpoint = setpoint;
-        this.consumed = consumed;
+        this.remaining = remaining;
     }
 
     @Override
     public String toString()
     {
-        final StringBuilder builder = new StringBuilder();
-        builder.append("TemperatureUnit [duration=").append(duration).append(", consumed=")
-                .append(consumed).append(", setpoint=").append(setpoint).append("]");
+        StringBuilder builder = new StringBuilder();
+        builder.append("TemperatureUnit [end=").append(end).append(", remaining=").append(remaining)
+                .append(", duration=").append(duration).append(", setpoint=").append(setpoint)
+                .append(", start=").append(start).append("]");
         return builder.toString();
     }
 
+    public void startTimer()
+    {
+        start = Instant.now();
+        end = start.plus(duration);
+    }
+
+    public void expire()
+    {
+        end = Instant.now();
+    }
+
+    public boolean isComplete()
+    {
+        if (end == null)
+            startTimer();
+
+        remaining = Duration.between(Instant.now(), end);
+        return remaining.isNegative() || remaining.isZero();
+    }
+
+    public Setpoint setpoint()
+    {
+        return setpoint;
+    }
+
+    public boolean hasSetpointReached(ProcessValue processValue)
+    {
+        return processValue.getValue().getValue() >= setpoint.getValue().getValue();
+    }
 }

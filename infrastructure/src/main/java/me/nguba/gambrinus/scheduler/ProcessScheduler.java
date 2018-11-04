@@ -14,47 +14,40 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-package me.nguba.gambrinus;
 
-import me.nguba.gambrinus.event.DomainEvent;
+package me.nguba.gambrinus.scheduler;
 
-import com.google.common.eventbus.Subscribe;
-
-import static org.assertj.core.api.Assertions.assertThat;
-
-import org.junit.jupiter.api.Test;
+import me.nguba.gambrinus.process.TemperatureProcess;
 
 /**
+ * Provides the heartbeat with which temperatures are read and the states of a process are advanced.
+ *
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-class GuavaEventPublisherTest
+public final class ProcessScheduler
 {
-    private DomainEvent event;
 
-    private final GuavaEventPublisher publisher = GuavaEventPublisher.create();
-
-    @Subscribe
-    public void callback(final CommandHappenedEvent event)
+    public static void run(final TemperatureProcess process, final ProcessValueProvider pvProvider)
+            throws Exception
     {
-        this.event = event;
+        new ProcessScheduler(process, pvProvider).run();
     }
 
-    @Test
-    void publishNotSubscribed()
+    private final TemperatureProcess process;
+
+    private ProcessScheduler(final TemperatureProcess process,
+                             final ProcessValueProvider pvProvider)
     {
+        this.process = process;
 
-        publisher.publish(new CommandHappenedEvent());
-
-        assertThat(event).isNull();
     }
 
-    @Test
-    void publishSubscribed()
+    public void run() throws Exception
     {
-        publisher.subscribe(this);
+        final SchedulerContext ctx = SchedulerContext.with(process);
 
-        publisher.publish(new CommandHappenedEvent());
-
-        assertThat(event).isInstanceOf(CommandHappenedEvent.class);
+        while (ctx.hasAvailable())
+            ctx.handle();
     }
+
 }

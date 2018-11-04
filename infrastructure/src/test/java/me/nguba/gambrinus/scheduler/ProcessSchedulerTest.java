@@ -14,21 +14,14 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-package me.nguba.gambrinus;
 
-import me.nguba.gambrinus.event.DomainEvent;
-
-import java.time.Instant;
+package me.nguba.gambrinus.scheduler;
 
 /**
+ *
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-public final class CommandHappenedEvent extends DomainEvent
+class ProcessSchedulerTest
 {
-
-    public CommandHappenedEvent()
-    {
-        super(Instant.now());
-    }
 
 }

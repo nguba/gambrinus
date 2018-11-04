@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.Instant;
 
-public class EventSerializerServiceTest extends MutatorEvent
+public class EventSerializerServiceTest extends DomainEvent
 {
 
     public String one = "One value";

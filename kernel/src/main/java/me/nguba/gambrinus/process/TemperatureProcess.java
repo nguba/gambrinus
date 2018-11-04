@@ -17,14 +17,12 @@
 
 package me.nguba.gambrinus.process;
 
-import me.nguba.gambrinus.equipment.Probe;
-
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
- * A temperature process defines the process values (temperature targets) for a piece of equipment
- * monitored by one or many configured {@link Probe} objects.
+ * A temperature process manages the worker queue for {@link TemperatureUnit} items.
  * <p>
  * It specifies how long the equipment needs to dwell on a given setpoint using a configurable and
  * keeps track of which units have been processed and how much time is reamaing in each.
@@ -69,4 +67,20 @@ public class TemperatureProcess implements Iterable<TemperatureUnit>
         return builder.toString();
     }
 
+    public TemperatureUnit remove()
+    {
+        return queue.poll();
+    }
+
+    public boolean isEmpty()
+    {
+        return queue.isEmpty();
+    }
+
+    public void schedule(Collection<TemperatureUnit> scheduledUnits)
+    {
+        queue.addAll(scheduledUnits);
+    }
+    
+    
 }
