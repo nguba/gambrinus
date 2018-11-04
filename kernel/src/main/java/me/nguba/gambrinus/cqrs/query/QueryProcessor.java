@@ -16,7 +16,7 @@
 */
 package me.nguba.gambrinus.cqrs.query;
 
-import me.nguba.gambrinus.cqrs.CqrsUtil;
+import me.nguba.gambrinus.Utils;
 import me.nguba.gambrinus.ddd.validation.Errors;
 import me.nguba.gambrinus.ddd.validation.ValidationFailed;
 
@@ -29,9 +29,9 @@ public final class QueryProcessor
     public static <Q extends Query, R> R query(final Q query, final QueryHandler<Q, R> handler)
             throws ValidationFailed
     {
-        CqrsUtil.notNull(handler, "Handler cannot be null");
+        Utils.notNull(handler, "Handler cannot be null");
 
-        CqrsUtil.notNull(query, "Query cannot be null");
+        Utils.notNull(query, "Query cannot be null");
 
         validate(query, handler);
 

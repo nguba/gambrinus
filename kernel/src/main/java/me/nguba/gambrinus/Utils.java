@@ -14,14 +14,14 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-package me.nguba.gambrinus.cqrs;
+package me.nguba.gambrinus;
 
 import java.util.Optional;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-public enum CqrsUtil
+public enum Utils
 {
     ;
 

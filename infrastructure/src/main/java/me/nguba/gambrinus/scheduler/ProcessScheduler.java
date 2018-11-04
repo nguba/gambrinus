@@ -37,10 +37,18 @@ public final class ProcessScheduler
     public static void run(final TemperatureProcess process, final ProcessValueProvider pvProvider)
             throws Exception
     {
-        new ProcessScheduler(process, pvProvider).run();
+        runAtRate(process, pvProvider, Duration.ofSeconds(2));
     }
 
-    private final TemperatureProcess   process;
+    public static void runAtRate(final TemperatureProcess process,
+                                 final ProcessValueProvider pvProvider,
+                                 Duration rate)
+    {
+        new ProcessScheduler(process, pvProvider).run(rate);
+    }
+
+    private final TemperatureProcess process;
+
     private final ProcessValueProvider pvProvider;
 
     private ProcessScheduler(final TemperatureProcess process,
@@ -51,7 +59,7 @@ public final class ProcessScheduler
 
     }
 
-    public void run()
+    public void run(Duration rate)
     {
         final SchedulerContext ctx = SchedulerContext.on(process);
 
@@ -68,7 +76,7 @@ public final class ProcessScheduler
                 LOGGER.error("Aborting scheduler run", t);
                 ctx.terminate();
             }
-        }, Duration.ofSeconds(2));
+        }, rate);
 
         try {
             ctx.await();

@@ -9,7 +9,7 @@
  */
 package me.nguba.gambrinus.cqrs.command;
 
-import me.nguba.gambrinus.cqrs.CqrsUtil;
+import me.nguba.gambrinus.Utils;
 import me.nguba.gambrinus.ddd.validation.Errors;
 import me.nguba.gambrinus.ddd.validation.ValidationFailed;
 
@@ -37,8 +37,8 @@ public final class CommandProcessor<C extends Command>
 
     public CommandProcessor(final C command, final CommandHandler<C> handler)
     {
-        CqrsUtil.notNull(command, "Command cannot be null");
-        CqrsUtil.notNull(handler, "Handler cannot be null");
+        Utils.notNull(command, "Command cannot be null");
+        Utils.notNull(handler, "Handler cannot be null");
 
         this.command = command;
         this.handler = handler;

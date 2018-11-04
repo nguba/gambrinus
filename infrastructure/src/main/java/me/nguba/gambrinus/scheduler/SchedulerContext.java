@@ -66,11 +66,6 @@ public final class SchedulerContext
         return process.currentUnit();
     }
 
-    public TemperatureProcess getProcess()
-    {
-        return process;
-    }
-
     public ProcessValue getProcessValue()
     {
         return processValue;

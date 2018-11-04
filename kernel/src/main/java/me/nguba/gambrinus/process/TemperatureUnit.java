@@ -43,7 +43,7 @@ public final class TemperatureUnit extends Entity<TemperatureUnitId>
     private final Setpoint setpoint;
 
     private Instant start;
-    
+
     private TemperatureUnit(final TemperatureUnitId id,
                             final Duration duration,
                             final Setpoint setpoint,
@@ -106,6 +106,9 @@ public final class TemperatureUnit extends Entity<TemperatureUnitId>
 
     public boolean hasSetpointReached(ProcessValue processValue)
     {
-        return processValue.getValue().getValue() >= setpoint.getValue().getValue();
+        if (setpoint != null && processValue != null)
+            return processValue.getValue().getValue() >= setpoint.getValue().getValue();
+
+        return true;
     }
 }

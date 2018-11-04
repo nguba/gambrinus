@@ -24,6 +24,7 @@ import me.nguba.gambrinus.scheduler.state.ProcessMother;
 
 import org.junit.jupiter.api.Test;
 
+import java.time.Duration;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -57,9 +58,9 @@ class ProcessSchedulerTest implements ProcessValueProvider
     {
         process.schedule(ProcessMother.firstUnit());
 
-        ProcessScheduler.run(process, () -> {
+        ProcessScheduler.runAtRate(process, () -> {
             return null;
-        });
+        }, Duration.ofMillis(500));
 
     }
 
@@ -72,6 +73,6 @@ class ProcessSchedulerTest implements ProcessValueProvider
 
     private void run() throws Exception
     {
-        ProcessScheduler.run(process, this);
+        ProcessScheduler.runAtRate(process, this, Duration.ofMillis(500));
     }
 }
