@@ -53,7 +53,7 @@ public final class ProcessScheduler
 
     public void run()
     {
-        final SchedulerContext ctx = SchedulerContext.with(process);
+        final SchedulerContext ctx = SchedulerContext.on(process);
 
         final ThreadPoolTaskScheduler scheduler = new ThreadPoolTaskScheduler();
         scheduler.initialize();

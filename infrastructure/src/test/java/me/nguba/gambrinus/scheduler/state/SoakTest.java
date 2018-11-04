@@ -18,7 +18,7 @@ class SoakTest
     @BeforeEach
     void beforeEach()
     {
-        context = SchedulerContext.with(process);
+        context = SchedulerContext.on(process);
         context.setState(Soak.INSTANCE);
 
     }

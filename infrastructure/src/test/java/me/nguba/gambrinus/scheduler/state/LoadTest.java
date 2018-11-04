@@ -18,7 +18,7 @@ class LoadTest
     @BeforeEach
     void beforeEach()
     {
-        context = SchedulerContext.with(process);
+        context = SchedulerContext.on(process);
         context.setState(Load.INSTANCE);
     }
 

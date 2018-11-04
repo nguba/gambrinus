@@ -31,7 +31,7 @@ import java.util.concurrent.CountDownLatch;
  */
 public final class SchedulerContext
 {
-    public static SchedulerContext with(final TemperatureProcess process)
+    public static SchedulerContext on(final TemperatureProcess process)
     {
         final SchedulerContext schedulerContext = new SchedulerContext(process);
         schedulerContext.setState(Load.INSTANCE);
