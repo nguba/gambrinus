@@ -35,4 +35,9 @@ public enum Soak implements State
         }
     }
 
+    @Override
+    public String toString()
+    {
+        return "SOAK";
+    }
 }

@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class LoadTest
 {
     SchedulerContext         context;
-    final TemperatureProcess process = TemperatureProcess.create();
+    final TemperatureProcess process = TemperatureProcess.empty();
 
     @BeforeEach
     void beforeEach()

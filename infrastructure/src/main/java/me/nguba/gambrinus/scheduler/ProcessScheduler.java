@@ -19,6 +19,12 @@ package me.nguba.gambrinus.scheduler;
 
 import me.nguba.gambrinus.process.TemperatureProcess;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
+
+import java.time.Duration;
+
 /**
  * Provides the heartbeat with which temperatures are read and the states of a process are advanced.
  *
@@ -26,6 +32,7 @@ import me.nguba.gambrinus.process.TemperatureProcess;
  */
 public final class ProcessScheduler
 {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProcessScheduler.class);
 
     public static void run(final TemperatureProcess process, final ProcessValueProvider pvProvider)
             throws Exception
@@ -42,12 +49,26 @@ public final class ProcessScheduler
 
     }
 
-    public void run() throws Exception
+    public void run()
     {
         final SchedulerContext ctx = SchedulerContext.with(process);
 
-        while (ctx.hasAvailable())
+        final ThreadPoolTaskScheduler scheduler = new ThreadPoolTaskScheduler();
+        scheduler.initialize();
+        scheduler.setDaemon(true);
+
+        scheduler.scheduleAtFixedRate(() -> {
+            LOGGER.info("{}", ctx.getState());
             ctx.handle();
+        }, Duration.ofSeconds(2));
+
+        try {
+            ctx.await();
+        } catch (@SuppressWarnings("unused") final InterruptedException e) {
+            Thread.currentThread().interrupt();
+        } finally {
+            scheduler.destroy();
+        }
     }
 
 }

@@ -31,7 +31,7 @@ import java.util.List;
  */
 class TemperatureProcessTest
 {
-    final TemperatureProcess process = TemperatureProcess.create();
+    final TemperatureProcess process = TemperatureProcess.empty();
 
     @Test
     void iterateThroughUnits()

@@ -29,5 +29,13 @@ public enum Exit implements State
     @Override
     public void handle(final SchedulerContext ctx)
     {
+        ctx.terminate();
     }
+
+    @Override
+    public String toString()
+    {
+        return "EXIT";
+    }
+
 }

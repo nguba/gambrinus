@@ -20,7 +20,11 @@ package me.nguba.gambrinus.scheduler;
 import me.nguba.gambrinus.process.ProcessValue;
 import me.nguba.gambrinus.process.TemperatureProcess;
 import me.nguba.gambrinus.process.TemperatureUnit;
+import me.nguba.gambrinus.scheduler.state.Exit;
+import me.nguba.gambrinus.scheduler.state.Load;
 import me.nguba.gambrinus.scheduler.state.State;
+
+import java.util.concurrent.CountDownLatch;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
@@ -29,8 +33,12 @@ public final class SchedulerContext
 {
     public static SchedulerContext with(final TemperatureProcess process)
     {
-        return new SchedulerContext(process);
+        final SchedulerContext schedulerContext = new SchedulerContext(process);
+        schedulerContext.setState(Load.INSTANCE);
+        return schedulerContext;
     }
+
+    private final CountDownLatch latch = new CountDownLatch(1);
 
     private final TemperatureProcess process;
 
@@ -46,6 +54,11 @@ public final class SchedulerContext
     public void advance()
     {
         process.remove();
+    }
+
+    public void await() throws InterruptedException
+    {
+        latch.await();
     }
 
     public TemperatureUnit currentUnit()
@@ -70,8 +83,9 @@ public final class SchedulerContext
 
     public void handle()
     {
-        if (hasAvailable() || state != null)
+        if (state != null)
             state.handle(this);
+        else state = Exit.INSTANCE;
     }
 
     public boolean hasAvailable()
@@ -87,6 +101,11 @@ public final class SchedulerContext
     public void setState(final State state)
     {
         this.state = state;
+    }
+
+    public void terminate()
+    {
+        latch.countDown();
     }
 
     @Override

@@ -13,7 +13,7 @@ class SoakTest
 {
 
     SchedulerContext         context;
-    final TemperatureProcess process = TemperatureProcess.create();
+    final TemperatureProcess process = TemperatureProcess.empty();
 
     @BeforeEach
     void beforeEach()

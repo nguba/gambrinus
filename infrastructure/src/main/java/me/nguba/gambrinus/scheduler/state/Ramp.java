@@ -32,4 +32,10 @@ public enum Ramp implements State
         if (ctx.currentUnit().hasSetpointReached(ctx.getProcessValue()))
             ctx.setState(Soak.INSTANCE);
     }
+
+    @Override
+    public String toString()
+    {
+        return "RAMP";
+    }
 }

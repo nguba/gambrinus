@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class ExitTest
 {
-    final SchedulerContext context = SchedulerContext.with(TemperatureProcess.create());
+    final SchedulerContext context = SchedulerContext.with(TemperatureProcess.empty());
 
     @Test
     void callExitMultipleTimes()

@@ -17,11 +17,26 @@
 
 package me.nguba.gambrinus.scheduler;
 
+import me.nguba.gambrinus.process.ProcessValue;
+import me.nguba.gambrinus.process.TemperatureProcess;
+
+import org.junit.jupiter.api.Test;
+
 /**
  *
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-class ProcessSchedulerTest
+class ProcessSchedulerTest implements ProcessValueProvider
 {
+    @Test
+    void handleEmptyProcess() throws Exception
+    {
+        ProcessScheduler.run(TemperatureProcess.empty(), this);
+    }
 
+    @Override
+    public ProcessValue read()
+    {
+        return null;
+    }
 }

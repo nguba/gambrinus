@@ -31,7 +31,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  */
 public class TemperatureProcess implements Iterable<TemperatureUnit>
 {
-    public static TemperatureProcess create()
+    public static TemperatureProcess empty()
     {
         return new TemperatureProcess();
     }

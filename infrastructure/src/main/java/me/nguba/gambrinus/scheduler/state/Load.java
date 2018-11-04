@@ -29,10 +29,16 @@ public enum Load implements State
     @Override
     public void handle(final SchedulerContext ctx)
     {
-        if (ctx.getProcess().isEmpty())
+        if (!ctx.hasAvailable())
             ctx.setState(Exit.INSTANCE);
         else if (ctx.currentUnit().hasSetpointReached(ctx.getProcessValue()))
             ctx.setState(Soak.INSTANCE);
         else ctx.setState(Ramp.INSTANCE);
+    }
+
+    @Override
+    public String toString()
+    {
+        return "LOAD";
     }
 }
