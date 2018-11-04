@@ -17,6 +17,7 @@
 
 package me.nguba.gambrinus.scheduler;
 
+import me.nguba.gambrinus.event.EventPublisher;
 import me.nguba.gambrinus.process.TemperatureProcess;
 
 import org.slf4j.Logger;
@@ -34,34 +35,42 @@ public final class ProcessScheduler
 {
     private static final Logger LOGGER = LoggerFactory.getLogger(ProcessScheduler.class);
 
-    public static void run(final TemperatureProcess process, final ProcessValueProvider pvProvider)
+    public static ProcessScheduler with(final TemperatureProcess process,
+                                        final ProcessValueSource pvSource)
             throws Exception
     {
-        runAtRate(process, pvProvider, Duration.ofSeconds(2));
-    }
-
-    public static void runAtRate(final TemperatureProcess process,
-                                 final ProcessValueProvider pvProvider,
-                                 Duration rate)
-    {
-        new ProcessScheduler(process, pvProvider).run(rate);
+        return new ProcessScheduler(process, pvSource);
     }
 
     private final TemperatureProcess process;
 
-    private final ProcessValueProvider pvProvider;
+    private EventPublisher publisher;
 
-    private ProcessScheduler(final TemperatureProcess process,
-                             final ProcessValueProvider pvProvider)
+    private final ProcessValueSource pvSource;
+
+    private Duration rate = Duration.ofSeconds(10);
+
+    private ProcessScheduler(final TemperatureProcess process, final ProcessValueSource pvProvider)
     {
         this.process = process;
-        this.pvProvider = pvProvider;
-
+        pvSource = pvProvider;
     }
 
-    public void run(Duration rate)
+    public ProcessScheduler publisher(final EventPublisher publisher)
     {
-        final SchedulerContext ctx = SchedulerContext.on(process);
+        this.publisher = publisher;
+        return this;
+    }
+
+    public ProcessScheduler rate(final Duration rate)
+    {
+        this.rate = rate;
+        return this;
+    }
+
+    public void run()
+    {
+        final SchedulerContext ctx = SchedulerContext.on(process).with(publisher);
 
         final ThreadPoolTaskScheduler scheduler = new ThreadPoolTaskScheduler();
         scheduler.initialize();
@@ -69,10 +78,10 @@ public final class ProcessScheduler
 
         scheduler.scheduleAtFixedRate(() -> {
             try {
-                ctx.setProcessValue(pvProvider.read());
+                ctx.setProcessValue(pvSource.read());
                 LOGGER.info("{} -> {}", ctx.getState(), ctx.currentUnit());
                 ctx.handle();
-            } catch (Throwable t) {
+            } catch (final Throwable t) {
                 LOGGER.error("Aborting scheduler run", t);
                 ctx.terminate();
             }

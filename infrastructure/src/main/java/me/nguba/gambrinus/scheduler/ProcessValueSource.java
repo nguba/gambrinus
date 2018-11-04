@@ -18,7 +18,7 @@ package me.nguba.gambrinus.scheduler;
 
 import me.nguba.gambrinus.process.ProcessValue;
 
-public interface ProcessValueProvider
+public interface ProcessValueSource
 {
     ProcessValue read();
 }

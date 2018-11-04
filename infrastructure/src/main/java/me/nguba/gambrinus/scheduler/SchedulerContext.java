@@ -17,6 +17,7 @@
 
 package me.nguba.gambrinus.scheduler;
 
+import me.nguba.gambrinus.event.EventPublisher;
 import me.nguba.gambrinus.process.ProcessValue;
 import me.nguba.gambrinus.process.TemperatureProcess;
 import me.nguba.gambrinus.process.TemperatureUnit;
@@ -44,6 +45,8 @@ public final class SchedulerContext
 
     private ProcessValue processValue;
 
+    private EventPublisher publisher;
+
     private State state;
 
     private SchedulerContext(final TemperatureProcess process)
@@ -53,7 +56,9 @@ public final class SchedulerContext
 
     public void advance()
     {
-        process.remove();
+        final TemperatureUnit unit = process.remove();
+        if (publisher != null)
+            publisher.publish(UnitCompleted.on(unit));
     }
 
     public void await() throws InterruptedException
@@ -91,6 +96,8 @@ public final class SchedulerContext
     public void setProcessValue(final ProcessValue processValue)
     {
         this.processValue = processValue;
+        if (publisher != null)
+            publisher.publish(ProcessValueChanged.on(processValue));
     }
 
     public void setState(final State state)
@@ -110,6 +117,12 @@ public final class SchedulerContext
         builder.append("SchedulerContext [currentState=").append(state).append(", process=")
                 .append(process).append("]");
         return builder.toString();
+    }
+
+    public SchedulerContext with(final EventPublisher publisher)
+    {
+        this.publisher = publisher;
+        return this;
     }
 
 }

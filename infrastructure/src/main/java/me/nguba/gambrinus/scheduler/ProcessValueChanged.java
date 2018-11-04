@@ -14,35 +14,27 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-package me.nguba.gambrinus.event;
 
-import java.time.Instant;
+package me.nguba.gambrinus.scheduler;
+
+import me.nguba.gambrinus.event.DomainEvent;
+import me.nguba.gambrinus.process.ProcessValue;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-public abstract class DomainEvent
+public final class ProcessValueChanged extends DomainEvent
 {
-    protected final long timestamp;
-
-    protected DomainEvent()
+    public static ProcessValueChanged on(final ProcessValue pv)
     {
-        this(Instant.now());
+        return new ProcessValueChanged(pv);
     }
 
-    protected DomainEvent(final Instant now)
-    {
-        this(now.toEpochMilli());
-    }
+    private final ProcessValue pv;
 
-    protected DomainEvent(final long timestamp)
+    private ProcessValueChanged(final ProcessValue pv)
     {
-        this.timestamp = timestamp;
-    }
-
-    protected DomainEvent(final String timestamp)
-    {
-        this.timestamp = Long.parseLong(timestamp);
+        this.pv = pv;
     }
 
     @Override
@@ -50,35 +42,41 @@ public abstract class DomainEvent
     {
         if (this == obj)
             return true;
-        if (obj == null)
+        if (!super.equals(obj))
             return false;
         if (getClass() != obj.getClass())
             return false;
-        final DomainEvent other = (DomainEvent) obj;
-        if (timestamp != other.timestamp)
+        final ProcessValueChanged other = (ProcessValueChanged) obj;
+        if (pv == null) {
+            if (other.pv != null)
+                return false;
+        } else if (!pv.equals(other.pv))
             return false;
         return true;
     }
 
-    public long getTimestamp()
+    public ProcessValue getPv()
     {
-        return timestamp;
+        return pv;
     }
 
     @Override
     public int hashCode()
     {
         final int prime  = 31;
-        int       result = 1;
-        result = prime * result + (int) (timestamp ^ timestamp >>> 32);
+        int       result = super.hashCode();
+        result = prime * result + (pv == null ? 0 : pv.hashCode());
         return result;
     }
 
     @Override
     public String toString()
     {
-        StringBuilder builder = new StringBuilder();
-        builder.append("DomainEvent [timestamp=").append(timestamp).append("]");
+        final StringBuilder builder = new StringBuilder();
+        builder.append("ProcessValueChanged [");
+        if (pv != null)
+            builder.append("pv=").append(pv).append(", ");
+        builder.append("timestamp=").append(timestamp).append("]");
         return builder.toString();
     }
 }
