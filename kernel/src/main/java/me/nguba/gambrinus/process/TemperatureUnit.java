@@ -59,9 +59,23 @@ public final class TemperatureUnit extends Entity<TemperatureUnitId>
     public String toString()
     {
         StringBuilder builder = new StringBuilder();
-        builder.append("TemperatureUnit [end=").append(end).append(", remaining=").append(remaining)
-                .append(", duration=").append(duration).append(", setpoint=").append(setpoint)
-                .append(", start=").append(start).append("]");
+        builder.append("TemperatureUnit [");
+        if (remaining != null) {
+            builder.append("remaining=").append(remaining).append(", ");
+        }
+        if (duration != null) {
+            builder.append("duration=").append(duration).append(", ");
+        }
+        if (setpoint != null) {
+            builder.append("setpoint=").append(setpoint).append(", ");
+        }
+        if (start != null) {
+            builder.append("start=").append(start).append(", ");
+        }
+        if (end != null) {
+            builder.append("end=").append(end);
+        }
+        builder.append("]");
         return builder.toString();
     }
 

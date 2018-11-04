@@ -18,9 +18,13 @@
 package me.nguba.gambrinus.scheduler;
 
 import me.nguba.gambrinus.process.ProcessValue;
+import me.nguba.gambrinus.process.Temperature;
 import me.nguba.gambrinus.process.TemperatureProcess;
+import me.nguba.gambrinus.scheduler.state.ProcessMother;
 
 import org.junit.jupiter.api.Test;
+
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  *
@@ -28,15 +32,46 @@ import org.junit.jupiter.api.Test;
  */
 class ProcessSchedulerTest implements ProcessValueProvider
 {
+    TemperatureProcess process = TemperatureProcess.empty();
+
+    ProcessValue pv = ProcessValue.zeroCelsius();
+
+    AtomicInteger ramp = new AtomicInteger();
+
     @Test
     void handleEmptyProcess() throws Exception
     {
-        ProcessScheduler.run(TemperatureProcess.empty(), this);
+        run();
+    }
+
+    @Test
+    void handleSingleUnit() throws Exception
+    {
+        process.schedule(ProcessMother.firstUnit());
+
+        run();
+    }
+
+    @Test
+    void abortOnError() throws Exception
+    {
+        process.schedule(ProcessMother.firstUnit());
+
+        ProcessScheduler.run(process, () -> {
+            return null;
+        });
+
     }
 
     @Override
     public ProcessValue read()
     {
-        return null;
+        pv = pv.increment(Temperature.celsius(ramp.getAndIncrement()));
+        return pv;
+    }
+
+    private void run() throws Exception
+    {
+        ProcessScheduler.run(process, this);
     }
 }

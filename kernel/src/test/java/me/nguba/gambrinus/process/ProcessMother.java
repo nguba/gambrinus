@@ -27,11 +27,8 @@ import java.util.List;
 public enum ProcessMother
 {
     ;
-
-    /**
-     * @return
-     */
-    static TemperatureUnit firstUnit()
+    
+    public static TemperatureUnit firstUnit()
     {
         return TemperatureUnit.with(TemperatureUnitId.from("unit 1"),
                                     Duration.ofSeconds(2),

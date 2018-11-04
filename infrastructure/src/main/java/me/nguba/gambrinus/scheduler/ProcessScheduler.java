@@ -40,12 +40,14 @@ public final class ProcessScheduler
         new ProcessScheduler(process, pvProvider).run();
     }
 
-    private final TemperatureProcess process;
+    private final TemperatureProcess   process;
+    private final ProcessValueProvider pvProvider;
 
     private ProcessScheduler(final TemperatureProcess process,
                              final ProcessValueProvider pvProvider)
     {
         this.process = process;
+        this.pvProvider = pvProvider;
 
     }
 
@@ -58,8 +60,14 @@ public final class ProcessScheduler
         scheduler.setDaemon(true);
 
         scheduler.scheduleAtFixedRate(() -> {
-            LOGGER.info("{}", ctx.getState());
-            ctx.handle();
+            try {
+                ctx.setProcessValue(pvProvider.read());
+                LOGGER.info("{} -> {}", ctx.getState(), ctx.currentUnit());
+                ctx.handle();
+            } catch (Throwable t) {
+                LOGGER.error("Aborting scheduler run", t);
+                ctx.terminate();
+            }
         }, Duration.ofSeconds(2));
 
         try {

@@ -33,4 +33,15 @@ public final class ProcessValue extends SingleValueObject<Temperature>
     {
         super(value);
     }
+
+    public static ProcessValue zeroCelsius()
+    {
+        return with(Temperature.celsius(0));
+    }
+
+    public ProcessValue increment(final Temperature temperature)
+    {
+        return with(Temperature
+                .celsius(getValue().toCelsius().getValue() + temperature.toCelsius().getValue()));
+    }
 }
