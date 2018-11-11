@@ -19,8 +19,8 @@ package me.nguba.gambrinus.scheduler;
 
 import me.nguba.gambrinus.event.EventPublisher;
 import me.nguba.gambrinus.process.ProcessValue;
+import me.nguba.gambrinus.process.Segment;
 import me.nguba.gambrinus.process.TemperatureProcess;
-import me.nguba.gambrinus.process.TemperatureUnit;
 import me.nguba.gambrinus.scheduler.state.Exit;
 import me.nguba.gambrinus.scheduler.state.Load;
 import me.nguba.gambrinus.scheduler.state.State;
@@ -56,19 +56,14 @@ public final class SchedulerContext
 
     public void advance()
     {
-        final TemperatureUnit unit = process.remove();
+        final Segment segment = process.remove();
         if (publisher != null)
-            publisher.publish(UnitCompleted.on(unit));
+            publisher.publish(SegmentComplete.on(segment));
     }
 
     public void await() throws InterruptedException
     {
         latch.await();
-    }
-
-    public TemperatureUnit currentUnit()
-    {
-        return process.currentUnit();
     }
 
     public ProcessValue getProcessValue()
@@ -93,11 +88,24 @@ public final class SchedulerContext
         return !process.isEmpty();
     }
 
+    public boolean hasSetpointReached()
+    {
+        // TODO null checks for current unit and pv
+        return process.current().hasSetpointReached(processValue);
+    }
+
+    public boolean isSegmentComplete()
+    {
+        return process.current().isComplete();
+    }
+
     public void setProcessValue(final ProcessValue processValue)
     {
         this.processValue = processValue;
+
+        // send event to signal interested parties that the temperture reading changed
         if (publisher != null)
-            publisher.publish(ProcessValueChanged.on(processValue));
+            publisher.publish(ProcessValueChanged.on(state, process.current(), processValue));
     }
 
     public void setState(final State state)
@@ -114,8 +122,14 @@ public final class SchedulerContext
     public String toString()
     {
         final StringBuilder builder = new StringBuilder();
-        builder.append("SchedulerContext [currentState=").append(state).append(", process=")
-                .append(process).append("]");
+        builder.append("SchedulerContext [");
+        if (process != null)
+            builder.append("process=").append(process).append(", ");
+        if (processValue != null)
+            builder.append("processValue=").append(processValue).append(", ");
+        if (state != null)
+            builder.append("state=").append(state);
+        builder.append("]");
         return builder.toString();
     }
 

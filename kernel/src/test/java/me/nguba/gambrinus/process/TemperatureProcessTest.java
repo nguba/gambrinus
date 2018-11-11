@@ -36,20 +36,20 @@ class TemperatureProcessTest
     @Test
     void iterateThroughUnits()
     {
-        final List<TemperatureUnit> expected = ProcessMother.scheduledUnits();
+        final List<Segment> expected = ProcessMother.scheduledUnits();
 
         scheduleAll(expected);
 
-        final List<TemperatureUnit> actual = new LinkedList<>();
-        for (final TemperatureUnit unit : process)
+        final List<Segment> actual = new LinkedList<>();
+        for (final Segment unit : process)
             actual.add(unit);
 
         assertThat(actual).isEqualTo(expected);
     }
 
-    private void scheduleAll(final List<TemperatureUnit> expected)
+    private void scheduleAll(final List<Segment> expected)
     {
-        for (final TemperatureUnit unit : expected)
+        for (final Segment unit : expected)
             process.schedule(unit);
     }
    
@@ -58,7 +58,7 @@ class TemperatureProcessTest
     {
         process.schedule(ProcessMother.firstUnit());
 
-        final TemperatureUnit unit = process.currentUnit();
+        final Segment unit = process.current();
 
         assertThat(unit).isEqualTo(ProcessMother.firstUnit());
     }

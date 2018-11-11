@@ -17,9 +17,9 @@
 
 package me.nguba.gambrinus.scheduler.state;
 
+import me.nguba.gambrinus.process.Segment;
 import me.nguba.gambrinus.process.Setpoint;
 import me.nguba.gambrinus.process.Temperature;
-import me.nguba.gambrinus.process.TemperatureUnit;
 import me.nguba.gambrinus.process.TemperatureUnitId;
 
 import java.time.Duration;
@@ -38,16 +38,16 @@ public enum ProcessMother
      *
      * @return
      */
-    public static TemperatureUnit firstUnit()
+    public static Segment firstUnit()
     {
-        return TemperatureUnit.with(TemperatureUnitId.from("unit 1"),
-                                    Duration.ofSeconds(2),
-                                    Setpoint.from(Temperature.celsius(50.0)));
+        return Segment.with(TemperatureUnitId.from("unit 1"),
+                            Duration.ofSeconds(2),
+                            Setpoint.from(Temperature.celsius(50.0)));
     }
 
-    static List<TemperatureUnit> scheduledUnits()
+    static List<Segment> scheduledUnits()
     {
-        final List<TemperatureUnit> expected = new LinkedList<>();
+        final List<Segment> expected = new LinkedList<>();
         expected.add(firstUnit());
         expected.add(secondUnit());
         expected.add(thirdUnit());
@@ -59,11 +59,11 @@ public enum ProcessMother
      *
      * @return
      */
-    public static TemperatureUnit secondUnit()
+    public static Segment secondUnit()
     {
-        return TemperatureUnit.with(TemperatureUnitId.from("unit 2"),
-                                    Duration.ofSeconds(2),
-                                    Setpoint.from(Temperature.celsius(60.0)));
+        return Segment.with(TemperatureUnitId.from("unit 2"),
+                            Duration.ofSeconds(2),
+                            Setpoint.from(Temperature.celsius(60.0)));
     }
 
     /**
@@ -71,11 +71,11 @@ public enum ProcessMother
      *
      * @return
      */
-    public static TemperatureUnit thirdUnit()
+    public static Segment thirdUnit()
     {
-        return TemperatureUnit.with(TemperatureUnitId.from("unit 3"),
-                                    Duration.ofSeconds(2),
-                                    Setpoint.from(Temperature.celsius(70.0)));
+        return Segment.with(TemperatureUnitId.from("unit 3"),
+                            Duration.ofSeconds(2),
+                            Setpoint.from(Temperature.celsius(70.0)));
     }
 
 }

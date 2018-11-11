@@ -31,7 +31,7 @@ public enum Load implements State
     {
         if (!ctx.hasAvailable())
             ctx.setState(Exit.INSTANCE);
-        else if (ctx.currentUnit().hasSetpointReached(ctx.getProcessValue()))
+        else if (ctx.hasSetpointReached())
             ctx.setState(Soak.INSTANCE);
         else ctx.setState(Ramp.INSTANCE);
     }

@@ -18,26 +18,26 @@
 package me.nguba.gambrinus.scheduler;
 
 import me.nguba.gambrinus.event.DomainEvent;
-import me.nguba.gambrinus.process.TemperatureUnit;
+import me.nguba.gambrinus.process.Segment;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-public final class UnitCompleted extends DomainEvent
+public final class SegmentComplete extends DomainEvent
 {
-    public static UnitCompleted on(final TemperatureUnit unit)
+    public static SegmentComplete on(final Segment unit)
     {
-        return new UnitCompleted(unit);
+        return new SegmentComplete(unit);
     }
 
-    private final TemperatureUnit unit;
+    private final Segment unit;
 
-    private UnitCompleted(final TemperatureUnit unit)
+    private SegmentComplete(final Segment unit)
     {
         this.unit = unit;
     }
 
-    public TemperatureUnit getUnit()
+    public Segment getUnit()
     {
         return unit;
     }

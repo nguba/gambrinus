@@ -29,7 +29,7 @@ public enum Ramp implements State
     @Override
     public void handle(final SchedulerContext ctx)
     {
-        if (ctx.currentUnit().hasSetpointReached(ctx.getProcessValue()))
+        if (ctx.hasSetpointReached())
             ctx.setState(Soak.INSTANCE);
     }
 

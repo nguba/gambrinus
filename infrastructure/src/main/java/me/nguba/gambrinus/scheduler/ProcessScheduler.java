@@ -28,6 +28,10 @@ import java.time.Duration;
 
 /**
  * Provides the heartbeat with which temperatures are read and the states of a process are advanced.
+ * <p>
+ * Receiving the current process value is decoupled via a {@link ProcessValueSource}. Implementors
+ * are responsible for providing that value according to the mechanism their equipment provides.
+ * This allows for a variety of equipment used to monitor the temperature.
  *
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
@@ -79,7 +83,6 @@ public final class ProcessScheduler
         scheduler.scheduleAtFixedRate(() -> {
             try {
                 ctx.setProcessValue(pvSource.read());
-                LOGGER.info("{} -> {}", ctx.getState(), ctx.currentUnit());
                 ctx.handle();
             } catch (final Throwable t) {
                 LOGGER.error("Aborting scheduler run", t);

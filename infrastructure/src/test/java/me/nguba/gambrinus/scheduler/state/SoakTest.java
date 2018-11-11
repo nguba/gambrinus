@@ -27,7 +27,7 @@ class SoakTest
     void shouldRemoveCurrentUnitWhenDone()
     {
         process.schedule(ProcessMother.firstUnit());
-        process.currentUnit().expire();
+        process.current().expire();
         context.setProcessValue(ProcessValue.with(ProcessMother.firstUnit().setpoint().getValue()));
 
         context.handle();

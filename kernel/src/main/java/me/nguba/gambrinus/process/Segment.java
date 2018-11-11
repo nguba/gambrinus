@@ -23,15 +23,17 @@ import java.time.Duration;
 import java.time.Instant;
 
 /**
+ * Segment within a program for heating a vessel.
+ * 
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-public final class TemperatureUnit extends Entity<TemperatureUnitId>
+public final class Segment extends Entity<TemperatureUnitId>
 {
-    public static TemperatureUnit with(final TemperatureUnitId id,
+    public static Segment with(final TemperatureUnitId id,
                                        final Duration duration,
                                        final Setpoint setpoint)
     {
-        return new TemperatureUnit(id, duration, setpoint, Duration.ZERO);
+        return new Segment(id, duration, setpoint, Duration.ZERO);
     }
 
     private Instant end;
@@ -44,7 +46,7 @@ public final class TemperatureUnit extends Entity<TemperatureUnitId>
 
     private Instant start;
 
-    private TemperatureUnit(final TemperatureUnitId id,
+    private Segment(final TemperatureUnitId id,
                             final Duration duration,
                             final Setpoint setpoint,
                             final Duration remaining)
@@ -59,7 +61,7 @@ public final class TemperatureUnit extends Entity<TemperatureUnitId>
     public String toString()
     {
         StringBuilder builder = new StringBuilder();
-        builder.append("TemperatureUnit [");
+        builder.append("Segment [");
         if (setpoint != null) {
             builder.append("setpoint=").append(setpoint).append(", ");
         }

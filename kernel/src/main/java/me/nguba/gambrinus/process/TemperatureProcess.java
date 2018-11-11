@@ -22,39 +22,39 @@ import java.util.Iterator;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
- * A temperature process manages the worker queue for {@link TemperatureUnit} items.
+ * A temperature process manages the worker queue for {@link Segment} items.
  * <p>
  * It specifies how long the equipment needs to dwell on a given setpoint using a configurable and
  * keeps track of which units have been processed and how much time is reamaing in each.
  *
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-public class TemperatureProcess implements Iterable<TemperatureUnit>
+public class TemperatureProcess implements Iterable<Segment>
 {
     public static TemperatureProcess empty()
     {
         return new TemperatureProcess();
     }
 
-    private final ConcurrentLinkedQueue<TemperatureUnit> queue;
+    private final ConcurrentLinkedQueue<Segment> queue;
 
     private TemperatureProcess()
     {
         queue = new ConcurrentLinkedQueue<>();
     }
 
-    public TemperatureUnit currentUnit()
+    public Segment current()
     {
         return queue.peek();
     }
 
     @Override
-    public Iterator<TemperatureUnit> iterator()
+    public Iterator<Segment> iterator()
     {
         return queue.iterator();
     }
 
-    public void schedule(final TemperatureUnit temperatureUnit)
+    public void schedule(final Segment temperatureUnit)
     {
         queue.add(temperatureUnit);
     }
@@ -67,7 +67,7 @@ public class TemperatureProcess implements Iterable<TemperatureUnit>
         return builder.toString();
     }
 
-    public TemperatureUnit remove()
+    public Segment remove()
     {
         return queue.poll();
     }
@@ -77,7 +77,7 @@ public class TemperatureProcess implements Iterable<TemperatureUnit>
         return queue.isEmpty();
     }
 
-    public void schedule(Collection<TemperatureUnit> scheduledUnits)
+    public void schedule(Collection<Segment> scheduledUnits)
     {
         queue.addAll(scheduledUnits);
     }

@@ -20,11 +20,15 @@ package me.nguba.gambrinus.scheduler;
 import me.nguba.gambrinus.GuavaEventPublisher;
 import me.nguba.gambrinus.event.DomainEvent;
 import me.nguba.gambrinus.process.ProcessValue;
+import me.nguba.gambrinus.process.Segment;
 import me.nguba.gambrinus.process.Temperature;
 import me.nguba.gambrinus.process.TemperatureProcess;
 import me.nguba.gambrinus.scheduler.state.ProcessMother;
 
 import com.google.common.eventbus.Subscribe;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -42,6 +46,8 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 class ProcessSchedulerTest implements ProcessValueSource
 {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProcessSchedulerTest.class);
+
     private final Collection<DomainEvent> events = new LinkedList<>();
 
     TemperatureProcess process = TemperatureProcess.empty();
@@ -55,18 +61,17 @@ class ProcessSchedulerTest implements ProcessValueSource
     @Test
     void abortOnError() throws Exception
     {
-        process.schedule(ProcessMother.firstUnit());
+        schedule(ProcessMother.firstUnit());
 
         ProcessScheduler.with(process, () -> {
             return null;
         }).rate(Duration.ofMillis(500)).run();
-        ;
     }
 
     @BeforeEach
     void beforeEach()
     {
-        publisher.subscribe(this);
+        subscribe();
     }
 
     @Test
@@ -78,9 +83,9 @@ class ProcessSchedulerTest implements ProcessValueSource
     @Test
     void handleFullRun() throws Exception
     {
-        process.schedule(ProcessMother.firstUnit());
-        process.schedule(ProcessMother.secondUnit());
-        process.schedule(ProcessMother.thirdUnit());
+        schedule(ProcessMother.firstUnit());
+        schedule(ProcessMother.secondUnit());
+        schedule(ProcessMother.thirdUnit());
 
         run();
     }
@@ -88,13 +93,13 @@ class ProcessSchedulerTest implements ProcessValueSource
     @Test
     void handleSingleUnit() throws Exception
     {
-        process.schedule(ProcessMother.firstUnit());
+        schedule(ProcessMother.firstUnit());
 
         run();
     }
 
     @Subscribe
-    public void onEvent(final UnitCompleted event)
+    public void onEvent(final SegmentComplete event)
     {
         events.add(event);
     }
@@ -103,14 +108,15 @@ class ProcessSchedulerTest implements ProcessValueSource
     public void onProcessValue(final ProcessValueChanged event)
     {
         events.add(event);
+        LOGGER.info("{}", event);
     }
 
     @Test
     void publishProcessValueChangedEvent() throws Exception
     {
-        process.schedule(ProcessMother.firstUnit());
+        schedule(ProcessMother.firstUnit());
 
-        publisher.subscribe(this);
+        subscribe();
 
         run();
 
@@ -122,13 +128,13 @@ class ProcessSchedulerTest implements ProcessValueSource
     @Test
     void publishUnitCompletedEvent() throws Exception
     {
-        process.schedule(ProcessMother.firstUnit());
+        schedule(ProcessMother.firstUnit());
 
-        publisher.subscribe(this);
+        subscribe();
 
         run();
 
-        assertThat(events).hasOnlyElementsOfTypes(UnitCompleted.class, ProcessValueChanged.class);
+        assertThat(events).hasOnlyElementsOfTypes(SegmentComplete.class, ProcessValueChanged.class);
     }
 
     @Override
@@ -142,5 +148,15 @@ class ProcessSchedulerTest implements ProcessValueSource
     {
         ProcessScheduler.with(process, this).rate(Duration.ofMillis(500)).publisher(publisher)
                 .run();
+    }
+
+    private void schedule(final Segment firstUnit)
+    {
+        process.schedule(firstUnit);
+    }
+
+    private void subscribe()
+    {
+        publisher.subscribe(this);
     }
 }

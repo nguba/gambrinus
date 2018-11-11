@@ -29,7 +29,7 @@ public enum Soak implements State
     @Override
     public void handle(final SchedulerContext ctx)
     {
-        if (ctx.currentUnit().isComplete()) {
+        if (ctx.isSegmentComplete()) {
             ctx.advance();
             ctx.setState(Load.INSTANCE);
         }
