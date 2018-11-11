@@ -25,6 +25,7 @@ import me.nguba.gambrinus.process.Setpoint;
 import me.nguba.gambrinus.process.TemperatureProcess;
 import me.nguba.gambrinus.scheduler.event.ProcessValueChanged;
 import me.nguba.gambrinus.scheduler.event.SegmentComplete;
+import me.nguba.gambrinus.scheduler.event.SegmentStateChanged;
 import me.nguba.gambrinus.scheduler.event.SetpointChanged;
 import me.nguba.gambrinus.scheduler.state.Exit;
 import me.nguba.gambrinus.scheduler.state.Load;
@@ -93,7 +94,7 @@ public final class SchedulerContext
         if (state != null)
             state.handle(this);
 
-        else state = Exit.INSTANCE;
+        else setState(Exit.INSTANCE);
     }
 
     public boolean hasAvailable()
@@ -145,6 +146,8 @@ public final class SchedulerContext
     public void setState(final State state)
     {
         this.state = state;
+
+        publish(SegmentStateChanged.on(state));
     }
 
     public void terminate()

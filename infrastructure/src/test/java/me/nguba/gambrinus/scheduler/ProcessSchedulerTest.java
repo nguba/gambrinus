@@ -19,9 +19,7 @@ package me.nguba.gambrinus.scheduler;
 
 import me.nguba.gambrinus.GuavaEventPublisher;
 import me.nguba.gambrinus.event.DomainEvent;
-import me.nguba.gambrinus.process.ProcessValue;
 import me.nguba.gambrinus.process.Segment;
-import me.nguba.gambrinus.process.Temperature;
 import me.nguba.gambrinus.process.TemperatureProcess;
 import me.nguba.gambrinus.scheduler.event.ProcessValueChanged;
 import me.nguba.gambrinus.scheduler.event.SegmentComplete;
@@ -40,13 +38,12 @@ import org.junit.jupiter.api.Test;
 import java.time.Duration;
 import java.util.Collection;
 import java.util.LinkedList;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  *
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-class ProcessSchedulerTest implements ProcessValueSource
+class ProcessSchedulerTest
 {
     private static final Logger LOGGER = LoggerFactory.getLogger(ProcessSchedulerTest.class);
 
@@ -55,10 +52,6 @@ class ProcessSchedulerTest implements ProcessValueSource
     TemperatureProcess process = TemperatureProcess.empty();
 
     GuavaEventPublisher publisher = GuavaEventPublisher.create();
-
-    ProcessValue pv = ProcessValue.zeroCelsius();
-
-    AtomicInteger ramp = new AtomicInteger();
 
     @Test
     void abortOnError() throws Exception
@@ -139,16 +132,12 @@ class ProcessSchedulerTest implements ProcessValueSource
         assertThat(events).hasOnlyElementsOfTypes(SegmentComplete.class, ProcessValueChanged.class);
     }
 
-    @Override
-    public ProcessValue read()
-    {
-        pv = pv.increment(Temperature.celsius(ramp.getAndIncrement()));
-        return pv;
-    }
-
     private void run() throws Exception
     {
-        ProcessScheduler.with(process, this).rate(Duration.ofMillis(500)).publisher(publisher)
+        final MockProcessValueSource instance = MockProcessValueSource.instance();
+        publisher.subscribe(instance);
+
+        ProcessScheduler.with(process, instance).rate(Duration.ofMillis(500)).publisher(publisher)
                 .run();
     }
 
