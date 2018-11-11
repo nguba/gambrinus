@@ -48,10 +48,25 @@ public class TemperatureProcess implements Iterable<Segment>
         return queue.peek();
     }
 
+    public boolean isEmpty()
+    {
+        return queue.isEmpty();
+    }
+
     @Override
     public Iterator<Segment> iterator()
     {
         return queue.iterator();
+    }
+
+    public Segment remove()
+    {
+        return queue.poll();
+    }
+
+    public void schedule(final Collection<Segment> scheduledUnits)
+    {
+        queue.addAll(scheduledUnits);
     }
 
     public void schedule(final Segment temperatureUnit)
@@ -67,20 +82,4 @@ public class TemperatureProcess implements Iterable<Segment>
         return builder.toString();
     }
 
-    public Segment remove()
-    {
-        return queue.poll();
-    }
-
-    public boolean isEmpty()
-    {
-        return queue.isEmpty();
-    }
-
-    public void schedule(Collection<Segment> scheduledUnits)
-    {
-        queue.addAll(scheduledUnits);
-    }
-    
-    
 }

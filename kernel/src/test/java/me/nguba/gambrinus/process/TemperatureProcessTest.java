@@ -24,7 +24,6 @@ import org.junit.jupiter.api.Test;
 import java.util.LinkedList;
 import java.util.List;
 
-
 /**
  *
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
@@ -52,7 +51,7 @@ class TemperatureProcessTest
         for (final Segment unit : expected)
             process.schedule(unit);
     }
-   
+
     @Test
     void scheduleSingleTemperatureUnit()
     {
@@ -62,5 +61,5 @@ class TemperatureProcessTest
 
         assertThat(unit).isEqualTo(ProcessMother.firstUnit());
     }
-   
+
 }

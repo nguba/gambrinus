@@ -15,33 +15,33 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package me.nguba.gambrinus.process;
+package me.nguba.gambrinus.scheduler.event;
 
-import me.nguba.gambrinus.ddd.support.SingleValueObject;
+import me.nguba.gambrinus.process.Segment;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-public final class ProcessValue extends SingleValueObject<Temperature>
+public final class SegmentComplete extends SegmentEvent
 {
-    public static ProcessValue with(final Temperature temperature)
+    public static SegmentComplete on(final Segment segment)
     {
-        return new ProcessValue(temperature);
+        return new SegmentComplete(segment);
     }
 
-    public static ProcessValue zeroCelsius()
+    private SegmentComplete(final Segment segment)
     {
-        return with(Temperature.celsius(0));
+        super(segment);
     }
 
-    private ProcessValue(final Temperature value)
+    @Override
+    public String toString()
     {
-        super(value);
-    }
-
-    public ProcessValue increment(final Temperature temperature)
-    {
-        return with(Temperature
-                .celsius(getValue().toCelsius().getValue() + temperature.toCelsius().getValue()));
+        final StringBuilder builder = new StringBuilder();
+        builder.append("SegmentComplete [");
+        if (segment != null)
+            builder.append("segment=").append(segment).append(", ");
+        builder.append("timestamp=").append(timestamp).append("]");
+        return builder.toString();
     }
 }

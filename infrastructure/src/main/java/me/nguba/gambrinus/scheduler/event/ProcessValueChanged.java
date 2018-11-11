@@ -15,9 +15,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-package me.nguba.gambrinus.scheduler;
+package me.nguba.gambrinus.scheduler.event;
 
-import me.nguba.gambrinus.event.DomainEvent;
 import me.nguba.gambrinus.process.ProcessValue;
 import me.nguba.gambrinus.process.Segment;
 import me.nguba.gambrinus.scheduler.state.State;
@@ -25,7 +24,7 @@ import me.nguba.gambrinus.scheduler.state.State;
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-public final class ProcessValueChanged extends DomainEvent
+public final class ProcessValueChanged extends SegmentEvent
 {
     public static ProcessValueChanged on(final State state,
                                          final Segment segment,
@@ -35,15 +34,14 @@ public final class ProcessValueChanged extends DomainEvent
     }
 
     private final ProcessValue processValue;
-    private final Segment      segment;
     private final State        state;
 
     private ProcessValueChanged(final State state,
-                                final Segment unit,
+                                final Segment segment,
                                 final ProcessValue processValue)
     {
+        super(segment);
         this.state = state;
-        segment = unit;
         this.processValue = processValue;
     }
 
@@ -78,11 +76,6 @@ public final class ProcessValueChanged extends DomainEvent
     public ProcessValue getProcessValue()
     {
         return processValue;
-    }
-
-    public Segment getSegment()
-    {
-        return segment;
     }
 
     public State getState()

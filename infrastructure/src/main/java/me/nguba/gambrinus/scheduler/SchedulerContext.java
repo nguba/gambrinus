@@ -17,10 +17,15 @@
 
 package me.nguba.gambrinus.scheduler;
 
+import me.nguba.gambrinus.event.DomainEvent;
 import me.nguba.gambrinus.event.EventPublisher;
 import me.nguba.gambrinus.process.ProcessValue;
 import me.nguba.gambrinus.process.Segment;
+import me.nguba.gambrinus.process.Setpoint;
 import me.nguba.gambrinus.process.TemperatureProcess;
+import me.nguba.gambrinus.scheduler.event.ProcessValueChanged;
+import me.nguba.gambrinus.scheduler.event.SegmentComplete;
+import me.nguba.gambrinus.scheduler.event.SetpointChanged;
 import me.nguba.gambrinus.scheduler.state.Exit;
 import me.nguba.gambrinus.scheduler.state.Load;
 import me.nguba.gambrinus.scheduler.state.State;
@@ -47,6 +52,8 @@ public final class SchedulerContext
 
     private EventPublisher publisher;
 
+    private Setpoint setpoint;
+
     private State state;
 
     private SchedulerContext(final TemperatureProcess process)
@@ -57,8 +64,8 @@ public final class SchedulerContext
     public void advance()
     {
         final Segment segment = process.remove();
-        if (publisher != null)
-            publisher.publish(SegmentComplete.on(segment));
+
+        publish(SegmentComplete.on(segment));
     }
 
     public void await() throws InterruptedException
@@ -71,6 +78,11 @@ public final class SchedulerContext
         return processValue;
     }
 
+    public Setpoint getSetpoint()
+    {
+        return setpoint;
+    }
+
     public State getState()
     {
         return state;
@@ -80,6 +92,7 @@ public final class SchedulerContext
     {
         if (state != null)
             state.handle(this);
+
         else state = Exit.INSTANCE;
     }
 
@@ -99,13 +112,34 @@ public final class SchedulerContext
         return process.current().isComplete();
     }
 
+    public boolean isTerminated()
+    {
+        return latch.getCount() < 1;
+    }
+
+    public void loadSetpoint()
+    {
+        if (!hasAvailable()) {
+            terminate();
+            throw new IllegalStateException("Attempt to read setpoint on null segment");
+        }
+        setpoint = process.current().setpoint();
+
+        publish(SetpointChanged.on(process.current()));
+    }
+
+    private void publish(final DomainEvent event)
+    {
+        if (publisher != null)
+            publisher.publish(event);
+    }
+
     public void setProcessValue(final ProcessValue processValue)
     {
         this.processValue = processValue;
 
         // send event to signal interested parties that the temperture reading changed
-        if (publisher != null)
-            publisher.publish(ProcessValueChanged.on(state, process.current(), processValue));
+        publish(ProcessValueChanged.on(state, process.current(), processValue));
     }
 
     public void setState(final State state)

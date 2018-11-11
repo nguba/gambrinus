@@ -33,7 +33,10 @@ public enum Load implements State
             ctx.setState(Exit.INSTANCE);
         else if (ctx.hasSetpointReached())
             ctx.setState(Soak.INSTANCE);
-        else ctx.setState(Ramp.INSTANCE);
+        else {
+            ctx.loadSetpoint();
+            ctx.setState(Ramp.INSTANCE);
+        }
     }
 
     @Override

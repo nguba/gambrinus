@@ -27,26 +27,12 @@ import java.util.List;
 public enum ProcessMother
 {
     ;
-    
+
     public static Segment firstUnit()
     {
         return Segment.with(TemperatureUnitId.from("unit 1"),
-                                    Duration.ofSeconds(2),
-                                    Setpoint.from(Temperature.celsius(50.0)));
-    }
-
-    public static Segment secondUnit()
-    {
-        return Segment.with(TemperatureUnitId.from("unit 2"),
-                                    Duration.ofSeconds(2),
-                                    Setpoint.from(Temperature.celsius(60.0)));
-    }
-
-    public static Segment thirdUnit()
-    {
-        return Segment.with(TemperatureUnitId.from("unit 3"),
-                                    Duration.ofSeconds(2),
-                                    Setpoint.from(Temperature.celsius(70.0)));
+                            Duration.ofSeconds(2),
+                            Setpoint.from(Temperature.celsius(50.0)));
     }
 
     static List<Segment> scheduledUnits()
@@ -56,6 +42,20 @@ public enum ProcessMother
         expected.add(secondUnit());
         expected.add(thirdUnit());
         return expected;
+    }
+
+    public static Segment secondUnit()
+    {
+        return Segment.with(TemperatureUnitId.from("unit 2"),
+                            Duration.ofSeconds(2),
+                            Setpoint.from(Temperature.celsius(60.0)));
+    }
+
+    public static Segment thirdUnit()
+    {
+        return Segment.with(TemperatureUnitId.from("unit 3"),
+                            Duration.ofSeconds(2),
+                            Setpoint.from(Temperature.celsius(70.0)));
     }
 
 }

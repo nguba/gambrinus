@@ -23,6 +23,8 @@ import me.nguba.gambrinus.process.ProcessValue;
 import me.nguba.gambrinus.process.Segment;
 import me.nguba.gambrinus.process.Temperature;
 import me.nguba.gambrinus.process.TemperatureProcess;
+import me.nguba.gambrinus.scheduler.event.ProcessValueChanged;
+import me.nguba.gambrinus.scheduler.event.SegmentComplete;
 import me.nguba.gambrinus.scheduler.state.ProcessMother;
 
 import com.google.common.eventbus.Subscribe;

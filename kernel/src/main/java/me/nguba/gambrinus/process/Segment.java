@@ -24,32 +24,32 @@ import java.time.Instant;
 
 /**
  * Segment within a program for heating a vessel.
- * 
+ *
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
 public final class Segment extends Entity<TemperatureUnitId>
 {
     public static Segment with(final TemperatureUnitId id,
-                                       final Duration duration,
-                                       final Setpoint setpoint)
+                               final Duration duration,
+                               final Setpoint setpoint)
     {
         return new Segment(id, duration, setpoint, Duration.ZERO);
     }
 
+    private final Duration duration;
+
     private Instant end;
 
     private Duration remaining;
-
-    private final Duration duration;
 
     private final Setpoint setpoint;
 
     private Instant start;
 
     private Segment(final TemperatureUnitId id,
-                            final Duration duration,
-                            final Setpoint setpoint,
-                            final Duration remaining)
+                    final Duration duration,
+                    final Setpoint setpoint,
+                    final Duration remaining)
     {
         super(id);
         this.duration = duration;
@@ -57,42 +57,17 @@ public final class Segment extends Entity<TemperatureUnitId>
         this.remaining = remaining;
     }
 
-    @Override
-    public String toString()
-    {
-        StringBuilder builder = new StringBuilder();
-        builder.append("Segment [");
-        if (setpoint != null) {
-            builder.append("setpoint=").append(setpoint).append(", ");
-        }
-        if (remaining != null) {
-            builder.append("remaining=").append(remaining).append(", ");
-        }
-        if (duration != null) {
-            builder.append("duration=").append(duration).append(", ");
-        }
-        if (start != null) {
-            builder.append("start=").append(start).append(", ");
-        }
-        if (end != null) {
-            builder.append("end=").append(end).append(", ");
-        }
-        if (getId() != null) {
-            builder.append("getId()=").append(getId());
-        }
-        builder.append("]");
-        return builder.toString();
-    }
-
-    public void startTimer()
-    {
-        start = Instant.now();
-        end = start.plus(duration);
-    }
-
     public void expire()
     {
         end = Instant.now();
+    }
+
+    public boolean hasSetpointReached(final ProcessValue processValue)
+    {
+        if (setpoint != null && processValue != null)
+            return processValue.getValue().getValue() >= setpoint.getValue().getValue();
+
+        return true;
     }
 
     public boolean isComplete()
@@ -109,11 +84,30 @@ public final class Segment extends Entity<TemperatureUnitId>
         return setpoint;
     }
 
-    public boolean hasSetpointReached(ProcessValue processValue)
+    public void startTimer()
     {
-        if (setpoint != null && processValue != null)
-            return processValue.getValue().getValue() >= setpoint.getValue().getValue();
+        start = Instant.now();
+        end = start.plus(duration);
+    }
 
-        return true;
+    @Override
+    public String toString()
+    {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("Segment [");
+        if (setpoint != null)
+            builder.append("setpoint=").append(setpoint).append(", ");
+        if (remaining != null)
+            builder.append("remaining=").append(remaining).append(", ");
+        if (duration != null)
+            builder.append("duration=").append(duration).append(", ");
+        if (start != null)
+            builder.append("start=").append(start).append(", ");
+        if (end != null)
+            builder.append("end=").append(end).append(", ");
+        if (getId() != null)
+            builder.append("getId()=").append(getId());
+        builder.append("]");
+        return builder.toString();
     }
 }

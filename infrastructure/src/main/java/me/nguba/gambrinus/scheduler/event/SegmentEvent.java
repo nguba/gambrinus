@@ -14,35 +14,22 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-package me.nguba.gambrinus.event;
 
-import java.time.Instant;
+package me.nguba.gambrinus.scheduler.event;
+
+import me.nguba.gambrinus.event.DomainEvent;
+import me.nguba.gambrinus.process.Segment;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-public abstract class DomainEvent
+public abstract class SegmentEvent extends DomainEvent
 {
-    protected final long timestamp;
+    protected Segment segment;
 
-    protected DomainEvent()
+    protected SegmentEvent(final Segment segment)
     {
-        this(Instant.now());
-    }
-
-    protected DomainEvent(final Instant now)
-    {
-        this(now.toEpochMilli());
-    }
-
-    protected DomainEvent(final long timestamp)
-    {
-        this.timestamp = timestamp;
-    }
-
-    protected DomainEvent(final String timestamp)
-    {
-        this.timestamp = Long.parseLong(timestamp);
+        this.segment = segment;
     }
 
     @Override
@@ -50,35 +37,31 @@ public abstract class DomainEvent
     {
         if (this == obj)
             return true;
-        if (obj == null)
+        if (!super.equals(obj))
             return false;
         if (getClass() != obj.getClass())
             return false;
-        final DomainEvent other = (DomainEvent) obj;
-        if (timestamp != other.timestamp)
+        final SegmentEvent other = (SegmentEvent) obj;
+        if (segment == null) {
+            if (other.segment != null)
+                return false;
+        } else if (!segment.equals(other.segment))
             return false;
         return true;
     }
 
-    public long getTimestamp()
+    public Segment getSegment()
     {
-        return timestamp;
+        return segment;
     }
 
     @Override
     public int hashCode()
     {
         final int prime  = 31;
-        int       result = 1;
-        result = prime * result + (int) (timestamp ^ timestamp >>> 32);
+        int       result = super.hashCode();
+        result = prime * result + (segment == null ? 0 : segment.hashCode());
         return result;
     }
 
-    @Override
-    public String toString()
-    {
-        final StringBuilder builder = new StringBuilder();
-        builder.append("DomainEvent [timestamp=").append(timestamp).append("]");
-        return builder.toString();
-    }
 }
