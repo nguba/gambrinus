@@ -1,9 +1,9 @@
 package me.nguba.gambrinus.scheduler;
 
 import me.nguba.gambrinus.GuavaEventPublisher;
-import me.nguba.gambrinus.process.ProcessMother;
 import me.nguba.gambrinus.process.TemperatureProcess;
 import me.nguba.gambrinus.scheduler.event.SetpointChanged;
+import me.nguba.gambrinus.scheduler.state.ProcessMother;
 
 import com.google.common.eventbus.Subscribe;
 
