@@ -1,5 +1,5 @@
 /*
-    Copyright (C) 2018  Nicolai P. Guba
+     Copyright (C) 2018  Nicolai P. Guba
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -21,8 +21,6 @@ import me.nguba.gambrinus.event.DomainEvent;
 import me.nguba.gambrinus.event.EventPublisher;
 import me.nguba.gambrinus.process.ProcessValue;
 import me.nguba.gambrinus.process.Segment;
-import me.nguba.gambrinus.process.Setpoint;
-import me.nguba.gambrinus.process.TemperatureProcess;
 import me.nguba.gambrinus.scheduler.event.ProcessValueChanged;
 import me.nguba.gambrinus.scheduler.event.SegmentComplete;
 import me.nguba.gambrinus.scheduler.event.SegmentStateChanged;
@@ -31,40 +29,47 @@ import me.nguba.gambrinus.scheduler.state.Exit;
 import me.nguba.gambrinus.scheduler.state.Load;
 import me.nguba.gambrinus.scheduler.state.State;
 
+import java.util.Arrays;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.CountDownLatch;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-public final class SchedulerContext
+public final class SegmentContext
 {
-    public static SchedulerContext on(final TemperatureProcess process)
+    private final Queue<Segment> queue  = new ConcurrentLinkedQueue<Segment>();
+
+    public static SegmentContext with(EventPublisher publisher, Segment...segments)
     {
-        final SchedulerContext schedulerContext = new SchedulerContext(process);
+        final SegmentContext schedulerContext = new SegmentContext(publisher);
         schedulerContext.setState(Load.INSTANCE);
+        schedulerContext.queue.addAll(Arrays.asList(segments));
         return schedulerContext;
     }
 
     private final CountDownLatch latch = new CountDownLatch(1);
 
-    private final TemperatureProcess process;
-
     private ProcessValue processValue;
 
     private EventPublisher publisher;
 
-    private Setpoint setpoint;
-
     private State state;
 
-    private SchedulerContext(final TemperatureProcess process)
+    private SegmentContext(final EventPublisher publisher)
     {
-        this.process = process;
+        this.publisher = publisher;
+    }
+
+    public boolean enqueue(Segment e)
+    {
+        return queue.add(e);
     }
 
     public void advance()
     {
-        final Segment segment = process.remove();
+        final Segment segment = queue.remove();
 
         publish(SegmentComplete.on(segment));
     }
@@ -77,11 +82,6 @@ public final class SchedulerContext
     public ProcessValue getProcessValue()
     {
         return processValue;
-    }
-
-    public Setpoint getSetpoint()
-    {
-        return setpoint;
     }
 
     public State getState()
@@ -99,34 +99,25 @@ public final class SchedulerContext
 
     public boolean hasAvailable()
     {
-        return !process.isEmpty();
+        return !queue.isEmpty();
     }
 
     public boolean hasSetpointReached()
     {
         // TODO null checks for current unit and pv
-        return process.current().hasSetpointReached(processValue);
+        return queue.element().hasSetpointReached(processValue);
     }
 
     public boolean isSegmentComplete()
     {
-        return process.current().isComplete();
+        return queue.element().isComplete();
     }
 
-    public boolean isTerminated()
+    public void broadcastSetpoint()
     {
-        return latch.getCount() < 1;
-    }
-
-    public void loadSetpoint()
-    {
-        if (!hasAvailable()) {
-            terminate();
-            throw new IllegalStateException("Attempt to read setpoint on null segment");
+        if (hasAvailable()) {
+            publish(SetpointChanged.on(queue.element()));
         }
-        setpoint = process.current().setpoint();
-
-        publish(SetpointChanged.on(process.current()));
     }
 
     private void publish(final DomainEvent event)
@@ -140,7 +131,7 @@ public final class SchedulerContext
         this.processValue = processValue;
 
         // send event to signal interested parties that the temperture reading changed
-        publish(ProcessValueChanged.on(state, process.current(), processValue));
+        publish(ProcessValueChanged.on(state, queue.element(), processValue));
     }
 
     public void setState(final State state)
@@ -160,8 +151,6 @@ public final class SchedulerContext
     {
         final StringBuilder builder = new StringBuilder();
         builder.append("SchedulerContext [");
-        if (process != null)
-            builder.append("process=").append(process).append(", ");
         if (processValue != null)
             builder.append("processValue=").append(processValue).append(", ");
         if (state != null)
@@ -170,10 +159,5 @@ public final class SchedulerContext
         return builder.toString();
     }
 
-    public SchedulerContext with(final EventPublisher publisher)
-    {
-        this.publisher = publisher;
-        return this;
-    }
 
 }

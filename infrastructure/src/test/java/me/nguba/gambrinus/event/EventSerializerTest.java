@@ -22,14 +22,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.Instant;
 
-public class EventSerializerServiceTest extends DomainEvent
+public class EventSerializerTest extends DomainEvent
 {
 
     public String one = "One value";
 
     public Integer two = Integer.valueOf(2);
 
-    public EventSerializerServiceTest()
+    public EventSerializerTest()
     {
         super(Instant.now());
     }
@@ -37,7 +37,7 @@ public class EventSerializerServiceTest extends DomainEvent
     @Test
     void transforToUnindentedString() throws Exception
     {
-        final String transform = EventSerializerService.flatFormat().transform(this);
+        final String transform = EventSerializer.flatFormat().transform(this);
 
         assertEquals(String.format("{\"timestamp\":%d,\"one\":\"One value\",\"two\":2}", timestamp),
                      transform);

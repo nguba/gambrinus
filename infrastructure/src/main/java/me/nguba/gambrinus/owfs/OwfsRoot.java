@@ -16,6 +16,7 @@
 */
 package me.nguba.gambrinus.owfs;
 
+import me.nguba.gambrinus.ddd.support.SingleValueObject;
 import me.nguba.gambrinus.onewire.OneWireAddress;
 
 import java.io.File;
@@ -26,7 +27,7 @@ import java.util.Set;
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-public final class OwfsRoot extends OwfsDirectory
+public final class OwfsRoot extends SingleValueObject<File>
 {
     public static OwfsRoot of(final Path root)
     {
@@ -59,5 +60,11 @@ public final class OwfsRoot extends OwfsDirectory
                 sensors.add(OwfsSensor.from(this, OneWireAddress.of(file.getName())));
 
         return sensors.toArray(new OwfsSensor[sensors.size()]);
+    }
+    
+    @Override
+    public boolean isValid()
+    {
+        return getValue().isDirectory();
     }
 }

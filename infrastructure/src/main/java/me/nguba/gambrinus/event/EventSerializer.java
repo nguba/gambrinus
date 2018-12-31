@@ -31,11 +31,11 @@ import java.io.IOException;
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  *
  */
-public final class EventSerializerService
+public final class EventSerializer
 {
-    private static final Logger LOGGER = LoggerFactory.getLogger(EventSerializerService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(EventSerializer.class);
 
-    public static EventSerializerService flatFormat()
+    public static EventSerializer flatFormat()
     {
         final ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.INDENT_OUTPUT, false);
@@ -43,12 +43,12 @@ public final class EventSerializerService
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-        return new EventSerializerService(mapper);
+        return new EventSerializer(mapper);
     }
 
     private final ObjectMapper mapper;
 
-    private EventSerializerService(final ObjectMapper mapper)
+    private EventSerializer(final ObjectMapper mapper)
     {
         this.mapper = mapper;
     }

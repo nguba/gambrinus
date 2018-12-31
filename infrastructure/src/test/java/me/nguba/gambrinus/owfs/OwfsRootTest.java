@@ -24,7 +24,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.io.File;
+import java.io.IOException;
 
 class OwfsRootTest extends SingleValueObjectFixture<File, OwfsRoot>
 {
@@ -78,5 +81,15 @@ class OwfsRootTest extends SingleValueObjectFixture<File, OwfsRoot>
     void pathNull()
     {
         assertThat(OwfsRoot.of("").isValid()).isFalse();
+    }
+    
+    @Test
+    @DisplayName("read temperature from existing sensor")
+    void readTemperature() throws Exception 
+    {
+        OwfsSensor sensor = OwfsSensor.from(OwfsRoot.test(), OwfsMother.address());
+        System.out.println(sensor);
+        System.out.println(sensor.read());
+        fail("continue here");
     }
 }

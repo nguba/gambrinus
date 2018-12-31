@@ -14,25 +14,23 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-package me.nguba.gambrinus.owfs;
+
+package me.nguba.gambrinus.process;
 
 import me.nguba.gambrinus.ddd.support.SingleValueObject;
-
-import java.io.File;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-public abstract class OwfsDirectory extends SingleValueObject<File>
+public final class SegmentId extends SingleValueObject<String>
 {
-    protected OwfsDirectory(final File value)
+    public static SegmentId from(final String value)
     {
-        super(value);
+        return new SegmentId(value);
     }
 
-    @Override
-    public boolean isValid()
+    private SegmentId(final String value)
     {
-        return getValue().isDirectory();
+        super(value);
     }
 }

@@ -1,7 +1,7 @@
 package me.nguba.gambrinus.scheduler.state;
 
-import me.nguba.gambrinus.process.TemperatureProcess;
-import me.nguba.gambrinus.scheduler.SchedulerContext;
+import me.nguba.gambrinus.GuavaEventPublisher;
+import me.nguba.gambrinus.scheduler.SegmentContext;
 
 import org.junit.jupiter.api.Test;
 
@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class ExitTest
 {
-    final SchedulerContext context = SchedulerContext.on(TemperatureProcess.empty());
+    final SegmentContext context = SegmentContext.with(GuavaEventPublisher.create());
 
     @Test
     void callExitMultipleTimes()

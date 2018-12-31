@@ -27,9 +27,9 @@ import java.time.Instant;
  *
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-public final class Segment extends Entity<TemperatureUnitId>
+public final class Segment extends Entity<SegmentId>
 {
-    public static Segment with(final TemperatureUnitId id,
+    public static Segment with(final SegmentId id,
                                final Duration duration,
                                final Setpoint setpoint)
     {
@@ -46,7 +46,7 @@ public final class Segment extends Entity<TemperatureUnitId>
 
     private Instant start;
 
-    private Segment(final TemperatureUnitId id,
+    private Segment(final SegmentId id,
                     final Duration duration,
                     final Setpoint setpoint,
                     final Duration remaining)

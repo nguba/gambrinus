@@ -18,7 +18,7 @@
 package me.nguba.gambrinus.scheduler;
 
 import me.nguba.gambrinus.event.EventPublisher;
-import me.nguba.gambrinus.process.TemperatureProcess;
+import me.nguba.gambrinus.process.Segment;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,61 +28,43 @@ import java.time.Duration;
 
 /**
  * Provides the heartbeat with which temperatures are read and the states of a process are advanced.
- * <p>
- * Receiving the current process value is decoupled via a {@link ProcessValueSource}. Implementors
- * are responsible for providing that value according to the mechanism their equipment provides.
- * This allows for a variety of equipment used to monitor the temperature.
- *
+ * 
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-public final class ProcessScheduler
+public final class SegmentExecutor
 {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ProcessScheduler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(SegmentExecutor.class);
 
-    public static ProcessScheduler with(final TemperatureProcess process,
-                                        final ProcessValueSource pvSource)
-            throws Exception
+    public static SegmentExecutor with(EventPublisher publisher) throws Exception
     {
-        return new ProcessScheduler(process, pvSource);
+        return new SegmentExecutor(publisher);
     }
-
-    private final TemperatureProcess process;
 
     private EventPublisher publisher;
 
-    private final ProcessValueSource pvSource;
-
     private Duration rate = Duration.ofSeconds(10);
 
-    private ProcessScheduler(final TemperatureProcess process, final ProcessValueSource pvProvider)
-    {
-        this.process = process;
-        pvSource = pvProvider;
-    }
-
-    public ProcessScheduler publisher(final EventPublisher publisher)
+    private SegmentExecutor(final EventPublisher publisher)
     {
         this.publisher = publisher;
-        return this;
     }
 
-    public ProcessScheduler rate(final Duration rate)
+    public SegmentExecutor rate(final Duration rate)
     {
         this.rate = rate;
         return this;
     }
 
-    public void run()
+    public void run(Segment... segments)
     {
-        final SchedulerContext ctx = SchedulerContext.on(process).with(publisher);
-
+        final SegmentContext ctx = SegmentContext.with(publisher, segments);
+        
         final ThreadPoolTaskScheduler scheduler = new ThreadPoolTaskScheduler();
         scheduler.initialize();
         scheduler.setDaemon(true);
 
         scheduler.scheduleAtFixedRate(() -> {
             try {
-                ctx.setProcessValue(pvSource.read());
                 ctx.handle();
             } catch (final Throwable t) {
                 LOGGER.error("Aborting scheduler run", t);

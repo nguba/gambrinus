@@ -20,7 +20,7 @@ package me.nguba.gambrinus.scheduler.state;
 import me.nguba.gambrinus.process.Segment;
 import me.nguba.gambrinus.process.Setpoint;
 import me.nguba.gambrinus.process.Temperature;
-import me.nguba.gambrinus.process.TemperatureUnitId;
+import me.nguba.gambrinus.process.SegmentId;
 
 import java.time.Duration;
 import java.util.LinkedList;
@@ -38,19 +38,24 @@ public enum ProcessMother
      *
      * @return
      */
-    public static Segment firstUnit()
+    public static Segment segment50()
     {
-        return Segment.with(TemperatureUnitId.from("unit 1"),
+        return Segment.with(SegmentId.from("unit 1"),
                             Duration.ofSeconds(2),
                             Setpoint.from(Temperature.celsius(50.0)));
     }
 
-    static List<Segment> scheduledUnits()
+    public static Segment nullSegment()
+    {
+        return Segment.with(null, null, null);
+    }
+
+    static List<Segment> allSegments()
     {
         final List<Segment> expected = new LinkedList<>();
-        expected.add(firstUnit());
-        expected.add(secondUnit());
-        expected.add(thirdUnit());
+        expected.add(segment50());
+        expected.add(segment60());
+        expected.add(segment70());
         return expected;
     }
 
@@ -59,9 +64,9 @@ public enum ProcessMother
      *
      * @return
      */
-    public static Segment secondUnit()
+    public static Segment segment60()
     {
-        return Segment.with(TemperatureUnitId.from("unit 2"),
+        return Segment.with(SegmentId.from("unit 2"),
                             Duration.ofSeconds(2),
                             Setpoint.from(Temperature.celsius(60.0)));
     }
@@ -71,9 +76,9 @@ public enum ProcessMother
      *
      * @return
      */
-    public static Segment thirdUnit()
+    public static Segment segment70()
     {
-        return Segment.with(TemperatureUnitId.from("unit 3"),
+        return Segment.with(SegmentId.from("unit 3"),
                             Duration.ofSeconds(2),
                             Setpoint.from(Temperature.celsius(70.0)));
     }

@@ -17,7 +17,7 @@
 
 package me.nguba.gambrinus.scheduler.state;
 
-import me.nguba.gambrinus.scheduler.SchedulerContext;
+import me.nguba.gambrinus.scheduler.SegmentContext;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
@@ -27,7 +27,7 @@ public enum Ramp implements State
     INSTANCE;
 
     @Override
-    public void handle(final SchedulerContext ctx)
+    public void handle(final SegmentContext ctx)
     {
         if (ctx.hasSetpointReached())
             ctx.setState(Soak.INSTANCE);

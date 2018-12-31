@@ -38,14 +38,14 @@ public final class EventStore
 
     public static EventStore with(final JdbcTemplate jdbc)
     {
-        return new EventStore(jdbc, EventSerializerService.flatFormat());
+        return new EventStore(jdbc, EventSerializer.flatFormat());
     }
 
     private final JdbcTemplate jdbc;
 
-    private final EventSerializerService serializer;
+    private final EventSerializer serializer;
 
-    private EventStore(final JdbcTemplate jdbc, final EventSerializerService serializer)
+    private EventStore(final JdbcTemplate jdbc, final EventSerializer serializer)
     {
         this.jdbc = jdbc;
         this.serializer = serializer;

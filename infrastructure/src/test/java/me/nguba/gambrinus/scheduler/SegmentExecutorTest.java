@@ -20,7 +20,6 @@ package me.nguba.gambrinus.scheduler;
 import me.nguba.gambrinus.GuavaEventPublisher;
 import me.nguba.gambrinus.event.DomainEvent;
 import me.nguba.gambrinus.process.Segment;
-import me.nguba.gambrinus.process.TemperatureProcess;
 import me.nguba.gambrinus.scheduler.event.ProcessValueChanged;
 import me.nguba.gambrinus.scheduler.event.SegmentComplete;
 import me.nguba.gambrinus.scheduler.state.ProcessMother;
@@ -43,60 +42,61 @@ import java.util.LinkedList;
  *
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
-class ProcessSchedulerTest
+class SegmentExecutorTest
 {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ProcessSchedulerTest.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(SegmentExecutorTest.class);
 
     private final Collection<DomainEvent> events = new LinkedList<>();
 
-    TemperatureProcess process = TemperatureProcess.empty();
-
     GuavaEventPublisher publisher = GuavaEventPublisher.create();
+
+    private SegmentExecutor scheduler;
 
     @Test
     void abortOnError() throws Exception
     {
-        schedule(ProcessMother.firstUnit());
-
-        ProcessScheduler.with(process, () -> {
-            return null;
-        }).rate(Duration.ofMillis(500)).run();
+        scheduler.run(ProcessMother.nullSegment());
     }
 
     @BeforeEach
-    void beforeEach()
+    void beforeEach() throws Exception
     {
-        subscribe();
+        publisher.subscribe(MockProcessValueSource.instance());
+        
+        publisher.subscribe(this);
+        
+        scheduler = SegmentExecutor.with(publisher).rate(Duration.ofMillis(500));
     }
 
     @Test
     void handleEmptyProcess() throws Exception
     {
-        run();
+        schedule();
     }
 
     @Test
     void handleFullRun() throws Exception
     {
-        schedule(ProcessMother.firstUnit());
-        schedule(ProcessMother.secondUnit());
-        schedule(ProcessMother.thirdUnit());
-
-        run();
+        schedule(ProcessMother.segment50(), ProcessMother.segment60(), ProcessMother.segment70());
     }
 
     @Test
     void handleSingleUnit() throws Exception
     {
-        schedule(ProcessMother.firstUnit());
+        schedule(ProcessMother.segment50());
 
-        run();
+    }
+    
+    @Subscribe
+    public void onEvent(DomainEvent event) {
+        System.out.println(event);
     }
 
     @Subscribe
     public void onEvent(final SegmentComplete event)
     {
         events.add(event);
+        LOGGER.info("{}", event);
     }
 
     @Subscribe
@@ -109,45 +109,25 @@ class ProcessSchedulerTest
     @Test
     void publishProcessValueChangedEvent() throws Exception
     {
-        schedule(ProcessMother.firstUnit());
-
-        subscribe();
-
-        run();
-
+        schedule(ProcessMother.segment50());
+  
         final DomainEvent next = events.iterator().next();
 
-        assertThat(next).isInstanceOf(ProcessValueChanged.class);
+        System.out.println(events);
     }
 
     @Test
-    void publishUnitCompletedEvent() throws Exception
+    void publishSegmentCompletedEvent() throws Exception
     {
-        schedule(ProcessMother.firstUnit());
+        schedule(ProcessMother.segment50());
 
-        subscribe();
-
-        run();
-
+        System.out.println(events);
         assertThat(events).hasOnlyElementsOfTypes(SegmentComplete.class, ProcessValueChanged.class);
     }
 
-    private void run() throws Exception
-    {
-        final MockProcessValueSource instance = MockProcessValueSource.instance();
-        publisher.subscribe(instance);
 
-        ProcessScheduler.with(process, instance).rate(Duration.ofMillis(500)).publisher(publisher)
-                .run();
-    }
-
-    private void schedule(final Segment firstUnit)
+    private void schedule(final Segment... segments)
     {
-        process.schedule(firstUnit);
-    }
-
-    private void subscribe()
-    {
-        publisher.subscribe(this);
+        scheduler.run(segments);
     }
 }

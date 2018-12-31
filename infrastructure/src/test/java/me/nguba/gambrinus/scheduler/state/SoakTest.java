@@ -1,8 +1,9 @@
 package me.nguba.gambrinus.scheduler.state;
 
+import me.nguba.gambrinus.GuavaEventPublisher;
 import me.nguba.gambrinus.process.ProcessValue;
-import me.nguba.gambrinus.process.TemperatureProcess;
-import me.nguba.gambrinus.scheduler.SchedulerContext;
+import me.nguba.gambrinus.process.Segment;
+import me.nguba.gambrinus.scheduler.SegmentContext;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,13 +13,12 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 class SoakTest
 {
 
-    SchedulerContext         context;
-    final TemperatureProcess process = TemperatureProcess.empty();
-
+    SegmentContext         context;
+   
     @BeforeEach
     void beforeEach()
     {
-        context = SchedulerContext.on(process);
+        context = SegmentContext.with(GuavaEventPublisher.create());
         context.setState(Soak.INSTANCE);
 
     }
@@ -26,9 +26,11 @@ class SoakTest
     @Test
     void shouldRemoveCurrentUnitWhenDone()
     {
-        process.schedule(ProcessMother.firstUnit());
-        process.current().expire();
-        context.setProcessValue(ProcessValue.with(ProcessMother.firstUnit().setpoint().getValue()));
+        Segment segment = ProcessMother.segment50();
+        segment.expire();
+        context.enqueue(segment);
+        
+        context.setProcessValue(ProcessValue.with(segment.setpoint().getValue()));
 
         context.handle();
 

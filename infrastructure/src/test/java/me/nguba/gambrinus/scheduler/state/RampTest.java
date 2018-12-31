@@ -17,10 +17,10 @@
 
 package me.nguba.gambrinus.scheduler.state;
 
+import me.nguba.gambrinus.GuavaEventPublisher;
 import me.nguba.gambrinus.process.ProcessValue;
 import me.nguba.gambrinus.process.Temperature;
-import me.nguba.gambrinus.process.TemperatureProcess;
-import me.nguba.gambrinus.scheduler.SchedulerContext;
+import me.nguba.gambrinus.scheduler.SegmentContext;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -32,20 +32,20 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 class RampTest
 {
-    SchedulerContext         context;
-    final TemperatureProcess process = TemperatureProcess.empty();
+    SegmentContext         context;
 
     @BeforeEach
     void beforeEach()
     {
-        context = SchedulerContext.on(process);
+        context = SegmentContext.with(GuavaEventPublisher.create());
+        
         context.setState(Ramp.INSTANCE);
     }
 
     @Test
     void shouldStayAtSameStateWhenBelowSetpoint()
     {
-        process.schedule(ProcessMother.firstUnit());
+        context.enqueue(ProcessMother.segment50());
 
         context.setProcessValue(ProcessValue.with(Temperature.celsius(40.0)));
 
@@ -57,7 +57,7 @@ class RampTest
     @Test
     void shouldTransitionToSoakOnSetpointReached()
     {
-        process.schedule(ProcessMother.firstUnit());
+        context.enqueue(ProcessMother.segment50());
 
         context.setProcessValue(ProcessValue.with(Temperature.celsius(50.0)));
 

@@ -17,12 +17,12 @@
 
 package me.nguba.gambrinus.scheduler.state;
 
-import me.nguba.gambrinus.scheduler.SchedulerContext;
+import me.nguba.gambrinus.scheduler.SegmentContext;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
  */
 public interface State
 {
-    void handle(SchedulerContext ctx);
+    void handle(SegmentContext ctx);
 }

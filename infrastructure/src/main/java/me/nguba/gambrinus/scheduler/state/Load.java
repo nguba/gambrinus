@@ -17,7 +17,7 @@
 
 package me.nguba.gambrinus.scheduler.state;
 
-import me.nguba.gambrinus.scheduler.SchedulerContext;
+import me.nguba.gambrinus.scheduler.SegmentContext;
 
 /**
  * @author <a href="mailto:nguba@mac.com">Nico Guba</a>
@@ -27,14 +27,14 @@ public enum Load implements State
     INSTANCE;
 
     @Override
-    public void handle(final SchedulerContext ctx)
+    public void handle(final SegmentContext ctx)
     {
         if (!ctx.hasAvailable())
             ctx.setState(Exit.INSTANCE);
         else if (ctx.hasSetpointReached())
             ctx.setState(Soak.INSTANCE);
         else {
-            ctx.loadSetpoint();
+            ctx.broadcastSetpoint();
             ctx.setState(Ramp.INSTANCE);
         }
     }

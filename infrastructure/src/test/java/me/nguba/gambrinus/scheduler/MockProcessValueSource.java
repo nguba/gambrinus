@@ -53,4 +53,4 @@ public final class MockProcessValueSource implements ProcessValueSource
             pv = pv.increment(Temperature.celsius(1));
         return pv;
     }
-}
+} 
